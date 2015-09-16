@@ -19,4 +19,14 @@ public final class CardGroup {
 		this.cards = Collections.unmodifiableList(new ArrayList<>(cards));
 	}
 
+	/**
+	 * @return
+	 */
+	public boolean isValid() {
+		if (cards.size() < 3) {
+			return false;
+		}
+		return true;
+	}
+
 }
