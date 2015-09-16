@@ -17,6 +17,13 @@ public final class Card {
 	 * @param rank
 	 */
 	Card(final Color color, final Rank rank) {
+		if (null == color) {
+			if (null != rank) {
+				throw new IllegalArgumentException();
+			}
+		} else if (null == rank) {
+			throw new IllegalArgumentException();
+		}
 		this.color = color;
 		this.rank = rank;
 	}
