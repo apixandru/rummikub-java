@@ -13,7 +13,7 @@ import org.junit.Test;
  * @since Sep 16, 2015
  */
 @SuppressWarnings ("static-method")
-public final class CardsTest {
+public final class CardGroupTest {
 
 	/**
 	 *
