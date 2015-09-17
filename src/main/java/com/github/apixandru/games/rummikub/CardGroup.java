@@ -26,7 +26,7 @@ public final class CardGroup {
 		if (size() < 3) {
 			return false;
 		}
-		return isValidGroup();
+		return isValidGroup() || isValidRun();
 	}
 
 	/**
@@ -42,6 +42,18 @@ public final class CardGroup {
 			return false;
 		}
 		return Cards.isSameRanks(cards);
+	}
+
+	/**
+	 * A valid run
+	 *
+	 * @return
+	 */
+	private boolean isValidRun() {
+		if (!Cards.isAllSameColor(cards)) {
+			return false;
+		}
+		return false;
 	}
 
 	/**
