@@ -43,4 +43,13 @@ public final class CardsTest {
 		Assert.assertFalse("Cards should not be in ascending order", Cards.isAscendingRanks(cards));
 	}
 
+	/**
+	 *
+	 */
+	@Test
+	public void testIsAscendingRanksBad() {
+		final List<Card> cards = Arrays.asList(new Card(Color.RED, Rank.TWELVE), new Card(Color.RED, Rank.THIRTEEN), new Card(Color.RED, Rank.ONE));
+		Assert.assertFalse("Cards should not be in ascending order", Cards.isAscendingRanks(cards));
+	}
+
 }
