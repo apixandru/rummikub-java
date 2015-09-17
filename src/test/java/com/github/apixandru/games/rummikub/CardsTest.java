@@ -61,4 +61,13 @@ public final class CardsTest {
 		Assert.assertTrue("Jokers should map to 1 and 2", Cards.isAscendingRanks(cards));
 	}
 
+	/**
+	 *
+	 */
+	@Test
+	public void testIsAscendingRanksDoubleJokerBad() {
+		final List<Card> cards = Arrays.asList(new Card(null, null), new Card(null, null), new Card(Color.RED, Rank.ONE));
+		Assert.assertFalse("Jokers should map to 1 and 2, third card cannot be 1", Cards.isAscendingRanks(cards));
+	}
+
 }
