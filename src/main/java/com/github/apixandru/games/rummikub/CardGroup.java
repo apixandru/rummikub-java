@@ -26,7 +26,19 @@ public final class CardGroup {
 		if (cards.size() < 3) {
 			return false;
 		}
-		return true;
+		return isValidGroup();
+	}
+
+	/**
+	 * A valid group cannot have more than one color repeating
+	 *
+	 * @return
+	 */
+	private boolean isValidGroup() {
+		if (!Cards.isDifferentColors(cards)) {
+			return false;
+		}
+		return Cards.isSameRanks(cards);
 	}
 
 }
