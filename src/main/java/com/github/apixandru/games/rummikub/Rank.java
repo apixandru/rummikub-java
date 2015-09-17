@@ -20,4 +20,14 @@ public enum Rank {
 		this.num = num;
 	}
 
+	/**
+	 * @return
+	 */
+	public static Rank next(final Rank rank) {
+		if (null == rank || rank.ordinal() >= values().length - 1) {
+			return null;
+		}
+		return values()[rank.ordinal() + 1];
+	}
+
 }
