@@ -23,7 +23,7 @@ public final class CardGroup {
 	 * @return
 	 */
 	public boolean isValid() {
-		if (cards.size() < 3) {
+		if (size() < 3) {
 			return false;
 		}
 		return isValidGroup();
@@ -35,10 +35,20 @@ public final class CardGroup {
 	 * @return
 	 */
 	private boolean isValidGroup() {
+		if (size() > 4) {
+			return false;
+		}
 		if (!Cards.isDifferentColors(cards)) {
 			return false;
 		}
 		return Cards.isSameRanks(cards);
+	}
+
+	/**
+	 * @return
+	 */
+	private int size() {
+		return cards.size();
 	}
 
 }
