@@ -53,7 +53,7 @@ public final class CardGroup {
 		if (!Cards.isAllSameColor(cards)) {
 			return false;
 		}
-		return false;
+		return Cards.isAscendingRanks(cards);
 	}
 
 	/**
