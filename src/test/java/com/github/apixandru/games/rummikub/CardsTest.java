@@ -52,4 +52,13 @@ public final class CardsTest {
 		Assert.assertFalse("Cards should not be in ascending order", Cards.isAscendingRanks(cards));
 	}
 
+	/**
+	 *
+	 */
+	@Test
+	public void testIsAscendingRanksDoubleJoker() {
+		final List<Card> cards = Arrays.asList(new Card(null, null), new Card(null, null), new Card(Color.RED, Rank.THREE));
+		Assert.assertTrue("Jokers should map to 1 and 2", Cards.isAscendingRanks(cards));
+	}
+
 }
