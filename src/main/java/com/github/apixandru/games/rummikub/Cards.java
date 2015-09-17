@@ -88,7 +88,7 @@ final class Cards {
 		boolean first = true;
 		for (final Card card : cards) {
 			final Rank rank = card.getRank();
-			if (first) {
+			if (first && null != rank) {
 				expected = rank;
 				first = false;
 			}
