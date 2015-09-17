@@ -52,6 +52,34 @@ final class Cards {
 	}
 
 	/**
+	 * @return
+	 */
+	static boolean isAllSameColor(final Collection<Card> cards) {
+		final Color color = getFirstColor(cards);
+		for (final Card card : cards) {
+			final Color cardColor = card.getColor();
+			if (null != cardColor && color != cardColor) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * @param cards
+	 * @return
+	 */
+	private static Color getFirstColor(final Collection<Card> cards) {
+		for (final Card card : cards) {
+			final Color color = card.getColor();
+			if (null != color) {
+				return color;
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * @param cards
 	 * @return
 	 */
