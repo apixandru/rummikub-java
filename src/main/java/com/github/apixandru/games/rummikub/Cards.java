@@ -51,6 +51,28 @@ final class Cards {
 		return true;
 	}
 
+	/**
+	 * @param cards
+	 * @return
+	 */
+	public static boolean isAscendingRanks(final Collection<Card> cards) {
+		Rank expected = null;
+		boolean first = true;
+		for (final Card card : cards) {
+			final Rank rank = card.getRank();
+			if (first) {
+				expected = rank;
+				first = false;
+			}
+//			if rank is null then joker, matches
+			if (rank != null && expected != rank) {
+				return false;
+			}
+			expected = Rank.next(expected);
+		}
+		return true;
+	}
+
 
 	/**
 	 * @param cards
