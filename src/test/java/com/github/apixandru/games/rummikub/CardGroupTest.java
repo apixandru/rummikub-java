@@ -67,6 +67,18 @@ public final class CardGroupTest {
 	 *
 	 */
 	@Test
+	public void testValidRun() {
+		final Card black1 = new Card(Color.BLACK, Rank.ONE);
+		final Card black2 = new Card(Color.BLACK, Rank.TWO);
+		final Card black3 = new Card(Color.BLACK, Rank.THREE);
+		final CardGroup group = new CardGroup(Arrays.asList(black1, black2, black3));
+		Assert.assertTrue("Should be valid", group.isValid());
+	}
+
+	/**
+	 *
+	 */
+	@Test
 	public void testTooManyInGroup() {
 		final Card black1 = new Card(Color.BLACK, Rank.ONE);
 		final Card blue1 = new Card(Color.BLUE, Rank.ONE);
