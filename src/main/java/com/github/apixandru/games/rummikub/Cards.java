@@ -101,6 +101,18 @@ final class Cards {
 		return true;
 	}
 
+	/**
+	 * Because the run can start with one or two jokers, we need to infer the
+	 * rank of the cards that they substitute. This means that the rank in a run
+	 * can never be lower than the card number in that run
+	 *
+	 * @param rank the rank of the card
+	 * @param cardNumberInRun the number of the card in the group
+	 * @return true if the card rank is valid for the position in the run
+	 */
+	private static boolean isValidRankInRun(final Rank rank, final int cardNumberInRun) {
+		return rank.ordinal() < cardNumberInRun;
+	}
 
 	/**
 	 * @param cards
