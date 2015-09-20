@@ -111,7 +111,7 @@ final class Cards {
 	 * @return true if the card rank is valid for the position in the run
 	 */
 	private static boolean isValidRankInRun(final Rank rank, final int cardNumberInRun) {
-		return rank.ordinal() < cardNumberInRun;
+		return rank.ordinal() >= cardNumberInRun;
 	}
 
 	/**
