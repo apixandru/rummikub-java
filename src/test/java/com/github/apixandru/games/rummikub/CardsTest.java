@@ -72,4 +72,13 @@ public final class CardsTest {
 		Assert.assertFalse("Jokers should map to 1 and 2, third card cannot be 1", Cards.isAscendingRanks(cards));
 	}
 
+	/**
+	 *
+	 */
+	@Test
+	public void testIsSameJokers() {
+		final List<Card> cards = Arrays.asList(joker, joker);
+		Assert.assertTrue("Jokers are actually 'the same' color", Cards.isAllSameColor(cards));
+	}
+
 }
