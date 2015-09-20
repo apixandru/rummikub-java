@@ -76,9 +76,18 @@ public final class CardsTest {
 	 *
 	 */
 	@Test
-	public void testIsSameJokers() {
+	public void testIsSameColorJokers() {
 		final List<Card> cards = Arrays.asList(joker, joker);
 		Assert.assertTrue("Jokers are actually 'the same' color", Cards.isAllSameColor(cards));
+	}
+
+	/**
+	 *
+	 */
+	@Test
+	public void testIsSameRankJokers() {
+		final List<Card> cards = Arrays.asList(joker, joker);
+		Assert.assertTrue("Jokers are actually 'the same' color", Cards.isSameRanks(cards));
 	}
 
 }
