@@ -5,6 +5,7 @@ package com.github.apixandru.games.rummikub;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -83,12 +84,16 @@ final class Cards {
 	 * @param cards
 	 * @return
 	 */
-	public static boolean isAscendingRanks(final Collection<Card> cards) {
+	public static boolean isAscendingRanks(final List<Card> cards) {
 		Rank expected = null;
 		boolean first = true;
-		for (final Card card : cards) {
+		for (int i = 0, to = cards.size(); i < to; i++) {
+			final Card card = cards.get(i);
 			final Rank rank = card.getRank();
 			if (first && null != rank) {
+				if (!isValidRankInRun(rank, i)) {
+					return false;
+				}
 				expected = rank;
 				first = false;
 			}
