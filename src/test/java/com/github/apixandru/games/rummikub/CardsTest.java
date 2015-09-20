@@ -16,6 +16,8 @@ import org.junit.Test;
 @SuppressWarnings ("static-method")
 public final class CardsTest {
 
+	private static final Card joker = new Card(null, null);
+
 	/**
 	 *
 	 */
@@ -30,7 +32,7 @@ public final class CardsTest {
 	 */
 	@Test
 	public void testIsAscendingRanksWithJoker() {
-		final List<Card> cards = Arrays.asList(new Card(Color.RED, Rank.ONE), new Card(null, null), new Card(Color.RED, Rank.THREE));
+		final List<Card> cards = Arrays.asList(new Card(Color.RED, Rank.ONE), joker, new Card(Color.RED, Rank.THREE));
 		Assert.assertTrue("Cards should be in ascending order", Cards.isAscendingRanks(cards));
 	}
 
@@ -39,7 +41,7 @@ public final class CardsTest {
 	 */
 	@Test
 	public void testIsAscendingRanksWithJokerBad() {
-		final List<Card> cards = Arrays.asList(new Card(Color.RED, Rank.ONE), new Card(null, null), new Card(Color.RED, Rank.FOUR));
+		final List<Card> cards = Arrays.asList(new Card(Color.RED, Rank.ONE), joker, new Card(Color.RED, Rank.FOUR));
 		Assert.assertFalse("Cards should not be in ascending order", Cards.isAscendingRanks(cards));
 	}
 
@@ -57,7 +59,7 @@ public final class CardsTest {
 	 */
 	@Test
 	public void testIsAscendingRanksDoubleJoker() {
-		final List<Card> cards = Arrays.asList(new Card(null, null), new Card(null, null), new Card(Color.RED, Rank.THREE));
+		final List<Card> cards = Arrays.asList(joker, joker, new Card(Color.RED, Rank.THREE));
 		Assert.assertTrue("Jokers should map to 1 and 2", Cards.isAscendingRanks(cards));
 	}
 
@@ -66,7 +68,7 @@ public final class CardsTest {
 	 */
 	@Test
 	public void testIsAscendingRanksDoubleJokerBad() {
-		final List<Card> cards = Arrays.asList(new Card(null, null), new Card(null, null), new Card(Color.RED, Rank.ONE));
+		final List<Card> cards = Arrays.asList(joker, joker, new Card(Color.RED, Rank.ONE));
 		Assert.assertFalse("Jokers should map to 1 and 2, third card cannot be 1", Cards.isAscendingRanks(cards));
 	}
 
