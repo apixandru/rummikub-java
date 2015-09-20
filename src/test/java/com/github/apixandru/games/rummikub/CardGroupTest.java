@@ -15,6 +15,8 @@ import org.junit.Test;
 @SuppressWarnings ("static-method")
 public final class CardGroupTest {
 
+	private static final Card joker = new Card(null, null);
+
 	/**
 	 *
 	 */
@@ -67,6 +69,18 @@ public final class CardGroupTest {
 	 *
 	 */
 	@Test
+	public void testValidGroupJoker() {
+		final Card black1 = new Card(Color.BLACK, Rank.ONE);
+		final Card blue1 = new Card(Color.BLUE, Rank.ONE);
+		final Card red1 = new Card(Color.RED, Rank.ONE);
+		final CardGroup group = new CardGroup(Arrays.asList(joker, black1, blue1, red1));
+		Assert.assertTrue("Should be valid", group.isValid());
+	}
+
+	/**
+	 *
+	 */
+	@Test
 	public void testValidRun() {
 		final Card black1 = new Card(Color.BLACK, Rank.ONE);
 		final Card black2 = new Card(Color.BLACK, Rank.TWO);
@@ -84,7 +98,6 @@ public final class CardGroupTest {
 		final Card blue1 = new Card(Color.BLUE, Rank.ONE);
 		final Card red1 = new Card(Color.RED, Rank.ONE);
 		final Card yellow1 = new Card(Color.YELLOW, Rank.ONE);
-		final Card joker = new Card(null, null);
 		final CardGroup group = new CardGroup(Arrays.asList(black1, blue1, red1, yellow1, joker));
 		Assert.assertFalse("A group can have at most 4 cards", group.isValid());
 	}
