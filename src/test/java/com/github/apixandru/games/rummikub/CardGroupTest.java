@@ -93,6 +93,18 @@ public final class CardGroupTest {
 	 *
 	 */
 	@Test
+	public void testRunOverflow() {
+		final Card black12 = new Card(Color.BLACK, Rank.TWELVE);
+		final Card black13 = new Card(Color.BLACK, Rank.THIRTEEN);
+		final Card black1 = new Card(Color.BLACK, Rank.ONE);
+		final CardGroup group = new CardGroup(Arrays.asList(black12, black13, black1));
+		Assert.assertFalse("Should be valid", group.isValid());
+	}
+
+	/**
+	 *
+	 */
+	@Test
 	public void testTooManyInGroup() {
 		final Card black1 = new Card(Color.BLACK, Rank.ONE);
 		final Card blue1 = new Card(Color.BLUE, Rank.ONE);
