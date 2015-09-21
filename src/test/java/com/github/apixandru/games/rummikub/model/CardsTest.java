@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.github.apixandru.games.rummikub;
+package com.github.apixandru.games.rummikub.model;
 
 import java.util.Arrays;
 import java.util.List;
