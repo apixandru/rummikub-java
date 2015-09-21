@@ -8,6 +8,8 @@ import java.util.NoSuchElementException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.github.apixandru.games.rummikub.model.CardPile;
+
 /**
  * @author Alexandru-Constantin Bledea
  * @since Sep 20, 2015
