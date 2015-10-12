@@ -11,7 +11,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since Sep 16, 2015
  */
-final class Cards {
+public final class Cards {
 
 	/**
 	 *
@@ -84,7 +84,7 @@ final class Cards {
 	 * @param cards
 	 * @return
 	 */
-	public static boolean isAscendingRanks(final List<Card> cards) {
+	static boolean isAscendingRanks(final List<Card> cards) {
 		Rank expected = null;
 		boolean first = true;
 		for (int i = 0, to = cards.size(); i < to; i++) {
@@ -131,6 +131,14 @@ final class Cards {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * @param card
+	 * @return
+	 */
+	public static boolean isJoker(final Card card) {
+		return card.getRank() == null && card.getColor() == null;
 	}
 
 }
