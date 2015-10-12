@@ -16,7 +16,6 @@ import javax.swing.JPanel;
  */
 public final class ScalingGridPanel extends JPanel {
 
-
 	/**
 	 * @param rows
 	 * @param cols
@@ -25,6 +24,8 @@ public final class ScalingGridPanel extends JPanel {
 	 */
 	public ScalingGridPanel(final int rows, final int cols, final int childW, final int childH) {
 		super(new GridLayout(rows, cols));
+
+		final Dimension computeDimensions = computeDimensions(rows, cols, childW, childH);
 
 		final Insets buttonMargin = new Insets(0, 0, 0, 0);
 		for (int ii = 0; ii < rows; ii++) {
@@ -36,6 +37,19 @@ public final class ScalingGridPanel extends JPanel {
 			}
 		}
 
+	}
+
+	/**
+	 * @param rows
+	 * @param cols
+	 * @param childW
+	 * @param childH
+	 * @return
+	 */
+	private static Dimension computeDimensions(final int rows, final int cols, final int childW, final int childH) {
+		final int width = cols * childW;
+		final int height = rows * childH;
+		return new Dimension(width, height);
 	}
 
 }
