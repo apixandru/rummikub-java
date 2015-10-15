@@ -3,9 +3,10 @@
  */
 package com.github.apixandru.games.rummikub.ui;
 
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JComponent;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -26,9 +27,8 @@ final class ComponentDragSource implements DragSource {
 	 * @see com.github.apixandru.games.rummikub.ui.DragSource#getComponent(java.awt.event.MouseEvent)
 	 */
 	@Override
-	public Component getComponent(final MouseEvent e) {
-		return this.container.findComponentAt(e.getX(), e.getY());
-
+	public JComponent getComponent(final MouseEvent e) {
+		return (JComponent) this.container.findComponentAt(e.getX(), e.getY());
 	}
 
 }
