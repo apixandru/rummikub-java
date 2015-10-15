@@ -10,7 +10,7 @@ import javax.swing.SwingUtilities;
  * @author Alexandru-Constantin Bledea
  * @since Oct 12, 2015
  */
-public class Main {
+public class Main2 {
 
 	/**
 	 * @param args
