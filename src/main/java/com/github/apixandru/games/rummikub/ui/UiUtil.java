@@ -30,6 +30,17 @@ public final class UiUtil {
 	}
 
 	/**
+	 * @param component
+	 * @return
+	 */
+	public static Color getBackground(final JComponent component) {
+		if (null == component) {
+			return null;
+		}
+		return component.getBackground();
+	}
+
+	/**
 	 * @param c
 	 * @param d
 	 * @return
