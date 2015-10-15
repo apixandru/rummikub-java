@@ -20,7 +20,7 @@ final class CardDndListener extends MouseAdapter {
 
 	private Container draggablePieceParent;
 
-	private JComponent lastHover;
+	private Container lastHover;
 
 	private CardUi movingPiece;
 	private int xOffset;
@@ -67,7 +67,7 @@ final class CardDndListener extends MouseAdapter {
 			return;
 		}
 		updateMovingPieceLocation(e);
-		final JComponent component = dragSource.getComponentAt(e);
+		final Container component = getComponentUnder(e);
 
 		if (lastHover != component) {
 			UiUtil.setBackground(lastHover, this.originalColor);
@@ -89,7 +89,7 @@ final class CardDndListener extends MouseAdapter {
 		}
 		this.dragSource.endDrag(this.movingPiece);
 
-		final Container destination = dragSource.getComponentAt(e);
+		final Container destination = getComponentUnder(e);
 		destination.add(this.movingPiece);
 		destination.validate();
 		this.movingPiece = null;
