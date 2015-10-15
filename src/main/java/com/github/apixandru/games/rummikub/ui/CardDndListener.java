@@ -72,7 +72,7 @@ final class CardDndListener extends MouseAdapter {
 		this.layeredPane.remove(this.movingPiece);
 		this.layeredPane.repaint();
 
-		final Container parent = (Container) this.panel.findComponentAt(e.getX(), e.getY());
+		final Container parent = (Container) getComponent(e);
 		parent.add(this.movingPiece);
 		parent.validate();
 		this.movingPiece = null;
@@ -82,8 +82,16 @@ final class CardDndListener extends MouseAdapter {
 	 * @param e
 	 * @return
 	 */
+	private Component getComponent(final MouseEvent e) {
+		return this.panel.findComponentAt(e.getX(), e.getY());
+	}
+
+	/**
+	 * @param e
+	 * @return
+	 */
 	private CardUi getCard(final MouseEvent e) {
-		Component c = this.panel.findComponentAt(e.getX(), e.getY());
+		Component c = getComponent(e);
 		while (null != c && !(c instanceof CardUi)) {
 			c = c.getParent();
 		}
