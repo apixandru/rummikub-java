@@ -31,7 +31,7 @@ public final class Main {
 
 		layeredPane.add(grid, JLayeredPane.DEFAULT_LAYER);
 
-		final CardDndListener listener = new CardDndListener(layeredPane, grid);
+		final CardDndListener listener = new CardDndListener(layeredPane, new ComponentDragSource(grid));
 		layeredPane.addMouseListener(listener);
 		layeredPane.addMouseMotionListener(listener);
 

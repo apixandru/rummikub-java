@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -21,7 +20,6 @@ import javax.swing.JPanel;
 final class CardDndListener extends MouseAdapter {
 
 	private final JLayeredPane layeredPane;
-	private final JPanel panel;
 
 	private JComponent lastHover;
 
@@ -30,14 +28,16 @@ final class CardDndListener extends MouseAdapter {
 	private int yOffset;
 	private final Color defaultColor;
 
+	private final DragSource dragSource;
+
 	/**
 	 * @param layeredPane
-	 * @param pane
+	 * @param dragSource
 	 */
-	CardDndListener(final JLayeredPane layeredPane, final JPanel pane) {
+	CardDndListener(final JLayeredPane layeredPane, final DragSource dragSource) {
 		this.defaultColor = layeredPane.getBackground();
 		this.layeredPane = layeredPane;
-		this.panel = pane;
+		this.dragSource = dragSource;
 	}
 
 	/* (non-Javadoc)
@@ -69,7 +69,7 @@ final class CardDndListener extends MouseAdapter {
 			return;
 		}
 		updateMovingPieceLocation(e);
-		final JComponent component = (JComponent) getComponent(e);
+		final JComponent component = dragSource.getComponent(e);
 
 		if (lastHover != component) {
 			UiUtil.setBackground(lastHover, defaultColor);
@@ -90,7 +90,7 @@ final class CardDndListener extends MouseAdapter {
 		this.layeredPane.remove(this.movingPiece);
 		this.layeredPane.repaint();
 
-		final Container parent = (Container) getComponent(e);
+		final Container parent = dragSource.getComponent(e);
 		parent.add(this.movingPiece);
 		parent.validate();
 		this.movingPiece = null;
@@ -100,16 +100,8 @@ final class CardDndListener extends MouseAdapter {
 	 * @param e
 	 * @return
 	 */
-	private Component getComponent(final MouseEvent e) {
-		return this.panel.findComponentAt(e.getX(), e.getY());
-	}
-
-	/**
-	 * @param e
-	 * @return
-	 */
 	private CardUi getCard(final MouseEvent e) {
-		Component c = getComponent(e);
+		Component c = dragSource.getComponent(e);
 		while (null != c && !(c instanceof CardUi)) {
 			c = c.getParent();
 		}
