@@ -60,8 +60,7 @@ public final class Main {
 				grid.add(square);
 				if (first) {
 					first = false;
-					final JPanel piece = new CardUi(cardPile.nextCard());
-					square.add(piece);
+					square.add(new CardUi(cardPile.nextCard()));
 				}
 			}
 		}
