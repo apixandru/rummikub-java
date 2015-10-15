@@ -96,6 +96,18 @@ final class CardDndListener extends MouseAdapter {
 	}
 
 	/**
+	 * @param event
+	 * @return
+	 */
+	private Container getComponentUnder(final MouseEvent event) {
+		final JComponent component = dragSource.getComponentAt(event);
+		if (null == component) {
+			return this.draggablePieceParent;
+		}
+		return component;
+	}
+
+	/**
 	 * @param e
 	 * @return
 	 */
