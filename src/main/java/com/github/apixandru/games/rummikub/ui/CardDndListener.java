@@ -89,9 +89,9 @@ final class CardDndListener extends MouseAdapter {
 		}
 		this.dragSource.endDrag(this.movingPiece);
 
-		final Container parent = dragSource.getComponentAt(e);
-		parent.add(this.movingPiece);
-		parent.validate();
+		final Container destination = dragSource.getComponentAt(e);
+		destination.add(this.movingPiece);
+		destination.validate();
 		this.movingPiece = null;
 	}
 
