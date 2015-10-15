@@ -20,6 +20,16 @@ public final class UiUtil {
 
 
 	/**
+	 * @param component
+	 * @param color
+	 */
+	public static void setBackground(final JComponent component, final Color color) {
+		if (null != component) {
+			component.setBackground(color);
+		}
+	}
+
+	/**
 	 * @param c
 	 * @param d
 	 * @return
