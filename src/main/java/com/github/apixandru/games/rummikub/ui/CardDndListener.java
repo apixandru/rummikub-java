@@ -67,16 +67,22 @@ final class CardDndListener extends MouseAdapter {
 			return;
 		}
 		updateMovingPieceLocation(e);
-		final Container component = getComponentUnder(e);
+		updateDropIndicator(e);
+	}
 
-		if (lastHover != component) {
-			UiUtil.setBackground(lastHover, this.originalColor);
+	/**
+	 * @param event
+	 */
+	private void updateDropIndicator(final MouseEvent event) {
+		final Container component = getComponentUnder(event);
+
+		if (this.lastHover != component) {
+			UiUtil.setBackground(this.lastHover, this.originalColor);
 
 			this.originalColor = UiUtil.getBackground(component);
 			UiUtil.setBackground(component, Color.PINK);
-			lastHover = component;
+			this.lastHover = component;
 		}
-
 	}
 
 	/* (non-Javadoc)
