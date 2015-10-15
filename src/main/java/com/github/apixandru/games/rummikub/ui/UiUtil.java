@@ -4,6 +4,7 @@
 package com.github.apixandru.games.rummikub.ui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -23,7 +24,7 @@ public final class UiUtil {
 	 * @param component
 	 * @param color
 	 */
-	public static void setBackground(final JComponent component, final Color color) {
+	public static void setBackground(final Component component, final Color color) {
 		if (null != component) {
 			component.setBackground(color);
 		}
@@ -33,7 +34,7 @@ public final class UiUtil {
 	 * @param component
 	 * @return
 	 */
-	public static Color getBackground(final JComponent component) {
+	public static Color getBackground(final Component component) {
 		if (null == component) {
 			return null;
 		}
