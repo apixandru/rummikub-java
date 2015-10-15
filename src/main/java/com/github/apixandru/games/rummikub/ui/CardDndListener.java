@@ -18,6 +18,8 @@ import javax.swing.JComponent;
  */
 final class CardDndListener extends MouseAdapter {
 
+	private Container draggablePieceParent;
+
 	private JComponent lastHover;
 
 	private CardUi movingPiece;
@@ -45,7 +47,9 @@ final class CardDndListener extends MouseAdapter {
 		}
 		this.movingPiece = card;
 
-		final Point parentLocation = card.getParent().getLocation();
+		this.draggablePieceParent = card.getParent();
+
+		final Point parentLocation = this.draggablePieceParent.getLocation();
 		this.xOffset = parentLocation.x - e.getX();
 		this.yOffset = parentLocation.y - e.getY();
 
