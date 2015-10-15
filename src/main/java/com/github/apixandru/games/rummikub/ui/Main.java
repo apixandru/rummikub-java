@@ -23,15 +23,15 @@ public final class Main {
 	 */
 	public static void main(final String[] args) {
 		final JFrame frame = new JFrame();
-		final JLayeredPane layeredPane = frame.getLayeredPane();
 		frame.getContentPane().setPreferredSize(new Dimension(20 * 60, 7 * 96));
 
 		final JPanel grid = new JPanel();
 		grid.setSize(frame.getContentPane().getPreferredSize());
 
+		final JLayeredPane layeredPane = frame.getLayeredPane();
 		layeredPane.add(grid, JLayeredPane.DEFAULT_LAYER);
 
-		final CardDndListener listener = new CardDndListener(layeredPane, new ComponentDragSource(grid));
+		final CardDndListener listener = new CardDndListener(new ComponentDragSource(grid));
 		layeredPane.addMouseListener(listener);
 		layeredPane.addMouseMotionListener(listener);
 

@@ -11,7 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
-import javax.swing.JLayeredPane;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -29,10 +28,9 @@ final class CardDndListener extends MouseAdapter {
 	private final DragSource dragSource;
 
 	/**
-	 * @param layeredPane
 	 * @param dragSource
 	 */
-	CardDndListener(final JLayeredPane layeredPane, final DragSource dragSource) {
+	CardDndListener(final DragSource dragSource) {
 		this.dragSource = dragSource;
 	}
 
