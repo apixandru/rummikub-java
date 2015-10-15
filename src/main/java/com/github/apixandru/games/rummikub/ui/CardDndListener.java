@@ -23,11 +23,15 @@ final class CardDndListener extends MouseAdapter {
 	private final JLayeredPane layeredPane;
 	private final JPanel panel;
 
+	private JComponent lastHover;
+
 	private CardUi movingPiece;
 	private int xOffset;
 	private int yOffset;
+	private final Color defaultColor;
 
 	CardDndListener(final JLayeredPane layeredPane, final JPanel pane) {
+		this.defaultColor = layeredPane.getBackground();
 		this.layeredPane = layeredPane;
 		this.panel = pane;
 	}
@@ -62,9 +66,13 @@ final class CardDndListener extends MouseAdapter {
 		}
 		updateMovingPieceLocation(e);
 		final JComponent component = (JComponent) getComponent(e);
-		if (null != component) {
-			component.setBackground(Color.PINK);
+
+		if (lastHover != component) {
+			UiUtil.setBackground(lastHover, defaultColor);
+			UiUtil.setBackground(component, Color.PINK);
+			lastHover = component;
 		}
+
 	}
 
 	/* (non-Javadoc)
