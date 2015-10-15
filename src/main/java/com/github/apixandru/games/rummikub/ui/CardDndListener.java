@@ -30,6 +30,10 @@ final class CardDndListener extends MouseAdapter {
 	private int yOffset;
 	private final Color defaultColor;
 
+	/**
+	 * @param layeredPane
+	 * @param pane
+	 */
 	CardDndListener(final JLayeredPane layeredPane, final JPanel pane) {
 		this.defaultColor = layeredPane.getBackground();
 		this.layeredPane = layeredPane;
