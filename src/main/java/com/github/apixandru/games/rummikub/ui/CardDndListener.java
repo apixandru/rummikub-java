@@ -3,12 +3,14 @@
  */
 package com.github.apixandru.games.rummikub.ui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
@@ -59,6 +61,10 @@ final class CardDndListener extends MouseAdapter {
 			return;
 		}
 		updateMovingPieceLocation(e);
+		final JComponent component = (JComponent) getComponent(e);
+		if (null != component) {
+			component.setBackground(Color.PINK);
+		}
 	}
 
 	/* (non-Javadoc)
