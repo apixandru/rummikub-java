@@ -31,8 +31,8 @@ final class ComponentDragSource implements DragSource {
 	 * @see com.github.apixandru.games.rummikub.ui.DragSource#getComponent(java.awt.event.MouseEvent)
 	 */
 	@Override
-	public JComponent getComponent(final MouseEvent e) {
-		return (JComponent) this.container.findComponentAt(e.getX(), e.getY());
+	public JComponent getComponentAt(final MouseEvent event) {
+		return (JComponent) this.container.findComponentAt(event.getX(), event.getY());
 	}
 
 	/* (non-Javadoc)

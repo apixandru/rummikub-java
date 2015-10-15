@@ -15,10 +15,10 @@ import javax.swing.JComponent;
 public interface DragSource {
 
 	/**
-	 * @param e
+	 * @param event
 	 * @return
 	 */
-	JComponent getComponent(final MouseEvent e);
+	JComponent getComponentAt(final MouseEvent event);
 
 	/**
 	 * @param component
