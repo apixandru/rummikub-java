@@ -56,7 +56,7 @@ public final class Main {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 				final JPanel square = new JPanel(new BorderLayout());
-				square.setBorder(new LineBorder(Color.BLACK));
+				square.setBorder(new LineBorder(Color.LIGHT_GRAY));
 				grid.add(square);
 				if (first) {
 					first = false;

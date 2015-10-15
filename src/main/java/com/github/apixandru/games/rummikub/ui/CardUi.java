@@ -41,7 +41,6 @@ public final class CardUi extends JPanel {
 		this.color = UiUtil.getColor(card.getColor());
 		label.setForeground(color);
 		setBackground(Color.WHITE);
-//		label.setOpaque(true);
 		if (joker) {
 			label.setText("J");
 		} else {

@@ -69,9 +69,11 @@ final class CardDndListener extends MouseAdapter {
 		if (this.movingPiece == null) {
 			return;
 		}
+		this.layeredPane.remove(this.movingPiece);
+		this.layeredPane.repaint();
+
 		final Container parent = (Container) this.panel.findComponentAt(e.getX(), e.getY());
 		parent.add(this.movingPiece);
-		this.layeredPane.repaint();
 		parent.validate();
 		this.movingPiece = null;
 	}
