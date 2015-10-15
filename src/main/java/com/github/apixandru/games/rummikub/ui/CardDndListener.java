@@ -19,8 +19,6 @@ import javax.swing.JLayeredPane;
  */
 final class CardDndListener extends MouseAdapter {
 
-	private final JLayeredPane layeredPane;
-
 	private JComponent lastHover;
 
 	private CardUi movingPiece;
@@ -36,7 +34,6 @@ final class CardDndListener extends MouseAdapter {
 	 */
 	CardDndListener(final JLayeredPane layeredPane, final DragSource dragSource) {
 		this.defaultColor = layeredPane.getBackground();
-		this.layeredPane = layeredPane;
 		this.dragSource = dragSource;
 	}
 
@@ -55,7 +52,7 @@ final class CardDndListener extends MouseAdapter {
 		this.xOffset = parentLocation.x - e.getX();
 		this.yOffset = parentLocation.y - e.getY();
 
-		layeredPane.add(movingPiece, JLayeredPane.DRAG_LAYER);
+		this.dragSource.beginDrag(this.movingPiece);
 
 		updateMovingPieceLocation(e);
 	}
@@ -87,8 +84,7 @@ final class CardDndListener extends MouseAdapter {
 		if (this.movingPiece == null) {
 			return;
 		}
-		this.layeredPane.remove(this.movingPiece);
-		this.layeredPane.repaint();
+		this.dragSource.endDrag(this.movingPiece);
 
 		final Container parent = dragSource.getComponent(e);
 		parent.add(this.movingPiece);
