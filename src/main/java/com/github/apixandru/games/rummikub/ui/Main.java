@@ -23,12 +23,11 @@ public final class Main {
 	 */
 	public static void main(final String[] args) {
 		final JFrame frame = new JFrame();
-		frame.setSize(new Dimension(600, 600));
-
 		final JLayeredPane layeredPane = frame.getLayeredPane();
+		frame.getContentPane().setPreferredSize(new Dimension(20 * 60, 7 * 96));
 
 		final JPanel grid = new JPanel();
-		grid.setSize(frame.getSize());
+		grid.setSize(frame.getContentPane().getPreferredSize());
 
 		layeredPane.add(grid, JLayeredPane.DEFAULT_LAYER);
 
@@ -38,6 +37,7 @@ public final class Main {
 
 		initializeGrid(grid, new CardPile());
 
+		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -48,8 +48,8 @@ public final class Main {
 	 * @param cardPile
 	 */
 	private static void initializeGrid(final JPanel grid, final CardPile cardPile) {
-		final int rows = 8;
-		final int cols = 8;
+		final int rows = 7;
+		final int cols = 20;
 		grid.setLayout(new GridLayout(rows, cols));
 
 		boolean first = true;
