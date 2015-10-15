@@ -8,6 +8,7 @@ import java.awt.Container;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
+import javax.swing.JLayeredPane;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -15,12 +16,14 @@ import javax.swing.JComponent;
  */
 final class ComponentDragSource implements DragSource {
 
+	private final Container parent;
 	private final Container container;
 
 	/**
 	 * @param container
 	 */
 	public ComponentDragSource(final Container container) {
+		this.parent = container.getParent();
 		this.container = container;
 	}
 
@@ -37,8 +40,7 @@ final class ComponentDragSource implements DragSource {
 	 */
 	@Override
 	public void beginDrag(final Component component) {
-		// AAA Auto-generated method stub
-
+		this.parent.add(component, JLayeredPane.DRAG_LAYER);
 	}
 
 	/* (non-Javadoc)
@@ -46,8 +48,8 @@ final class ComponentDragSource implements DragSource {
 	 */
 	@Override
 	public void endDrag(final Component component) {
-		// AAA Auto-generated method stub
-
+		this.parent.remove(component);
+		this.parent.repaint();
 	}
 
 }
