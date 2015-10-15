@@ -3,6 +3,7 @@
  */
 package com.github.apixandru.games.rummikub.ui;
 
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
@@ -18,5 +19,15 @@ public interface DragSource {
 	 * @return
 	 */
 	JComponent getComponent(final MouseEvent e);
+
+	/**
+	 * @param component
+	 */
+	void beginDrag(Component component);
+
+	/**
+	 * @param component
+	 */
+	void endDrag(Component component);
 
 }

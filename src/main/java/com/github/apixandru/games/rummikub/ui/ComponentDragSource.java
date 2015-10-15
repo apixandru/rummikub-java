@@ -3,6 +3,7 @@
  */
 package com.github.apixandru.games.rummikub.ui;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.MouseEvent;
 
@@ -29,6 +30,24 @@ final class ComponentDragSource implements DragSource {
 	@Override
 	public JComponent getComponent(final MouseEvent e) {
 		return (JComponent) this.container.findComponentAt(e.getX(), e.getY());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.github.apixandru.games.rummikub.ui.DragSource#beginDrag(java.awt.Component)
+	 */
+	@Override
+	public void beginDrag(final Component component) {
+		// AAA Auto-generated method stub
+
+	}
+
+	/* (non-Javadoc)
+	 * @see com.github.apixandru.games.rummikub.ui.DragSource#endDrag(java.awt.Component)
+	 */
+	@Override
+	public void endDrag(final Component component) {
+		// AAA Auto-generated method stub
+
 	}
 
 }
