@@ -25,11 +25,11 @@ public final class Main {
 	 */
 	public static void main(final String[] args) {
 		final JFrame frame = new JFrame();
-		frame.getContentPane().setPreferredSize(new Dimension(20 * 60, 7 * 96));
 
 		final JPanel grid = new JPanel();
 
-		final JLayeredPane layeredPane = frame.getLayeredPane();
+		final JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane.setPreferredSize(new Dimension(20 * 60, 7 * 96));
 		layeredPane.add(grid, JLayeredPane.DEFAULT_LAYER);
 
 		final CardDndListener listener = new CardDndListener(new ComponentDragSource(grid));
@@ -38,6 +38,7 @@ public final class Main {
 
 		initializeGrid(grid, new CardPile());
 
+		frame.setContentPane(layeredPane);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
