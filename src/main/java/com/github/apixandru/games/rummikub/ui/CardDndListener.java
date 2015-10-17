@@ -21,7 +21,7 @@ final class CardDndListener extends MouseAdapter {
 	private Container draggablePieceParent;
 	private CardUi draggablePiece;
 
-	private Container lastHover;
+	private Container dropTarget;
 
 	private int xOffset;
 	private int yOffset;
@@ -76,12 +76,12 @@ final class CardDndListener extends MouseAdapter {
 	private void updateDropIndicator(final MouseEvent event) {
 		final Container component = getComponentUnder(event);
 
-		if (this.lastHover != component) {
-			UiUtil.setBackground(this.lastHover, this.originalColor);
+		if (this.dropTarget != component) {
+			UiUtil.setBackground(this.dropTarget, this.originalColor);
 
 			this.originalColor = UiUtil.getBackground(component);
 			UiUtil.setBackground(component, Color.PINK);
-			this.lastHover = component;
+			this.dropTarget = component;
 		}
 	}
 
