@@ -26,7 +26,6 @@ public final class Main {
 		frame.getContentPane().setPreferredSize(new Dimension(20 * 60, 7 * 96));
 
 		final JPanel grid = new JPanel();
-		grid.setSize(frame.getContentPane().getPreferredSize());
 
 		final JLayeredPane layeredPane = frame.getLayeredPane();
 		layeredPane.add(grid, JLayeredPane.DEFAULT_LAYER);
@@ -51,7 +50,7 @@ public final class Main {
 		final int rows = 7;
 		final int cols = 20;
 		grid.setLayout(new GridLayout(rows, cols));
-
+		grid.setSize(new Dimension(cols * 60, rows * 96));
 		boolean first = true;
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
