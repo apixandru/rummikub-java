@@ -18,16 +18,17 @@ import javax.swing.JComponent;
  */
 final class CardDndListener extends MouseAdapter {
 
+	private final DragSource dragSource;
+
 	private Container draggablePieceParent;
 	private CardUi draggablePiece;
 
 	private Container dropTarget;
+	private Color dropTargetOriginalColor;
 
 	private int xOffset;
 	private int yOffset;
-	private Color originalColor;
 
-	private final DragSource dragSource;
 
 	/**
 	 * @param dragSource
@@ -77,9 +78,9 @@ final class CardDndListener extends MouseAdapter {
 		final Container component = getComponentUnder(event);
 
 		if (this.dropTarget != component) {
-			UiUtil.setBackground(this.dropTarget, this.originalColor);
+			UiUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
 
-			this.originalColor = UiUtil.getBackground(component);
+			this.dropTargetOriginalColor = UiUtil.getBackground(component);
 			UiUtil.setBackground(component, Color.PINK);
 			this.dropTarget = component;
 		}
