@@ -5,7 +5,6 @@ package com.github.apixandru.games.rummikub.ui;
 
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
@@ -28,11 +27,11 @@ final class ComponentDragSource implements DragSource {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.github.apixandru.games.rummikub.ui.DragSource#getComponent(java.awt.event.MouseEvent)
+	 * @see com.github.apixandru.games.rummikub.ui.DragSource#getComponentAt(int, int)
 	 */
 	@Override
-	public JComponent getComponentAt(final MouseEvent event) {
-		return (JComponent) this.container.findComponentAt(event.getX(), event.getY());
+	public JComponent getComponentAt(final int x, final int y) {
+		return (JComponent) this.container.findComponentAt(x, y);
 	}
 
 	/* (non-Javadoc)

@@ -75,7 +75,7 @@ final class CardDndListener extends MouseAdapter {
 	 * @param event
 	 */
 	private void updateDropIndicator(final MouseEvent event) {
-		final Container component = getComponentUnder(event);
+		final Container component = getComponentOrInitialLocation(event);
 
 		if (this.dropTarget != component) {
 			UiUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
@@ -96,7 +96,7 @@ final class CardDndListener extends MouseAdapter {
 		}
 		this.dragSource.endDrag(this.draggablePiece);
 
-		final Container destination = getComponentUnder(e);
+		final Container destination = getComponentOrInitialLocation(e);
 		destination.add(this.draggablePiece);
 		destination.validate();
 		this.draggablePiece = null;
@@ -106,8 +106,8 @@ final class CardDndListener extends MouseAdapter {
 	 * @param event
 	 * @return
 	 */
-	private Container getComponentUnder(final MouseEvent event) {
-		final JComponent component = dragSource.getComponentAt(event);
+	private Container getComponentOrInitialLocation(final MouseEvent event) {
+		final JComponent component = getComponentAt(event);
 		if (null == component) {
 			return this.draggablePieceParent;
 		}
@@ -115,11 +115,11 @@ final class CardDndListener extends MouseAdapter {
 	}
 
 	/**
-	 * @param e
+	 * @param event
 	 * @return
 	 */
-	private CardUi getCard(final MouseEvent e) {
-		Component c = this.dragSource.getComponentAt(e);
+	private CardUi getCard(final MouseEvent event) {
+		Component c = getComponentAt(event);
 		while (null != c && !(c instanceof CardUi)) {
 			c = c.getParent();
 		}
@@ -127,10 +127,18 @@ final class CardDndListener extends MouseAdapter {
 	}
 
 	/**
-	 * @param e
+	 * @param event
+	 * @return
 	 */
-	private void updateMovingPieceLocation(final MouseEvent e) {
-		this.draggablePiece.setLocation(e.getX() + xOffset, e.getY() + yOffset);
+	private JComponent getComponentAt(final MouseEvent event) {
+		return this.dragSource.getComponentAt(event.getX(), event.getY());
+	}
+
+	/**
+	 * @param event
+	 */
+	private void updateMovingPieceLocation(final MouseEvent event) {
+		this.draggablePiece.setLocation(event.getX() + xOffset, event.getY() + yOffset);
 	}
 
 }
