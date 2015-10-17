@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -40,6 +42,19 @@ public final class Main {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+	}
+
+	/**
+	 * @param contentToCenter
+	 * @return
+	 */
+	private static JPanel centerHorizontally(final JPanel contentToCenter) {
+		final JPanel result = new JPanel();
+		result.setLayout(new BoxLayout(result, BoxLayout.X_AXIS));
+		result.add(Box.createHorizontalGlue());
+		result.add(contentToCenter);
+		result.add(Box.createHorizontalGlue());
+		return result;
 	}
 
 	/**
