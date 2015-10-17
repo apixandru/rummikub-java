@@ -18,6 +18,8 @@ import javax.swing.JComponent;
  */
 final class CardDndListener extends MouseAdapter {
 
+	private final Color hoverColor = Color.PINK;
+
 	private final DragSource dragSource;
 
 	private Container draggablePieceParent;
@@ -25,6 +27,7 @@ final class CardDndListener extends MouseAdapter {
 
 	private Container dropTarget;
 	private Color dropTargetOriginalColor;
+
 
 	private int xOffset;
 	private int yOffset;
@@ -81,7 +84,7 @@ final class CardDndListener extends MouseAdapter {
 			UiUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
 
 			this.dropTargetOriginalColor = UiUtil.getBackground(component);
-			UiUtil.setBackground(component, Color.PINK);
+			UiUtil.setBackground(component, this.hoverColor);
 			this.dropTarget = component;
 		}
 	}
