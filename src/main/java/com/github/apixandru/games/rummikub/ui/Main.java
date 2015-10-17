@@ -2,6 +2,7 @@ package com.github.apixandru.games.rummikub.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -38,7 +39,8 @@ public final class Main {
 
 		initializeGrid(grid, new CardPile());
 
-		frame.setContentPane(layeredPane);
+		frame.setContentPane(centerHorizontally(layeredPane));
+
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
@@ -49,7 +51,7 @@ public final class Main {
 	 * @param contentToCenter
 	 * @return
 	 */
-	private static JPanel centerHorizontally(final JPanel contentToCenter) {
+	private static JPanel centerHorizontally(final Component contentToCenter) {
 		final JPanel result = new JPanel();
 		result.setLayout(new BoxLayout(result, BoxLayout.X_AXIS));
 		result.add(Box.createHorizontalGlue());
