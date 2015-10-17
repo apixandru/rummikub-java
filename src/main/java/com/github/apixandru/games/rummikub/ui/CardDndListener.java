@@ -19,10 +19,10 @@ import javax.swing.JComponent;
 final class CardDndListener extends MouseAdapter {
 
 	private Container draggablePieceParent;
+	private CardUi draggablePiece;
 
 	private Container lastHover;
 
-	private CardUi movingPiece;
 	private int xOffset;
 	private int yOffset;
 	private Color originalColor;
@@ -45,7 +45,7 @@ final class CardDndListener extends MouseAdapter {
 		if (null == card) {
 			return;
 		}
-		this.movingPiece = card;
+		this.draggablePiece = card;
 
 		this.draggablePieceParent = card.getParent();
 
@@ -53,7 +53,7 @@ final class CardDndListener extends MouseAdapter {
 		this.xOffset = parentLocation.x - e.getX();
 		this.yOffset = parentLocation.y - e.getY();
 
-		this.dragSource.beginDrag(this.movingPiece);
+		this.dragSource.beginDrag(this.draggablePiece);
 
 		updateMovingPieceLocation(e);
 	}
@@ -63,7 +63,7 @@ final class CardDndListener extends MouseAdapter {
 	 */
 	@Override
 	public void mouseDragged(final MouseEvent e) {
-		if (this.movingPiece == null) {
+		if (this.draggablePiece == null) {
 			return;
 		}
 		updateMovingPieceLocation(e);
@@ -90,15 +90,15 @@ final class CardDndListener extends MouseAdapter {
 	 */
 	@Override
 	public void mouseReleased(final MouseEvent e) {
-		if (this.movingPiece == null) {
+		if (this.draggablePiece == null) {
 			return;
 		}
-		this.dragSource.endDrag(this.movingPiece);
+		this.dragSource.endDrag(this.draggablePiece);
 
 		final Container destination = getComponentUnder(e);
-		destination.add(this.movingPiece);
+		destination.add(this.draggablePiece);
 		destination.validate();
-		this.movingPiece = null;
+		this.draggablePiece = null;
 	}
 
 	/**
@@ -118,7 +118,7 @@ final class CardDndListener extends MouseAdapter {
 	 * @return
 	 */
 	private CardUi getCard(final MouseEvent e) {
-		Component c = dragSource.getComponentAt(e);
+		Component c = this.dragSource.getComponentAt(e);
 		while (null != c && !(c instanceof CardUi)) {
 			c = c.getParent();
 		}
@@ -129,7 +129,7 @@ final class CardDndListener extends MouseAdapter {
 	 * @param e
 	 */
 	private void updateMovingPieceLocation(final MouseEvent e) {
-		this.movingPiece.setLocation(e.getX() + xOffset, e.getY() + yOffset);
+		this.draggablePiece.setLocation(e.getX() + xOffset, e.getY() + yOffset);
 	}
 
 }
