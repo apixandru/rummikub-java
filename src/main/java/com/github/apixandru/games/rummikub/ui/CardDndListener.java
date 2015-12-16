@@ -3,14 +3,10 @@
  */
 package com.github.apixandru.games.rummikub.ui;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.JComponent;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -18,130 +14,130 @@ import javax.swing.JComponent;
  */
 final class CardDndListener extends MouseAdapter {
 
-	private final Color hoverColor = Color.PINK;
+    private final Color hoverColor = Color.PINK;
 
-	private final DragSource dragSource;
+    private final DragSource dragSource;
 
-	private Container draggablePieceParent;
-	private CardUi draggablePiece;
+    private Container draggablePieceParent;
+    private CardUi draggablePiece;
 
-	private Container dropTarget;
-	private Color dropTargetOriginalColor;
-
-
-	private int xOffset;
-	private int yOffset;
+    private Container dropTarget;
+    private Color dropTargetOriginalColor;
 
 
-	/**
-	 * @param dragSource
-	 */
-	CardDndListener(final DragSource dragSource) {
-		this.dragSource = dragSource;
-	}
+    private int xOffset;
+    private int yOffset;
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
-	 */
-	@Override
-	public void mousePressed(final MouseEvent e) {
-		final CardUi card = getCard(e);
-		if (null == card) {
-			return;
-		}
-		this.draggablePiece = card;
 
-		this.draggablePieceParent = card.getParent();
+    /**
+     * @param dragSource
+     */
+    CardDndListener(final DragSource dragSource) {
+        this.dragSource = dragSource;
+    }
 
-		final Point parentLocation = this.draggablePieceParent.getLocation();
-		this.xOffset = parentLocation.x - e.getX();
-		this.yOffset = parentLocation.y - e.getY();
+    /* (non-Javadoc)
+     * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+     */
+    @Override
+    public void mousePressed(final MouseEvent e) {
+        final CardUi card = getCard(e);
+        if (null == card) {
+            return;
+        }
+        this.draggablePiece = card;
 
-		this.dragSource.beginDrag(this.draggablePiece);
+        this.draggablePieceParent = card.getParent();
 
-		updateMovingPieceLocation(e);
-	}
+        final Point parentLocation = this.draggablePieceParent.getLocation();
+        this.xOffset = parentLocation.x - e.getX();
+        this.yOffset = parentLocation.y - e.getY();
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.MouseAdapter#mouseDragged(java.awt.event.MouseEvent)
-	 */
-	@Override
-	public void mouseDragged(final MouseEvent e) {
-		if (this.draggablePiece == null) {
-			return;
-		}
-		updateMovingPieceLocation(e);
-		updateDropIndicator(e);
-	}
+        this.dragSource.beginDrag(this.draggablePiece);
 
-	/**
-	 * @param event
-	 */
-	private void updateDropIndicator(final MouseEvent event) {
-		final Container component = getComponentOrInitialLocation(event);
+        updateMovingPieceLocation(e);
+    }
 
-		if (this.dropTarget != component) {
-			UiUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
+    /* (non-Javadoc)
+     * @see java.awt.event.MouseAdapter#mouseDragged(java.awt.event.MouseEvent)
+     */
+    @Override
+    public void mouseDragged(final MouseEvent e) {
+        if (this.draggablePiece == null) {
+            return;
+        }
+        updateMovingPieceLocation(e);
+        updateDropIndicator(e);
+    }
 
-			this.dropTargetOriginalColor = UiUtil.getBackground(component);
-			UiUtil.setBackground(component, this.hoverColor);
-			this.dropTarget = component;
-		}
-	}
+    /**
+     * @param event
+     */
+    private void updateDropIndicator(final MouseEvent event) {
+        final Container component = getComponentOrInitialLocation(event);
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
-	 */
-	@Override
-	public void mouseReleased(final MouseEvent e) {
-		if (this.draggablePiece == null) {
-			return;
-		}
-		this.dragSource.endDrag(this.draggablePiece);
+        if (this.dropTarget != component) {
+            UiUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
 
-		final Container destination = getComponentOrInitialLocation(e);
-		destination.add(this.draggablePiece);
-		destination.validate();
-		this.draggablePiece = null;
-	}
+            this.dropTargetOriginalColor = UiUtil.getBackground(component);
+            UiUtil.setBackground(component, this.hoverColor);
+            this.dropTarget = component;
+        }
+    }
 
-	/**
-	 * @param event
-	 * @return
-	 */
-	private Container getComponentOrInitialLocation(final MouseEvent event) {
-		final JComponent component = getComponentAt(event);
-		if (null == component) {
-			return this.draggablePieceParent;
-		}
-		return component;
-	}
+    /* (non-Javadoc)
+     * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
+     */
+    @Override
+    public void mouseReleased(final MouseEvent e) {
+        if (this.draggablePiece == null) {
+            return;
+        }
+        this.dragSource.endDrag(this.draggablePiece);
 
-	/**
-	 * @param event
-	 * @return
-	 */
-	private CardUi getCard(final MouseEvent event) {
-		Component c = getComponentAt(event);
-		while (null != c && !(c instanceof CardUi)) {
-			c = c.getParent();
-		}
-		return (CardUi) c;
-	}
+        final Container destination = getComponentOrInitialLocation(e);
+        destination.add(this.draggablePiece);
+        destination.validate();
+        this.draggablePiece = null;
+    }
 
-	/**
-	 * @param event
-	 * @return
-	 */
-	private JComponent getComponentAt(final MouseEvent event) {
-		return this.dragSource.getComponentAt(event.getX(), event.getY());
-	}
+    /**
+     * @param event
+     * @return
+     */
+    private Container getComponentOrInitialLocation(final MouseEvent event) {
+        final JComponent component = getComponentAt(event);
+        if (null == component) {
+            return this.draggablePieceParent;
+        }
+        return component;
+    }
 
-	/**
-	 * @param event
-	 */
-	private void updateMovingPieceLocation(final MouseEvent event) {
-		this.draggablePiece.setLocation(event.getX() + xOffset, event.getY() + yOffset);
-	}
+    /**
+     * @param event
+     * @return
+     */
+    private CardUi getCard(final MouseEvent event) {
+        Component c = getComponentAt(event);
+        while (null != c && !(c instanceof CardUi)) {
+            c = c.getParent();
+        }
+        return (CardUi) c;
+    }
+
+    /**
+     * @param event
+     * @return
+     */
+    private JComponent getComponentAt(final MouseEvent event) {
+        return this.dragSource.getComponentAt(event.getX(), event.getY());
+    }
+
+    /**
+     * @param event
+     */
+    private void updateMovingPieceLocation(final MouseEvent event) {
+        this.draggablePiece.setLocation(event.getX() + xOffset, event.getY() + yOffset);
+    }
 
 }
