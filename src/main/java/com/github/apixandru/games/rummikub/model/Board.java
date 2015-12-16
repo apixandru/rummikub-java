@@ -22,7 +22,7 @@ public final class Board {
     private final Card[][] cardsOnBoard = new Card[NUM_ROWS][NUM_COLS];
 
     public boolean placeCard(Card card, int x, int y) {
-        if (inBounds(x,y)) {
+        if (inBounds(x, y)) {
             // more checks
             cardsOnBoard[y][x] = card;
             return true;

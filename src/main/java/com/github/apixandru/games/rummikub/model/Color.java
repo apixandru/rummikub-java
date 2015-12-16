@@ -9,6 +9,6 @@ package com.github.apixandru.games.rummikub.model;
  */
 public enum Color {
 
-	RED, BLUE, BLACK, YELLOW
+    RED, BLUE, BLACK, YELLOW
 
 }

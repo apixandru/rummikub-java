@@ -9,16 +9,16 @@ package com.github.apixandru.games.rummikub.model;
  */
 public enum Rank {
 
-	ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, ELEVEN, TWELVE, THIRTEEN;
+    ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, ELEVEN, TWELVE, THIRTEEN;
 
-	/**
-	 * @return
-	 */
-	public static Rank next(final Rank rank) {
-		if (null == rank || rank.ordinal() >= values().length - 1) {
-			return null;
-		}
-		return values()[rank.ordinal() + 1];
-	}
+    /**
+     * @return
+     */
+    public static Rank next(final Rank rank) {
+        if (null == rank || rank.ordinal() >= values().length - 1) {
+            return null;
+        }
+        return values()[rank.ordinal() + 1];
+    }
 
 }

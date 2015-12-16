@@ -13,45 +13,45 @@ import java.util.Queue;
  */
 public final class CardPile {
 
-	private final Queue<Card> cards;
+    private final Queue<Card> cards;
 
-	{
-		final LinkedList<Card> cards = new LinkedList<Card>();
+    {
+        final LinkedList<Card> cards = new LinkedList<Card>();
 
-		for (final Rank rank : Rank.values()) {
-			for (final Color color : Color.values()) {
-				cards.add(new Card(color, rank));
-			}
-		}
+        for (final Rank rank : Rank.values()) {
+            for (final Color color : Color.values()) {
+                cards.add(new Card(color, rank));
+            }
+        }
 
-		// jokers
-		cards.add(new Card(null, null));
-		cards.add(new Card(null, null));
+        // jokers
+        cards.add(new Card(null, null));
+        cards.add(new Card(null, null));
 
-		Collections.shuffle(cards);
+        Collections.shuffle(cards);
 
-		this.cards = cards;
-	}
+        this.cards = cards;
+    }
 
-	/**
-	 * @return
-	 */
-	public int getNumberOfCards() {
-		return this.cards.size();
-	}
+    /**
+     * @return
+     */
+    public int getNumberOfCards() {
+        return this.cards.size();
+    }
 
-	/**
-	 * @return
-	 */
-	public boolean hasMoreCards() {
-		return !this.cards.isEmpty();
-	}
+    /**
+     * @return
+     */
+    public boolean hasMoreCards() {
+        return !this.cards.isEmpty();
+    }
 
-	/**
-	 * @return
-	 */
-	public Card nextCard() {
-		return this.cards.remove();
-	}
+    /**
+     * @return
+     */
+    public Card nextCard() {
+        return this.cards.remove();
+    }
 
 }
