@@ -5,10 +5,6 @@ package com.github.apixandru.games.rummikub.model;
 
 import org.junit.Test;
 
-import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.Color;
-import com.github.apixandru.games.rummikub.model.Rank;
-
 /**
  * @author Alexandru-Constantin Bledea
  * @since Sep 16, 2015

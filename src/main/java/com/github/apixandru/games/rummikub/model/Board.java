@@ -16,7 +16,10 @@ import java.util.stream.Stream;
  */
 public final class Board {
 
-    private final Card[][] cardsOnBoard = new Card[7][20];
+    private static final int NUM_ROWS = 7;
+    private static final int NUM_COLS = 20;
+
+    private final Card[][] cardsOnBoard = new Card[NUM_ROWS][NUM_COLS];
 
     public boolean placeCard(Card card, int x, int y) {
         if (inBounds(x,y)) {
@@ -27,8 +30,13 @@ public final class Board {
         return false;
     }
 
+    /**
+     * @param x
+     * @param y
+     * @return
+     */
     private boolean inBounds(final int x, final int y) {
-        return true; // todo
+        return y < NUM_ROWS && x < NUM_COLS;
     }
 
     public List<CardGroup> getGroups() {

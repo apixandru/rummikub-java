@@ -3,15 +3,12 @@
  */
 package com.github.apixandru.games.rummikub.model;
 
-import java.util.Arrays;
-
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.CardGroup;
-import com.github.apixandru.games.rummikub.model.Color;
-import com.github.apixandru.games.rummikub.model.Rank;
+import java.util.Arrays;
+
+import static com.github.apixandru.games.rummikub.model.TestUtils.joker;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -19,8 +16,6 @@ import com.github.apixandru.games.rummikub.model.Rank;
  */
 @SuppressWarnings ("static-method")
 public final class CardGroupTest {
-
-	private static final Card joker = new Card(null, null);
 
 	/**
 	 *

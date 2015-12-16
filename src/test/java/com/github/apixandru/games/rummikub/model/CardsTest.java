@@ -90,7 +90,7 @@ public final class CardsTest {
 		Assert.assertTrue("Jokers are actually 'the same' color", Cards.isSameRanks(cards));
 	}
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testInvalidConfiguration() {
         new Card(null, Rank.EIGHT);
     }
