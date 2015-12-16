@@ -28,4 +28,10 @@ public class BoardTest {
         Assert.assertFalse(board.isValid());
         Assert.assertEquals(2, board.getGroups().size());
     }
+
+    @Test
+    public void testCantPlaceCard() {
+        final Board board = new Board();
+        board.placeCard(CardsTest)
+    }
 }

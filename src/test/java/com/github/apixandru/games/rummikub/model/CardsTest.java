@@ -3,16 +3,13 @@
  */
 package com.github.apixandru.games.rummikub.model;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.Cards;
-import com.github.apixandru.games.rummikub.model.Color;
-import com.github.apixandru.games.rummikub.model.Rank;
+import java.util.Arrays;
+import java.util.List;
+
+import static com.github.apixandru.games.rummikub.model.TestUtils.joker;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -20,8 +17,6 @@ import com.github.apixandru.games.rummikub.model.Rank;
  */
 @SuppressWarnings ("static-method")
 public final class CardsTest {
-
-	private static final Card joker = new Card(null, null);
 
 	/**
 	 *
@@ -94,5 +89,10 @@ public final class CardsTest {
 		final List<Card> cards = Arrays.asList(joker, joker);
 		Assert.assertTrue("Jokers are actually 'the same' color", Cards.isSameRanks(cards));
 	}
+
+    @Test
+    public void testInvalidConfiguration() {
+        new Card(null, Rank.EIGHT);
+    }
 
 }
