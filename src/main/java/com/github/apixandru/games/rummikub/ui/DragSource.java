@@ -29,4 +29,10 @@ public interface DragSource {
      */
     void endDrag(Component component);
 
+    /**
+     * @param component
+     * @return
+     */
+    Point getPosition(Component component);
+
 }

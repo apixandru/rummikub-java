@@ -37,6 +37,14 @@ final class ComponentDragSource implements DragSource {
         return null;
     }
 
+    @Override
+    public Point getPosition(final Component component) {
+        final Container pieceParent = component.getParent();
+        final Point parentLocation = pieceParent.getLocation();
+        final Point parentParentLocation = pieceParent.getParent().getLocation();
+        return new Point(parentLocation.x + parentParentLocation.x, parentLocation.y + parentParentLocation.y);
+    }
+
     /* (non-Javadoc)
      * @see com.github.apixandru.games.rummikub.ui.DragSource#beginDrag(java.awt.Component)
      */

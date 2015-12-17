@@ -49,13 +49,21 @@ final class CardDndListener extends MouseAdapter {
 
         this.draggablePieceParent = card.getParent();
 
-        final Point parentLocation = this.draggablePieceParent.getLocation();
-        this.xOffset = parentLocation.x - e.getX();
-        this.yOffset = parentLocation.y - e.getY();
+        computeHoverOffset(e);
 
         this.dragSource.beginDrag(this.draggablePiece);
 
         updateMovingPieceLocation(e);
+    }
+
+    /**
+     * @param e
+     */
+    private void computeHoverOffset(MouseEvent e) {
+        final Point parentLocation = this.dragSource.getPosition(this.draggablePiece);
+
+        this.xOffset = parentLocation.x - e.getX();
+        this.yOffset = parentLocation.y - e.getY();
     }
 
     /* (non-Javadoc)
