@@ -13,14 +13,14 @@ import java.awt.*;
 final class ComponentDragSource implements DragSource {
 
     private final Container parent;
-    private final Container container;
+    private final Container[] containers;
 
     /**
-     * @param container
+     * @param containers
      */
-    public ComponentDragSource(final Container container) {
-        this.parent = container.getParent();
-        this.container = container;
+    public ComponentDragSource(final Container... containers) {
+        this.parent = containers[0].getParent();
+        this.containers = containers;
     }
 
     /* (non-Javadoc)
@@ -28,7 +28,13 @@ final class ComponentDragSource implements DragSource {
      */
     @Override
     public JComponent getComponentAt(final int x, final int y) {
-        return (JComponent) this.container.findComponentAt(x, y);
+        for (Container container : containers) {
+            final Component componentAt = container.findComponentAt(x - container.getX(), y - container.getY());
+            if (null != componentAt) {
+                return (JComponent) componentAt;
+            }
+        }
+        return null;
     }
 
     /* (non-Javadoc)
