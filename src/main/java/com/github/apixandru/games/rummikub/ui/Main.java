@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import static java.lang.Math.max;
 
@@ -31,7 +33,8 @@ public final class Main {
         final JPanel board = new JPanel();
         final JPanel player = new JPanel();
         panel.add(board);
-        final JPanel comp = createMiddlePanel(new CardPile());
+        final CardPile pile = new CardPile();
+        final JPanel comp = createMiddlePanel(pile, player);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
         panel.add(comp);
         panel.add(player);
@@ -45,8 +48,8 @@ public final class Main {
         layeredPane.addMouseListener(listener);
         layeredPane.addMouseMotionListener(listener);
 
-        initializeGrid(board, new CardPile());
-        initializeGrid(player, new CardPile(), 3, 7);
+        initializeGrid(board);
+        initializeGrid(player, 3, 7);
 
 
         layeredPane.setPreferredSize(computeSize(layeredPane));
@@ -58,12 +61,30 @@ public final class Main {
         frame.setVisible(true);
     }
 
-    private static JPanel createMiddlePanel(final CardPile pile) {
+    private static JPanel createMiddlePanel(final CardPile pile, final JPanel player) {
         final JPanel panel = new JPanel();
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         panel.add(Box.createHorizontalGlue());
         final JButton skippy = new JButton("Take Card");
+        skippy.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(final MouseEvent e) {
+                final Component[] components = player.getComponents();
+                for (final Component component : components) {
+                    final JPanel panel = (JPanel) component;
+                    if (0 == panel.getComponents().length) {
+                        SwingUtilities.invokeLater(() -> {
+                            panel.add(new CardUi(pile.nextCard()));
+                            player.invalidate();
+                            player.repaint();
+                            player.validate();
+                        });
+                        return;
+                    }
+                }
+            }
+        });
         panel.add(skippy);
         return panel;
     }
@@ -78,37 +99,31 @@ public final class Main {
         for (Component component : container.getComponents()) {
             width = max(component.getWidth(), width);
             height += component.getHeight();
-            System.out.println(height);
         }
         return new Dimension(width, height);
     }
 
     /**
      * @param grid
-     * @param cardPile
      */
-    private static void initializeGrid(final JPanel grid, final CardPile cardPile) {
-        initializeGrid(grid, cardPile, 7, 0);
+    private static void initializeGrid(final JPanel grid) {
+        initializeGrid(grid, 7, 0);
     }
 
     /**
      * @param grid
-     * @param cardPile
+     * @param rows
+     * @param y
      */
-    private static void initializeGrid(final JPanel grid, final CardPile cardPile, final int rows, final int y) {
+    private static void initializeGrid(final JPanel grid, final int rows, final int y) {
         final int cols = 20;
         grid.setLayout(new GridLayout(rows, cols));
         grid.setBounds(0, y == 0 ? 0 : y * TILE_HEIGHT + 60, cols * TILE_WIDTH, rows * TILE_HEIGHT);
-        boolean first = true;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 final JPanel square = new JPanel(new BorderLayout());
                 square.setBorder(new LineBorder(Color.LIGHT_GRAY));
                 grid.add(square);
-                if (first) {
-                    first = false;
-                    square.add(new CardUi(cardPile.nextCard()));
-                }
             }
         }
     }
