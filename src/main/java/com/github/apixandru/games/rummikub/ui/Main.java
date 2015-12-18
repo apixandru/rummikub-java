@@ -3,6 +3,7 @@ package com.github.apixandru.games.rummikub.ui;
 import com.github.apixandru.games.rummikub.model.CardPile;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
@@ -51,8 +52,6 @@ public final class Main {
         layeredPane.setPreferredSize(computeSize(layeredPane));
 
         frame.setContentPane(layeredPane);
-//        frame.setContentPane(centerHorizontally(layeredPane));
-//        frame.add(panel);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
@@ -61,10 +60,10 @@ public final class Main {
 
     private static JPanel createMiddlePanel(final CardPile pile) {
         final JPanel panel = new JPanel();
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         panel.add(Box.createHorizontalGlue());
-        final JButton skippy = new JButton("Skippy");
-        System.out.println(skippy.getSize());
+        final JButton skippy = new JButton("Take Card");
         panel.add(skippy);
         return panel;
     }
@@ -82,19 +81,6 @@ public final class Main {
             System.out.println(height);
         }
         return new Dimension(width, height);
-    }
-
-    /**
-     * @param contentToCenter
-     * @return
-     */
-    private static JPanel centerHorizontally(final Component contentToCenter) {
-        final JPanel result = new JPanel();
-        result.setLayout(new BoxLayout(result, BoxLayout.X_AXIS));
-        result.add(Box.createHorizontalGlue());
-        result.add(contentToCenter);
-        result.add(Box.createHorizontalGlue());
-        return result;
     }
 
     /**
