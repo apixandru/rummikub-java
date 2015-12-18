@@ -9,14 +9,16 @@ package com.github.apixandru.games.rummikub.model;
  */
 public final class Card {
 
+    private final int id;
     private final Color color;
     private final Rank rank;
 
     /**
+     * @param id
      * @param color
      * @param rank
      */
-    Card(final Color color, final Rank rank) {
+    Card(final int id, final Color color, final Rank rank) {
         if (null == color) {
             if (null != rank) {
                 throw new IllegalArgumentException();
@@ -24,6 +26,7 @@ public final class Card {
         } else if (null == rank) {
             throw new IllegalArgumentException();
         }
+        this.id = id;
         this.color = color;
         this.rank = rank;
     }
@@ -42,4 +45,10 @@ public final class Card {
         return rank;
     }
 
+    /**
+     * @return
+     */
+    public int getId() {
+        return id;
+    }
 }

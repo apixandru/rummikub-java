@@ -5,6 +5,8 @@ package com.github.apixandru.games.rummikub.model;
 
 import org.junit.Test;
 
+import static com.github.apixandru.games.rummikub.model.TestUtils.card;
+
 /**
  * @author Alexandru-Constantin Bledea
  * @since Sep 16, 2015
@@ -14,22 +16,22 @@ public final class CreateCardTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testNoColorRank() {
-        new Card(null, Rank.EIGHT);
+        card(null, Rank.EIGHT);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testColorNoRank() {
-        new Card(Color.BLACK, null);
+        card(Color.BLACK, null);
     }
 
     @Test
     public void testColorRank() {
-        new Card(Color.BLACK, Rank.ONE);
+        card(Color.BLACK, Rank.ONE);
     }
 
     @Test
     public void testNoColorNoRank() {
-        new Card(null, null);
+        card(null, null);
     }
 
 }

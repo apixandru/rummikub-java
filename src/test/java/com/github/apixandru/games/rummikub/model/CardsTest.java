@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.github.apixandru.games.rummikub.model.TestUtils.card;
 import static com.github.apixandru.games.rummikub.model.TestUtils.joker;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -24,7 +25,7 @@ public final class CardsTest {
      */
     @Test
     public void testIsAscendingRanks() {
-        final List<Card> cards = Arrays.asList(new Card(Color.RED, Rank.ONE), new Card(Color.RED, Rank.TWO), new Card(Color.RED, Rank.THREE));
+        final List<Card> cards = Arrays.asList(card(Color.RED, Rank.ONE), card(Color.RED, Rank.TWO), card(Color.RED, Rank.THREE));
         assertTrue("Cards should be in ascending order", Cards.isAscendingRanks(cards));
     }
 
@@ -33,7 +34,7 @@ public final class CardsTest {
      */
     @Test
     public void testIsAscendingRanksWithJoker() {
-        final List<Card> cards = Arrays.asList(new Card(Color.RED, Rank.ONE), joker, new Card(Color.RED, Rank.THREE));
+        final List<Card> cards = Arrays.asList(card(Color.RED, Rank.ONE), joker, card(Color.RED, Rank.THREE));
         assertTrue("Cards should be in ascending order", Cards.isAscendingRanks(cards));
     }
 
@@ -42,7 +43,7 @@ public final class CardsTest {
      */
     @Test
     public void testIsAscendingRanksWithJokerBad() {
-        final List<Card> cards = Arrays.asList(new Card(Color.RED, Rank.ONE), joker, new Card(Color.RED, Rank.FOUR));
+        final List<Card> cards = Arrays.asList(card(Color.RED, Rank.ONE), joker, card(Color.RED, Rank.FOUR));
         assertFalse("Cards should not be in ascending order", Cards.isAscendingRanks(cards));
     }
 
@@ -51,7 +52,7 @@ public final class CardsTest {
      */
     @Test
     public void testIsAscendingRanksBad() {
-        final List<Card> cards = Arrays.asList(new Card(Color.RED, Rank.TWELVE), new Card(Color.RED, Rank.THIRTEEN), new Card(Color.RED, Rank.ONE));
+        final List<Card> cards = Arrays.asList(card(Color.RED, Rank.TWELVE), card(Color.RED, Rank.THIRTEEN), card(Color.RED, Rank.ONE));
         assertFalse("Cards should not be in ascending order", Cards.isAscendingRanks(cards));
     }
 
@@ -60,7 +61,7 @@ public final class CardsTest {
      */
     @Test
     public void testIsAscendingRanksDoubleJoker() {
-        final List<Card> cards = Arrays.asList(joker, joker, new Card(Color.RED, Rank.THREE));
+        final List<Card> cards = Arrays.asList(joker, joker, card(Color.RED, Rank.THREE));
         assertTrue("Jokers should map to 1 and 2", Cards.isAscendingRanks(cards));
     }
 
@@ -69,7 +70,7 @@ public final class CardsTest {
      */
     @Test
     public void testIsAscendingRanksDoubleJokerBad() {
-        final List<Card> cards = Arrays.asList(joker, joker, new Card(Color.RED, Rank.ONE));
+        final List<Card> cards = Arrays.asList(joker, joker, card(Color.RED, Rank.ONE));
         assertFalse("Jokers should map to 1 and 2, third card cannot be 1", Cards.isAscendingRanks(cards));
     }
 
@@ -93,7 +94,7 @@ public final class CardsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidConfiguration() {
-        new Card(null, Rank.EIGHT);
+        card(null, Rank.EIGHT);
     }
 
 }
