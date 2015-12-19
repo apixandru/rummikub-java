@@ -30,7 +30,7 @@ public final class Main {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         final BoardUi board = new BoardUi();
-        final JPanel player = new JPanel();
+        final PlayerUi player = new PlayerUi();
         panel.add(board);
         final CardPile pile = new CardPile();
         final JPanel comp = createMiddlePanel(pile, player);
@@ -47,7 +47,7 @@ public final class Main {
         layeredPane.addMouseListener(listener);
         layeredPane.addMouseMotionListener(listener);
 
-        initializeGrid(board);
+        initializeGrid(board, 7, 0);
         initializeGrid(player, 3, 7);
 
 
@@ -100,13 +100,6 @@ public final class Main {
             height += component.getHeight();
         }
         return new Dimension(width, height);
-    }
-
-    /**
-     * @param grid
-     */
-    private static void initializeGrid(final JPanel grid) {
-        initializeGrid(grid, 7, 0);
     }
 
     /**
