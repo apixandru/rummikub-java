@@ -4,7 +4,6 @@ import com.github.apixandru.games.rummikub.model.CardPile;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,7 +29,7 @@ public final class Main {
         final JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        final JPanel board = new JPanel();
+        final BoardUi board = new BoardUi();
         final JPanel player = new JPanel();
         panel.add(board);
         final CardPile pile = new CardPile();
@@ -121,9 +120,7 @@ public final class Main {
         grid.setBounds(0, y == 0 ? 0 : y * TILE_HEIGHT + 60, cols * TILE_WIDTH, rows * TILE_HEIGHT);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                final JPanel square = new JPanel(new BorderLayout());
-                square.setBorder(new LineBorder(Color.LIGHT_GRAY));
-                grid.add(square);
+                grid.add(new CardSlot(j, i));
             }
         }
     }
