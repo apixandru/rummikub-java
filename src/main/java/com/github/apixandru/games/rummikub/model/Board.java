@@ -9,6 +9,7 @@ import com.github.apixandru.games.rummikub.model.util.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,12 +26,33 @@ public final class Board {
 
     private final List<BoardListener> listeners = new ArrayList<>();
 
+    /**
+     * @param card
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean placeCard(Card card, int x, int y) {
         if (inBounds(x, y) && isFree(x, y)) {
             cardsOnBoard[y][x] = card;
+            informListeners(lstnr -> lstnr.onCardPlacedOnTable(card, x, y));
             return true;
         }
         return false;
+    }
+
+    /**
+     * @param card
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean removeCard(final Card card, int x, int y) {
+        if (null == card || !inBounds(x, y) || cardsOnBoard[y][x] != card) {
+            return false;
+        }
+        cardsOnBoard[y][x] = null;
+        return true;
     }
 
     /**
@@ -55,6 +77,13 @@ public final class Board {
                 .map(Util::splitNonEmptyGroups)
                 .flatMap(List::stream)
                 .map(CardGroup::new);
+    }
+
+    /**
+     * @param signal
+     */
+    private void informListeners(final Consumer<BoardListener> signal) {
+        listeners.stream().forEach(signal);
     }
 
     /**

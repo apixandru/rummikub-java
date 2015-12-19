@@ -18,7 +18,7 @@ final class CardDndListener extends MouseAdapter {
 
     private final DragSource dragSource;
 
-    private Container draggablePieceParent;
+    private CardSlot draggablePieceParent;
     private CardUi draggablePiece;
 
     private Container dropTarget;
@@ -47,7 +47,7 @@ final class CardDndListener extends MouseAdapter {
         }
         this.draggablePiece = card;
 
-        this.draggablePieceParent = card.getParent();
+        this.draggablePieceParent = (CardSlot) card.getParent();
 
         computeHoverOffset(e);
 

@@ -16,8 +16,8 @@ import static java.lang.Math.max;
  */
 public final class Main {
 
-    private static final int TILE_WIDTH = 60;
-    private static final int TILE_HEIGHT = 96;
+    static final int TILE_WIDTH = 60;
+    static final int TILE_HEIGHT = 92;
     private static final int BOARD_WIDTH = 20 * TILE_WIDTH;
 
     /**
@@ -47,10 +47,6 @@ public final class Main {
         layeredPane.addMouseListener(listener);
         layeredPane.addMouseMotionListener(listener);
 
-        initializeGrid(board, 7, 0);
-        initializeGrid(player, 3, 7);
-
-
         layeredPane.setPreferredSize(computeSize(layeredPane));
 
         frame.setContentPane(layeredPane);
@@ -75,8 +71,6 @@ public final class Main {
                     if (0 == panel.getComponents().length) {
                         SwingUtilities.invokeLater(() -> {
                             panel.add(new CardUi(pile.nextCard()));
-                            player.invalidate();
-                            player.repaint();
                             player.validate();
                         });
                         return;
@@ -100,22 +94,6 @@ public final class Main {
             height += component.getHeight();
         }
         return new Dimension(width, height);
-    }
-
-    /**
-     * @param grid
-     * @param rows
-     * @param y
-     */
-    private static void initializeGrid(final JPanel grid, final int rows, final int y) {
-        final int cols = 20;
-        grid.setLayout(new GridLayout(rows, cols));
-        grid.setBounds(0, y == 0 ? 0 : y * TILE_HEIGHT + 60, cols * TILE_WIDTH, rows * TILE_HEIGHT);
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                grid.add(new CardSlot(j, i));
-            }
-        }
     }
 
 }
