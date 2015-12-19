@@ -14,7 +14,7 @@ public class JGridPanel extends JPanel {
 
     private static final int COLS = 20;
 
-    private final CardSlot[][] slots;
+    final CardSlot[][] slots;
 
     /**
      * @param rows

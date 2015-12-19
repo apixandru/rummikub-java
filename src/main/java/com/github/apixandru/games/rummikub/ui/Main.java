@@ -1,5 +1,6 @@
 package com.github.apixandru.games.rummikub.ui;
 
+import com.github.apixandru.games.rummikub.model.Board;
 import com.github.apixandru.games.rummikub.model.CardPile;
 
 import javax.swing.*;
@@ -27,7 +28,7 @@ public final class Main {
         final JFrame frame = new JFrame();
 
 
-        final BoardUi board = new BoardUi();
+        final BoardUi board = BoardUi.createBoardUi(new Board());
         final PlayerUi player = new PlayerUi();
         final CardPile pile = new CardPile();
         final JPanel comp = createMiddlePanel(pile, player);
@@ -56,8 +57,9 @@ public final class Main {
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         panel.add(Box.createHorizontalGlue());
-        final JButton skippy = new JButton("Take Card");
-        skippy.addMouseListener(new MouseAdapter() {
+        final JButton btnEndTurn = new JButton("End Turn");
+        final JButton btnTakeCard = new JButton("Take Card");
+        btnTakeCard.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(final MouseEvent e) {
                 final Component[] components = player.getComponents();
@@ -73,7 +75,9 @@ public final class Main {
                 }
             }
         });
-        panel.add(skippy);
+        panel.add(btnEndTurn);
+        panel.add(Box.createHorizontalStrut(10));
+        panel.add(btnTakeCard);
         return panel;
     }
 
