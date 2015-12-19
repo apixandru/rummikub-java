@@ -115,10 +115,22 @@ final class CardDndListener extends MouseAdapter {
      */
     private Container getComponentOrInitialLocation(final MouseEvent event) {
         final JComponent component = getComponentAt(event);
-        if (null == component) {
+        if (null == component || !canDrop(component)) {
             return this.draggablePieceParent;
         }
         return component;
+    }
+
+    /**
+     * @param component
+     * @return
+     */
+    private static boolean canDrop(JComponent component) {
+        // TODO fix this
+        if (component instanceof CardSlot) {
+            return true;
+        }
+        return false;
     }
 
     /**
