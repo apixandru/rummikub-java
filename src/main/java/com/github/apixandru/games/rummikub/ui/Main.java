@@ -26,17 +26,12 @@ public final class Main {
     public static void main(final String[] args) {
         final JFrame frame = new JFrame();
 
-        final JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         final BoardUi board = new BoardUi();
         final PlayerUi player = new PlayerUi();
-        panel.add(board);
         final CardPile pile = new CardPile();
         final JPanel comp = createMiddlePanel(pile, player);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
-        panel.add(comp);
-        panel.add(player);
 
         final JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.add(board, JLayeredPane.DEFAULT_LAYER);
