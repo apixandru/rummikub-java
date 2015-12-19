@@ -14,11 +14,17 @@ import static java.lang.Math.max;
 /**
  * @author Alexandru-Constantin Bledea
  * @since Oct 15, 2015
+ *
+ * TODO
+ *      compute ui dimensions dynamically
+ *      recompute dimensions on resize
+ *      center ui
  */
 public final class Main {
 
     static final int TILE_WIDTH = 60;
-    static final int TILE_HEIGHT = 92;
+    static final int TILE_HEIGHT = 90;
+
     private static final int BOARD_WIDTH = 20 * TILE_WIDTH;
 
     /**
@@ -26,7 +32,6 @@ public final class Main {
      */
     public static void main(final String[] args) {
         final JFrame frame = new JFrame();
-
 
         final BoardUi board = BoardUi.createBoardUi(new Board());
         final PlayerUi player = new PlayerUi();
