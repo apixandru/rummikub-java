@@ -12,17 +12,23 @@ import static com.github.apixandru.games.rummikub.ui.Main.TILE_WIDTH;
  */
 public class JGridPanel extends JPanel {
 
+    private static final int COLS = 20;
+
+    private final CardSlot[][] slots;
+
     /**
      * @param rows
      * @param y
      */
     JGridPanel(final int rows, final int y) {
-        final int cols = 20;
-        setLayout(new GridLayout(rows, cols));
-        setBounds(0, y == 0 ? 0 : y * TILE_HEIGHT + 60, cols * TILE_WIDTH, rows * TILE_HEIGHT);
+        slots = new CardSlot[COLS][rows];
+        setLayout(new GridLayout(rows, COLS));
+        setBounds(0, y == 0 ? 0 : y * TILE_HEIGHT + 60, COLS * TILE_WIDTH, rows * TILE_HEIGHT);
         for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                add(new CardSlot(j, i));
+            for (int j = 0; j < COLS; j++) {
+                final CardSlot slot = new CardSlot(j, i);
+                slots[j][i] = slot;
+                add(slot);
             }
         }
     }
