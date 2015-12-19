@@ -65,14 +65,14 @@ public final class Board {
     }
 
     public List<CardGroup> getGroups() {
-        return streamGroups(cardsOnBoard).collect(Collectors.toList());
+        return streamGroups().collect(Collectors.toList());
     }
 
     public boolean isValid() {
-        return streamGroups(cardsOnBoard).allMatch(CardGroup::isValid);
+        return streamGroups().allMatch(CardGroup::isValid);
     }
 
-    private Stream<CardGroup> streamGroups(Card[][] cardsOnBoard) {
+    private Stream<CardGroup> streamGroups() {
         return Arrays.stream(cardsOnBoard)
                 .map(Util::splitNonEmptyGroups)
                 .flatMap(List::stream)
