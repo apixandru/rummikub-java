@@ -2,7 +2,6 @@ package com.github.apixandru.games.rummikub.ui;
 
 import com.github.apixandru.games.rummikub.model.Board;
 import com.github.apixandru.games.rummikub.model.CardPile;
-import com.github.apixandru.games.rummikub.model.Constants;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

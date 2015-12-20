@@ -3,7 +3,6 @@
  */
 package com.github.apixandru.games.rummikub.ui;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -37,18 +36,6 @@ public final class UiUtil {
     }
 
     /**
-     * @param c
-     * @param d
-     * @return
-     */
-    public static Dimension max(final Dimension c, final Dimension d) {
-        if (c.getWidth() > d.getWidth() && c.getHeight() > d.getHeight()) {
-            return c;
-        }
-        return d;
-    }
-
-    /**
      * @param color
      * @return
      */
@@ -68,24 +55,6 @@ public final class UiUtil {
             default:
                 throw new IllegalArgumentException(String.valueOf(color));
         }
-    }
-
-    /**
-     * @param rows
-     * @param cols
-     * @param preferredSize
-     * @return
-     */
-    public static final JComponent[][] createGridOfSquares(final int rows, final int cols, final Dimension preferredSize) {
-        final JComponent[][] grid = new JComponent[rows][cols];
-        for (int x = 0; x < cols; x++) {
-            for (int y = 0; y < rows; y++) {
-                final JComponent b = new JButton();
-                b.setPreferredSize(preferredSize);
-                grid[y][x] = b;
-            }
-        }
-        return grid;
     }
 
 }
