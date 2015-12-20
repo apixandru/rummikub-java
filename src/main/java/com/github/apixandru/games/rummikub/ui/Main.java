@@ -2,6 +2,7 @@ package com.github.apixandru.games.rummikub.ui;
 
 import com.github.apixandru.games.rummikub.model.Board;
 import com.github.apixandru.games.rummikub.model.CardPile;
+import com.github.apixandru.games.rummikub.model.Constants;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import static com.github.apixandru.games.rummikub.model.Constants.NUM_COLS;
 import static java.lang.Math.max;
 
 /**
@@ -24,8 +26,7 @@ public final class Main {
 
     static final int TILE_WIDTH = 60;
     static final int TILE_HEIGHT = 90;
-
-    private static final int BOARD_WIDTH = 20 * TILE_WIDTH;
+    private static final int BOARD_WIDTH = NUM_COLS * TILE_WIDTH;
 
     /**
      * @param args

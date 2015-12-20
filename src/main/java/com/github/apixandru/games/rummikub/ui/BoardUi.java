@@ -4,6 +4,8 @@ import com.github.apixandru.games.rummikub.model.Board;
 import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.listeners.BoardListener;
 
+import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
+
 /**
  * @author Alexandru-Constantin Bledea
  * @since December 18, 2015
@@ -14,7 +16,7 @@ public class BoardUi extends JGridPanel {
      *
      */
     private BoardUi() {
-        super(7, 0);
+        super(NUM_ROWS, 0);
     }
 
     /**

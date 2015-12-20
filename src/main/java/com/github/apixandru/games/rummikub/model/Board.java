@@ -13,14 +13,15 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.github.apixandru.games.rummikub.model.Constants.NUM_COLS;
+import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
+
 /**
  * @author Alexandru-Constantin Bledea
  * @since Sep 21, 2015
  */
 public final class Board {
 
-    private static final int NUM_ROWS = 7;
-    private static final int NUM_COLS = 20;
 
     private final Card[][] cardsOnBoard = new Card[NUM_ROWS][NUM_COLS];
 
