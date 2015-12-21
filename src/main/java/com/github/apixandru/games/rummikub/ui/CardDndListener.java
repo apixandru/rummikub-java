@@ -109,6 +109,14 @@ final class CardDndListener extends MouseAdapter {
         this.draggablePiece = null;
     }
 
+    private BoardUi getBoard(final Container container) {
+        Component component = container;
+        while (component != null && !(component instanceof BoardUi)) {
+            component = component.getParent();
+        }
+        return (BoardUi) component;
+    }
+
     /**
      * @param event
      * @return
