@@ -12,6 +12,7 @@ public final class Card {
     private final int id;
     private final Color color;
     private final Rank rank;
+    private CardState cardState;
 
     /**
      * @param id
@@ -51,4 +52,19 @@ public final class Card {
     public int getId() {
         return id;
     }
+
+    /**
+     * @return
+     */
+    public CardState getCardState() {
+        return cardState;
+    }
+
+    /**
+     * @param cardState
+     */
+    public void setCardState(final CardState cardState) {
+        this.cardState = cardState;
+    }
+
 }
