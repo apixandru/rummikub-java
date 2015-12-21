@@ -19,7 +19,7 @@ public final class CardUi extends JPanel {
     private static final Dimension dimension = new Dimension(60, 96);
 
     private final Color color;
-    private final Card card;
+    final Card card;
     private static final int RADIUS = 20;
 
     /**

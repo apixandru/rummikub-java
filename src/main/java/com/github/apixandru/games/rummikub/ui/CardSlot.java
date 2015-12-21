@@ -10,7 +10,7 @@ import java.awt.*;
  */
 public final class CardSlot extends JPanel {
 
-    private final int x, y;
+    final int x, y;
 
     /**
      * @param x
