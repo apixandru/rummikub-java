@@ -103,23 +103,27 @@ final class CardDndListener extends MouseAdapter {
         }
         this.dragSource.endDrag(this.draggablePiece);
 
-        final Container destination = getComponentOrInitialLocation(e);
-        final BoardUi board = getBoard(destination);
-        if (null != board) {
-            board.placeCard(this.draggablePiece, (CardSlot) destination);
-        } else {
-            destination.add(this.draggablePiece);
-            destination.validate();
+        final Container destComponent = getComponentOrInitialLocation(e);
+        JGridPanel destination = find(destComponent, BoardUi.class);
+        if (null == destination) {
+            destination = find(destComponent, PlayerUi.class);
         }
+        destination.placeCard(this.draggablePiece, (CardSlot) destComponent);
         this.draggablePiece = null;
     }
 
-    private BoardUi getBoard(final Container container) {
+    /**
+     * @param container
+     * @param clasz
+     * @param <T>
+     * @return
+     */
+    private <T extends JGridPanel> T find(final Container container, Class<T> clasz) {
         Component component = container;
-        while (component != null && !(component instanceof BoardUi)) {
+        while (component != null && !clasz.isInstance(component)) {
             component = component.getParent();
         }
-        return (BoardUi) component;
+        return (T) component;
     }
 
     /**
