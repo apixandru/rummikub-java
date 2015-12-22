@@ -104,8 +104,13 @@ final class CardDndListener extends MouseAdapter {
         this.dragSource.endDrag(this.draggablePiece);
 
         final Container destination = getComponentOrInitialLocation(e);
-        destination.add(this.draggablePiece);
-        destination.validate();
+        final BoardUi board = getBoard(destination);
+        if (null != board) {
+            board.placeCard(this.draggablePiece, (CardSlot) destination);
+        } else {
+            destination.add(this.draggablePiece);
+            destination.validate();
+        }
         this.draggablePiece = null;
     }
 
