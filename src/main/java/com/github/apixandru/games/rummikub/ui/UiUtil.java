@@ -3,6 +3,10 @@
  */
 package com.github.apixandru.games.rummikub.ui;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -11,8 +15,9 @@ import java.awt.*;
  */
 public final class UiUtil {
 
-    public static final Font CARD_FONT = new Font(null, Font.BOLD, 32);
+    private static final Logger log = LoggerFactory.getLogger(UiUtil.class);
 
+    public static final Font CARD_FONT = new Font(null, Font.BOLD, 32);
 
     /**
      * @param component
@@ -55,6 +60,18 @@ public final class UiUtil {
             default:
                 throw new IllegalArgumentException(String.valueOf(color));
         }
+    }
+
+    /**
+     * @param card
+     * @param slot
+     */
+    public static void placeCard(final CardUi card, final CardSlot slot) {
+        log.debug("Place card request for " + card.card.getId() + " on (" + slot.x + ", " + slot.y + ")");
+        SwingUtilities.invokeLater(() -> {
+            slot.add(card);
+            slot.validate();
+        });
     }
 
 }

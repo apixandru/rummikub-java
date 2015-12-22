@@ -4,8 +4,6 @@ import com.github.apixandru.games.rummikub.model.Board;
 import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.listeners.BoardListener;
 
-import java.awt.*;
-
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
 
 /**
@@ -45,9 +43,7 @@ public class BoardUi extends JGridPanel {
 
         @Override
         public void onCardPlacedOnTable(final Card card, final int x, final int y) {
-            final CardSlot destination = slots[y][x];
-            destination.add(new CardUi(card));
-            destination.validate();
+            UiUtil.placeCard(new CardUi(card), slots[y][x]);
         }
     }
 
