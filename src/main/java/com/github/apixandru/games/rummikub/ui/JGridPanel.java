@@ -18,16 +18,16 @@ public class JGridPanel extends JPanel {
 
     /**
      * @param rows
-     * @param y
+     * @param offset
      */
-    JGridPanel(final int rows, final int y) {
-        slots = new CardSlot[COLS][rows];
+    JGridPanel(final int rows, final int offset) {
+        slots = new CardSlot[rows][COLS];
         setLayout(new GridLayout(rows, COLS));
-        setBounds(0, y == 0 ? 0 : y * TILE_HEIGHT + 60, COLS * TILE_WIDTH, rows * TILE_HEIGHT);
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < COLS; j++) {
-                final CardSlot slot = new CardSlot(i, j);
-                slots[j][i] = slot;
+        setBounds(0, offset == 0 ? 0 : offset * TILE_HEIGHT + 60, COLS * TILE_WIDTH, rows * TILE_HEIGHT);
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < COLS; x++) {
+                final CardSlot slot = new CardSlot(x, y);
+                slots[y][x] = slot;
                 add(slot);
             }
         }
