@@ -3,7 +3,7 @@
  */
 package com.github.apixandru.games.rummikub.model;
 
-import com.github.apixandru.games.rummikub.model.listeners.BoardListener;
+import com.github.apixandru.games.rummikub.model.listeners.CardLocationListener;
 import com.github.apixandru.games.rummikub.model.util.Util;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public final class Board {
 
     private final Card[][] cardsOnBoard = new Card[NUM_ROWS][NUM_COLS];
 
-    private final List<BoardListener> listeners = new ArrayList<>();
+    private final List<CardLocationListener> listeners = new ArrayList<>();
 
     /**
      * @param card
@@ -36,7 +36,7 @@ public final class Board {
     public boolean placeCard(Card card, int x, int y) {
         if (inBounds(x, y) && isFree(x, y)) {
             cardsOnBoard[y][x] = card;
-            informListeners(lstnr -> lstnr.onCardPlacedOnTable(card, x, y));
+            informListeners(lstnr -> lstnr.onCardPlaced(card, x, y));
             return true;
         }
         return false;
@@ -83,7 +83,7 @@ public final class Board {
     /**
      * @param signal
      */
-    private void informListeners(final Consumer<BoardListener> signal) {
+    private void informListeners(final Consumer<CardLocationListener> signal) {
         listeners.stream().forEach(signal);
     }
 
@@ -99,7 +99,7 @@ public final class Board {
     /**
      * @param listener
      */
-    public void addListener(final BoardListener listener) {
+    public void addListener(final CardLocationListener listener) {
         this.listeners.add(listener);
     }
 

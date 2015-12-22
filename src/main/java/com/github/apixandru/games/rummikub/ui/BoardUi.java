@@ -2,7 +2,7 @@ package com.github.apixandru.games.rummikub.ui;
 
 import com.github.apixandru.games.rummikub.model.Board;
 import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.listeners.BoardListener;
+import com.github.apixandru.games.rummikub.model.listeners.CardLocationListener;
 
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
 
@@ -39,10 +39,10 @@ public class BoardUi extends JGridPanel {
     /**
      *
      */
-    private class BoardUiListener implements BoardListener {
+    private class BoardUiListener implements CardLocationListener {
 
         @Override
-        public void onCardPlacedOnTable(final Card card, final int x, final int y) {
+        public void onCardPlaced(final Card card, final int x, final int y) {
             UiUtil.placeCard(new CardUi(card), slots[y][x]);
         }
     }
