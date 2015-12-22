@@ -12,14 +12,11 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
  */
 public class BoardUi extends JGridPanel {
 
-    private final Board board;
-
     /**
      * @param board
      */
     private BoardUi(final Board board) {
-        super(NUM_ROWS, 0);
-        this.board = board;
+        super(board, NUM_ROWS, 0);
     }
 
     /**
@@ -30,10 +27,6 @@ public class BoardUi extends JGridPanel {
         final BoardUi boardUi = new BoardUi(board);
         board.addListener(boardUi.new BoardUiListener());
         return boardUi;
-    }
-
-    void placeCard(final CardUi card, final CardSlot destination) {
-        board.placeCard(card.card, destination.x, destination.y);
     }
 
     /**

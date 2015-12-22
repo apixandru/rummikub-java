@@ -13,14 +13,14 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
  * @author Alexandru-Constantin Bledea
  * @since December 22, 2015
  */
-abstract class Grid {
+public abstract class Grid {
 
     private final List<CardLocationListener> listeners = new ArrayList<>();
 
-    final Card[][] cardsOnBoard;
+    final Card[][] cards;
 
     Grid(final int rows, final int cols) {
-        this.cardsOnBoard = new Card[rows][cols];
+        this.cards = new Card[rows][cols];
     }
 
 
@@ -32,7 +32,7 @@ abstract class Grid {
      */
     public boolean placeCard(Card card, int x, int y) {
         if (inBounds(x, y) && isFree(x, y)) {
-            cardsOnBoard[y][x] = card;
+            cards[y][x] = card;
             informListeners(lstnr -> lstnr.onCardPlaced(card, x, y));
             return true;
         }
@@ -46,10 +46,10 @@ abstract class Grid {
      * @return
      */
     public boolean removeCard(final Card card, int x, int y) {
-        if (null == card || !inBounds(x, y) || cardsOnBoard[y][x] != card) {
+        if (null == card || !inBounds(x, y) || cards[y][x] != card) {
             return false;
         }
-        cardsOnBoard[y][x] = null;
+        cards[y][x] = null;
         return true;
     }
 
@@ -75,7 +75,7 @@ abstract class Grid {
      * @return
      */
     public boolean isFree(int x, int y) {
-        return null == cardsOnBoard[y][x];
+        return null == cards[y][x];
     }
 
     /**

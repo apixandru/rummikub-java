@@ -35,7 +35,7 @@ public final class Board extends Grid {
     }
 
     private Stream<CardGroup> streamGroups() {
-        return Arrays.stream(cardsOnBoard)
+        return Arrays.stream(cards)
                 .map(Util::splitNonEmptyGroups)
                 .flatMap(List::stream)
                 .map(CardGroup::new);

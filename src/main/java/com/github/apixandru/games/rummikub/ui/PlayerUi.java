@@ -10,7 +10,7 @@ public class PlayerUi extends JGridPanel {
      *
      */
     PlayerUi() {
-        super(3, 7);
+        super(null, 3, 7);
     }
 
 }
