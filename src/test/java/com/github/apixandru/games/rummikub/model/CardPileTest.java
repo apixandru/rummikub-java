@@ -23,7 +23,7 @@ public class CardPileTest {
     @Test
     public void testNumberOfCards() throws Exception {
         final CardPile cardPile = new CardPile();
-        assertSame("Numbers of cards don't match", 54, cardPile.getNumberOfCards());
+        assertSame("Numbers of cards don't match", 106, cardPile.getNumberOfCards());
     }
 
     /**
