@@ -2,6 +2,7 @@ package com.github.apixandru.games.rummikub.ui;
 
 import com.github.apixandru.games.rummikub.model.Board;
 import com.github.apixandru.games.rummikub.model.CardPile;
+import com.github.apixandru.games.rummikub.model.Player;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,11 +16,6 @@ import static java.lang.Math.max;
 /**
  * @author Alexandru-Constantin Bledea
  * @since Oct 15, 2015
- *
- * TODO
- *      compute ui dimensions dynamically
- *      recompute dimensions on resize
- *      center ui
  */
 public final class Main {
 
@@ -34,7 +30,7 @@ public final class Main {
         final JFrame frame = new JFrame();
 
         final BoardUi board = BoardUi.createBoardUi(new Board());
-        final PlayerUi player = new PlayerUi();
+        final PlayerUi player = PlayerUi.createPlayerUi(new Player());
         final CardPile pile = new CardPile();
         final JPanel comp = createMiddlePanel(pile, player);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
