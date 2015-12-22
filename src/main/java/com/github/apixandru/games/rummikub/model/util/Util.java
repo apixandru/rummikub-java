@@ -3,6 +3,7 @@ package com.github.apixandru.games.rummikub.model.util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -11,6 +12,12 @@ import java.util.List;
 public final class Util {
 
     private Util() {
+    }
+
+    private static Predicate notNull = o -> null != o;
+
+    public static <T> Predicate<T> notNull() {
+        return notNull;
     }
 
     /**

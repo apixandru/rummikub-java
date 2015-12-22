@@ -6,6 +6,9 @@ package com.github.apixandru.games.rummikub.model;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Function;
+
+import static com.github.apixandru.games.rummikub.model.util.Util.notNull;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -42,42 +45,29 @@ public final class Cards {
      * @return
      */
     static boolean isSameRanks(final Collection<Card> cards) {
-        final Rank rank = getFirstRank(cards);
-        for (final Card card : cards) {
-            final Rank cardRank = card.getRank();
-            if (null != cardRank && rank != cardRank) {
-                return false;
-            }
-        }
-        return true;
+        return haveSameProperties(cards, Card::getRank);
     }
 
     /**
      * @return
      */
     static boolean isAllSameColor(final Collection<Card> cards) {
-        final Color color = getFirstColor(cards);
-        for (final Card card : cards) {
-            final Color cardColor = card.getColor();
-            if (null != cardColor && color != cardColor) {
-                return false;
-            }
-        }
-        return true;
+        return haveSameProperties(cards, Card::getColor);
     }
 
     /**
      * @param cards
+     * @param function
      * @return
      */
-    private static Color getFirstColor(final Collection<Card> cards) {
-        for (final Card card : cards) {
-            final Color color = card.getColor();
-            if (null != color) {
-                return color;
-            }
-        }
-        return null;
+    static boolean haveSameProperties(final Collection<Card> cards, final Function<Card, ?> function) {
+//        if all were the same property then it would return 1, if there were only jokers it would return 0
+        return cards
+                .stream()
+                .map(function)
+                .filter(notNull())
+                .distinct()
+                .count() < 2;
     }
 
     /**
@@ -117,20 +107,6 @@ public final class Cards {
      */
     private static boolean isValidRankInRun(final Rank rank, final int cardNumberInRun) {
         return rank.ordinal() >= cardNumberInRun;
-    }
-
-    /**
-     * @param cards
-     * @return
-     */
-    private static Rank getFirstRank(final Collection<Card> cards) {
-        for (final Card card : cards) {
-            final Rank rank = card.getRank();
-            if (null != rank) {
-                return rank;
-            }
-        }
-        return null;
     }
 
     /**
