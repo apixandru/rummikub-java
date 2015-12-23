@@ -21,7 +21,7 @@ final class CardDndListener extends MouseAdapter {
     private CardSlot draggablePieceParent;
     private CardUi draggablePiece;
 
-    private Container dropTarget;
+    private CardSlot dropTarget;
     private Color dropTargetOriginalColor;
 
 
@@ -82,7 +82,7 @@ final class CardDndListener extends MouseAdapter {
      * @param event
      */
     private void updateDropIndicator(final MouseEvent event) {
-        final Container component = getComponentOrInitialLocation(event);
+        final CardSlot component = getComponentOrInitialLocation(event);
 
         if (this.dropTarget != component) {
             UiUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
@@ -103,8 +103,8 @@ final class CardDndListener extends MouseAdapter {
         }
         this.dragSource.endDrag(this.draggablePiece);
 
-        final Container destComponent = getComponentOrInitialLocation(e);
-        getGrid(destComponent).placeCard(this.draggablePiece, (CardSlot) destComponent);
+        final CardSlot destComponent = getComponentOrInitialLocation(e);
+        getGrid(destComponent).placeCard(this.draggablePiece, destComponent);
         this.draggablePiece = null;
     }
 
@@ -124,12 +124,12 @@ final class CardDndListener extends MouseAdapter {
      * @param event
      * @return
      */
-    private Container getComponentOrInitialLocation(final MouseEvent event) {
+    private CardSlot getComponentOrInitialLocation(final MouseEvent event) {
         final JComponent component = getComponentAt(event);
         if (null == component || !canDrop(component)) {
             return this.draggablePieceParent;
         }
-        return component;
+        return (CardSlot) component;
     }
 
     /**
