@@ -6,9 +6,8 @@ package com.github.apixandru.games.rummikub.model;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
-
-import static com.github.apixandru.games.rummikub.model.util.Util.notNull;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -65,7 +64,7 @@ public final class Cards {
         return cards
                 .stream()
                 .map(function)
-                .filter(notNull())
+                .filter(Objects::nonNull)
                 .distinct()
                 .count() < 2;
     }
