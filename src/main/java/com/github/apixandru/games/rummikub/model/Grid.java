@@ -31,7 +31,11 @@ public abstract class Grid {
      * @return
      */
     public boolean placeCard(Card card, int x, int y) {
-        if (inBounds(x, y) && isFree(x, y)) {
+        if (!inBounds(x, y)) {
+            return false;
+        }
+        // TODO maybe something more IntelliJ-ent
+        if (isFree(x, y) || card == cards[y][x]) {
             cards[y][x] = card;
             informListeners(lstnr -> lstnr.onCardPlaced(card, x, y));
             return true;
