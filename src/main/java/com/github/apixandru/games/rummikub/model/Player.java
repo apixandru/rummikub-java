@@ -8,8 +8,11 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_COLS;
  */
 public class Player extends Grid {
 
-    public Player() {
-        super(3, NUM_COLS);
+    /**
+     * @param game
+     */
+    Player(final RummikubGame game) {
+        super(game, 3, NUM_COLS);
     }
 
 }

@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_COLS;
@@ -19,11 +20,13 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
 public abstract class Grid {
 
     private final List<CardLocationListener> listeners = new ArrayList<>();
+    private final RummikubGame game;
 
     final Card[][] cards;
 
-    Grid(final int rows, final int cols) {
+    Grid(final RummikubGame game, final int rows, final int cols) {
         this.cards = new Card[rows][cols];
+        this.game = game;
     }
 
     /**
@@ -38,6 +41,7 @@ public abstract class Grid {
         }
         // TODO maybe something more IntelliJ-ent
         if (isFree(x, y) || card == cards[y][x]) {
+            game.removeCard(card);
             cards[y][x] = card;
             informListeners(lstnr -> lstnr.onCardPlaced(card, x, y));
             return true;
@@ -47,16 +51,18 @@ public abstract class Grid {
 
     /**
      * @param card
-     * @param x
-     * @param y
      * @return
      */
-    public boolean removeCard(final Card card, int x, int y) {
-        if (null == card || !inBounds(x, y) || cards[y][x] != card) {
-            return false;
+    public boolean removeCard(final Card card) {
+        for (int y = 0; y < cards.length; y++) {
+            for (int x = 0; x < cards[y].length; x++) {
+                if (card == cards[y][x]) {
+                    cards[y][x] = null;
+                    return true;
+                }
+            }
         }
-        cards[y][x] = null;
-        return true;
+        return false;
     }
 
     /**

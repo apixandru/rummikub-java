@@ -3,6 +3,7 @@ package com.github.apixandru.games.rummikub.ui;
 import com.github.apixandru.games.rummikub.model.Board;
 import com.github.apixandru.games.rummikub.model.CardPile;
 import com.github.apixandru.games.rummikub.model.Player;
+import com.github.apixandru.games.rummikub.model.RummikubGame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -28,9 +29,9 @@ public final class Main {
      */
     public static void main(final String[] args) {
         final JFrame frame = new JFrame();
-
-        final BoardUi board = BoardUi.createBoardUi(new Board());
-        final PlayerUi player = PlayerUi.createPlayerUi(new Player());
+        final RummikubGame rummikubGame = new RummikubGame();
+        final BoardUi board = BoardUi.createBoardUi(rummikubGame.getBoard());
+        final PlayerUi player = PlayerUi.createPlayerUi(rummikubGame.addPlayer());
         final CardPile pile = new CardPile();
         final JPanel comp = createMiddlePanel(pile, player);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);

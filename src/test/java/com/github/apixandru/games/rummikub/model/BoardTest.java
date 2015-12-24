@@ -16,7 +16,7 @@ public final class BoardTest {
 
     @Test
     public void testValidFormation() {
-        final Board board = new Board();
+        final Board board = new Board(null);
         board.placeCard(card(Color.BLACK, Rank.ONE), 0, 1);
         board.placeCard(card(Color.RED, Rank.ONE), 1, 1);
         board.placeCard(card(Color.BLUE, Rank.ONE), 2, 1);
@@ -26,7 +26,7 @@ public final class BoardTest {
 
     @Test
     public void testInvalidFormation() {
-        final Board board = new Board();
+        final Board board = new Board(null);
         board.placeCard(card(Color.BLACK, Rank.ONE), 0, 6);
         board.placeCard(card(Color.RED, Rank.ONE), 18, 6);
         board.placeCard(card(Color.BLUE, Rank.ONE), 19, 6);
@@ -36,7 +36,7 @@ public final class BoardTest {
 
     @Test
     public void testCantPlaceCard() {
-        final Board board = new Board();
+        final Board board = new Board(null);
         assertFalse("Should not be able to place card out of bounds", board.placeCard(joker, 0, 7));
     }
 
