@@ -23,14 +23,13 @@ class PlayerImpl implements Player {
     }
 
     @Override
-    public boolean placeCardOnBoard(final Card card, final int x, final int y) {
-        return this.listener.placeCardOnBoard(this, card, x, y);
+    public void placeCardOnBoard(final Card card, final int x, final int y) {
+        this.listener.placeCardOnBoard(this, card, x, y);
     }
 
     @Override
-    public boolean moveCardOnBoard(final Card card, final int fromX, final int fromY, final int toX, final int toY) {
+    public void moveCardOnBoard(final Card card, final int fromX, final int fromY, final int toX, final int toY) {
         this.listener.moveCardOnBoard(this, card, fromX, fromY, toX, toY);
-        return false;
     }
 
     @Override

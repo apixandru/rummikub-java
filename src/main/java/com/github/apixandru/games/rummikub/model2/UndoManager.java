@@ -36,7 +36,7 @@ final class UndoManager {
         void undo(PlayerImpl player, BoardImpl board);
     }
 
-    private class UndoPlayerToBoard implements UndoAction {
+    static class UndoPlayerToBoard implements UndoAction {
 
         private final int x, y;
 
@@ -53,7 +53,7 @@ final class UndoManager {
 
     }
 
-    private class UndoBoardToPlayer implements UndoAction {
+    static class UndoBoardToPlayer implements UndoAction {
         private final int x, y;
         private final Card card;
 
@@ -70,7 +70,7 @@ final class UndoManager {
 
     }
 
-    private class UndoBoardToBoard implements UndoAction {
+    static class UndoBoardToBoard implements UndoAction {
 
         private final int fromX, fromY, toX, toY;
 

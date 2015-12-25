@@ -20,7 +20,7 @@ public interface PlayerListener {
      * @param y
      * @return
      */
-    boolean placeCardOnBoard(Player player, Card card, int x, int y);
+    void placeCardOnBoard(Player player, Card card, int x, int y);
 
     /**
      * @param player

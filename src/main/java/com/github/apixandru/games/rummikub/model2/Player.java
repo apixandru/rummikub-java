@@ -14,7 +14,7 @@ public interface Player {
      * @param y
      * @return
      */
-    boolean placeCardOnBoard(Card card, int x, int y);
+    void placeCardOnBoard(Card card, int x, int y);
 
     /**
      * @param card
@@ -24,7 +24,7 @@ public interface Player {
      * @param toY
      * @return
      */
-    boolean moveCardOnBoard(Card card, int fromX, int fromY, int toX, int toY);
+    void moveCardOnBoard(Card card, int fromX, int fromY, int toX, int toY);
 
     /**
      *
