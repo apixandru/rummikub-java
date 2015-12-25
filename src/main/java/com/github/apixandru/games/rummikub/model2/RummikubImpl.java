@@ -71,7 +71,6 @@ class RummikubImpl implements Rummikub {
         return player;
     }
 
-    @Override
     public boolean placeCardOnBoard(Player player, Card card, int x, int y) {
         if (this.currentPlayer != player) {
             // only current player can place cards on board
@@ -80,7 +79,6 @@ class RummikubImpl implements Rummikub {
         return this.board.placeCard(card, x, y);
     }
 
-    @Override
     public Card requestCard(final Player player) {
         if (this.currentPlayer != player) {
             // only current player can request cards
@@ -99,6 +97,14 @@ class RummikubImpl implements Rummikub {
             if (currentPlayer == player) {
                 endTurn();
             }
+        }
+
+        @Override
+        public boolean placeCardOnBoard(final Player player, final Card card, final int x, final int y) {
+            if (currentPlayer != player) {
+                return false;
+            }
+            return board.placeCard(card, x, y);
         }
 
     }

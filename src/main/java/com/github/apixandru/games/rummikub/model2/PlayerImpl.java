@@ -19,12 +19,12 @@ class PlayerImpl implements Player {
 
     @Override
     public boolean placeCardOnBoard(final Card card, final int x, final int y) {
-        return false;
+        return this.listener.placeCardOnBoard(this, card, x, y);
     }
 
     @Override
     public void endTurn() {
-        listener.requestEndTurn(this);
+        this.listener.requestEndTurn(this);
     }
 
     public void receiveCard(final Card card) {

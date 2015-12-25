@@ -17,6 +17,15 @@ public final class RummikubTest2 {
         final Player second = game.addPlayer("Johnny");
 
         assertSame(first, game.currentPlayer());
+
+        second.endTurn();
+        assertSame(first, game.currentPlayer());
+
+        first.endTurn();
+        assertSame(second, game.currentPlayer());
+
+        second.endTurn();
+        assertSame(first, game.currentPlayer());
     }
 
     @Test

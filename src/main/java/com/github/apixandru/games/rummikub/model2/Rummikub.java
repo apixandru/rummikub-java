@@ -19,19 +19,4 @@ public interface Rummikub {
      */
     Player addPlayer(String name);
 
-    /**
-     * @param player
-     * @param card
-     * @param x
-     * @param y
-     * @return
-     */
-    boolean placeCardOnBoard(Player player, Card card, int x, int y);
-
-    /**
-     * @param player
-     * @return
-     */
-    Card requestCard(Player player);
-
 }
