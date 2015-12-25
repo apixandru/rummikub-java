@@ -13,7 +13,7 @@ public final class RummikubTest2 {
 
     @Test
     public void testGame() {
-        final Rummikub game = new RummikubImpl();
+        final RummikubImpl game = new RummikubImpl();
         final Player first = game.addPlayer("John");
         final Player second = game.addPlayer("Johnny");
 

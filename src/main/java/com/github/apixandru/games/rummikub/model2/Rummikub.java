@@ -7,11 +7,6 @@ package com.github.apixandru.games.rummikub.model2;
 public interface Rummikub {
 
     /**
-     * @return
-     */
-    Player currentPlayer();
-
-    /**
      * @param name
      * @return
      */

@@ -18,12 +18,4 @@ public interface Board {
      */
     boolean isValid();
 
-    /**
-     * @param card
-     * @param x
-     * @param y
-     * @return
-     */
-    boolean placeCard(Card card, int x, int y);
-
 }

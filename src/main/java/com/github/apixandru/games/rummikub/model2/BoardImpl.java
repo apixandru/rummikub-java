@@ -30,9 +30,4 @@ class BoardImpl extends Grid implements Board {
         return false;
     }
 
-    @Override
-    public boolean placeCard(final Card card, final int x, final int y) {
-        return false;
-    }
-
 }

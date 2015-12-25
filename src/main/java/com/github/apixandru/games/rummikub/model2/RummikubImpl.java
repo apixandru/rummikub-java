@@ -67,8 +67,7 @@ class RummikubImpl implements Rummikub {
         this.board.lockPieces();
     }
 
-    @Override
-    public Player currentPlayer() {
+    Player currentPlayer() {
         return currentPlayer;
     }
 
