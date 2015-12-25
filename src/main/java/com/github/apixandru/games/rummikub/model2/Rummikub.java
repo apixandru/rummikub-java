@@ -9,11 +9,6 @@ import com.github.apixandru.games.rummikub.model.Card;
 public interface Rummikub {
 
     /**
-     *
-     */
-    void endTurn();
-
-    /**
      * @return
      */
     Player currentPlayer();
@@ -32,5 +27,11 @@ public interface Rummikub {
      * @return
      */
     boolean placeCardOnBoard(Player player, Card card, int x, int y);
+
+    /**
+     * @param player
+     * @return
+     */
+    Card requestCard(Player player);
 
 }

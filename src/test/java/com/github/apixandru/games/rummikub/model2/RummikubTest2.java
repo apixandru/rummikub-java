@@ -12,9 +12,19 @@ public final class RummikubTest2 {
 
     @Test
     public void testGame() {
-        Rummikub game = new RummikubImpl();
-        Player first = game.addPlayer("John");
-        Player second = game.addPlayer("Johnny");
+        final Rummikub game = new RummikubImpl();
+        final Player first = game.addPlayer("John");
+        final Player second = game.addPlayer("Johnny");
+
         assertSame(first, game.currentPlayer());
     }
+
+    @Test
+    public void testPlaceCardOnBoard() {
+        final Rummikub game = new RummikubImpl();
+        final Player first = game.addPlayer("John");
+        final Player second = game.addPlayer("Johnny");
+
+    }
+
 }

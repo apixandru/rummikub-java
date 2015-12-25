@@ -8,6 +8,17 @@ import com.github.apixandru.games.rummikub.model.Card;
  */
 public interface Player {
 
+    /**
+     * @param card
+     * @param x
+     * @param y
+     * @return
+     */
     boolean placeCardOnBoard(Card card, int x, int y);
+
+    /**
+     *
+     */
+    void endTurn();
 
 }

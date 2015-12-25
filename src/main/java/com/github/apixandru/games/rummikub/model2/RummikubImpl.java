@@ -1,6 +1,7 @@
 package com.github.apixandru.games.rummikub.model2;
 
 import com.github.apixandru.games.rummikub.model.Card;
+import com.github.apixandru.games.rummikub.model.CardPile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +14,14 @@ class RummikubImpl implements Rummikub {
 
     private final Board board = new BoardImpl();
 
-    private final List<Player> players = new ArrayList<>();
-    private Player currentPlayer;
+    private final List<PlayerImpl> players = new ArrayList<>();
+    private PlayerImpl currentPlayer;
 
+    private final CardPile cardPile = new CardPile();
 
-    @Override
-    public void endTurn() {
+    private final PlayerListener listener = new PlayerListenerImpl();
+
+    private void endTurn() {
         if (this.board.isValid()) {
             commit();
         } else {
@@ -60,7 +63,7 @@ class RummikubImpl implements Rummikub {
 
     @Override
     public Player addPlayer(final String name) {
-        final PlayerImpl player = new PlayerImpl();
+        final PlayerImpl player = new PlayerImpl(listener);
         this.players.add(player);
         if (null == this.currentPlayer) {
             this.currentPlayer = player;
@@ -74,7 +77,30 @@ class RummikubImpl implements Rummikub {
             // only current player can place cards on board
             return false;
         }
-        return board.placeCard(card, x, y);
+        return this.board.placeCard(card, x, y);
+    }
+
+    @Override
+    public Card requestCard(final Player player) {
+        if (this.currentPlayer != player) {
+            // only current player can request cards
+            return null;
+        }
+        return this.cardPile.nextCard();
+    }
+
+    /**
+     *
+     */
+    private class PlayerListenerImpl implements PlayerListener {
+
+        @Override
+        public void requestEndTurn(final Player player) {
+            if (currentPlayer == player) {
+                endTurn();
+            }
+        }
+
     }
 
 }
