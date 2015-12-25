@@ -35,7 +35,7 @@ class RummikubImpl implements Rummikub {
      *
      */
     private void giveCard() {
-       this.currentPlayer.receiveCard(this.cardPile.nextCard());
+        this.currentPlayer.receiveCard(this.cardPile.nextCard());
     }
 
     /**

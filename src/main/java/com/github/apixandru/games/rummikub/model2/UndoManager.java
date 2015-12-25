@@ -1,12 +1,36 @@
 package com.github.apixandru.games.rummikub.model2;
 
 import com.github.apixandru.games.rummikub.model.Card;
+import com.github.apixandru.games.rummikub.model.util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-public class UndoManager {
+final class UndoManager {
+
+    private final List<UndoAction> undoActions = new ArrayList<>();
+
+    /**
+     * @param action
+     */
+    void addAction(UndoAction action) {
+        this.undoActions.add(action);
+    }
+
+    /**
+     * @param player
+     * @param board
+     */
+    void undo(PlayerImpl player, BoardImpl board) {
+        for (UndoAction undoAction : Util.revertedCopy(undoActions)) {
+            undoAction.undo(player, board);
+        }
+        this.undoActions.clear();
+    }
 
     interface UndoAction {
         void undo(PlayerImpl player, BoardImpl board);
@@ -61,5 +85,7 @@ public class UndoManager {
         public void undo(final PlayerImpl player, final BoardImpl board) {
             board.moveCard(toX, toY, fromX, fromY);
         }
+
     }
+
 }

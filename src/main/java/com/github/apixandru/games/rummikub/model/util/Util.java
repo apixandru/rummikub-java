@@ -2,6 +2,7 @@ package com.github.apixandru.games.rummikub.model.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,6 +37,20 @@ public final class Util {
             result.add(elementList);
         }
         return result;
+    }
+
+    /**
+     * @param list
+     * @param <E>
+     * @return
+     */
+    public static <E> List<E> revertedCopy(List<E> list) {
+        if (null == list) {
+            return Collections.emptyList();
+        }
+        final ArrayList<E> copy = new ArrayList<>(list);
+        Collections.reverse(copy);
+        return Collections.unmodifiableList(copy);
     }
 
 }
