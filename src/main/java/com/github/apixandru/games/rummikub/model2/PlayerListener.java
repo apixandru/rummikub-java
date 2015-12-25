@@ -22,4 +22,14 @@ public interface PlayerListener {
      */
     boolean placeCardOnBoard(Player player, Card card, int x, int y);
 
+    /**
+     * @param player
+     * @param card
+     * @param fromX
+     * @param fromY
+     * @param toX
+     * @param toY
+     */
+    void moveCardOnBoard(Player player, Card card, int fromX, int fromY, int toX, int toY);
+
 }

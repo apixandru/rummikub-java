@@ -17,6 +17,16 @@ public interface Player {
     boolean placeCardOnBoard(Card card, int x, int y);
 
     /**
+     * @param card
+     * @param fromX
+     * @param fromY
+     * @param toX
+     * @param toY
+     * @return
+     */
+    boolean moveCardOnBoard(Card card, int fromX, int fromY, int toX, int toY);
+
+    /**
      *
      */
     void endTurn();

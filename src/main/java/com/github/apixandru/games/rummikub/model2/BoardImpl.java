@@ -13,9 +13,11 @@ class BoardImpl extends Grid implements Board {
 
     /**
      *
+     * @param undoManager
      */
-    BoardImpl() {
-        super(NUM_ROWS, NUM_COLS);
+    BoardImpl(final UndoManager undoManager) {
+        super(undoManager, NUM_ROWS, NUM_COLS);
+
     }
 
     @Override

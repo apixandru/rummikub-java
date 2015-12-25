@@ -11,13 +11,17 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
  */
 abstract class Grid {
 
+    private final UndoManager undoManager;
+
     final Card[][] cards;
 
     /**
+     * @param undoManager
      * @param rows
      * @param cols
      */
-    Grid(final int rows, final int cols) {
+    Grid(final UndoManager undoManager, final int rows, final int cols) {
+        this.undoManager = undoManager;
         this.cards = new Card[rows][cols];
     }
 
@@ -71,7 +75,7 @@ abstract class Grid {
      * @param toX
      * @param toY
      */
-    public void moveCard(final int fromX, final int fromY, final int toX, final int toY) {
+    void moveCard(final int fromX, final int fromY, final int toX, final int toY) {
         final Card card = removeCard(fromX, fromY);
         placeCard(card, toX, toY);
     }

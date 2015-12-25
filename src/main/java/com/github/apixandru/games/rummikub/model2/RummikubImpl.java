@@ -12,7 +12,9 @@ import java.util.List;
  */
 class RummikubImpl implements Rummikub {
 
-    private final Board board = new BoardImpl();
+    private final UndoManager undoManager = new UndoManager();
+
+    private final BoardImpl board = new BoardImpl(undoManager);
 
     private final List<PlayerImpl> players = new ArrayList<>();
     private PlayerImpl currentPlayer;
@@ -107,6 +109,12 @@ class RummikubImpl implements Rummikub {
             return board.placeCard(card, x, y);
         }
 
+        @Override
+        public void moveCardOnBoard(final Player player, final Card card, final int fromX, final int fromY, final int toX, final int toY) {
+            if (currentPlayer == player) {
+                board.moveCard(fromX, toX, fromY, toY);
+            }
+        }
     }
 
 }

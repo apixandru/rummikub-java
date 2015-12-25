@@ -28,6 +28,12 @@ class PlayerImpl implements Player {
     }
 
     @Override
+    public boolean moveCardOnBoard(final Card card, final int fromX, final int fromY, final int toX, final int toY) {
+        this.listener.moveCardOnBoard(this, card, fromX, fromY, toX, toY);
+        return false;
+    }
+
+    @Override
     public void endTurn() {
         this.listener.requestEndTurn(this);
     }
