@@ -54,4 +54,26 @@ abstract class Grid {
         return false;
     }
 
+    /**
+     * @param x
+     * @param y
+     * @return
+     */
+    Card removeCard(final int x, final int y) {
+        final Card card = cards[y][x];
+        cards[y][x] = null;
+        return card;
+    }
+
+    /**
+     * @param fromX
+     * @param fromY
+     * @param toX
+     * @param toY
+     */
+    public void moveCard(final int fromX, final int fromY, final int toX, final int toY) {
+        final Card card = removeCard(fromX, fromY);
+        placeCard(card, toX, toY);
+    }
+
 }
