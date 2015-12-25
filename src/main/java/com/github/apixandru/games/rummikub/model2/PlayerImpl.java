@@ -2,6 +2,9 @@ package com.github.apixandru.games.rummikub.model2;
 
 import com.github.apixandru.games.rummikub.model.Card;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
@@ -9,6 +12,8 @@ import com.github.apixandru.games.rummikub.model.Card;
 class PlayerImpl implements Player {
 
     private final PlayerListener listener;
+
+    final List<Card> cards = new ArrayList<>();
 
     /**
      * @param listener
@@ -27,8 +32,11 @@ class PlayerImpl implements Player {
         this.listener.requestEndTurn(this);
     }
 
+    /**
+     * @param card
+     */
     public void receiveCard(final Card card) {
-
+        this.cards.add(card);
     }
 
 }

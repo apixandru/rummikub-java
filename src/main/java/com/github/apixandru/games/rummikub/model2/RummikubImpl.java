@@ -27,7 +27,15 @@ class RummikubImpl implements Rummikub {
         } else {
             rollback();
         }
+        giveCard();
         setNextPlayer();
+    }
+
+    /**
+     *
+     */
+    private void giveCard() {
+       this.currentPlayer.receiveCard(this.cardPile.nextCard());
     }
 
     /**
@@ -77,14 +85,6 @@ class RummikubImpl implements Rummikub {
             return false;
         }
         return this.board.placeCard(card, x, y);
-    }
-
-    public Card requestCard(final Player player) {
-        if (this.currentPlayer != player) {
-            // only current player can request cards
-            return null;
-        }
-        return this.cardPile.nextCard();
     }
 
     /**
