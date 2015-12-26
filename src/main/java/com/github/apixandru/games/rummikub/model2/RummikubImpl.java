@@ -16,7 +16,7 @@ class RummikubImpl implements Rummikub {
 
     private final UndoManager undoManager = new UndoManager();
 
-    private final BoardImpl board = new BoardImpl(undoManager);
+    final BoardImpl board = new BoardImpl(undoManager);
 
     private final List<PlayerImpl> players = new ArrayList<>();
 

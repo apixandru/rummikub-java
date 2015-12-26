@@ -3,15 +3,19 @@ package com.github.apixandru.games.rummikub.model2;
 import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.Color;
 import com.github.apixandru.games.rummikub.model.Rank;
+import com.github.apixandru.games.rummikub.model.util.Util;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 
 /**
@@ -59,6 +63,17 @@ public final class RummikubTest2 {
         final List<Card> cardsBeforeEndTurn = new ArrayList<>(player.cards);
         player.endTurn();
         assertEquals(cardsBeforeEndTurn, player.cards);
+    }
+
+
+    @Test
+    public void testAllowTakeCardFromBoard() {
+        final RummikubImpl rummikub = new RummikubImpl();
+        final PlayerImpl player = (PlayerImpl) rummikub.addPlayer("Player");
+        final Card card = player.cards.get(0);
+        final Card[][] cards = Util.copyOf(rummikub.board.cards);
+        player.placeCardOnBoard(card, 0, 0);
+        assertFalse(Arrays.deepEquals(rummikub.board.cards, cards));
     }
 
     /**
