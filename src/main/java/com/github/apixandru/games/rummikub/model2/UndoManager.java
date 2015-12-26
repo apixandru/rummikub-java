@@ -29,7 +29,7 @@ final class UndoManager {
      * @param board
      */
     void undo(PlayerImpl player, BoardImpl board) {
-        for (UndoAction undoAction : Util.revertedCopy(undoActions)) {
+        for (UndoAction undoAction : Util.revertedCopy(this.undoActions)) {
             undoAction.undo(player, board);
         }
         reset(board);
@@ -41,13 +41,6 @@ final class UndoManager {
      */
     public boolean hasChanged(final BoardImpl board) {
         return !Arrays.deepEquals(board.cards, cardsOnBoard);
-    }
-
-    /**
-     * @return
-     */
-    public boolean hasUndoActions() {
-        return !this.undoActions.isEmpty();
     }
 
     /**

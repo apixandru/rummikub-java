@@ -26,9 +26,13 @@ class RummikubImpl implements Rummikub {
 
     private PlayerImpl currentPlayer;
 
+    {
+        this.undoManager.reset(board);
+    }
+
     private void endTurn() {
         boolean giveCard = true;
-        if (undoManager.hasChanged(board)) {
+        if (this.undoManager.hasChanged(this.board)) {
             if (this.board.isValid()) {
                 commit();
                 giveCard = false;
@@ -39,7 +43,7 @@ class RummikubImpl implements Rummikub {
         if (giveCard) {
             giveCard();
         }
-        undoManager.reset(board);
+        this.undoManager.reset(this.board);
         setNextPlayer();
     }
 

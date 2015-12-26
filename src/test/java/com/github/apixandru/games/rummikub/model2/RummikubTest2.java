@@ -6,7 +6,6 @@ import com.github.apixandru.games.rummikub.model.Rank;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -53,20 +52,27 @@ public final class RummikubTest2 {
     public void testCommitBoard() {
         final RummikubImpl rummikub = new RummikubImpl();
         final PlayerImpl player = (PlayerImpl) rummikub.addPlayer("Player");
-        List<Card> group;
-        while (true) {
-            group = getGroup(player.cards);
-            if (null != group) {
-                break;
-            }
-            player.endTurn();
-        }
+        final List<Card> group = endTurnUntilValidGroup(player);
         for (int i = 0; i < group.size(); i++) {
             player.placeCardOnBoard(group.get(i), i, 0);
         }
         final List<Card> cardsBeforeEndTurn = new ArrayList<>(player.cards);
         player.endTurn();
         assertEquals(cardsBeforeEndTurn, player.cards);
+    }
+
+    /**
+     * @param player
+     * @return
+     */
+    private List<Card> endTurnUntilValidGroup(final PlayerImpl player) {
+        while (true) {
+            final List<Card> group = getGroup(player.cards);
+            if (null != group) {
+                return group;
+            }
+            player.endTurn();
+        }
     }
 
     /**

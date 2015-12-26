@@ -15,7 +15,7 @@ public final class CardGroup {
 
     private final List<Card> cards;
 
-    CardGroup(final List<Card> cards) {
+    public CardGroup(final List<Card> cards) {
         this.cards = Collections.unmodifiableList(new ArrayList<>(cards));
     }
 
