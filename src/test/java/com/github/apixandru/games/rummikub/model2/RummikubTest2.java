@@ -1,18 +1,11 @@
 package com.github.apixandru.games.rummikub.model2;
 
 import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.Color;
-import com.github.apixandru.games.rummikub.model.Rank;
 import com.github.apixandru.games.rummikub.model.util.Util;
-import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -26,43 +19,43 @@ public final class RummikubTest2 {
 
     @Test
     public void testGame() {
-        final RummikubImpl game = new RummikubImpl();
+        final Rummikub game = new RummikubImpl();
         final Player first = game.addPlayer("John");
         final Player second = game.addPlayer("Johnny");
 
-        assertSame(first, game.currentPlayer());
+        assertSame(first, ImplementationDetails.currentPlayer(game));
 
         second.endTurn();
-        assertSame(first, game.currentPlayer());
+        assertSame(first, ImplementationDetails.currentPlayer(game));
 
         first.endTurn();
-        assertSame(second, game.currentPlayer());
+        assertSame(second, ImplementationDetails.currentPlayer(game));
 
         second.endTurn();
-        assertSame(first, game.currentPlayer());
+        assertSame(first, ImplementationDetails.currentPlayer(game));
     }
 
     @Test
     public void testPlaceCardOnBoard() {
         final Rummikub game = new RummikubImpl();
-        final PlayerImpl player = (PlayerImpl) game.addPlayer("John");
+        final Player player = game.addPlayer("John");
 
-        final int numberOfCardsBeforeEndTurn = player.cards.size();
+        final int numberOfCardsBeforeEndTurn = ImplementationDetails.countCards(player);
         player.endTurn();
-        assertEquals(numberOfCardsBeforeEndTurn + 1, player.cards.size());
+        assertEquals(numberOfCardsBeforeEndTurn + 1, ImplementationDetails.countCards(player));
     }
 
     @Test
     public void testCommitBoard() {
-        final RummikubImpl rummikub = new RummikubImpl();
-        final PlayerImpl player = (PlayerImpl) rummikub.addPlayer("Player");
-        final List<Card> group = endTurnUntilValidGroup(player);
+        final Rummikub rummikub = new RummikubImpl();
+        final Player player = rummikub.addPlayer("Player");
+        final List<Card> group = ImplementationDetails.endTurnUntilValidGroup(player);
         for (int i = 0; i < group.size(); i++) {
             player.placeCardOnBoard(group.get(i), i, 0);
         }
-        final List<Card> cardsBeforeEndTurn = new ArrayList<>(player.cards);
+        final List<Card> cardsBeforeEndTurn = ImplementationDetails.cloneCards(player);
         player.endTurn();
-        assertEquals(cardsBeforeEndTurn, player.cards);
+        assertEquals(cardsBeforeEndTurn, ImplementationDetails.getCards(player));
     }
 
 
@@ -74,44 +67,6 @@ public final class RummikubTest2 {
         final Card[][] cards = Util.copyOf(rummikub.board.cards);
         player.placeCardOnBoard(card, 0, 0);
         assertFalse(Arrays.deepEquals(rummikub.board.cards, cards));
-    }
-
-    /**
-     * @param player
-     * @return
-     */
-    private List<Card> endTurnUntilValidGroup(final PlayerImpl player) {
-        while (true) {
-            final List<Card> group = getGroup(player.cards);
-            if (null != group) {
-                return group;
-            }
-            player.endTurn();
-        }
-    }
-
-    /**
-     * @param cards
-     * @return
-     */
-    private static List<Card> getGroup(final Collection<Card> cards) {
-        final Map<Rank, Map<Color, Card>> cardsByRank = new HashMap<>();
-        for (final Card card : cards) {
-            final Rank rank = card.getRank();
-            Map<Color, Card> cardsForRank = cardsByRank.get(rank);
-            if (null == cardsForRank) {
-                cardsForRank = new HashMap<>();
-                cardsByRank.put(rank, cardsForRank);
-            }
-            cardsForRank.put(card.getColor(), card);
-        }
-        for (Map<Color, Card> entry : cardsByRank.values()) {
-            final Collection<Card> values = entry.values();
-            if (values.size() > 2) {
-                return new ArrayList<>(values);
-            }
-        }
-        return null;
     }
 
 }

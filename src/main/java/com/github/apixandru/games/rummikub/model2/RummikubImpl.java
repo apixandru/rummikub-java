@@ -24,7 +24,7 @@ class RummikubImpl implements Rummikub {
 
     private final PlayerListener listener = new PlayerListenerImpl();
 
-    private PlayerImpl currentPlayer;
+    PlayerImpl currentPlayer;
 
     {
         this.undoManager.reset(board);
@@ -78,10 +78,6 @@ class RummikubImpl implements Rummikub {
      */
     private void commit() {
         this.board.lockPieces();
-    }
-
-    Player currentPlayer() {
-        return currentPlayer;
     }
 
     @Override
