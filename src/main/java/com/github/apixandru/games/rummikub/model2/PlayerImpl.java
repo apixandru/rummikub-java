@@ -3,6 +3,7 @@ package com.github.apixandru.games.rummikub.model2;
 import com.github.apixandru.games.rummikub.model.Card;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -17,9 +18,11 @@ class PlayerImpl implements Player {
 
     /**
      * @param listener
+     * @param cards
      */
-    PlayerImpl(final PlayerListener listener) {
+    PlayerImpl(final PlayerListener listener, final Collection<Card> cards) {
         this.listener = listener;
+        this.cards.addAll(cards);
     }
 
     @Override

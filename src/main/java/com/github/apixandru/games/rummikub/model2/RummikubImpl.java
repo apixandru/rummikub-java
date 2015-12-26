@@ -5,6 +5,7 @@ import com.github.apixandru.games.rummikub.model.CardPile;
 import com.github.apixandru.games.rummikub.model2.UndoManager.UndoPlayerToBoard;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -81,12 +82,24 @@ class RummikubImpl implements Rummikub {
 
     @Override
     public Player addPlayer(final String name) {
-        final PlayerImpl player = new PlayerImpl(listener);
+        final PlayerImpl player = new PlayerImpl(listener, getCards(14));
         this.players.add(player);
         if (null == this.currentPlayer) {
             this.currentPlayer = player;
         }
         return player;
+    }
+
+    /**
+     * @param num
+     * @return
+     */
+    private Collection<Card> getCards(final int num) {
+        final List<Card> cards = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            cards.add(cardPile.nextCard());
+        }
+        return cards;
     }
 
     public boolean placeCardOnBoard(Player player, Card card, int x, int y) {
