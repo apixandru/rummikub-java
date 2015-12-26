@@ -1,7 +1,11 @@
-package com.github.apixandru.games.rummikub.model2;
+package com.github.apixandru.games.rummikub;
 
 import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.util.Util;
+import com.github.apixandru.games.rummikub.model2.ImplementationDetails;
+import com.github.apixandru.games.rummikub.model2.Player;
+import com.github.apixandru.games.rummikub.model2.Rummikub;
+import com.github.apixandru.games.rummikub.model2.RummikubFactory;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -19,7 +23,7 @@ public final class RummikubTest2 {
 
     @Test
     public void testGame() {
-        final Rummikub game = new RummikubImpl();
+        final Rummikub game = RummikubFactory.newInstance();
         final Player first = game.addPlayer("John");
         final Player second = game.addPlayer("Johnny");
 
@@ -37,7 +41,7 @@ public final class RummikubTest2 {
 
     @Test
     public void testPlaceCardOnBoard() {
-        final Rummikub game = new RummikubImpl();
+        final Rummikub game = RummikubFactory.newInstance();
         final Player player = game.addPlayer("John");
 
         final int numberOfCardsBeforeEndTurn = ImplementationDetails.countCards(player);
@@ -47,7 +51,7 @@ public final class RummikubTest2 {
 
     @Test
     public void testCommitBoard() {
-        final Rummikub rummikub = new RummikubImpl();
+        final Rummikub rummikub = RummikubFactory.newInstance();
         final Player player = rummikub.addPlayer("Player");
         final List<Card> group = ImplementationDetails.endTurnUntilValidGroup(player);
         for (int i = 0; i < group.size(); i++) {
@@ -61,12 +65,12 @@ public final class RummikubTest2 {
 
     @Test
     public void testAllowTakeCardFromBoard() {
-        final RummikubImpl rummikub = new RummikubImpl();
-        final PlayerImpl player = (PlayerImpl) rummikub.addPlayer("Player");
-        final Card card = player.cards.get(0);
-        final Card[][] cards = Util.copyOf(rummikub.board.cards);
+        final Rummikub rummikub = RummikubFactory.newInstance();
+        final Player player = rummikub.addPlayer("Player");
+        final Card card = ImplementationDetails.getFirstCard(player);
+        final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
         player.placeCardOnBoard(card, 0, 0);
-        assertFalse(Arrays.deepEquals(rummikub.board.cards, cards));
+        assertFalse(Arrays.deepEquals(ImplementationDetails.cloneBoard(rummikub), cards));
     }
 
 }

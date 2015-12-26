@@ -3,6 +3,8 @@ package com.github.apixandru.games.rummikub.model2;
 import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.Color;
 import com.github.apixandru.games.rummikub.model.Rank;
+import com.github.apixandru.games.rummikub.model.RummikubGame;
+import com.github.apixandru.games.rummikub.model.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,7 +16,7 @@ import java.util.Map;
  * @author Alexandru-Constantin Bledea
  * @since December 26, 2015
  */
-final class ImplementationDetails {
+public final class ImplementationDetails {
 
     /**
      *
@@ -26,15 +28,23 @@ final class ImplementationDetails {
      * @param game
      * @return
      */
-    static Player currentPlayer(final Rummikub game) {
+    public static Player currentPlayer(final Rummikub game) {
         return ((RummikubImpl) game).currentPlayer;
+    }
+
+    /**
+     * @param game
+     * @return
+     */
+    public static Card[][] cloneBoard(final Rummikub game) {
+        return Util.copyOf(((RummikubImpl)game).board.cards);
     }
 
     /**
      * @param player
      * @return
      */
-    static List<Card> endTurnUntilValidGroup(final Player player) {
+    public static List<Card> endTurnUntilValidGroup(final Player player) {
         while (true) {
             final List<Card> group = getGroup(getCards(player));
             if (null != group) {
@@ -48,7 +58,7 @@ final class ImplementationDetails {
      * @param player
      * @return
      */
-    static List<Card> getCards(final Player player) {
+    public static List<Card> getCards(final Player player) {
         return ((PlayerImpl) player).cards;
     }
 
@@ -56,7 +66,15 @@ final class ImplementationDetails {
      * @param player
      * @return
      */
-    static List<Card> cloneCards(final Player player) {
+    public static Card getFirstCard(final Player player) {
+        return getCards(player).get(0);
+    }
+
+    /**
+     * @param player
+     * @return
+     */
+    public static List<Card> cloneCards(final Player player) {
         return new ArrayList<>(getCards(player));
     }
 
@@ -64,7 +82,7 @@ final class ImplementationDetails {
      * @param player
      * @return
      */
-    static int countCards(final Player player) {
+    public static int countCards(final Player player) {
         return getCards(player).size();
     }
 

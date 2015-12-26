@@ -12,7 +12,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-class RummikubImpl implements Rummikub {
+final class RummikubImpl implements Rummikub {
 
     private final UndoManager undoManager = new UndoManager();
 
