@@ -1,7 +1,5 @@
 package com.github.apixandru.games.rummikub.model2;
 
-import com.github.apixandru.games.rummikub.model.Card;
-
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_COLS;
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
 
@@ -12,7 +10,6 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
 class BoardImpl extends Grid implements Board {
 
     /**
-     *
      * @param undoManager
      */
     BoardImpl(final UndoManager undoManager) {

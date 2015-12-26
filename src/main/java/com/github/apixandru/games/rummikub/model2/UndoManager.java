@@ -4,6 +4,7 @@ import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.util.Util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,6 +14,8 @@ import java.util.List;
 final class UndoManager {
 
     private final List<UndoAction> undoActions = new ArrayList<>();
+
+    Card[][] cardsOnBoard;
 
     /**
      * @param action
@@ -29,6 +32,29 @@ final class UndoManager {
         for (UndoAction undoAction : Util.revertedCopy(undoActions)) {
             undoAction.undo(player, board);
         }
+        reset(board);
+    }
+
+    /**
+     * @param board
+     * @return
+     */
+    public boolean hasChanged(final BoardImpl board) {
+        return !Arrays.deepEquals(board.cards, cardsOnBoard);
+    }
+
+    /**
+     * @return
+     */
+    public boolean hasUndoActions() {
+        return !this.undoActions.isEmpty();
+    }
+
+    /**
+     * @param board
+     */
+    void reset(final BoardImpl board) {
+        this.cardsOnBoard = Util.copyOf(board.cards);
         this.undoActions.clear();
     }
 

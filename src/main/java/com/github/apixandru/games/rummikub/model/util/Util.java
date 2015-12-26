@@ -53,4 +53,17 @@ public final class Util {
         return Collections.unmodifiableList(copy);
     }
 
+    /**
+     * @param array
+     * @param <E>
+     * @return
+     */
+    public static <E> E[][] copyOf(final E[][] array) {
+        final E[][] es = Arrays.copyOf(array, array.length);
+        for (int i = 0; i < es.length; i++) {
+            es[i] = Arrays.copyOf(es[i], es[i].length);
+        }
+        return es;
+    }
+
 }

@@ -18,19 +18,27 @@ class RummikubImpl implements Rummikub {
     private final BoardImpl board = new BoardImpl(undoManager);
 
     private final List<PlayerImpl> players = new ArrayList<>();
-    private PlayerImpl currentPlayer;
 
     private final CardPile cardPile = new CardPile();
 
     private final PlayerListener listener = new PlayerListenerImpl();
 
+    private PlayerImpl currentPlayer;
+
     private void endTurn() {
-        if (this.board.isValid()) {
-            commit();
-        } else {
-            rollback();
+        boolean giveCard = true;
+        if (undoManager.hasChanged(board)) {
+            if (this.board.isValid()) {
+                commit();
+                giveCard = false;
+            } else {
+                rollback();
+            }
         }
-        giveCard();
+        if (giveCard) {
+            giveCard();
+        }
+        undoManager.reset(board);
         setNextPlayer();
     }
 
