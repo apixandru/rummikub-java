@@ -22,9 +22,4 @@ class BoardImpl extends Grid implements Board {
 
     }
 
-    @Override
-    public boolean isValid() {
-        return false;
-    }
-
 }

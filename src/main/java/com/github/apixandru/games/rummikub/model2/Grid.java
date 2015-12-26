@@ -1,6 +1,12 @@
 package com.github.apixandru.games.rummikub.model2;
 
 import com.github.apixandru.games.rummikub.model.Card;
+import com.github.apixandru.games.rummikub.model.CardGroup;
+import com.github.apixandru.games.rummikub.model.util.Util;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_COLS;
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
@@ -80,4 +86,20 @@ abstract class Grid {
         placeCard(card, toX, toY);
     }
 
+    /**
+     * @return
+     */
+    public boolean isValid() {
+        return streamGroups().allMatch(CardGroup::isValid);
+    }
+
+    /**
+     * @return
+     */
+    private Stream<CardGroup> streamGroups() {
+        return Arrays.stream(cards)
+                .map(Util::splitNonEmptyGroups)
+                .flatMap(List::stream)
+                .map(CardGroup::new);
+    }
 }
