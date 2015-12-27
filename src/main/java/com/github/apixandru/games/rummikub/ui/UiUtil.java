@@ -6,7 +6,6 @@ package com.github.apixandru.games.rummikub.ui;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -68,10 +67,8 @@ public final class UiUtil {
      */
     public static void placeCard(final CardUi card, final CardSlot slot) {
         log.debug("Place card request for " + card.card.getId() + " on (" + slot.x + ", " + slot.y + ")");
-        SwingUtilities.invokeLater(() -> {
-            slot.add(card);
-            slot.validate();
-        });
+        slot.add(card);
+        slot.validate();
     }
 
     /**
