@@ -30,20 +30,17 @@ public final class Main {
     public static void main(final String[] args) {
         final JFrame frame = new JFrame();
         final RummikubGame rummikubGame = new RummikubGame();
-        final BoardUi board = BoardUi.createBoardUi(rummikubGame.getBoard());
+        final BoardUi board = new BoardUi();
+
         final PlayerUi player = PlayerUi.createPlayerUi(rummikubGame.addPlayer());
-        final Rummikub rummikub = RummikubFactory.newInstance(new RummikubCallback() {
+        final Rummikub rummikub = RummikubFactory.newInstance(board);
+        final Player actualPlayer = rummikub.addPlayer("John", new RummikubCallback() {
             @Override
             public void cardReceived(final Card card) {
                 placeCardInHand(card, player);
             }
 
-            @Override
-            public void cardPlacedOnBoard(final Card card, final int x, final int y) {
-                board.placeCard(card, x, y);
-            }
         });
-        final Player actualPlayer = rummikub.addPlayer("John");
         final JPanel comp = createMiddlePanel(actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
 

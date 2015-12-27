@@ -23,7 +23,7 @@ public final class RummikubFactory {
      * @param callback
      * @return
      */
-    public static Rummikub newInstance(final RummikubCallback callback) {
+    public static Rummikub newInstance(final BoardCallback callback) {
         return new RummikubImpl(callback);
     }
 

@@ -21,13 +21,13 @@ final class Board {
     private final UndoManager undoManager;
 
     final Card[][] cards;
-    private final Optional<RummikubCallback> callback;
+    private final Optional<BoardCallback> callback;
 
     /**
      * @param undoManager
      * @param callback
      */
-    Board(final UndoManager undoManager, final RummikubCallback callback) {
+    Board(final UndoManager undoManager, final BoardCallback callback) {
         this.undoManager = undoManager;
         this.callback = Optional.ofNullable(callback);
         this.cards = new Card[NUM_ROWS][NUM_COLS];
