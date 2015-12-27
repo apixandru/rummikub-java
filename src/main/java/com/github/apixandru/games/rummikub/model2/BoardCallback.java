@@ -15,4 +15,11 @@ public interface BoardCallback {
      */
     void cardPlacedOnBoard(Card card, int x, int y);
 
+    /**
+     * @param card
+     * @param x
+     * @param y
+     */
+    void cardRemovedFromBoard(Card card, int x, int y);
+
 }

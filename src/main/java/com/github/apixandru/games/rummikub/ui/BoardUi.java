@@ -35,6 +35,13 @@ public class BoardUi extends JGridPanel implements BoardCallback {
         UiUtil.placeCard(new CardUi(card), slots[y][x]);
     }
 
+    @Override
+    public void cardRemovedFromBoard(final Card card, final int x, final int y) {
+        final CardSlot cardSlot = slots[y][x];
+        cardSlot.removeAll();
+        cardSlot.repaint();
+    }
+
     /**
      *
      */

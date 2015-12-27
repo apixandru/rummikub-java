@@ -57,7 +57,7 @@ final class Board {
     boolean placeCard(Card card, int x, int y) {
         if (inBounds(x, y) && isFree(x, y) || card == cards[y][x]) {
             cards[y][x] = card;
-            this.callback.ifPresent(rummikubCallback -> rummikubCallback.cardPlacedOnBoard(card, x, y));
+            this.callback.ifPresent(callback -> callback.cardPlacedOnBoard(card, x, y));
             return true;
         }
         return false;
@@ -70,6 +70,7 @@ final class Board {
      */
     Card removeCard(final int x, final int y) {
         final Card card = cards[y][x];
+        this.callback.ifPresent(callback -> callback.cardRemovedFromBoard(card, x, y));
         cards[y][x] = null;
         return card;
     }
