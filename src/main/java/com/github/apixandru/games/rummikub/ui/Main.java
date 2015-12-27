@@ -1,7 +1,6 @@
 package com.github.apixandru.games.rummikub.ui;
 
 import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.CardPile;
 import com.github.apixandru.games.rummikub.model.RummikubGame;
 import com.github.apixandru.games.rummikub.model2.Player;
 import com.github.apixandru.games.rummikub.model2.Rummikub;
@@ -48,7 +47,7 @@ public final class Main {
         layeredPane.add(player, JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(comp);
 
-        final CardDndListener listener = new CardDndListener(new ComponentDragSource(player, board));
+        final CardDndListener listener = new CardDndListener(new ComponentDragSource(player, board), actualPlayer);
         layeredPane.addMouseListener(listener);
         layeredPane.addMouseMotionListener(listener);
 

@@ -3,6 +3,8 @@
  */
 package com.github.apixandru.games.rummikub.ui;
 
+import com.github.apixandru.games.rummikub.model2.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -17,6 +19,7 @@ final class CardDndListener extends MouseAdapter {
     private final Color hoverColor = Color.PINK;
 
     private final DragSource dragSource;
+    private final Player player;
 
     private CardSlot draggablePieceParent;
     private CardUi draggablePiece;
@@ -32,8 +35,9 @@ final class CardDndListener extends MouseAdapter {
     /**
      * @param dragSource
      */
-    CardDndListener(final DragSource dragSource) {
+    CardDndListener(final DragSource dragSource, final Player player) {
         this.dragSource = dragSource;
+        this.player = player;
     }
 
     /* (non-Javadoc)
