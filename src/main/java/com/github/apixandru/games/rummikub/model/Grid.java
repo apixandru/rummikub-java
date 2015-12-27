@@ -9,13 +9,10 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
  */
 public abstract class Grid {
 
-    private final RummikubGame game;
-
     final Card[][] cards;
 
-    Grid(final RummikubGame game, final int rows, final int cols) {
+    Grid(final int rows, final int cols) {
         this.cards = new Card[rows][cols];
-        this.game = game;
     }
 
     /**
@@ -30,25 +27,8 @@ public abstract class Grid {
         }
         // TODO maybe something more IntelliJ-ent
         if (isFree(x, y) || card == cards[y][x]) {
-            game.removeCard(card);
             cards[y][x] = card;
             return true;
-        }
-        return false;
-    }
-
-    /**
-     * @param card
-     * @return
-     */
-    public boolean removeCard(final Card card) {
-        for (int y = 0; y < cards.length; y++) {
-            for (int x = 0; x < cards[y].length; x++) {
-                if (card == cards[y][x]) {
-                    cards[y][x] = null;
-                    return true;
-                }
-            }
         }
         return false;
     }

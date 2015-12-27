@@ -20,10 +20,10 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
 public final class Board extends Grid {
 
     /**
-     * @param game
+     *
      */
-    Board(final RummikubGame game) {
-        super(game, NUM_ROWS, NUM_COLS);
+    Board() {
+        super(NUM_ROWS, NUM_COLS);
     }
 
     public List<CardGroup> getGroups() {
