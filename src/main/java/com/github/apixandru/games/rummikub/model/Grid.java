@@ -1,11 +1,5 @@
 package com.github.apixandru.games.rummikub.model;
 
-import com.github.apixandru.games.rummikub.model.listeners.CardLocationListener;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_COLS;
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
 
@@ -15,7 +9,6 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
  */
 public abstract class Grid {
 
-    private final List<CardLocationListener> listeners = new ArrayList<>();
     private final RummikubGame game;
 
     final Card[][] cards;
@@ -39,7 +32,6 @@ public abstract class Grid {
         if (isFree(x, y) || card == cards[y][x]) {
             game.removeCard(card);
             cards[y][x] = card;
-            informListeners(lstnr -> lstnr.onCardPlaced(card, x, y));
             return true;
         }
         return false;
@@ -71,26 +63,12 @@ public abstract class Grid {
     }
 
     /**
-     * @param signal
-     */
-    private void informListeners(final Consumer<CardLocationListener> signal) {
-        listeners.stream().forEach(signal);
-    }
-
-    /**
      * @param x
      * @param y
      * @return
      */
     public boolean isFree(int x, int y) {
         return null == cards[y][x];
-    }
-
-    /**
-     * @param listener
-     */
-    public void addListener(final CardLocationListener listener) {
-        this.listeners.add(listener);
     }
 
 }

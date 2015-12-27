@@ -1,7 +1,6 @@
 package com.github.apixandru.games.rummikub.ui;
 
 import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.RummikubGame;
 import com.github.apixandru.games.rummikub.model2.Player;
 import com.github.apixandru.games.rummikub.model2.Rummikub;
 import com.github.apixandru.games.rummikub.model2.RummikubCallback;
