@@ -2,6 +2,7 @@ package com.github.apixandru.games.rummikub.model2;
 
 import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.CardPile;
+import com.github.apixandru.games.rummikub.model2.UndoManager.UndoBoardToPlayer;
 import com.github.apixandru.games.rummikub.model2.UndoManager.UndoPlayerToBoard;
 
 import java.util.ArrayList;
@@ -126,6 +127,15 @@ final class RummikubImpl implements Rummikub {
         public void placeCardOnBoard(final Player player, final Card card, final int x, final int y) {
             if (currentPlayer == player && board.placeCard(card, x, y)) {
                 undoManager.addAction(new UndoPlayerToBoard(x, y));
+            }
+        }
+
+        @Override
+        public void takeCardFromBoard(final Player player, final Card card, final int x, final int y) {
+            if (currentPlayer == player) {
+                final Card cardFromBoard = board.removeCard(x, y);
+                currentPlayer.receiveCard(cardFromBoard);
+                undoManager.addAction(new UndoBoardToPlayer(cardFromBoard, x, y));
             }
         }
 

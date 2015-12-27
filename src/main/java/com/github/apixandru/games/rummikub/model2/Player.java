@@ -27,6 +27,14 @@ public interface Player {
     void moveCardOnBoard(Card card, int fromX, int fromY, int toX, int toY);
 
     /**
+     * @param card
+     * @param x
+     * @param y
+     * @return
+     */
+    void takeCardFromBoard(Card card, int x, int y);
+
+    /**
      *
      */
     void endTurn();

@@ -25,6 +25,14 @@ public interface PlayerListener {
     /**
      * @param player
      * @param card
+     * @param x
+     * @param y
+     */
+    void takeCardFromBoard(Player player, Card card, int x, int y);
+
+    /**
+     * @param player
+     * @param card
      * @param fromX
      * @param fromY
      * @param toX

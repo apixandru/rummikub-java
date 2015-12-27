@@ -36,6 +36,11 @@ final class PlayerImpl implements Player {
     }
 
     @Override
+    public void takeCardFromBoard(final Card card, final int x, final int y) {
+        this.listener.takeCardFromBoard(this, card, x, y);
+    }
+
+    @Override
     public void endTurn() {
         this.listener.requestEndTurn(this);
     }
