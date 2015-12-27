@@ -22,17 +22,17 @@ public interface DragSource {
     /**
      * @param component
      */
-    void beginDrag(Component component);
+    void beginDrag(CardUi component);
 
     /**
      * @param component
      */
-    void endDrag(Component component);
+    void endDrag(CardUi component);
 
     /**
      * @param component
      * @return
      */
-    Point getPosition(Component component);
+    Point getPosition(CardUi component);
 
 }

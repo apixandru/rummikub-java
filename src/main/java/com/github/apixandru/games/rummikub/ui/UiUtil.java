@@ -74,4 +74,12 @@ public final class UiUtil {
         });
     }
 
+    /**
+     * @param slot
+     */
+    public static void removeCard(final CardSlot slot) {
+        slot.removeAll();
+        slot.repaint();
+    }
+
 }

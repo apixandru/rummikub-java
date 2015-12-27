@@ -38,7 +38,7 @@ final class ComponentDragSource implements DragSource {
     }
 
     @Override
-    public Point getPosition(final Component component) {
+    public Point getPosition(final CardUi component) {
         final Container pieceParent = component.getParent();
         final Point parentLocation = pieceParent.getLocation();
         final Point parentParentLocation = pieceParent.getParent().getLocation();
@@ -49,7 +49,7 @@ final class ComponentDragSource implements DragSource {
      * @see com.github.apixandru.games.rummikub.ui.DragSource#beginDrag(java.awt.Component)
      */
     @Override
-    public void beginDrag(final Component component) {
+    public void beginDrag(final CardUi component) {
         this.parent.add(component, JLayeredPane.DRAG_LAYER);
     }
 
@@ -57,7 +57,7 @@ final class ComponentDragSource implements DragSource {
      * @see com.github.apixandru.games.rummikub.ui.DragSource#endDrag(java.awt.Component)
      */
     @Override
-    public void endDrag(final Component component) {
+    public void endDrag(final CardUi component) {
         this.parent.remove(component);
         this.parent.repaint();
     }
