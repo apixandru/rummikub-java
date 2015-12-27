@@ -1,9 +1,12 @@
 package com.github.apixandru.games.rummikub.ui;
 
-import com.github.apixandru.games.rummikub.model.Board;
+import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.CardPile;
-import com.github.apixandru.games.rummikub.model.Player;
 import com.github.apixandru.games.rummikub.model.RummikubGame;
+import com.github.apixandru.games.rummikub.model2.Player;
+import com.github.apixandru.games.rummikub.model2.Rummikub;
+import com.github.apixandru.games.rummikub.model2.RummikubCallback;
+import com.github.apixandru.games.rummikub.model2.RummikubFactory;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -28,12 +31,19 @@ public final class Main {
      * @param args
      */
     public static void main(final String[] args) {
+        final Rummikub rummikub = RummikubFactory.newInstance();
         final JFrame frame = new JFrame();
         final RummikubGame rummikubGame = new RummikubGame();
         final BoardUi board = BoardUi.createBoardUi(rummikubGame.getBoard());
         final PlayerUi player = PlayerUi.createPlayerUi(rummikubGame.addPlayer());
+        final Player actualPlayer = rummikub.addPlayer("John", new RummikubCallback() {
+            @Override
+            public void cardReceived(final Card card) {
+                placeCardOnBoard(card, player);
+            }
+        });
         final CardPile pile = new CardPile();
-        final JPanel comp = createMiddlePanel(pile, player);
+        final JPanel comp = createMiddlePanel(pile, player, actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
 
         final JLayeredPane layeredPane = new JLayeredPane();
@@ -52,35 +62,45 @@ public final class Main {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+
     }
 
-    private static JPanel createMiddlePanel(final CardPile pile, final JPanel player) {
+    private static JPanel createMiddlePanel(final CardPile pile, final JPanel player, final Player actualPlayer) {
         final JPanel panel = new JPanel();
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         panel.add(Box.createHorizontalGlue());
         final JButton btnEndTurn = new JButton("End Turn");
+        btnEndTurn.addActionListener((e) -> actualPlayer.endTurn());
         final JButton btnTakeCard = new JButton("Take Card");
         btnTakeCard.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(final MouseEvent e) {
-                final Component[] components = player.getComponents();
-                for (final Component component : components) {
-                    final JPanel panel = (JPanel) component;
-                    if (0 == panel.getComponents().length) {
-                        SwingUtilities.invokeLater(() -> {
-                            panel.add(new CardUi(pile.nextCard()));
-                            player.validate();
-                        });
-                        return;
-                    }
-                }
+                placeCardOnBoard(pile.nextCard(), player);
             }
         });
         panel.add(btnEndTurn);
         panel.add(Box.createHorizontalStrut(10));
         panel.add(btnTakeCard);
         return panel;
+    }
+
+    /**
+     * @param card
+     * @param player
+     */
+    private static void placeCardOnBoard(final Card card, final JPanel player) {
+        for (final Component component : player.getComponents()) {
+            final JPanel panel = (JPanel) component;
+            if (0 == panel.getComponents().length) {
+                SwingUtilities.invokeLater(() -> {
+                    panel.add(new CardUi(card));
+                    player.validate();
+                });
+                return;
+            }
+        }
     }
 
     /**
