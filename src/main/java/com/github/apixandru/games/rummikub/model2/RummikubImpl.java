@@ -127,7 +127,7 @@ final class RummikubImpl implements Rummikub {
 
         @Override
         public void takeCardFromBoard(final Player player, final Card card, final int x, final int y) {
-            if (currentPlayer == player && !undoManager.wasOnBoard(card)) {
+            if (currentPlayer == player && canMoveCardOffBoard(card)) {
                 final Card cardFromBoard = board.removeCard(x, y);
                 currentPlayer.receiveCard(cardFromBoard);
                 undoManager.addAction(new UndoBoardToPlayer(cardFromBoard, x, y));
@@ -141,6 +141,12 @@ final class RummikubImpl implements Rummikub {
                 undoManager.addAction(new UndoBoardToBoard(fromX, fromY, toX, toY));
             }
         }
+
+        @Override
+        public boolean canMoveCardOffBoard(final Card card) {
+            return !undoManager.wasOnBoard(card);
+        }
+
     }
 
 }

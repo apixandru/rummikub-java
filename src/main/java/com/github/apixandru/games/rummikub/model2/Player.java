@@ -39,4 +39,10 @@ public interface Player {
      */
     void endTurn();
 
+    /**
+     * @param card
+     * @return
+     */
+    boolean canMoveCardOffBoard(Card card);
+
 }
