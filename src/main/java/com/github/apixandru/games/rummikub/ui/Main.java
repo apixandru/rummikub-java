@@ -11,8 +11,6 @@ import com.github.apixandru.games.rummikub.model2.RummikubFactory;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_COLS;
 import static java.lang.Math.max;
@@ -42,8 +40,7 @@ public final class Main {
                 placeCardOnBoard(card, player);
             }
         });
-        final CardPile pile = new CardPile();
-        final JPanel comp = createMiddlePanel(pile, player, actualPlayer);
+        final JPanel comp = createMiddlePanel(actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
 
         final JLayeredPane layeredPane = new JLayeredPane();
@@ -66,23 +63,18 @@ public final class Main {
 
     }
 
-    private static JPanel createMiddlePanel(final CardPile pile, final JPanel player, final Player actualPlayer) {
+    /**
+     * @param actualPlayer
+     * @return
+     */
+    private static JPanel createMiddlePanel(final Player actualPlayer) {
         final JPanel panel = new JPanel();
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         panel.add(Box.createHorizontalGlue());
         final JButton btnEndTurn = new JButton("End Turn");
         btnEndTurn.addActionListener((e) -> actualPlayer.endTurn());
-        final JButton btnTakeCard = new JButton("Take Card");
-        btnTakeCard.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(final MouseEvent e) {
-                placeCardOnBoard(pile.nextCard(), player);
-            }
-        });
         panel.add(btnEndTurn);
-        panel.add(Box.createHorizontalStrut(10));
-        panel.add(btnTakeCard);
         return panel;
     }
 
