@@ -3,7 +3,6 @@ package com.github.apixandru.games.rummikub.model2;
 import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.Color;
 import com.github.apixandru.games.rummikub.model.Rank;
-import com.github.apixandru.games.rummikub.model.RummikubGame;
 import com.github.apixandru.games.rummikub.model.util.Util;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public final class ImplementationDetails {
      * @return
      */
     public static Card[][] cloneBoard(final Rummikub game) {
-        return Util.copyOf(((RummikubImpl)game).board.cards);
+        return Util.copyOf(((RummikubImpl) game).board.cards);
     }
 
     /**
