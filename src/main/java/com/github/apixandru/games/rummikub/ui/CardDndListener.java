@@ -106,24 +106,20 @@ final class CardDndListener extends MouseAdapter {
             return;
         }
         this.dragSource.endDrag(this.draggablePiece);
-
-        final CardSlot destComponent = getComponentOrInitialLocation(e);
-        final boolean fromBoard = isBoard(this.draggablePieceParent);
-        final boolean toBoard = isBoard(destComponent);
-        if (!fromBoard && toBoard) {
-            this.player.placeCardOnBoard(this.draggablePiece.card, destComponent.x, destComponent.y);
-        } else {
-            getGrid(destComponent).placeCard(this.draggablePiece, destComponent);
-        }
+        transferTo(getComponentOrInitialLocation(e));
         this.draggablePiece = null;
     }
 
-    /**
-     * @param slot
-     * @return
-     */
-    private static boolean isBoard(final CardSlot slot) {
-        return slot.getParent() instanceof BoardUi;
+    private void transferTo(final CardSlot destComponent) {
+        switch (Transfer.of(this.draggablePieceParent, destComponent)) {
+            case PLAYER_TO_BOARD:
+                this.player.placeCardOnBoard(this.draggablePiece.card, destComponent.x, destComponent.y);
+                break;
+            case PLAYER_TO_PLAYER:
+            case BOARD_TO_PLAYER:
+            case BOARD_TO_BOARD:
+                getGrid(destComponent).placeCard(this.draggablePiece, destComponent);
+        }
     }
 
     /**
@@ -189,4 +185,24 @@ final class CardDndListener extends MouseAdapter {
         this.draggablePiece.setLocation(event.getX() + xOffset, event.getY() + yOffset);
     }
 
+    private enum Transfer {
+        BOARD_TO_PLAYER,
+        PLAYER_TO_PLAYER,
+        PLAYER_TO_BOARD,
+        BOARD_TO_BOARD;
+
+        static Transfer of(CardSlot from, CardSlot to) {
+            final boolean toBoard = to.getParent() instanceof BoardUi;
+            if (from.getParent() instanceof BoardUi) {
+                if (toBoard) {
+                    return BOARD_TO_BOARD;
+                }
+                return BOARD_TO_PLAYER;
+            }
+            if (toBoard) {
+                return PLAYER_TO_BOARD;
+            }
+            return PLAYER_TO_PLAYER;
+        }
+    }
 }

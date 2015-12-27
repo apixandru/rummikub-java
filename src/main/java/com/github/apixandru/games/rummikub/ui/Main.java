@@ -30,7 +30,7 @@ public final class Main {
     public static void main(final String[] args) {
         final JFrame frame = new JFrame();
         final RummikubGame rummikubGame = new RummikubGame();
-        final BoardUi board = new BoardUi();
+        final BoardUi board = BoardUi.createBoardUi(rummikubGame.getBoard());
 
         final PlayerUi player = PlayerUi.createPlayerUi(rummikubGame.addPlayer());
         final Rummikub rummikub = RummikubFactory.newInstance(board);
