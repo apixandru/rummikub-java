@@ -134,20 +134,8 @@ final class CardDndListener extends MouseAdapter {
                 this.player.moveCardOnBoard(this.draggablePiece.card, fromX, fromY, toX, toY);
                 break;
             case PLAYER_TO_PLAYER:
-                getGrid(destComponent).placeCard(this.draggablePiece, destComponent);
+                UiUtil.placeCard(this.draggablePiece, destComponent);
         }
-    }
-
-    /**
-     * @param container
-     * @return
-     */
-    private JGridPanel getGrid(final Container container) {
-        Component component = container;
-        while (component != null && !(component instanceof JGridPanel)) {
-            component = component.getParent();
-        }
-        return (JGridPanel) component;
     }
 
     /**

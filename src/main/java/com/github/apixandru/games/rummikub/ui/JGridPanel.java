@@ -1,7 +1,5 @@
 package com.github.apixandru.games.rummikub.ui;
 
-import com.github.apixandru.games.rummikub.model.Grid;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,15 +15,11 @@ public class JGridPanel extends JPanel {
     private static final int COLS = 20;
     final CardSlot[][] slots;
 
-    private final Grid grid;
-
     /**
-     * @param grid
      * @param rows
      * @param offset
      */
-    JGridPanel(final Grid grid, final int rows, final int offset) {
-        this.grid = grid;
+    JGridPanel(final int rows, final int offset) {
         slots = new CardSlot[rows][COLS];
         setLayout(new GridLayout(rows, COLS));
         setBounds(0, offset == 0 ? 0 : offset * TILE_HEIGHT + 60, COLS * TILE_WIDTH, rows * TILE_HEIGHT);
@@ -36,14 +30,6 @@ public class JGridPanel extends JPanel {
                 add(slot);
             }
         }
-    }
-
-    /**
-     * @param card
-     * @param destination
-     */
-    final void placeCard(final CardUi card, final CardSlot destination) {
-        grid.placeCard(card.card, destination.x, destination.y);
     }
 
 }

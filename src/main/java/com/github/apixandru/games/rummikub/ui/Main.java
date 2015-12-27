@@ -29,10 +29,9 @@ public final class Main {
      */
     public static void main(final String[] args) {
         final JFrame frame = new JFrame();
-        final RummikubGame rummikubGame = new RummikubGame();
         final BoardUi board = new BoardUi();
 
-        final PlayerUi player = PlayerUi.createPlayerUi(rummikubGame.addPlayer());
+        final PlayerUi player = new PlayerUi();
         final Rummikub rummikub = RummikubFactory.newInstance(board);
         final Player actualPlayer = rummikub.addPlayer("John", new RummikubCallback() {
             @Override

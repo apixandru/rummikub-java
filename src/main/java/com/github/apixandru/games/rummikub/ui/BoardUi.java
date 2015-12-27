@@ -14,7 +14,7 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
 public class BoardUi extends JGridPanel implements BoardCallback {
 
     BoardUi() {
-        super(null, NUM_ROWS, 0);
+        super(NUM_ROWS, 0);
     }
 
     @Override
