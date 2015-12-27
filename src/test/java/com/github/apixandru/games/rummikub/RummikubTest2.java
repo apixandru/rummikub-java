@@ -62,7 +62,6 @@ public final class RummikubTest2 {
         assertEquals(cardsBeforeEndTurn, ImplementationDetails.getCards(player));
     }
 
-
     @Test
     public void testPutCardOnBoard() {
         final Rummikub rummikub = RummikubFactory.newInstance();
@@ -81,6 +80,17 @@ public final class RummikubTest2 {
         final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
         player.placeCardOnBoard(card, 0, 0);
         player.endTurn();
+        assertTrue(Arrays.deepEquals(ImplementationDetails.cloneBoard(rummikub), cards));
+    }
+
+    @Test
+    public void testTakeCardFromBoard() {
+        final Rummikub rummikub = RummikubFactory.newInstance();
+        final Player player = rummikub.addPlayer("Player");
+        final Card card = ImplementationDetails.getFirstCard(player);
+        final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
+        player.placeCardOnBoard(card, 0, 0);
+        player.takeCardFromBoard(card, 0, 0);
         assertTrue(Arrays.deepEquals(ImplementationDetails.cloneBoard(rummikub), cards));
     }
 
