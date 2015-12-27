@@ -70,7 +70,7 @@ final class RummikubImpl implements Rummikub {
      *
      */
     private void rollback() {
-
+        undoManager.undo(currentPlayer, board);
     }
 
     /**
