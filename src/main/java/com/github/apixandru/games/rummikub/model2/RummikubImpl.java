@@ -120,6 +120,7 @@ final class RummikubImpl implements Rummikub {
         @Override
         public void placeCardOnBoard(final Player player, final Card card, final int x, final int y) {
             if (currentPlayer == player && board.placeCard(card, x, y)) {
+                currentPlayer.removeCard(card);
                 undoManager.addAction(new UndoPlayerToBoard(x, y));
             }
         }

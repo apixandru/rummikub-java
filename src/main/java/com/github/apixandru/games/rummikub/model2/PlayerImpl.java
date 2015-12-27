@@ -57,4 +57,11 @@ final class PlayerImpl implements Player {
         this.callback.ifPresent(callback -> callback.cardReceived(card));
     }
 
+    /**
+     * @param card
+     */
+    public void removeCard(final Card card) {
+        this.cards.remove(card);
+    }
+
 }
