@@ -9,18 +9,9 @@ import java.util.List;
  */
 public class RummikubGame {
 
-    private final Board board;
     private final List<Player> players = new ArrayList<>();
 
     private final List<Grid> grids = new ArrayList<>();
-
-    /**
-     *
-     */
-    public RummikubGame() {
-        this.board = new Board(this); // shouldn't leak this reference...
-        this.grids.add(board);
-    }
 
     /**
      * @return
@@ -30,13 +21,6 @@ public class RummikubGame {
         this.players.add(player);
         this.grids.add(player);
         return player;
-    }
-
-    /**
-     * @return
-     */
-    public Board getBoard() {
-        return board;
     }
 
     /**
