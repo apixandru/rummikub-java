@@ -5,6 +5,7 @@ import com.github.apixandru.games.rummikub.model.Card;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -13,16 +14,19 @@ import java.util.List;
 final class PlayerImpl implements Player {
 
     private final PlayerListener listener;
+    private final Optional<RummikubCallback> callback;
 
     final List<Card> cards = new ArrayList<>();
 
     /**
      * @param listener
      * @param cards
+     * @param callback
      */
-    PlayerImpl(final PlayerListener listener, final Collection<Card> cards) {
+    PlayerImpl(final PlayerListener listener, final Collection<Card> cards, final RummikubCallback callback) {
         this.listener = listener;
         this.cards.addAll(cards);
+        this.callback = Optional.ofNullable(callback);
     }
 
     @Override
@@ -50,6 +54,7 @@ final class PlayerImpl implements Player {
      */
     public void receiveCard(final Card card) {
         this.cards.add(card);
+        this.callback.ifPresent(callback -> callback.cardReceived(card));
     }
 
 }
