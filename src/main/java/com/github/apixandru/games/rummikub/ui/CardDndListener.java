@@ -89,12 +89,18 @@ final class CardDndListener extends MouseAdapter {
         final CardSlot component = getComponentOrInitialLocation(event);
 
         if (this.dropTarget != component) {
-            UiUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
+            resetBackground();
 
             this.dropTargetOriginalColor = UiUtil.getBackground(component);
             UiUtil.setBackground(component, this.hoverColor);
             this.dropTarget = component;
         }
+    }
+
+    /**
+     */
+    private void resetBackground() {
+        UiUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
     }
 
     /* (non-Javadoc)
@@ -107,6 +113,7 @@ final class CardDndListener extends MouseAdapter {
         }
         this.dragSource.endDrag(this.draggablePiece);
         transferTo(getComponentOrInitialLocation(e));
+        resetBackground();
         this.draggablePiece = null;
     }
 
