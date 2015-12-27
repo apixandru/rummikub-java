@@ -17,7 +17,7 @@ final class RummikubImpl implements Rummikub {
 
     private final UndoManager undoManager = new UndoManager();
 
-    final BoardImpl board = new BoardImpl(undoManager);
+    final Board board = new Board(undoManager);
 
     private final List<PlayerImpl> players = new ArrayList<>();
 
@@ -35,7 +35,6 @@ final class RummikubImpl implements Rummikub {
         boolean giveCard = true;
         if (this.undoManager.hasChanged(this.board)) {
             if (this.board.isValid()) {
-                commit();
                 giveCard = false;
             } else {
                 rollback();
@@ -74,13 +73,6 @@ final class RummikubImpl implements Rummikub {
         undoManager.undo(currentPlayer, board);
     }
 
-    /**
-     *
-     */
-    private void commit() {
-        this.board.lockPieces();
-    }
-
     @Override
     public Player addPlayer(final String name) {
         final PlayerImpl player = new PlayerImpl(listener, getCards(14));
@@ -101,14 +93,6 @@ final class RummikubImpl implements Rummikub {
             cards.add(cardPile.nextCard());
         }
         return cards;
-    }
-
-    public boolean placeCardOnBoard(Player player, Card card, int x, int y) {
-        if (this.currentPlayer != player) {
-            // only current player can place cards on board
-            return false;
-        }
-        return this.board.placeCard(card, x, y);
     }
 
     /**

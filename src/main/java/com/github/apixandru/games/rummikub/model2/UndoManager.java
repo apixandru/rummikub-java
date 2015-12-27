@@ -30,7 +30,7 @@ final class UndoManager {
      * @param player
      * @param board
      */
-    void undo(PlayerImpl player, BoardImpl board) {
+    void undo(PlayerImpl player, Board board) {
         for (UndoAction undoAction : Util.revertedCopy(this.undoActions)) {
             undoAction.undo(player, board);
         }
@@ -53,20 +53,20 @@ final class UndoManager {
      * @param board
      * @return
      */
-    public boolean hasChanged(final BoardImpl board) {
+    public boolean hasChanged(final Board board) {
         return !Arrays.deepEquals(board.cards, cardsOnBoard);
     }
 
     /**
      * @param board
      */
-    void reset(final BoardImpl board) {
+    void reset(final Board board) {
         this.cardsOnBoard = Util.copyOf(board.cards);
         this.undoActions.clear();
     }
 
     interface UndoAction {
-        void undo(PlayerImpl player, BoardImpl board);
+        void undo(PlayerImpl player, Board board);
     }
 
     static class UndoPlayerToBoard implements UndoAction {
@@ -79,7 +79,7 @@ final class UndoManager {
         }
 
         @Override
-        public void undo(final PlayerImpl player, final BoardImpl board) {
+        public void undo(final PlayerImpl player, final Board board) {
             Card card = board.removeCard(x, y);
             player.receiveCard(card);
         }
@@ -97,7 +97,7 @@ final class UndoManager {
         }
 
         @Override
-        public void undo(final PlayerImpl player, final BoardImpl board) {
+        public void undo(final PlayerImpl player, final Board board) {
             board.placeCard(card, x, y);
         }
 
@@ -115,7 +115,7 @@ final class UndoManager {
         }
 
         @Override
-        public void undo(final PlayerImpl player, final BoardImpl board) {
+        public void undo(final PlayerImpl player, final Board board) {
             board.moveCard(toX, toY, fromX, fromY);
         }
 
