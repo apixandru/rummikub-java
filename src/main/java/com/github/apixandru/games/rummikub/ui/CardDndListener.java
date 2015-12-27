@@ -111,13 +111,22 @@ final class CardDndListener extends MouseAdapter {
     }
 
     private void transferTo(final CardSlot destComponent) {
+        final int toX = destComponent.x;
+        final int toY = destComponent.y;
+        final int fromX = this.draggablePieceParent.x;
+        final int fromY = this.draggablePieceParent.y;
+
         switch (Transfer.of(this.draggablePieceParent, destComponent)) {
             case PLAYER_TO_BOARD:
-                this.player.placeCardOnBoard(this.draggablePiece.card, destComponent.x, destComponent.y);
+                this.player.placeCardOnBoard(this.draggablePiece.card, toX, toY);
+                break;
+            case BOARD_TO_PLAYER:
+                this.player.takeCardFromBoard(this.draggablePiece.card, fromX, fromY);
+                break;
+            case BOARD_TO_BOARD:
+                this.player.moveCardOnBoard(this.draggablePiece.card, fromX, fromY, toX, toY);
                 break;
             case PLAYER_TO_PLAYER:
-            case BOARD_TO_PLAYER:
-            case BOARD_TO_BOARD:
                 getGrid(destComponent).placeCard(this.draggablePiece, destComponent);
         }
     }

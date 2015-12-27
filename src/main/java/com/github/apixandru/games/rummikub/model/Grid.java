@@ -3,11 +3,8 @@ package com.github.apixandru.games.rummikub.model;
 import com.github.apixandru.games.rummikub.model.listeners.CardLocationListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_COLS;
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
