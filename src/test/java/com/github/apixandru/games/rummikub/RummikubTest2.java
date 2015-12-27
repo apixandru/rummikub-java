@@ -94,4 +94,19 @@ public final class RummikubTest2 {
         assertTrue(Arrays.deepEquals(ImplementationDetails.cloneBoard(rummikub), cards));
     }
 
+    @Test
+    public void testCannotTakeCardAfterEnd() {
+        final Rummikub rummikub = RummikubFactory.newInstance();
+        final Player player = rummikub.addPlayer("Player");
+        final List<Card> group = ImplementationDetails.endTurnUntilValidGroup(player);
+        for (int i = 0; i < group.size(); i++) {
+            player.placeCardOnBoard(group.get(i), i, 0);
+        }
+        player.endTurn();
+
+        final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
+        player.takeCardFromBoard(group.get(0), 0, 0);
+        assertTrue(Arrays.deepEquals(ImplementationDetails.cloneBoard(rummikub), cards));
+    }
+
 }

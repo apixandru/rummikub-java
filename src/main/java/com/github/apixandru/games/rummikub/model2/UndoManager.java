@@ -6,6 +6,8 @@ import com.github.apixandru.games.rummikub.model.util.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -33,6 +35,18 @@ final class UndoManager {
             undoAction.undo(player, board);
         }
         reset(board);
+    }
+
+    /**
+     * @param card
+     * @return
+     */
+    boolean wasOnBoard(final Card card) {
+        return Arrays.stream(this.cardsOnBoard)
+                .flatMap(Arrays::stream)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList())
+                .contains(card);
     }
 
     /**
