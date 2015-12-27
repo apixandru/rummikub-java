@@ -13,21 +13,8 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
  */
 public class BoardUi extends JGridPanel implements BoardCallback {
 
-    /**
-     * @param board
-     */
-    private BoardUi(final Board board) {
-        super(board, NUM_ROWS, 0);
-    }
-
-    /**
-     * @param board
-     * @return
-     */
-    static BoardUi createBoardUi(final Board board) {
-        final BoardUi boardUi = new BoardUi(board);
-        board.addListener(boardUi.new BoardUiListener());
-        return boardUi;
+    BoardUi() {
+        super(null, NUM_ROWS, 0);
     }
 
     @Override
@@ -38,17 +25,6 @@ public class BoardUi extends JGridPanel implements BoardCallback {
     @Override
     public void cardRemovedFromBoard(final Card card, final int x, final int y) {
         UiUtil.removeCard(slots[y][x]);
-    }
-
-    /**
-     *
-     */
-    private class BoardUiListener implements CardLocationListener {
-
-        @Override
-        public void onCardPlaced(final Card card, final int x, final int y) {
-            cardPlacedOnBoard(card, x, y);
-        }
     }
 
 }
