@@ -28,17 +28,17 @@ public final class Main {
      * @param args
      */
     public static void main(final String[] args) {
-        final Rummikub rummikub = RummikubFactory.newInstance();
         final JFrame frame = new JFrame();
         final RummikubGame rummikubGame = new RummikubGame();
         final BoardUi board = BoardUi.createBoardUi(rummikubGame.getBoard());
         final PlayerUi player = PlayerUi.createPlayerUi(rummikubGame.addPlayer());
-        final Player actualPlayer = rummikub.addPlayer("John", new RummikubCallback() {
+        final Rummikub rummikub = RummikubFactory.newInstance(new RummikubCallback() {
             @Override
             public void cardReceived(final Card card) {
                 placeCardOnBoard(card, player);
             }
         });
+        final Player actualPlayer = rummikub.addPlayer("John");
         final JPanel comp = createMiddlePanel(actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
 

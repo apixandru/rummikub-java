@@ -12,11 +12,4 @@ public interface Rummikub {
      */
     Player addPlayer(String name);
 
-    /**
-     * @param name
-     * @param callback
-     * @return
-     */
-    Player addPlayer(String name, RummikubCallback callback);
-
 }

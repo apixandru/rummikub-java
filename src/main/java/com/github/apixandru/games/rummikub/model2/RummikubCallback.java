@@ -13,4 +13,11 @@ public interface RummikubCallback {
      */
     void cardReceived(final Card card);
 
+    /**
+     * @param card
+     * @param x
+     * @param y
+     */
+    void cardPlacedOnBoard(Card card, int x, int y);
+
 }

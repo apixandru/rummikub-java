@@ -6,6 +6,7 @@ import com.github.apixandru.games.rummikub.model.util.Util;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_COLS;
@@ -20,12 +21,15 @@ final class Board {
     private final UndoManager undoManager;
 
     final Card[][] cards;
+    private final Optional<RummikubCallback> callback;
 
     /**
      * @param undoManager
+     * @param callback
      */
-    Board(final UndoManager undoManager) {
+    Board(final UndoManager undoManager, final RummikubCallback callback) {
         this.undoManager = undoManager;
+        this.callback = Optional.ofNullable(callback);
         this.cards = new Card[NUM_ROWS][NUM_COLS];
     }
 
@@ -57,6 +61,7 @@ final class Board {
     boolean placeCard(Card card, int x, int y) {
         if (inBounds(x, y) && isFree(x, y) || card == cards[y][x]) {
             cards[y][x] = card;
+            this.callback.ifPresent(rummikubCallback -> rummikubCallback.cardPlacedOnBoard(card, x, y));
             return true;
         }
         return false;

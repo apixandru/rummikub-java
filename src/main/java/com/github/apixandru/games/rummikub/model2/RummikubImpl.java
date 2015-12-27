@@ -17,7 +17,7 @@ final class RummikubImpl implements Rummikub {
 
     private final UndoManager undoManager = new UndoManager();
 
-    final Board board = new Board(undoManager);
+    final Board board;
 
     private final List<PlayerImpl> players = new ArrayList<>();
 
@@ -25,9 +25,16 @@ final class RummikubImpl implements Rummikub {
 
     private final PlayerListener listener = new PlayerListenerImpl();
 
+    private final RummikubCallback callback;
+
     PlayerImpl currentPlayer;
 
-    {
+    /**
+     * @param callback
+     */
+    RummikubImpl(final RummikubCallback callback) {
+        this.callback = callback;
+        this.board = new Board(this.undoManager, callback);
         this.undoManager.reset(board);
     }
 
@@ -75,11 +82,6 @@ final class RummikubImpl implements Rummikub {
 
     @Override
     public Player addPlayer(final String name) {
-        return addPlayer(name, null);
-    }
-
-    @Override
-    public Player addPlayer(final String name, final RummikubCallback callback) {
         final PlayerImpl player = new PlayerImpl(listener, getCards(14), callback);
         this.players.add(player);
         if (null == this.currentPlayer) {
