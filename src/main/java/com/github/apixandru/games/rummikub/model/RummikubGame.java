@@ -9,19 +9,7 @@ import java.util.List;
  */
 public class RummikubGame {
 
-    private final List<Player> players = new ArrayList<>();
-
     private final List<Grid> grids = new ArrayList<>();
-
-    /**
-     * @return
-     */
-    public Player addPlayer() {
-        Player player = new Player(this);
-        this.players.add(player);
-        this.grids.add(player);
-        return player;
-    }
 
     /**
      * @param card
