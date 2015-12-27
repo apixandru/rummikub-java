@@ -24,20 +24,16 @@ public class BoardUi extends JGridPanel {
      * @return
      */
     static BoardUi createBoardUi(final Board board) {
-        final BoardUi boardUi = new BoardUi(board);
-        board.addListener(boardUi.new BoardUiListener());
-        return boardUi;
+        return new BoardUi(board);
     }
 
     /**
-     *
+     * @param card
+     * @param x
+     * @param y
      */
-    private class BoardUiListener implements CardLocationListener {
-
-        @Override
-        public void onCardPlaced(final Card card, final int x, final int y) {
-            UiUtil.placeCard(new CardUi(card), slots[y][x]);
-        }
+    void placeCard(final Card card, final int x, final int y) {
+        UiUtil.placeCard(new CardUi(card), slots[y][x]);
     }
 
 }

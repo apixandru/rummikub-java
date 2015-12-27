@@ -108,8 +108,22 @@ final class CardDndListener extends MouseAdapter {
         this.dragSource.endDrag(this.draggablePiece);
 
         final CardSlot destComponent = getComponentOrInitialLocation(e);
-        getGrid(destComponent).placeCard(this.draggablePiece, destComponent);
+        final boolean fromBoard = isBoard(this.draggablePieceParent);
+        final boolean toBoard = isBoard(destComponent);
+        if (!fromBoard && toBoard) {
+            this.player.placeCardOnBoard(this.draggablePiece.card, destComponent.x, destComponent.y);
+        } else {
+            getGrid(destComponent).placeCard(this.draggablePiece, destComponent);
+        }
         this.draggablePiece = null;
+    }
+
+    /**
+     * @param slot
+     * @return
+     */
+    private static boolean isBoard(final CardSlot slot) {
+        return slot.getParent() instanceof BoardUi;
     }
 
     /**
