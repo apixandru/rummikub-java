@@ -109,4 +109,13 @@ public final class RummikubTest2 {
         assertTrue(Arrays.deepEquals(ImplementationDetails.cloneBoard(rummikub), cards));
     }
 
+    @Test
+    public void testLessCardsAfterPlace() {
+        final Rummikub rummikub = RummikubFactory.newInstance();
+        final Player player = rummikub.addPlayer("Player");
+        final int numCardsBeforePlace = ImplementationDetails.countCards(player);
+        final Card card = ImplementationDetails.getFirstCard(player);
+        player.placeCardOnBoard(card, 0, 0);
+        assertEquals(numCardsBeforePlace - 1, ImplementationDetails.countCards(player));
+    }
 }
