@@ -14,7 +14,7 @@ public enum Rank {
     /**
      * @return
      */
-    public static Rank next(final Rank rank) {
+    static Rank next(final Rank rank) {
         if (null == rank || rank.ordinal() >= values().length - 1) {
             return null;
         }

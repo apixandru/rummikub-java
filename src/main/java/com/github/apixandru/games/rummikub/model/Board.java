@@ -17,7 +17,7 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
  * @author Alexandru-Constantin Bledea
  * @since Sep 21, 2015
  */
-public final class Board extends Grid {
+final class Board extends Grid {
 
     /**
      *
