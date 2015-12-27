@@ -87,10 +87,8 @@ public final class Main {
         for (final Component component : player.getComponents()) {
             final JPanel panel = (JPanel) component;
             if (0 == panel.getComponents().length) {
-                SwingUtilities.invokeLater(() -> {
-                    panel.add(new CardUi(card));
-                    player.validate();
-                });
+                panel.add(new CardUi(card));
+                player.validate();
                 return;
             }
         }
