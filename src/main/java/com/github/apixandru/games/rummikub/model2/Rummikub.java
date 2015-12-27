@@ -17,6 +17,6 @@ public interface Rummikub {
      * @param callback
      * @return
      */
-    Player addPlayer(String name, RummikubFactory callback);
+    Player addPlayer(String name, RummikubCallback callback);
 
 }
