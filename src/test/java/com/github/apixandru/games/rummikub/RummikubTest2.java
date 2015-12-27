@@ -1,7 +1,6 @@
 package com.github.apixandru.games.rummikub;
 
 import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.util.Util;
 import com.github.apixandru.games.rummikub.model2.ImplementationDetails;
 import com.github.apixandru.games.rummikub.model2.Player;
 import com.github.apixandru.games.rummikub.model2.Rummikub;
@@ -14,6 +13,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -64,13 +64,24 @@ public final class RummikubTest2 {
 
 
     @Test
-    public void testAllowTakeCardFromBoard() {
+    public void testPutCardOnBoard() {
         final Rummikub rummikub = RummikubFactory.newInstance();
         final Player player = rummikub.addPlayer("Player");
         final Card card = ImplementationDetails.getFirstCard(player);
         final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
         player.placeCardOnBoard(card, 0, 0);
         assertFalse(Arrays.deepEquals(ImplementationDetails.cloneBoard(rummikub), cards));
+    }
+
+    @Test
+    public void testUndo() {
+        final Rummikub rummikub = RummikubFactory.newInstance();
+        final Player player = rummikub.addPlayer("Player");
+        final Card card = ImplementationDetails.getFirstCard(player);
+        final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
+        player.placeCardOnBoard(card, 0, 0);
+        player.endTurn();
+        assertTrue(Arrays.deepEquals(ImplementationDetails.cloneBoard(rummikub), cards));
     }
 
 }

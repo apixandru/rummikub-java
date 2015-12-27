@@ -10,7 +10,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-class PlayerImpl implements Player {
+final class PlayerImpl implements Player {
 
     private final PlayerListener listener;
 
