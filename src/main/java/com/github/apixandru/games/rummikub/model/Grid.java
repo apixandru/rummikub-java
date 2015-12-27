@@ -96,14 +96,4 @@ public abstract class Grid {
         this.listeners.add(listener);
     }
 
-    /**
-     * @return
-     */
-    Stream<Card> streamCards() {
-        return Arrays.stream(cards)
-                .flatMap(Arrays::stream)
-                .filter(Objects::nonNull);
-
-    }
-
 }

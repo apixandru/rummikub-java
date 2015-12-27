@@ -33,13 +33,6 @@ public class RummikubGame {
     }
 
     /**
-     * @return
-     */
-    public Board getBoard() {
-        return board;
-    }
-
-    /**
      * @param card
      */
     public void removeCard(final Card card) {

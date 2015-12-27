@@ -18,17 +18,13 @@ import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
  */
 final class Board {
 
-    private final UndoManager undoManager;
-
     final Card[][] cards;
     private final Optional<BoardCallback> callback;
 
     /**
-     * @param undoManager
      * @param callback
      */
-    Board(final UndoManager undoManager, final BoardCallback callback) {
-        this.undoManager = undoManager;
+    Board(final BoardCallback callback) {
         this.callback = Optional.ofNullable(callback);
         this.cards = new Card[NUM_ROWS][NUM_COLS];
     }

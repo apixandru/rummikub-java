@@ -31,7 +31,7 @@ final class RummikubImpl implements Rummikub {
      * @param callback
      */
     RummikubImpl(final BoardCallback callback) {
-        this.board = new Board(this.undoManager, callback);
+        this.board = new Board(callback);
         this.undoManager.reset(board);
     }
 
