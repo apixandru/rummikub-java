@@ -11,6 +11,9 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.github.apixandru.games.rummikub.model2.ImplementationDetails.cloneCards;
+import static com.github.apixandru.games.rummikub.model2.ImplementationDetails.currentPlayer;
+import static com.github.apixandru.games.rummikub.model2.ImplementationDetails.getCards;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
@@ -32,91 +35,124 @@ public final class RummikubTest2 {
     }
 
 
+    /**
+     * @param cards
+     */
+    @Utility
+    private void placeCardsOnFirstSlots(final List<Card> cards) {
+        for (int i = 0; i < cards.size(); i++) {
+            this.player.placeCardOnBoard(cards.get(i), i, 0);
+        }
+    }
+
+    /**
+     * @return
+     */
+    @Utility
+    private int countCards() {
+        return ImplementationDetails.countCards(this.player);
+    }
+
+    /**
+     * @return
+     */
+    @Utility
+    private Card[][] cardsOnBoard() {
+        return ImplementationDetails.cloneBoard(this.rummikub);
+    }
+
+    /**
+     * @return
+     */
+    @Utility
+    private Card getFirstCard() {
+        return ImplementationDetails.getFirstCard(this.player);
+    }
+
+    /**
+     * @return
+     */
+    @Utility
+    private List<Card> endTurnUntilValidGroup() {
+        return ImplementationDetails.endTurnUntilValidGroup(this.player);
+    }
+
+
     @Test
     public void testGame() {
         final Player player2 = rummikub.addPlayer("Johnny");
 
-        assertSame(player, ImplementationDetails.currentPlayer(rummikub));
+        assertSame(player, currentPlayer(rummikub));
 
         player2.endTurn();
-        assertSame(player, ImplementationDetails.currentPlayer(rummikub));
+        assertSame(player, currentPlayer(rummikub));
 
         player.endTurn();
-        assertSame(player2, ImplementationDetails.currentPlayer(rummikub));
+        assertSame(player2, currentPlayer(rummikub));
 
         player2.endTurn();
-        assertSame(player, ImplementationDetails.currentPlayer(rummikub));
+        assertSame(player, currentPlayer(rummikub));
     }
 
     @Test
     public void testPlaceCardOnBoard() {
-        final int numberOfCardsBeforeEndTurn = ImplementationDetails.countCards(player);
+        final int numberOfCardsBeforeEndTurn = countCards();
         player.endTurn();
-        assertEquals(numberOfCardsBeforeEndTurn + 1, ImplementationDetails.countCards(player));
+        assertEquals(numberOfCardsBeforeEndTurn + 1, countCards());
     }
 
     @Test
     public void testCommitBoard() {
-        final List<Card> group = ImplementationDetails.endTurnUntilValidGroup(player);
-        placeCardsOnFirstSlots(group, player);
-        final List<Card> cardsBeforeEndTurn = ImplementationDetails.cloneCards(player);
+        final List<Card> group = endTurnUntilValidGroup();
+        placeCardsOnFirstSlots(group);
+        final List<Card> cardsBeforeEndTurn = cloneCards(player);
         player.endTurn();
-        assertEquals(cardsBeforeEndTurn, ImplementationDetails.getCards(player));
+        assertEquals(cardsBeforeEndTurn, getCards(player));
     }
 
     @Test
     public void testPutCardOnBoard() {
-        final Card card = ImplementationDetails.getFirstCard(player);
-        final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
+        final Card card = getFirstCard();
+        final Card[][] cards = cardsOnBoard();
         player.placeCardOnBoard(card, 0, 0);
-        assertFalse(Arrays.deepEquals(ImplementationDetails.cloneBoard(rummikub), cards));
+        assertFalse(Arrays.deepEquals(cardsOnBoard(), cards));
     }
 
     @Test
     public void testUndo() {
-        final Card card = ImplementationDetails.getFirstCard(player);
-        final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
+        final Card card = getFirstCard();
+        final Card[][] cards = cardsOnBoard();
         player.placeCardOnBoard(card, 0, 0);
         player.endTurn();
-        assertTrue(Arrays.deepEquals(ImplementationDetails.cloneBoard(rummikub), cards));
+        assertTrue(Arrays.deepEquals(cardsOnBoard(), cards));
     }
 
     @Test
     public void testTakeCardFromBoard() {
-        final Card card = ImplementationDetails.getFirstCard(player);
-        final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
+        final Card card = getFirstCard();
+        final Card[][] cards = cardsOnBoard();
         player.placeCardOnBoard(card, 0, 0);
         player.takeCardFromBoard(card, 0, 0);
-        assertTrue(Arrays.deepEquals(ImplementationDetails.cloneBoard(rummikub), cards));
+        assertTrue(Arrays.deepEquals(cardsOnBoard(), cards));
     }
 
     @Test
     public void testCannotTakeCardAfterEnd() {
-        final List<Card> group = ImplementationDetails.endTurnUntilValidGroup(player);
-        placeCardsOnFirstSlots(group, player);
+        final List<Card> group = endTurnUntilValidGroup();
+        placeCardsOnFirstSlots(group);
         player.endTurn();
 
-        final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
+        final Card[][] cards = cardsOnBoard();
         player.takeCardFromBoard(group.get(0), 0, 0);
-        assertTrue(Arrays.deepEquals(ImplementationDetails.cloneBoard(rummikub), cards));
+        assertTrue(Arrays.deepEquals(cardsOnBoard(), cards));
     }
 
     @Test
     public void testLessCardsAfterPlace() {
-        final int numCardsBeforePlace = ImplementationDetails.countCards(player);
-        final Card card = ImplementationDetails.getFirstCard(player);
+        final int numCardsBeforePlace = countCards();
+        final Card card = getFirstCard();
         player.placeCardOnBoard(card, 0, 0);
-        assertEquals(numCardsBeforePlace - 1, ImplementationDetails.countCards(player));
-    }
-
-    /**
-     * @param cards
-     * @param player
-     */
-    private static void placeCardsOnFirstSlots(final List<Card> cards, final Player player) {
-        for (int i = 0; i < cards.size(); i++) {
-            player.placeCardOnBoard(cards.get(i), i, 0);
-        }
+        assertEquals(numCardsBeforePlace - 1, countCards());
     }
 
 }
