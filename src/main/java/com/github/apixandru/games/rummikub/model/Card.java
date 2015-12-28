@@ -52,4 +52,9 @@ public final class Card {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return rank + " " + color;
+    }
+
 }

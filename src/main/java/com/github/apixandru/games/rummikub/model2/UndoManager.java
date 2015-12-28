@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -42,9 +43,7 @@ final class UndoManager {
      * @return
      */
     boolean wasOnBoard(final Card card) {
-        return Arrays.stream(this.cardsOnBoard)
-                .flatMap(Arrays::stream)
-                .filter(Objects::nonNull)
+        return streamNotNull(this.cardsOnBoard)
                 .collect(Collectors.toList())
                 .contains(card);
     }
@@ -55,6 +54,32 @@ final class UndoManager {
      */
     public boolean hasChanged(final Board board) {
         return !Arrays.deepEquals(board.cards, cardsOnBoard);
+    }
+
+    /**
+     * @param board
+     * @return
+     */
+    public boolean justMovedCards(final Board board) {
+        return count(board.cards) == count(this.cardsOnBoard);
+    }
+
+    /**
+     * @param cards
+     * @return
+     */
+    private static long count(final Card[][] cards) {
+        return streamNotNull(cards).count();
+    }
+
+
+    /**
+     * @return
+     */
+    private static Stream<Card> streamNotNull(final Card[][] cards) {
+        return Arrays.stream(cards)
+                .flatMap(Arrays::stream)
+                .filter(Objects::nonNull);
     }
 
     /**

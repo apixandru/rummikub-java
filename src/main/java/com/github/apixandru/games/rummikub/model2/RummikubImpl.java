@@ -39,7 +39,7 @@ final class RummikubImpl implements Rummikub {
     private void endTurn() {
         boolean giveCard = true;
         if (this.undoManager.hasChanged(this.board)) {
-            if (this.board.isValid()) {
+            if (this.board.isValid() && !this.undoManager.justMovedCards(this.board)) {
                 giveCard = false;
             } else {
                 rollback();
