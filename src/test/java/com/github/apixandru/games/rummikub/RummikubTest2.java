@@ -84,6 +84,10 @@ public final class RummikubTest2 {
         assertTrue(Arrays.deepEquals(cards, cardsOnBoard()));
     }
 
+    /**
+     * Only the current player can end the turn.
+     * Requests from other players to end the turn should be ignored.
+     */
     @Test
     public void testGame() {
         final Player player2 = rummikub.addPlayer("Johnny");
@@ -100,6 +104,9 @@ public final class RummikubTest2 {
         assertSame(player, currentPlayer(rummikub));
     }
 
+    /**
+     * If you haven't done anything in a turn, you are given a card.
+     */
     @Test
     public void testPlaceCardOnBoard() {
         final int numberOfCardsBeforeEndTurn = countCards();
@@ -107,6 +114,9 @@ public final class RummikubTest2 {
         assertEquals(numberOfCardsBeforeEndTurn + 1, countCards());
     }
 
+    /**
+     * After a successful commit you are not given a card.
+     */
     @Test
     public void testCommitBoard() {
         final List<Card> group = endTurnUntilValidGroup();
@@ -116,6 +126,9 @@ public final class RummikubTest2 {
         assertEquals(cardsBeforeEndTurn, getCards(player));
     }
 
+    /**
+     * The board should be different as soon as the card was placed on it.
+     */
     @Test
     public void testPutCardOnBoard() {
         final Card card = getFirstCard();
@@ -124,6 +137,9 @@ public final class RummikubTest2 {
         assertFalse(Arrays.deepEquals(cardsOnBoard(), cards));
     }
 
+    /**
+     * If the board is in a invalid state then the state should roll back.
+     */
     @Test
     public void testUndo() {
         final Card card = getFirstCard();
@@ -133,6 +149,9 @@ public final class RummikubTest2 {
         assertCardsOnBoard(cards);
     }
 
+    /**
+     * If the cards on the board aren't locked, you should be able to take them in hand.
+     */
     @Test
     public void testTakeCardFromBoard() {
         final Card card = getFirstCard();
@@ -142,6 +161,10 @@ public final class RummikubTest2 {
         assertCardsOnBoard(cards);
     }
 
+    /**
+     * After a commit all cards are locked on the board.
+     * You shouldn't be able to take locked cards in hand.
+     */
     @Test
     public void testCannotTakeCardAfterEnd() {
         final List<Card> group = endTurnUntilValidGroup();
@@ -153,6 +176,9 @@ public final class RummikubTest2 {
         assertTrue(Arrays.deepEquals(cardsOnBoard(), cards));
     }
 
+    /**
+     * The player should have one less card after placing a card on the board.
+     */
     @Test
     public void testLessCardsAfterPlace() {
         final int numCardsBeforePlace = countCards();
