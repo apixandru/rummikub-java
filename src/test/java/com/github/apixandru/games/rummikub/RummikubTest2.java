@@ -5,6 +5,7 @@ import com.github.apixandru.games.rummikub.model2.ImplementationDetails;
 import com.github.apixandru.games.rummikub.model2.Player;
 import com.github.apixandru.games.rummikub.model2.Rummikub;
 import com.github.apixandru.games.rummikub.model2.RummikubFactory;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -21,29 +22,34 @@ import static org.junit.Assert.assertTrue;
  */
 public final class RummikubTest2 {
 
+    private Rummikub rummikub;
+    private Player player;
+
+    @Before
+    public void setup() {
+        this.rummikub = RummikubFactory.newInstance();
+        this.player = rummikub.addPlayer("Player 1");
+    }
+
+
     @Test
     public void testGame() {
-        final Rummikub game = RummikubFactory.newInstance();
-        final Player first = game.addPlayer("John");
-        final Player second = game.addPlayer("Johnny");
+        final Player player2 = rummikub.addPlayer("Johnny");
 
-        assertSame(first, ImplementationDetails.currentPlayer(game));
+        assertSame(player, ImplementationDetails.currentPlayer(rummikub));
 
-        second.endTurn();
-        assertSame(first, ImplementationDetails.currentPlayer(game));
+        player2.endTurn();
+        assertSame(player, ImplementationDetails.currentPlayer(rummikub));
 
-        first.endTurn();
-        assertSame(second, ImplementationDetails.currentPlayer(game));
+        player.endTurn();
+        assertSame(player2, ImplementationDetails.currentPlayer(rummikub));
 
-        second.endTurn();
-        assertSame(first, ImplementationDetails.currentPlayer(game));
+        player2.endTurn();
+        assertSame(player, ImplementationDetails.currentPlayer(rummikub));
     }
 
     @Test
     public void testPlaceCardOnBoard() {
-        final Rummikub game = RummikubFactory.newInstance();
-        final Player player = game.addPlayer("John");
-
         final int numberOfCardsBeforeEndTurn = ImplementationDetails.countCards(player);
         player.endTurn();
         assertEquals(numberOfCardsBeforeEndTurn + 1, ImplementationDetails.countCards(player));
@@ -51,8 +57,6 @@ public final class RummikubTest2 {
 
     @Test
     public void testCommitBoard() {
-        final Rummikub rummikub = RummikubFactory.newInstance();
-        final Player player = rummikub.addPlayer("Player");
         final List<Card> group = ImplementationDetails.endTurnUntilValidGroup(player);
         placeCardsOnFirstSlots(group, player);
         final List<Card> cardsBeforeEndTurn = ImplementationDetails.cloneCards(player);
@@ -62,8 +66,6 @@ public final class RummikubTest2 {
 
     @Test
     public void testPutCardOnBoard() {
-        final Rummikub rummikub = RummikubFactory.newInstance();
-        final Player player = rummikub.addPlayer("Player");
         final Card card = ImplementationDetails.getFirstCard(player);
         final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
         player.placeCardOnBoard(card, 0, 0);
@@ -72,8 +74,6 @@ public final class RummikubTest2 {
 
     @Test
     public void testUndo() {
-        final Rummikub rummikub = RummikubFactory.newInstance();
-        final Player player = rummikub.addPlayer("Player");
         final Card card = ImplementationDetails.getFirstCard(player);
         final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
         player.placeCardOnBoard(card, 0, 0);
@@ -83,8 +83,6 @@ public final class RummikubTest2 {
 
     @Test
     public void testTakeCardFromBoard() {
-        final Rummikub rummikub = RummikubFactory.newInstance();
-        final Player player = rummikub.addPlayer("Player");
         final Card card = ImplementationDetails.getFirstCard(player);
         final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
         player.placeCardOnBoard(card, 0, 0);
@@ -94,8 +92,6 @@ public final class RummikubTest2 {
 
     @Test
     public void testCannotTakeCardAfterEnd() {
-        final Rummikub rummikub = RummikubFactory.newInstance();
-        final Player player = rummikub.addPlayer("Player");
         final List<Card> group = ImplementationDetails.endTurnUntilValidGroup(player);
         placeCardsOnFirstSlots(group, player);
         player.endTurn();
@@ -107,8 +103,6 @@ public final class RummikubTest2 {
 
     @Test
     public void testLessCardsAfterPlace() {
-        final Rummikub rummikub = RummikubFactory.newInstance();
-        final Player player = rummikub.addPlayer("Player");
         final int numCardsBeforePlace = ImplementationDetails.countCards(player);
         final Card card = ImplementationDetails.getFirstCard(player);
         player.placeCardOnBoard(card, 0, 0);
