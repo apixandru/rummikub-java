@@ -54,9 +54,7 @@ public final class RummikubTest2 {
         final Rummikub rummikub = RummikubFactory.newInstance();
         final Player player = rummikub.addPlayer("Player");
         final List<Card> group = ImplementationDetails.endTurnUntilValidGroup(player);
-        for (int i = 0; i < group.size(); i++) {
-            player.placeCardOnBoard(group.get(i), i, 0);
-        }
+        placeCardsOnFirstSlots(group, player);
         final List<Card> cardsBeforeEndTurn = ImplementationDetails.cloneCards(player);
         player.endTurn();
         assertEquals(cardsBeforeEndTurn, ImplementationDetails.getCards(player));
@@ -99,9 +97,7 @@ public final class RummikubTest2 {
         final Rummikub rummikub = RummikubFactory.newInstance();
         final Player player = rummikub.addPlayer("Player");
         final List<Card> group = ImplementationDetails.endTurnUntilValidGroup(player);
-        for (int i = 0; i < group.size(); i++) {
-            player.placeCardOnBoard(group.get(i), i, 0);
-        }
+        placeCardsOnFirstSlots(group, player);
         player.endTurn();
 
         final Card[][] cards = ImplementationDetails.cloneBoard(rummikub);
@@ -118,4 +114,15 @@ public final class RummikubTest2 {
         player.placeCardOnBoard(card, 0, 0);
         assertEquals(numCardsBeforePlace - 1, ImplementationDetails.countCards(player));
     }
+
+    /**
+     * @param cards
+     * @param player
+     */
+    private static void placeCardsOnFirstSlots(final List<Card> cards, final Player player) {
+        for (int i = 0; i < cards.size(); i++) {
+            player.placeCardOnBoard(cards.get(i), i, 0);
+        }
+    }
+
 }
