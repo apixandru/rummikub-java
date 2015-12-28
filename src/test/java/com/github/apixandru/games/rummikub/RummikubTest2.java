@@ -77,6 +77,12 @@ public final class RummikubTest2 {
         return ImplementationDetails.endTurnUntilValidGroup(this.player);
     }
 
+    /**
+     * @param cards
+     */
+    private void assertCardsOnBoard(final Card[][] cards) {
+        assertTrue(Arrays.deepEquals(cards, cardsOnBoard()));
+    }
 
     @Test
     public void testGame() {
@@ -124,7 +130,7 @@ public final class RummikubTest2 {
         final Card[][] cards = cardsOnBoard();
         player.placeCardOnBoard(card, 0, 0);
         player.endTurn();
-        assertTrue(Arrays.deepEquals(cardsOnBoard(), cards));
+        assertCardsOnBoard(cards);
     }
 
     @Test
@@ -133,7 +139,7 @@ public final class RummikubTest2 {
         final Card[][] cards = cardsOnBoard();
         player.placeCardOnBoard(card, 0, 0);
         player.takeCardFromBoard(card, 0, 0);
-        assertTrue(Arrays.deepEquals(cardsOnBoard(), cards));
+        assertCardsOnBoard(cards);
     }
 
     @Test
@@ -153,6 +159,28 @@ public final class RummikubTest2 {
         final Card card = getFirstCard();
         player.placeCardOnBoard(card, 0, 0);
         assertEquals(numCardsBeforePlace - 1, countCards());
+    }
+
+    /**
+     * Just moving cards on the board when it's your turn is not enough.
+     * The changes should rollback and you should get a card.
+     */
+    @Test
+    public void testMoveBoardCardsRollback() {
+        final List<Card> group = endTurnUntilValidGroup();
+        placeCardsOnFirstSlots(group);
+        player.endTurn();
+
+        final Card firstCardOnBoard = group.get(0);
+
+        final Card[][] cardsOnBoard = cardsOnBoard();
+        final int cardsInHand = countCards();
+
+        player.moveCardOnBoard(firstCardOnBoard, 0, 0, group.size(), 0);
+        player.endTurn();
+
+        assertCardsOnBoard(cardsOnBoard);
+        assertEquals(cardsInHand + 1, countCards());
     }
 
 }
