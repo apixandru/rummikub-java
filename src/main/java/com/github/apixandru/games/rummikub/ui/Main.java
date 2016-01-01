@@ -1,10 +1,10 @@
 package com.github.apixandru.games.rummikub.ui;
 
 import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model2.Player;
-import com.github.apixandru.games.rummikub.model2.PlayerCallback;
-import com.github.apixandru.games.rummikub.model2.Rummikub;
-import com.github.apixandru.games.rummikub.model2.RummikubFactory;
+import com.github.apixandru.games.rummikub.model.Player;
+import com.github.apixandru.games.rummikub.model.PlayerCallback;
+import com.github.apixandru.games.rummikub.model.Rummikub;
+import com.github.apixandru.games.rummikub.model.RummikubFactory;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

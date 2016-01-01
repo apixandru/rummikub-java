@@ -3,7 +3,7 @@
  */
 package com.github.apixandru.games.rummikub.ui;
 
-import com.github.apixandru.games.rummikub.model2.Player;
+import com.github.apixandru.games.rummikub.model.Player;
 
 import javax.swing.*;
 import java.awt.*;

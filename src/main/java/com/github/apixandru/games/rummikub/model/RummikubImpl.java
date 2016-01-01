@@ -1,10 +1,4 @@
-package com.github.apixandru.games.rummikub.model2;
-
-import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.CardPile;
-import com.github.apixandru.games.rummikub.model2.UndoManager.UndoBoardToBoard;
-import com.github.apixandru.games.rummikub.model2.UndoManager.UndoBoardToPlayer;
-import com.github.apixandru.games.rummikub.model2.UndoManager.UndoPlayerToBoard;
+package com.github.apixandru.games.rummikub.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +113,7 @@ final class RummikubImpl implements Rummikub {
         public void placeCardOnBoard(final Player player, final Card card, final int x, final int y) {
             if (currentPlayer == player && board.placeCard(card, x, y)) {
                 currentPlayer.removeCard(card);
-                undoManager.addAction(new UndoPlayerToBoard(x, y));
+                undoManager.addAction(new UndoManager.UndoPlayerToBoard(x, y));
             }
         }
 
@@ -129,7 +123,7 @@ final class RummikubImpl implements Rummikub {
             if (currentPlayer == player && canMoveCardOffBoard(card)) {
                 final Card cardFromBoard = board.removeCard(x, y);
                 currentPlayer.receiveCard(cardFromBoard, hint);
-                undoManager.addAction(new UndoBoardToPlayer(cardFromBoard, x, y));
+                undoManager.addAction(new UndoManager.UndoBoardToPlayer(cardFromBoard, x, y));
             }
         }
 
@@ -137,7 +131,7 @@ final class RummikubImpl implements Rummikub {
         public void moveCardOnBoard(final Player player, final Card card, final int fromX, final int fromY, final int toX, final int toY) {
             if (currentPlayer == player) {
                 board.moveCard(fromX, fromY, toX, toY);
-                undoManager.addAction(new UndoBoardToBoard(fromX, fromY, toX, toY));
+                undoManager.addAction(new UndoManager.UndoBoardToBoard(fromX, fromY, toX, toY));
             }
         }
 

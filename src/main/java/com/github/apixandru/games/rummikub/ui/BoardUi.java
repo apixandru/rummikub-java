@@ -1,7 +1,7 @@
 package com.github.apixandru.games.rummikub.ui;
 
+import com.github.apixandru.games.rummikub.model.BoardCallback;
 import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model2.BoardCallback;
 
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
 

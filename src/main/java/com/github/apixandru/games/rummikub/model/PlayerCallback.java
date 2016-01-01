@@ -1,6 +1,4 @@
-package com.github.apixandru.games.rummikub.model2;
-
-import com.github.apixandru.games.rummikub.model.Card;
+package com.github.apixandru.games.rummikub.model;
 
 /**
  * @author Alexandru-Constantin Bledea

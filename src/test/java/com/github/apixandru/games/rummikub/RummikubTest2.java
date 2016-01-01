@@ -1,19 +1,19 @@
 package com.github.apixandru.games.rummikub;
 
 import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model2.ImplementationDetails;
-import com.github.apixandru.games.rummikub.model2.Player;
-import com.github.apixandru.games.rummikub.model2.Rummikub;
-import com.github.apixandru.games.rummikub.model2.RummikubFactory;
+import com.github.apixandru.games.rummikub.model.ImplementationDetails;
+import com.github.apixandru.games.rummikub.model.Player;
+import com.github.apixandru.games.rummikub.model.Rummikub;
+import com.github.apixandru.games.rummikub.model.RummikubFactory;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.github.apixandru.games.rummikub.model2.ImplementationDetails.cloneCards;
-import static com.github.apixandru.games.rummikub.model2.ImplementationDetails.currentPlayer;
-import static com.github.apixandru.games.rummikub.model2.ImplementationDetails.getCards;
+import static com.github.apixandru.games.rummikub.model.ImplementationDetails.cloneCards;
+import static com.github.apixandru.games.rummikub.model.ImplementationDetails.currentPlayer;
+import static com.github.apixandru.games.rummikub.model.ImplementationDetails.getCards;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
