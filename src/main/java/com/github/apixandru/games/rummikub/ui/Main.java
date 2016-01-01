@@ -32,10 +32,10 @@ public final class Main {
 
         final PlayerUi player = new PlayerUi();
         final Rummikub rummikub = RummikubFactory.newInstance(board);
-        final Player actualPlayer = rummikub.addPlayer("John", new RummikubCallback() {
+        final Player actualPlayer = rummikub.addPlayer("John", new RummikubCallback<CardSlot>() {
             @Override
-            public void cardReceived(final Card card) {
-                placeCardInHand(card, player);
+            public void cardReceived(final Card card, final CardSlot hint) {
+                placeCardInHand(card, player, hint);
             }
 
         });
@@ -81,15 +81,8 @@ public final class Main {
      * @param card
      * @param player
      */
-    private static void placeCardInHand(final Card card, final JPanel player) {
-        for (final Component component : player.getComponents()) {
-            final JPanel panel = (JPanel) component;
-            if (0 == panel.getComponents().length) {
-                panel.add(new CardUi(card));
-                player.validate();
-                return;
-            }
-        }
+    private static void placeCardInHand(final Card card, final PlayerUi player, final CardSlot slot) {
+        UiUtil.placeCard(card, player.orFirstFreeSlot(slot));
     }
 
     /**

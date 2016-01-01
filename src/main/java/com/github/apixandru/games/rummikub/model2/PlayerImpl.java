@@ -59,7 +59,7 @@ final class PlayerImpl implements Player {
      */
     public void receiveCard(final Card card) {
         this.cards.add(card);
-        this.callback.ifPresent(callback -> callback.cardReceived(card));
+        this.callback.ifPresent(callback -> callback.cardReceived(card, null));
     }
 
     /**

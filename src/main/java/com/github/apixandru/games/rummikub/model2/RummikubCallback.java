@@ -6,11 +6,12 @@ import com.github.apixandru.games.rummikub.model.Card;
  * @author Alexandru-Constantin Bledea
  * @since December 27, 2015
  */
-public interface RummikubCallback {
+public interface RummikubCallback<H> {
 
     /**
      * @param card
+     * @param hint
      */
-    void cardReceived(final Card card);
+    void cardReceived(Card card, H hint);
 
 }
