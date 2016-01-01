@@ -209,4 +209,15 @@ public final class RummikubTest2 {
         assertEquals(cardsInHand + 1, countCards());
     }
 
+    /**
+     * You shouldn't be able to place a card out of bounds.
+     */
+    @Test
+    public void testPlaceCardOutOfBounds() {
+        final Card[][] cardsOnBoard = cardsOnBoard();
+        final Card card = getFirstCard();
+        player.placeCardOnBoard(card, 0, 7);
+        assertCardsOnBoard(cardsOnBoard);
+    }
+
 }

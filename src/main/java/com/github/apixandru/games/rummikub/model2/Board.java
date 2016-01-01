@@ -55,12 +55,15 @@ final class Board {
      * @return
      */
     boolean placeCard(Card card, int x, int y) {
-        if (inBounds(x, y) && isFree(x, y) || card == cards[y][x]) {
-            cards[y][x] = card;
-            this.callback.ifPresent(callback -> callback.cardPlacedOnBoard(card, x, y));
-            return true;
+        if (!inBounds(x, y)) {
+            return false;
         }
-        return false;
+        if (!isFree(x, y) && card != cards[y][x]) {
+            return false;
+        }
+        cards[y][x] = card;
+        this.callback.ifPresent(callback -> callback.cardPlacedOnBoard(card, x, y));
+        return true;
     }
 
     /**
