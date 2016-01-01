@@ -57,8 +57,8 @@ public final class ImplementationDetails {
      * @param player
      * @return
      */
-    public static List<Card> getCards(final Player player) {
-        return ((PlayerImpl) player).cards;
+    public static List<Card> getCards(final Player<?> player) {
+        return ((PlayerImpl<?>) player).cards;
     }
 
     /**

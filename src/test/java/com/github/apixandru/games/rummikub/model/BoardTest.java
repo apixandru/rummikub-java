@@ -34,10 +34,4 @@ public final class BoardTest {
         assertEquals(2, board.getGroups().size());
     }
 
-    @Test
-    public void testCantPlaceCard() {
-        final Board board = new Board();
-        assertFalse("Should not be able to place card out of bounds", board.placeCard(joker, 0, 7));
-    }
-
 }
