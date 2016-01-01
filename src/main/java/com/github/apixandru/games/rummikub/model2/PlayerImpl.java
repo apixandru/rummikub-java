@@ -56,10 +56,18 @@ final class PlayerImpl<H> implements Player<H> {
 
     /**
      * @param card
+     * @param hint
      */
-    public void receiveCard(final Card card, H hint) {
+    public void receiveCard(final Card card, final H hint) {
         this.cards.add(card);
         this.callback.ifPresent(callback -> callback.cardReceived(card, hint));
+    }
+
+    /**
+     * @param card
+     */
+    public void receiveCard(final Card card) {
+        receiveCard(card, null);
     }
 
     /**

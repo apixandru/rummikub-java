@@ -16,7 +16,7 @@ public final class CardPile {
     private final Queue<Card> cards;
 
     {
-        final LinkedList<Card> cards = new LinkedList<Card>();
+        final LinkedList<Card> cards = new LinkedList<>();
         int id = 1;
         for (int i = 0; i < 2; i++) {
             for (final Rank rank : Rank.values()) {

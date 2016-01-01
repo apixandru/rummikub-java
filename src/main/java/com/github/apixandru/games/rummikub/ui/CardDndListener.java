@@ -159,11 +159,7 @@ final class CardDndListener extends MouseAdapter {
      * @return
      */
     private static boolean canDrop(JComponent component) {
-        // TODO fix this
-        if (component instanceof CardSlot) {
-            return true;
-        }
-        return false;
+        return component instanceof CardSlot;
     }
 
     /**

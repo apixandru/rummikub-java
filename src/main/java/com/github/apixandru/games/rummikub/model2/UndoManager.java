@@ -106,7 +106,7 @@ final class UndoManager {
         @Override
         public void undo(final PlayerImpl player, final Board board) {
             Card card = board.removeCard(x, y);
-            player.receiveCard(card, null);
+            player.receiveCard(card);
         }
 
     }

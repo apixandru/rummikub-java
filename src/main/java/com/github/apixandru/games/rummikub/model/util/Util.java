@@ -19,6 +19,7 @@ public final class Util {
      * @param list
      * @return
      */
+    @SafeVarargs
     public static <E> List<List<E>> splitNonEmptyGroups(E... list) {
         List<List<E>> result = new ArrayList<>();
         List<E> elementList = new ArrayList<>();
