@@ -41,7 +41,7 @@ final class PlayerImpl<H> implements Player<H> {
 
     @Override
     public void takeCardFromBoard(final Card card, final int x, final int y, final H hint) {
-        this.listener.takeCardFromBoard(this, card, x, y);
+        this.listener.takeCardFromBoard(this, card, x, y, hint);
     }
 
     @Override
@@ -57,9 +57,9 @@ final class PlayerImpl<H> implements Player<H> {
     /**
      * @param card
      */
-    public void receiveCard(final Card card) {
+    public void receiveCard(final Card card, H hint) {
         this.cards.add(card);
-        this.callback.ifPresent(callback -> callback.cardReceived(card, null));
+        this.callback.ifPresent(callback -> callback.cardReceived(card, hint));
     }
 
     /**

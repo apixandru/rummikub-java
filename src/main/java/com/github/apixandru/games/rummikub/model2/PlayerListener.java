@@ -27,8 +27,9 @@ interface PlayerListener {
      * @param card
      * @param x
      * @param y
+     * @param hint
      */
-    void takeCardFromBoard(Player player, Card card, int x, int y);
+    void takeCardFromBoard(Player player, Card card, int x, int y, final Object hint);
 
     /**
      * @param player

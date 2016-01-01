@@ -56,7 +56,7 @@ final class RummikubImpl implements Rummikub {
      *
      */
     private void giveCard() {
-        this.currentPlayer.receiveCard(this.cardPile.nextCard());
+        this.currentPlayer.receiveCard(this.cardPile.nextCard(), null);
     }
 
     /**
@@ -126,10 +126,10 @@ final class RummikubImpl implements Rummikub {
         }
 
         @Override
-        public void takeCardFromBoard(final Player player, final Card card, final int x, final int y) {
+        public void takeCardFromBoard(final Player player, final Card card, final int x, final int y, final Object hint) {
             if (currentPlayer == player && canMoveCardOffBoard(card)) {
                 final Card cardFromBoard = board.removeCard(x, y);
-                currentPlayer.receiveCard(cardFromBoard);
+                currentPlayer.receiveCard(cardFromBoard, hint);
                 undoManager.addAction(new UndoBoardToPlayer(cardFromBoard, x, y));
             }
         }
