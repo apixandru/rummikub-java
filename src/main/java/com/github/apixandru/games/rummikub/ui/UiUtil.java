@@ -3,6 +3,7 @@
  */
 package com.github.apixandru.games.rummikub.ui;
 
+import com.github.apixandru.games.rummikub.model.Card;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,6 +70,14 @@ public final class UiUtil {
         log.debug("Place card request for " + card.card.getId() + " on (" + slot.x + ", " + slot.y + ")");
         slot.add(card);
         slot.validate();
+    }
+
+    /**
+     * @param card
+     * @param slot
+     */
+    public static void placeCard(final Card card, final CardSlot slot) {
+        placeCard(new CardUi(card), slot);
     }
 
     /**
