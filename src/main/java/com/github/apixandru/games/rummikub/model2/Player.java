@@ -30,9 +30,9 @@ public interface Player<H> {
      * @param card
      * @param x
      * @param y
-     * @return
+     * @param hint
      */
-    void takeCardFromBoard(Card card, int x, int y);
+    void takeCardFromBoard(Card card, int x, int y, H hint);
 
     /**
      *

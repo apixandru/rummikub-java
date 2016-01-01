@@ -10,7 +10,7 @@ public interface Rummikub {
      * @param name
      * @return
      */
-    Player addPlayer(String name);
+    Player<Object> addPlayer(String name);
 
     /**
      * @param name

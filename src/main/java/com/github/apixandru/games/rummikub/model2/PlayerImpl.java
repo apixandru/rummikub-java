@@ -11,10 +11,10 @@ import java.util.Optional;
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-final class PlayerImpl implements Player {
+final class PlayerImpl<H> implements Player<H> {
 
     private final PlayerListener listener;
-    private final Optional<PlayerCallback> callback;
+    private final Optional<PlayerCallback<H>> callback;
 
     final List<Card> cards = new ArrayList<>();
 
@@ -23,7 +23,7 @@ final class PlayerImpl implements Player {
      * @param cards
      * @param callback
      */
-    PlayerImpl(final PlayerListener listener, final Collection<Card> cards, final PlayerCallback callback) {
+    PlayerImpl(final PlayerListener listener, final Collection<Card> cards, final PlayerCallback<H> callback) {
         this.listener = listener;
         this.cards.addAll(cards);
         this.callback = Optional.ofNullable(callback);
@@ -40,7 +40,7 @@ final class PlayerImpl implements Player {
     }
 
     @Override
-    public void takeCardFromBoard(final Card card, final int x, final int y) {
+    public void takeCardFromBoard(final Card card, final int x, final int y, final H hint) {
         this.listener.takeCardFromBoard(this, card, x, y);
     }
 

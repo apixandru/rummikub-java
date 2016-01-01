@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 public final class RummikubTest2 {
 
     private Rummikub rummikub;
-    private Player player;
+    private Player<Object> player;
 
     @Before
     public void setup() {
@@ -157,7 +157,7 @@ public final class RummikubTest2 {
         final Card card = getFirstCard();
         final Card[][] cards = cardsOnBoard();
         player.placeCardOnBoard(card, 0, 0);
-        player.takeCardFromBoard(card, 0, 0);
+        player.takeCardFromBoard(card, 0, 0, null);
         assertCardsOnBoard(cards);
     }
 
@@ -172,7 +172,7 @@ public final class RummikubTest2 {
         player.endTurn();
 
         final Card[][] cards = cardsOnBoard();
-        player.takeCardFromBoard(group.get(0), 0, 0);
+        player.takeCardFromBoard(group.get(0), 0, 0, null);
         assertTrue(Arrays.deepEquals(cardsOnBoard(), cards));
     }
 
