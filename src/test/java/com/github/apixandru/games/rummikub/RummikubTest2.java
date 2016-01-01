@@ -34,7 +34,6 @@ public final class RummikubTest2 {
         this.player = rummikub.addPlayer("Player 1");
     }
 
-
     /**
      * @param cards
      */

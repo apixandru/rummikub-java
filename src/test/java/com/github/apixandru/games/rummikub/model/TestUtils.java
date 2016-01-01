@@ -4,7 +4,7 @@ package com.github.apixandru.games.rummikub.model;
  * @author Alexandru-Constantin Bledea
  * @since December 16, 2015
  */
-final class TestUtils {
+public final class TestUtils {
 
     private static int idGenerator = 0;
 
@@ -18,7 +18,7 @@ final class TestUtils {
      * @param rank
      * @return
      */
-    static Card card(Color color, Rank rank) {
+    public static Card card(Color color, Rank rank) {
         return new Card(idGenerator++, color, rank);
     }
 

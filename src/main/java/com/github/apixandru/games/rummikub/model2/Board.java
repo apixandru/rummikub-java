@@ -99,7 +99,7 @@ final class Board {
     /**
      * @return
      */
-    private Stream<CardGroup> streamGroups() {
+    Stream<CardGroup> streamGroups() {
         return Arrays.stream(cards)
                 .map(Util::splitNonEmptyGroups)
                 .flatMap(List::stream)
