@@ -13,7 +13,7 @@ import java.awt.*;
  * @author apixandru
  * @since Aug 11, 2015
  */
-public final class UiUtil {
+final class UiUtil {
 
     private static final Logger log = LoggerFactory.getLogger(UiUtil.class);
 

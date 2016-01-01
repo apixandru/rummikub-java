@@ -6,7 +6,7 @@ import java.util.Arrays;
  * @author Alexandru-Constantin Bledea
  * @since December 19, 2015
  */
-public class PlayerUi extends JGridPanel {
+class PlayerUi extends JGridPanel {
 
     /**
      *

@@ -17,7 +17,7 @@ final class UndoManager {
 
     private final List<UndoAction> undoActions = new ArrayList<>();
 
-    Card[][] cardsOnBoard;
+    private Card[][] cardsOnBoard;
 
     /**
      * @param action

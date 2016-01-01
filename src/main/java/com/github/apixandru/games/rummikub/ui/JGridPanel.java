@@ -10,7 +10,7 @@ import static com.github.apixandru.games.rummikub.ui.Main.TILE_WIDTH;
  * @author Alexandru-Constantin Bledea
  * @since December 19, 2015
  */
-public class JGridPanel extends JPanel {
+class JGridPanel extends JPanel {
 
     private static final int COLS = 20;
     final CardSlot[][] slots;

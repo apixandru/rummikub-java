@@ -14,7 +14,7 @@ import java.awt.*;
  * @author Alexandru-Constantin Bledea
  * @since Oct 10, 2015
  */
-public final class CardUi extends JPanel {
+final class CardUi extends JPanel {
 
     private static final Dimension dimension = new Dimension(60, 96);
 

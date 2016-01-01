@@ -11,7 +11,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since Sep 16, 2015
  */
-public final class CardGroup {
+final class CardGroup {
 
     private final List<Card> cards;
 

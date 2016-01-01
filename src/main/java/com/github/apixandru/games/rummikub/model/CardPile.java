@@ -11,7 +11,7 @@ import java.util.Queue;
  * @author Alexandru-Constantin Bledea
  * @since Sep 20, 2015
  */
-public final class CardPile {
+final class CardPile {
 
     private final Queue<Card> cards;
 

@@ -10,7 +10,7 @@ import java.awt.*;
  * @author Alexandru-Constantin Bledea
  * @since Oct 15, 2015
  */
-public interface DragSource {
+interface DragSource {
 
     /**
      * @param x

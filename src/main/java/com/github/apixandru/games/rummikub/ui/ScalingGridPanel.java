@@ -10,7 +10,7 @@ import java.awt.*;
  * @author Alexandru-Constantin Bledea
  * @since Oct 12, 2015
  */
-public final class ScalingGridPanel extends JPanel {
+final class ScalingGridPanel extends JPanel {
 
     private final double ratio;
 

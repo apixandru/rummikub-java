@@ -59,7 +59,7 @@ public final class Cards {
      * @param function
      * @return
      */
-    static boolean haveSameProperties(final Collection<Card> cards, final Function<Card, ?> function) {
+    private static boolean haveSameProperties(final Collection<Card> cards, final Function<Card, ?> function) {
 //        if all were the same property then it would return 1, if there were only jokers it would return 0
         return cards
                 .stream()
