@@ -3,9 +3,16 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.apixandru.games</groupId>
-    <artifactId>rummikub</artifactId>
+    <groupId>com.github.apixandru.games.rummikub</groupId>
+    <artifactId>rummikub-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>rummikub-ui-swing</module>
+        <module>rummikub-model</module>
+    </modules>
 
     <properties>
         <version.slf4j>1.7.13</version.slf4j>
@@ -47,5 +54,15 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>rummikub-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
