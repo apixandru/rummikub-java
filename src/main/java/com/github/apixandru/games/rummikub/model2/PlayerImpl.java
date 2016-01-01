@@ -3,7 +3,6 @@ package com.github.apixandru.games.rummikub.model2;
 import com.github.apixandru.games.rummikub.model.Card;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,12 +19,10 @@ final class PlayerImpl<H> implements Player<H> {
 
     /**
      * @param listener
-     * @param cards
      * @param callback
      */
-    PlayerImpl(final PlayerListener listener, final Collection<Card> cards, final PlayerCallback<H> callback) {
+    PlayerImpl(final PlayerListener listener, final PlayerCallback<H> callback) {
         this.listener = listener;
-        this.cards.addAll(cards);
         this.callback = Optional.ofNullable(callback);
     }
 
