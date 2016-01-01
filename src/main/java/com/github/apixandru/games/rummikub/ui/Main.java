@@ -2,8 +2,8 @@ package com.github.apixandru.games.rummikub.ui;
 
 import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model2.Player;
+import com.github.apixandru.games.rummikub.model2.PlayerCallback;
 import com.github.apixandru.games.rummikub.model2.Rummikub;
-import com.github.apixandru.games.rummikub.model2.RummikubCallback;
 import com.github.apixandru.games.rummikub.model2.RummikubFactory;
 
 import javax.swing.*;
@@ -32,7 +32,7 @@ public final class Main {
 
         final PlayerUi player = new PlayerUi();
         final Rummikub rummikub = RummikubFactory.newInstance(board);
-        final Player actualPlayer = rummikub.addPlayer("John", new RummikubCallback<CardSlot>() {
+        final Player actualPlayer = rummikub.addPlayer("John", new PlayerCallback<CardSlot>() {
             @Override
             public void cardReceived(final Card card, final CardSlot hint) {
                 placeCardInHand(card, player, hint);

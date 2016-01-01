@@ -14,7 +14,7 @@ import java.util.Optional;
 final class PlayerImpl implements Player {
 
     private final PlayerListener listener;
-    private final Optional<RummikubCallback> callback;
+    private final Optional<PlayerCallback> callback;
 
     final List<Card> cards = new ArrayList<>();
 
@@ -23,7 +23,7 @@ final class PlayerImpl implements Player {
      * @param cards
      * @param callback
      */
-    PlayerImpl(final PlayerListener listener, final Collection<Card> cards, final RummikubCallback callback) {
+    PlayerImpl(final PlayerListener listener, final Collection<Card> cards, final PlayerCallback callback) {
         this.listener = listener;
         this.cards.addAll(cards);
         this.callback = Optional.ofNullable(callback);

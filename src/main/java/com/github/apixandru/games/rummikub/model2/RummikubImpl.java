@@ -84,7 +84,7 @@ final class RummikubImpl implements Rummikub {
     }
 
     @Override
-    public Player addPlayer(final String name, final RummikubCallback callback) {
+    public Player addPlayer(final String name, final PlayerCallback callback) {
         final PlayerImpl player = new PlayerImpl(listener, getCards(14), callback);
         this.players.add(player);
         if (null == this.currentPlayer) {
