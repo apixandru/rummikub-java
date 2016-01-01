@@ -32,7 +32,7 @@ public final class Main {
 
         final PlayerUi player = new PlayerUi();
         final Rummikub rummikub = RummikubFactory.newInstance(board);
-        final Player actualPlayer = rummikub.addPlayer("John", new PlayerCallback<CardSlot>() {
+        final Player<CardSlot> actualPlayer = rummikub.addPlayer("John", new PlayerCallback<CardSlot>() {
             @Override
             public void cardReceived(final Card card, final CardSlot hint) {
                 placeCardInHand(card, player, hint);
@@ -66,7 +66,7 @@ public final class Main {
      * @param actualPlayer
      * @return
      */
-    private static JPanel createMiddlePanel(final Player actualPlayer) {
+    private static JPanel createMiddlePanel(final Player<CardSlot> actualPlayer) {
         final JPanel panel = new JPanel();
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
