@@ -27,13 +27,12 @@ final class CardDndListener extends MouseAdapter {
     private CardSlot dropTarget;
     private Color dropTargetOriginalColor;
 
-
     private int xOffset;
     private int yOffset;
 
-
     /**
      * @param dragSource
+     * @param player
      */
     CardDndListener(final DragSource dragSource, final Player<CardSlot> player) {
         this.dragSource = dragSource;
@@ -58,6 +57,7 @@ final class CardDndListener extends MouseAdapter {
         this.dragSource.beginDrag(this.draggablePiece);
 
         updateMovingPieceLocation(e);
+        updateDropIndicator(e);
     }
 
     /**
@@ -115,6 +115,7 @@ final class CardDndListener extends MouseAdapter {
         transferTo(getComponentOrInitialLocation(e));
         resetBackground();
         this.draggablePiece = null;
+        this.dropTarget = null;
     }
 
     private void transferTo(final CardSlot destComponent) {
