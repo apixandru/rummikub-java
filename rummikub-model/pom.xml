@@ -6,8 +6,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>rummikub-parent</artifactId>
         <groupId>com.github.apixandru.games.rummikub</groupId>
+        <artifactId>rummikub</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
