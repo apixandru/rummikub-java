@@ -31,7 +31,7 @@ public final class RummikubTest2 {
     @Before
     public void setup() {
         this.rummikub = RummikubFactory.newInstance();
-        this.player = rummikub.addPlayer("Player 1");
+        this.player = rummikub.addPlayer("Player 1", null);
     }
 
     /**
@@ -89,7 +89,7 @@ public final class RummikubTest2 {
      */
     @Test
     public void testGame() {
-        final Player player2 = rummikub.addPlayer("Johnny");
+        final Player player2 = rummikub.addPlayer("Johnny", null);
 
         assertSame(player, currentPlayer(rummikub));
 

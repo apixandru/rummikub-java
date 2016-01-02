@@ -8,12 +8,6 @@ public interface Rummikub {
 
     /**
      * @param name
-     * @return
-     */
-    Player<Object> addPlayer(String name);
-
-    /**
-     * @param name
      * @param callback
      * @return
      */

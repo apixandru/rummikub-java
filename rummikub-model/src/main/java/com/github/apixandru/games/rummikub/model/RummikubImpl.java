@@ -72,11 +72,6 @@ final class RummikubImpl implements Rummikub {
     }
 
     @Override
-    public Player<Object> addPlayer(final String name) {
-        return addPlayer(name, null);
-    }
-
-    @Override
     public <H> Player<H> addPlayer(final String name, final PlayerCallback<H> callback) {
         final PlayerImpl<H> player = new PlayerImpl<>(listener, callback);
         this.players.add(player);
