@@ -1,7 +1,10 @@
 package com.github.apixandru.games.rummikub.model;
 
+import java.util.Collection;
+
 import static com.github.apixandru.games.rummikub.model.Color.BLACK;
 import static com.github.apixandru.games.rummikub.model.Rank.ONE;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -26,6 +29,14 @@ final class TestUtils {
      */
     static Card card(Color color, Rank rank) {
         return new Card(idGenerator++, color, rank);
+    }
+
+    /**
+     * @param collection
+     * @return
+     */
+    static void assertEmpty(Collection<?> collection) {
+        assertTrue(collection.isEmpty());
     }
 
 }

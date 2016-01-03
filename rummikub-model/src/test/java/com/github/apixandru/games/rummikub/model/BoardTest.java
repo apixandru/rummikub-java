@@ -78,7 +78,7 @@ public final class BoardTest {
     }
 
     /**
-     * Should be able to remove the card and place another one in its position
+     * Should be able to remove the card and place another one in its position.
      */
     @Test
     public void testRemoveCardFromBoard() {
@@ -87,11 +87,24 @@ public final class BoardTest {
         assertTrue(board.isFree(0, 6));
     }
 
+    /**
+     * Position B should be taken if a card was moved from positon A to position B.
+     */
     @Test
     public void testMoveCardOnBoard() {
         assertTrue(board.placeCard(BLACK_ONE_1, 0, 6));
         board.moveCard(0, 6, 1, 5);
+        assertTrue(board.isFree(0, 6));
         assertFalse(board.isFree(1, 5));
+    }
+
+    /**
+     * Placing card on the board should make the spot taken.
+     */
+    @Test
+    public void testPlaceCard() {
+        assertTrue(board.placeCard(BLACK_ONE_1, 0, 6));
+        assertFalse(board.isFree(0, 6));
     }
 
 }
