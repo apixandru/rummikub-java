@@ -11,13 +11,13 @@ public interface BoardCallback {
      * @param x
      * @param y
      */
-    void cardPlacedOnBoard(Card card, int x, int y);
+    void onCardPlacedOnBoard(Card card, int x, int y);
 
     /**
      * @param card
      * @param x
      * @param y
      */
-    void cardRemovedFromBoard(Card card, int x, int y);
+    void onCardRemovedFromBoard(Card card, int x, int y);
 
 }

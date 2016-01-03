@@ -19,12 +19,12 @@ public final class TrackingBoardCallback implements BoardCallback {
     private final List<BoardAction> actions = new ArrayList<>();
 
     @Override
-    public void cardPlacedOnBoard(final Card card, final int x, final int y) {
+    public void onCardPlacedOnBoard(final Card card, final int x, final int y) {
         this.actions.add(new BoardAction(ADDED, card, x, y));
     }
 
     @Override
-    public void cardRemovedFromBoard(final Card card, final int x, final int y) {
+    public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
         this.actions.add(new BoardAction(REMOVED, card, x, y));
     }
 

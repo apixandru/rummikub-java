@@ -60,7 +60,7 @@ final class Board {
             return false;
         }
         cards[y][x] = card;
-        this.callback.ifPresent(callback -> callback.cardPlacedOnBoard(card, x, y));
+        this.callback.ifPresent(callback -> callback.onCardPlacedOnBoard(card, x, y));
         return true;
     }
 
@@ -71,7 +71,7 @@ final class Board {
      */
     Card removeCard(final int x, final int y) {
         final Card card = cards[y][x];
-        this.callback.ifPresent(callback -> callback.cardRemovedFromBoard(card, x, y));
+        this.callback.ifPresent(callback -> callback.onCardRemovedFromBoard(card, x, y));
         cards[y][x] = null;
         return card;
     }
