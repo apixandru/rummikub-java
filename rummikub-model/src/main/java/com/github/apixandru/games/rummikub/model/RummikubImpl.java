@@ -7,7 +7,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-final class RummikubImpl implements Rummikub {
+final class RummikubImpl implements Rummikub, BoardCallback {
 
     private final UndoManager undoManager = new UndoManager();
 
@@ -22,10 +22,10 @@ final class RummikubImpl implements Rummikub {
     PlayerImpl currentPlayer;
 
     /**
-     * @param callback
+     *
      */
-    RummikubImpl(final BoardCallback callback) {
-        this.board = new Board(callback);
+    RummikubImpl() {
+        this.board = new Board(this);
         this.undoManager.reset(board);
     }
 
@@ -90,6 +90,16 @@ final class RummikubImpl implements Rummikub {
         for (int i = 0; i < num; i++) {
             giveCard();
         }
+    }
+
+    @Override
+    public void onCardPlacedOnBoard(final Card card, final int x, final int y) {
+        this.players.forEach(player -> player.onCardPlacedOnBoard(card, x, y));
+    }
+
+    @Override
+    public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
+        this.players.forEach(player -> player.onCardRemovedFromBoard(card, x, y));
     }
 
     /**

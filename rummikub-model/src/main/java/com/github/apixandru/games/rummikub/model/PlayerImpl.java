@@ -8,10 +8,10 @@ import java.util.Optional;
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-final class PlayerImpl<H> implements Player<H> {
+final class PlayerImpl<H> implements Player<H>, BoardCallback {
 
     private final PlayerListener listener;
-    private final Optional<PlayerCallback<H>> callback;
+    final Optional<PlayerCallback<H>> callback;
 
     final List<Card> cards = new ArrayList<>();
 
@@ -70,6 +70,16 @@ final class PlayerImpl<H> implements Player<H> {
      */
     public void removeCard(final Card card) {
         this.cards.remove(card);
+    }
+
+    @Override
+    public void onCardPlacedOnBoard(final Card card, final int x, final int y) {
+        this.callback.ifPresent(callback -> callback.onCardPlacedOnBoard(card, x, y));
+    }
+
+    @Override
+    public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
+        this.callback.ifPresent(callback -> callback.onCardRemovedFromBoard(card, x, y));
     }
 
 }

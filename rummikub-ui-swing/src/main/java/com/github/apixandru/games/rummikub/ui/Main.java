@@ -49,8 +49,7 @@ public final class Main {
 
         };
 
-        final Rummikub rummikub = RummikubFactory.newInstance(callback);
-        final Player<CardSlot> actualPlayer = rummikub.addPlayer("John", callback);
+        final Player<CardSlot> actualPlayer = RummikubFactory.newInstance().addPlayer("John", callback);
 
         final JPanel comp = createMiddlePanel(actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
