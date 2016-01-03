@@ -31,14 +31,27 @@ public final class Main {
         final BoardUi board = new BoardUi();
 
         final PlayerUi player = new PlayerUi();
-        final Rummikub rummikub = RummikubFactory.newInstance(board);
-        final Player<CardSlot> actualPlayer = rummikub.addPlayer("John", new PlayerCallback<CardSlot>() {
+        final PlayerCallback<CardSlot> callback = new PlayerCallback<CardSlot>() {
             @Override
             public void cardReceived(final Card card, final CardSlot hint) {
                 placeCardInHand(card, player, hint);
             }
 
-        });
+            @Override
+            public void onCardPlacedOnBoard(final Card card, final int x, final int y) {
+                UiUtil.placeCard(new CardUi(card), board.slots[y][x]);
+            }
+
+            @Override
+            public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
+                UiUtil.removeCard(board.slots[y][x]);
+            }
+
+        };
+
+        final Rummikub rummikub = RummikubFactory.newInstance(callback);
+        final Player<CardSlot> actualPlayer = rummikub.addPlayer("John", callback);
+
         final JPanel comp = createMiddlePanel(actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
 

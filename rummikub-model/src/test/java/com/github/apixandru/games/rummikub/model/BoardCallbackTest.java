@@ -1,7 +1,6 @@
 package com.github.apixandru.games.rummikub.model;
 
 import com.github.apixandru.games.rummikub.model.support.BoardAction;
-import com.github.apixandru.games.rummikub.model.support.TrackingBoardCallback;
 import org.junit.Before;
 import org.junit.Test;
 
