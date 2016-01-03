@@ -3,13 +3,15 @@ package com.github.apixandru.games.rummikub.model;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.github.apixandru.games.rummikub.model.Color.BLACK;
 import static com.github.apixandru.games.rummikub.model.Color.BLUE;
 import static com.github.apixandru.games.rummikub.model.Color.RED;
 import static com.github.apixandru.games.rummikub.model.Rank.ONE;
+import static com.github.apixandru.games.rummikub.model.TestUtils.BLACK_ONE_1;
+import static com.github.apixandru.games.rummikub.model.TestUtils.BLACK_ONE_2;
 import static com.github.apixandru.games.rummikub.model.TestUtils.card;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -30,7 +32,7 @@ public final class BoardTest {
      */
     @Test
     public void testValidFormation() {
-        board.placeCard(card(BLACK, ONE), 0, 1);
+        board.placeCard(BLACK_ONE_1, 0, 1);
         board.placeCard(card(RED, ONE), 1, 1);
         board.placeCard(card(BLUE, ONE), 2, 1);
         assertTrue(board.isValid());
@@ -41,7 +43,7 @@ public final class BoardTest {
      */
     @Test
     public void testInvalidFormation() {
-        board.placeCard(card(BLACK, ONE), 16, 6);
+        board.placeCard(BLACK_ONE_1, 16, 6);
         board.placeCard(card(RED, ONE), 18, 6);
         board.placeCard(card(BLUE, ONE), 19, 6);
         assertFalse(board.isValid());
@@ -53,8 +55,8 @@ public final class BoardTest {
      */
     @Test
     public void testPlaceOutOfBounds() {
-        assertFalse(board.placeCard(card(BLACK, ONE), 0, 7));
-        assertFalse(board.placeCard(card(BLACK, ONE), 20, 0));
+        assertFalse(board.placeCard(BLACK_ONE_1, 0, 7));
+        assertFalse(board.placeCard(BLACK_ONE_1, 20, 0));
     }
 
     /**
@@ -62,8 +64,8 @@ public final class BoardTest {
      */
     @Test
     public void testPlaceCardOnTakenSpot() {
-        assertTrue(board.placeCard(card(BLACK, ONE), 0, 6));
-        assertFalse(board.placeCard(card(BLACK, ONE), 0, 6));
+        assertTrue(board.placeCard(BLACK_ONE_1, 0, 6));
+        assertFalse(board.placeCard(BLACK_ONE_2, 0, 6));
     }
 
     /**
@@ -71,9 +73,25 @@ public final class BoardTest {
      */
     @Test
     public void testPlaceSameCardOnTakenSpot() {
-        final Card card = card(BLACK, ONE);
-        assertTrue(board.placeCard(card, 0, 6));
-        assertTrue(board.placeCard(card, 0, 6));
+        assertTrue(board.placeCard(BLACK_ONE_1, 0, 6));
+        assertTrue(board.placeCard(BLACK_ONE_1, 0, 6));
+    }
+
+    /**
+     * Should be able to remove the card and place another one in its position
+     */
+    @Test
+    public void testRemoveCardFromBoard() {
+        assertTrue(board.placeCard(BLACK_ONE_1, 0, 6));
+        assertSame(BLACK_ONE_1, board.removeCard(0, 6));
+        assertTrue(board.isFree(0, 6));
+    }
+
+    @Test
+    public void testMoveCardOnBoard() {
+        assertTrue(board.placeCard(BLACK_ONE_1, 0, 6));
+        board.moveCard(0, 6, 1, 5);
+        assertFalse(board.isFree(1, 5));
     }
 
 }

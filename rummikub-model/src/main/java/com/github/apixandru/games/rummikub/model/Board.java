@@ -41,7 +41,7 @@ final class Board {
      * @param y
      * @return
      */
-    private boolean isFree(int x, int y) {
+    boolean isFree(int x, int y) {
         return null == cards[y][x];
     }
 
