@@ -67,7 +67,7 @@ final class UiUtil {
      * @param slot
      */
     public static void placeCard(final CardUi card, final CardSlot slot) {
-        log.debug("Place card request for " + card.card.getId() + " on (" + slot.x + ", " + slot.y + ")");
+        log.debug("Place card request for " + card.card + " on (" + slot.x + ", " + slot.y + ")");
         slot.add(card);
         slot.validate();
     }
