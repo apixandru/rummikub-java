@@ -1,5 +1,6 @@
 package com.github.apixandru.games.rummikub.ui;
 
+import com.github.apixandru.games.rummikub.client.RummikubGame;
 import com.github.apixandru.games.rummikub.model.Player;
 import com.github.apixandru.games.rummikub.model.PlayerCallback;
 import com.github.apixandru.games.rummikub.model.RummikubFactory;
@@ -7,6 +8,8 @@ import com.github.apixandru.games.rummikub.model.RummikubFactory;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Collections;
 
 import static com.github.apixandru.games.rummikub.model.Constants.NUM_COLS;
 import static java.lang.Math.max;
@@ -24,13 +27,13 @@ public final class Main {
     /**
      * @param args
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws IOException {
         final JFrame frame = new JFrame();
         final BoardUi board = new BoardUi();
 
         final PlayerUi player = new PlayerUi();
         final PlayerCallback<CardSlot> callback = new CardSlotCallback(board, player);
-
+        RummikubGame.connect(callback, Collections.emptyList());
         final Player<CardSlot> actualPlayer = RummikubFactory.newInstance().addPlayer("John", callback);
 
         final JPanel comp = createMiddlePanel(actualPlayer);

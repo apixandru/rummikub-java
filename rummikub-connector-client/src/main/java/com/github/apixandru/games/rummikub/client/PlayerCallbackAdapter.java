@@ -46,11 +46,12 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
         try (IntReader reader = intReader) {
             while (true) {
                 final int input = reader.readInt();
+                if (AUX_CARDS == input) {
+                    handleReceiveCardList(reader);
+                    continue;
+                }
                 final Card card = this.cards.get(reader.readInt());
                 switch (input) {
-                    case AUX_CARDS:
-                        handleReceiveCardList(reader);
-                        break;
                     case SERVER_CARD_PLACED:
                         handleCardPlaced(card, reader);
                         break;

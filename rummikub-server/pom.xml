@@ -6,17 +6,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.apixandru.games.rummikub</groupId>
         <artifactId>rummikub</artifactId>
+        <groupId>com.github.apixandru.games.rummikub</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>rummikub-brotocol</artifactId>
+    <artifactId>rummikub-server</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>rummikub-model</artifactId>
+            <artifactId>rummikub-brotocol</artifactId>
         </dependency>
     </dependencies>
 
