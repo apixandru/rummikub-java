@@ -12,6 +12,8 @@
     <modules>
         <module>rummikub-ui-swing</module>
         <module>rummikub-model</module>
+        <module>rummikub-brotocol</module>
+        <module>rummikub-connector-client</module>
     </modules>
 
     <properties>
@@ -52,6 +54,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>rummikub-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>rummikub-brotocol</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
