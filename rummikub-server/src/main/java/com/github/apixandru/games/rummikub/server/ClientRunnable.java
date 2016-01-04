@@ -1,7 +1,6 @@
 package com.github.apixandru.games.rummikub.server;
 
-import com.github.apixandru.games.rummikub.brotocol.IntWriter;
-import com.github.apixandru.games.rummikub.brotocol.SocketIntWriter;
+import com.github.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.Cards;
 import com.github.apixandru.games.rummikub.model.Constants;
@@ -20,11 +19,7 @@ import static com.github.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEI
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-public class ClientRunnable implements Runnable, PlayerCallback<Integer> {
-
-    private final Socket socket;
-    private final List<Card> cards;
-    private final IntWriter writer;
+public class ClientRunnable extends AbstractIntWritable implements Runnable, PlayerCallback<Integer> {
 
     /**
      * @param socket
@@ -32,9 +27,7 @@ public class ClientRunnable implements Runnable, PlayerCallback<Integer> {
      * @throws IOException
      */
     ClientRunnable(final Socket socket, final List<Card> cards) throws IOException {
-        this.socket = socket;
-        this.cards = cards;
-        this.writer = new SocketIntWriter(socket);
+        super(socket, cards);
     }
 
     @Override
@@ -72,24 +65,6 @@ public class ClientRunnable implements Runnable, PlayerCallback<Integer> {
     @Override
     public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
         write(SERVER_CARD_REMOVED, card, x, y);
-    }
-
-    /**
-     * @param header
-     * @param card
-     * @param ints
-     */
-    private void write(final int header, final Card card, int... ints) {
-        this.writer.write(header, this.cards.indexOf(card));
-        this.writer.write(ints);
-        flush();
-    }
-
-    /**
-     *
-     */
-    private void flush() {
-        this.writer.flush();
     }
 
 }
