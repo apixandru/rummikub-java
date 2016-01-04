@@ -2,12 +2,17 @@ package com.github.apixandru.games.rummikub.client;
 
 import com.github.apixandru.games.rummikub.brotocol.IntReader;
 import com.github.apixandru.games.rummikub.model.Card;
+import com.github.apixandru.games.rummikub.model.Color;
+import com.github.apixandru.games.rummikub.model.Constants;
 import com.github.apixandru.games.rummikub.model.PlayerCallback;
+import com.github.apixandru.games.rummikub.model.Rank;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.github.apixandru.games.rummikub.brotocol.Brotocol.AUX_CARDS;
 import static com.github.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_PLACED;
 import static com.github.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_REMOVED;
 import static com.github.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEIVED_CARD;
@@ -20,22 +25,19 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
 
     private final IntReader intReader;
     private final PlayerCallback<H> callback;
-    private final List<Card> cards;
+    private final List<Card> cards = new ArrayList<>();
     private final List<H> hints;
 
     /**
      * @param stream
      * @param callback
-     * @param cards
      * @param hints
      */
     public PlayerCallbackAdapter(final IntReader stream,
                                  final PlayerCallback<H> callback,
-                                 final List<Card> cards,
                                  final List<H> hints) {
         this.intReader = stream;
         this.callback = callback;
-        this.cards = Collections.unmodifiableList(cards);
         this.hints = Collections.unmodifiableList(hints);
     }
 
@@ -46,6 +48,9 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
                 final int input = reader.readInt();
                 final Card card = this.cards.get(reader.readInt());
                 switch (input) {
+                    case AUX_CARDS:
+                        handleReceiveCardList(reader);
+                        break;
                     case SERVER_CARD_PLACED:
                         handleCardPlaced(card, reader);
                         break;
@@ -64,6 +69,38 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
         }
     }
 
+    /**
+     * @param reader
+     * @throws IOException
+     */
+    private void handleReceiveCardList(final IntReader reader) throws IOException {
+
+        final Color[] colorValues = Color.values();
+        final Rank[] rankValues = Rank.values();
+
+        for (int i = 0; i < Constants.NUM_CARDS; i++) {
+            this.cards.add(new Card(orNull(reader.readInt(), colorValues), orNull(reader.readInt(), rankValues)));
+        }
+    }
+
+    /**
+     * @param index
+     * @param values
+     * @param <T>
+     * @return
+     */
+    private static <T> T orNull(final int index, T... values) {
+        if (-1 == index) {
+            return null;
+        }
+        return values[index];
+    }
+
+    /**
+     * @param card
+     * @param reader
+     * @throws IOException
+     */
     private void handleReceivedCard(final Card card, final IntReader reader) throws IOException {
         final int hintIndex = reader.readInt();
         this.callback.cardReceived(card, this.hints.get(hintIndex));
@@ -71,6 +108,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
 
     /**
      * @param card
+     * @param reader
      * @throws IOException
      */
     private void handleCardRemoved(final Card card, final IntReader reader) throws IOException {
@@ -81,6 +119,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
 
     /**
      * @param card
+     * @param reader
      * @throws IOException
      */
     private void handleCardPlaced(final Card card, final IntReader reader) throws IOException {

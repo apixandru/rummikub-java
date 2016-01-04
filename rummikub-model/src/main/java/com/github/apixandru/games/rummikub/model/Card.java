@@ -16,7 +16,7 @@ public final class Card {
      * @param color
      * @param rank
      */
-    Card(final Color color, final Rank rank) {
+    public Card(final Color color, final Rank rank) {
         if (null == color) {
             if (null != rank) {
                 throw new IllegalArgumentException();
