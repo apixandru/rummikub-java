@@ -29,14 +29,14 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
     private final List<H> hints;
 
     /**
-     * @param stream
+     * @param reader
      * @param callback
      * @param hints
      */
-    public PlayerCallbackAdapter(final IntReader stream,
+    public PlayerCallbackAdapter(final IntReader reader,
                                  final PlayerCallback<H> callback,
                                  final List<H> hints) {
-        this.intReader = stream;
+        this.intReader = reader;
         this.callback = callback;
         this.hints = Collections.unmodifiableList(hints);
     }

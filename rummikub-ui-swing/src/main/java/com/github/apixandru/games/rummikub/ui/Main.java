@@ -1,9 +1,7 @@
 package com.github.apixandru.games.rummikub.ui;
 
-import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.Player;
 import com.github.apixandru.games.rummikub.model.PlayerCallback;
-import com.github.apixandru.games.rummikub.model.Rummikub;
 import com.github.apixandru.games.rummikub.model.RummikubFactory;
 
 import javax.swing.*;
@@ -31,23 +29,7 @@ public final class Main {
         final BoardUi board = new BoardUi();
 
         final PlayerUi player = new PlayerUi();
-        final PlayerCallback<CardSlot> callback = new PlayerCallback<CardSlot>() {
-            @Override
-            public void cardReceived(final Card card, final CardSlot hint) {
-                placeCardInHand(card, player, hint);
-            }
-
-            @Override
-            public void onCardPlacedOnBoard(final Card card, final int x, final int y) {
-                UiUtil.placeCard(new CardUi(card), board.slots[y][x]);
-            }
-
-            @Override
-            public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
-                UiUtil.removeCard(board.slots[y][x]);
-            }
-
-        };
+        final PlayerCallback<CardSlot> callback = new CardSlotCallback(board, player);
 
         final Player<CardSlot> actualPlayer = RummikubFactory.newInstance().addPlayer("John", callback);
 
@@ -87,14 +69,6 @@ public final class Main {
         btnEndTurn.addActionListener((e) -> actualPlayer.endTurn());
         panel.add(btnEndTurn);
         return panel;
-    }
-
-    /**
-     * @param card
-     * @param player
-     */
-    private static void placeCardInHand(final Card card, final PlayerUi player, final CardSlot slot) {
-        UiUtil.placeCard(card, player.orFirstFreeSlot(slot));
     }
 
     /**
