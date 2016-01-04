@@ -13,7 +13,7 @@ import java.util.Queue;
  */
 final class CardPile {
 
-    private final Queue<Card> cards;
+    final Queue<Card> cards;
 
     {
         final LinkedList<Card> cards = new LinkedList<>();

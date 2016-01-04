@@ -93,6 +93,11 @@ final class RummikubImpl implements Rummikub, BoardCallback {
     }
 
     @Override
+    public List<Card> getCards() {
+        return new ArrayList<>(this.cardPile.cards);
+    }
+
+    @Override
     public void onCardPlacedOnBoard(final Card card, final int x, final int y) {
         this.players.forEach(player -> player.onCardPlacedOnBoard(card, x, y));
     }
