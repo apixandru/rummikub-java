@@ -21,11 +21,11 @@ final class CardPile {
         for (int i = 0; i < 2; i++) {
             for (final Rank rank : Rank.values()) {
                 for (final Color color : Color.values()) {
-                    cards.add(new Card(id++, color, rank));
+                    cards.add(new Card(color, rank));
                 }
             }
             // joker
-            cards.add(new Card(id++, null, null));
+            cards.add(new Card(null, null));
         }
 
         Collections.shuffle(cards);

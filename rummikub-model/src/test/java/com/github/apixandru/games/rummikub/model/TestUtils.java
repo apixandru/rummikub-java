@@ -12,8 +12,6 @@ import static org.junit.Assert.assertTrue;
  */
 final class TestUtils {
 
-    private static int idGenerator = 0;
-
     static final Card joker = card(null, null);
 
     static final Card BLACK_ONE_1 = card(BLACK, ONE);
@@ -28,7 +26,7 @@ final class TestUtils {
      * @return
      */
     static Card card(Color color, Rank rank) {
-        return new Card(idGenerator++, color, rank);
+        return new Card(color, rank);
     }
 
     /**
