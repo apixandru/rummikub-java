@@ -21,20 +21,23 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
     private final IntReader intReader;
     private final PlayerCallback<H> callback;
-    private final List<Card> cards = new ArrayList<>();
+    private final List<Card> cards;
     private final List<H> hints;
 
     /**
      * @param reader
      * @param callback
+     * @param cards
      * @param hints
      */
     public PlayerCallbackAdapter(final IntReader reader,
                                  final PlayerCallback<H> callback,
+                                 final List<Card> cards,
                                  final List<H> hints) {
         this.intReader = reader;
         this.callback = callback;
-        this.hints = Collections.unmodifiableList(hints);
+        this.cards = Collections.unmodifiableList(new ArrayList<>(cards));
+        this.hints = Collections.unmodifiableList(new ArrayList<H>(hints));
     }
 
     @Override

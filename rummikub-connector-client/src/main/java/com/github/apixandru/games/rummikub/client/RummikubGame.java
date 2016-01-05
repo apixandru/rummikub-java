@@ -1,5 +1,6 @@
 package com.github.apixandru.games.rummikub.client;
 
+import com.github.apixandru.games.rummikub.brotocol.Brotocol;
 import com.github.apixandru.games.rummikub.brotocol.IntReader;
 import com.github.apixandru.games.rummikub.brotocol.SocketIntReader;
 import com.github.apixandru.games.rummikub.brotocol.SocketIntWriter;
@@ -13,7 +14,6 @@ import com.github.apixandru.games.rummikub.model.Rank;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,8 +29,8 @@ public class RummikubGame {
 
         final List<Card> cards = handleReceiveCardList(reader);
 
-        new Thread(new PlayerCallbackAdapter<>(reader, callback, hints)).start();
-        return new SocketPlayer<>(writer, Collections.emptyList(), hints);
+        new Thread(new PlayerCallbackAdapter<>(reader, callback, cards, hints)).start();
+        return new SocketPlayer<>(writer, cards, hints);
     }
 
 
@@ -39,7 +39,9 @@ public class RummikubGame {
      * @throws IOException
      */
     private static List<Card> handleReceiveCardList(final IntReader reader) throws IOException {
-
+        if (Brotocol.AUX_CARDS != reader.readInt()) {
+            throw new IllegalArgumentException();
+        }
         final List<Card> cards = new ArrayList<>();
 
         final Color[] colorValues = Color.values();
