@@ -51,13 +51,13 @@ public class ClientRunnable extends AbstractIntWritable implements Runnable, Pla
                         handleOnCardPlacedOnBoard(reader);
                         break;
                     case CLIENT_END_TURN:
-                        endTurn();
+                        handleEndTurn();
                         break;
                     case CLIENT_TAKE_CARD:
-                        takeCardFromBoard(readCard(reader), reader.readInt(), reader.readInt(), reader.readInt());
+                        handleTakeCardFromBoard(reader);
                         break;
                     case CLIENT_MOVE_CARD:
-                        moveCardOnBoard(readCard(reader), reader.readInt(), reader.readInt(), reader.readInt(), reader.readInt());
+                        handleMoveCardOnBoard(reader);
                         break;
                     default:
                         throw new IllegalArgumentException("Unknown input: " + input);
@@ -66,6 +66,35 @@ public class ClientRunnable extends AbstractIntWritable implements Runnable, Pla
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void handleMoveCardOnBoard(final IntReader reader) throws IOException {
+        log.info("Received on moveCardOnBoard request.");
+        final Card card = readCard(reader);
+        final int fromX = reader.readInt();
+        final int fromY = reader.readInt();
+        final int toX = reader.readInt();
+        final int toY = reader.readInt();
+        log.info("Params: Card={}, fromX={}, fromY={}, toX={}, toY={}", card, fromX, fromY, toX, toY);
+        moveCardOnBoard(card, fromX, fromY, toX, toY);
+    }
+
+    private void handleTakeCardFromBoard(final IntReader reader) throws IOException {
+        log.info("Received on takeCardFromBoard request.");
+        final Card card = readCard(reader);
+        final int x = reader.readInt();
+        final int y = reader.readInt();
+        final int hint = reader.readInt();
+        log.info("Params: Card={}, x={}, y={}, hint={}", card, x, y, hint);
+        takeCardFromBoard(card, x, y, hint);
+    }
+
+    /**
+     *
+     */
+    private void handleEndTurn() {
+        log.info("Received on endTurn request.");
+        endTurn();
     }
 
     private void handleOnCardPlacedOnBoard(final IntReader reader) throws IOException {
