@@ -3,7 +3,6 @@ package com.github.apixandru.games.rummikub.ui;
 import com.github.apixandru.games.rummikub.client.RummikubGame;
 import com.github.apixandru.games.rummikub.model.Player;
 import com.github.apixandru.games.rummikub.model.PlayerCallback;
-import com.github.apixandru.games.rummikub.model.RummikubFactory;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -33,8 +32,8 @@ public final class Main {
 
         final PlayerUi player = new PlayerUi();
         final PlayerCallback<CardSlot> callback = new CardSlotCallback(board, player);
-//        RummikubGame.connect(callback, Collections.emptyList());
-        final Player<CardSlot> actualPlayer = RummikubFactory.newInstance().addPlayer("John", callback);
+        final Player<CardSlot> actualPlayer = RummikubGame.connect(callback, Collections.emptyList());
+//        final Player<CardSlot> actualPlayer = RummikubFactory.newInstance().addPlayer("John", callback);
 
         final JPanel comp = createMiddlePanel(actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);

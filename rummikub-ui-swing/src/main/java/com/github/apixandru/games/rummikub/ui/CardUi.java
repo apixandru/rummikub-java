@@ -4,7 +4,6 @@
 package com.github.apixandru.games.rummikub.ui;
 
 import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.Cards;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -31,7 +30,7 @@ final class CardUi extends JPanel {
         setMaximumSize(dimension);
         setPreferredSize(dimension);
         setBorder(new LineBorder(Color.BLACK));
-        final boolean joker = Cards.isJoker(card);
+        final boolean joker = isJoker(card);
         final JLabel label = new JLabel();
         label.setFont(UiUtil.CARD_FONT);
         this.color = UiUtil.getColor(card.getColor());
@@ -44,6 +43,14 @@ final class CardUi extends JPanel {
             label.setText(String.valueOf(number));
         }
         add(label);
+    }
+
+    /**
+     * @param card
+     * @return
+     */
+    public static boolean isJoker(final Card card) {
+        return card.getRank() == null && card.getColor() == null;
     }
 
     /* (non-Javadoc)

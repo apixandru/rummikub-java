@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>rummikub-model</artifactId>
+            <artifactId>rummikub-api</artifactId>
         </dependency>
     </dependencies>
 

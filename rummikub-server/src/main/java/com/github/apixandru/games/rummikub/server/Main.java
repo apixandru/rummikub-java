@@ -4,7 +4,6 @@ import com.github.apixandru.games.rummikub.brotocol.IntWriter;
 import com.github.apixandru.games.rummikub.brotocol.SocketIntReader;
 import com.github.apixandru.games.rummikub.brotocol.SocketIntWriter;
 import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.Cards;
 import com.github.apixandru.games.rummikub.model.Constants;
 import com.github.apixandru.games.rummikub.model.Player;
 import com.github.apixandru.games.rummikub.model.Rummikub;
@@ -51,13 +50,21 @@ public class Main {
         final int[] ints = new int[Constants.NUM_CARDS * 2];
         for (int i = 0, to = cards.size(); i < to; i++) {
             final Card card = cards.get(i);
-            final boolean joker = Cards.isJoker(card);
             final int index = i * 2;
-            ints[index] = joker ? -1 : card.getColor().ordinal();
-            ints[index + 1] = joker ? -1 : card.getRank().ordinal();
+            ints[index] = ordinal(card.getColor());
+            ints[index + 1] = ordinal(card.getRank());
         }
         writer.write(ints);
         writer.flush();
+    }
+
+    /**
+     * @param constant
+     * @param <E>
+     * @return
+     */
+    private static <E extends Enum<E>> int ordinal(final E constant) {
+        return null == constant ? -1 : constant.ordinal();
     }
 
 }

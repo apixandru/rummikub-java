@@ -14,10 +14,17 @@
     <artifactId>rummikub-server</artifactId>
 
     <dependencies>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>rummikub-brotocol</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>rummikub-model</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

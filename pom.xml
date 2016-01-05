@@ -15,6 +15,7 @@
         <module>rummikub-brotocol</module>
         <module>rummikub-connector-client</module>
         <module>rummikub-server</module>
+        <module>rummikub-api</module>
     </modules>
 
     <properties>
@@ -52,6 +53,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>rummikub-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>rummikub-model</artifactId>
