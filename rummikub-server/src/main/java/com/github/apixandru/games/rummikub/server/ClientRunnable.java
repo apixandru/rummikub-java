@@ -1,5 +1,6 @@
 package com.github.apixandru.games.rummikub.server;
 
+import com.github.apixandru.games.rummikub.brotocol.IntWriter;
 import com.github.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.Cards;
@@ -7,7 +8,6 @@ import com.github.apixandru.games.rummikub.model.Constants;
 import com.github.apixandru.games.rummikub.model.PlayerCallback;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.util.List;
 
 import static com.github.apixandru.games.rummikub.brotocol.Brotocol.AUX_CARDS;
@@ -22,12 +22,12 @@ import static com.github.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEI
 public class ClientRunnable extends AbstractIntWritable implements Runnable, PlayerCallback<Integer> {
 
     /**
-     * @param socket
+     * @param writer
      * @param cards
      * @throws IOException
      */
-    ClientRunnable(final Socket socket, final List<Card> cards) throws IOException {
-        super(socket, cards);
+    ClientRunnable(final IntWriter writer, final List<Card> cards) throws IOException {
+        super(writer, cards);
     }
 
     @Override

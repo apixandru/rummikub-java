@@ -1,5 +1,6 @@
 package com.github.apixandru.games.rummikub.server;
 
+import com.github.apixandru.games.rummikub.brotocol.SocketIntWriter;
 import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.Rummikub;
 import com.github.apixandru.games.rummikub.model.RummikubFactory;
@@ -26,7 +27,8 @@ public class Main {
         final List<ClientRunnable> sockets = new ArrayList<>();
 
         while (true) {
-            final ClientRunnable runnable = new ClientRunnable(serverSocket.accept(), cards);
+            final SocketIntWriter writer = new SocketIntWriter(serverSocket.accept());
+            final ClientRunnable runnable = new ClientRunnable(writer, cards);
             sockets.add(runnable);
             new Thread(runnable).start();
         }

@@ -17,18 +17,16 @@ import java.util.List;
 public class AbstractIntWritable {
 
     protected final IntWriter writer;
-    protected final Socket socket;
     protected final List<Card> cards;
 
     /**
-     * @param socket
+     * @param writer
      * @param cards
      * @throws IOException
      */
-    public AbstractIntWritable(Socket socket, final List<Card> cards) throws IOException {
-        this.socket = socket;
+    public AbstractIntWritable(final IntWriter writer, final List<Card> cards) throws IOException {
         this.cards = Collections.unmodifiableList(new ArrayList<>(cards));
-        this.writer = new SocketIntWriter(socket);
+        this.writer = writer;
     }
 
     /**
@@ -37,9 +35,16 @@ public class AbstractIntWritable {
      * @param ints
      */
     protected final void write(final int header, final Card card, int... ints) {
-        this.writer.write(header, this.cards.indexOf(card));
-        this.writer.write(ints);
+        write(header, this.cards.indexOf(card));
+        write(ints);
         flush();
+    }
+
+    /**
+     * @param ints
+     */
+    protected final void write(int... ints) {
+        this.writer.write(ints);
     }
 
     /**
