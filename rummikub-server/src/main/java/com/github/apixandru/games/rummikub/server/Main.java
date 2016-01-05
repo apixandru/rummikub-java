@@ -6,13 +6,13 @@ import com.github.apixandru.games.rummikub.brotocol.SocketIntWriter;
 import com.github.apixandru.games.rummikub.model.Card;
 import com.github.apixandru.games.rummikub.model.Cards;
 import com.github.apixandru.games.rummikub.model.Constants;
+import com.github.apixandru.games.rummikub.model.Player;
 import com.github.apixandru.games.rummikub.model.Rummikub;
 import com.github.apixandru.games.rummikub.model.RummikubFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.apixandru.games.rummikub.brotocol.Brotocol.AUX_CARDS;
@@ -31,16 +31,13 @@ public class Main {
 
         final List<Card> cards = game.getCards();
 
-        final List<ClientRunnable> sockets = new ArrayList<>();
-
         while (true) {
             final Socket socket = serverSocket.accept();
             final SocketIntWriter writer = new SocketIntWriter(socket);
             sendCards(writer, cards);
             final SocketIntReader reader = new SocketIntReader(socket);
-            final ClientRunnable runnable = new ClientRunnable(reader, writer, cards);
-            sockets.add(runnable);
-            game.addPlayer("Player", runnable);
+            final Player<Integer> player = game.addPlayer("Player", new ClientCallback(writer, cards));
+            final ClientRunnable runnable = new ClientRunnable(reader, cards, player);
             new Thread(runnable).start();
         }
 
