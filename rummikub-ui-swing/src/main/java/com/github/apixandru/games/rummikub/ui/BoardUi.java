@@ -1,6 +1,6 @@
 package com.github.apixandru.games.rummikub.ui;
 
-import static com.github.apixandru.games.rummikub.model.Constants.NUM_ROWS;
+import static com.github.apixandru.games.rummikub.api.Constants.NUM_ROWS;
 
 /**
  * @author Alexandru-Constantin Bledea

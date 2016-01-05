@@ -1,7 +1,7 @@
 package com.github.apixandru.games.rummikub.ui;
 
-import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.PlayerCallback;
+import com.github.apixandru.games.rummikub.api.Card;
+import com.github.apixandru.games.rummikub.api.PlayerCallback;
 
 /**
  * @author Alexandru-Constantin Bledea

@@ -3,7 +3,7 @@
  */
 package com.github.apixandru.games.rummikub.ui;
 
-import com.github.apixandru.games.rummikub.model.Card;
+import com.github.apixandru.games.rummikub.api.Card;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +44,7 @@ final class UiUtil {
      * @param color
      * @return
      */
-    public static Color getColor(final com.github.apixandru.games.rummikub.model.Color color) {
+    public static Color getColor(final com.github.apixandru.games.rummikub.api.Color color) {
         if (null == color) {
             return Color.BLACK;
         }

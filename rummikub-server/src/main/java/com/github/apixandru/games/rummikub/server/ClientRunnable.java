@@ -1,8 +1,8 @@
 package com.github.apixandru.games.rummikub.server;
 
 import com.github.apixandru.games.rummikub.brotocol.IntReader;
-import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.Player;
+import com.github.apixandru.games.rummikub.api.Card;
+import com.github.apixandru.games.rummikub.api.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

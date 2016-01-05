@@ -2,8 +2,8 @@ package com.github.apixandru.games.rummikub.client;
 
 import com.github.apixandru.games.rummikub.brotocol.IntWriter;
 import com.github.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
-import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.Player;
+import com.github.apixandru.games.rummikub.api.Card;
+import com.github.apixandru.games.rummikub.api.Player;
 
 import java.io.IOException;
 import java.util.List;

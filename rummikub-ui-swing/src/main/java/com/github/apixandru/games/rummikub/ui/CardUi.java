@@ -3,7 +3,7 @@
  */
 package com.github.apixandru.games.rummikub.ui;
 
-import com.github.apixandru.games.rummikub.model.Card;
+import com.github.apixandru.games.rummikub.api.Card;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

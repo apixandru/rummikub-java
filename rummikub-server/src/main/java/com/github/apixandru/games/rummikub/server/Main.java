@@ -3,11 +3,11 @@ package com.github.apixandru.games.rummikub.server;
 import com.github.apixandru.games.rummikub.brotocol.IntWriter;
 import com.github.apixandru.games.rummikub.brotocol.SocketIntReader;
 import com.github.apixandru.games.rummikub.brotocol.SocketIntWriter;
-import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.Constants;
-import com.github.apixandru.games.rummikub.model.Player;
-import com.github.apixandru.games.rummikub.model.Rummikub;
-import com.github.apixandru.games.rummikub.model.RummikubFactory;
+import com.github.apixandru.games.rummikub.api.Card;
+import com.github.apixandru.games.rummikub.api.Constants;
+import com.github.apixandru.games.rummikub.api.Player;
+import com.github.apixandru.games.rummikub.api.Rummikub;
+import com.github.apixandru.games.rummikub.api.RummikubFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;

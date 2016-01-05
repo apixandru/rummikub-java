@@ -1,8 +1,8 @@
 package com.github.apixandru.games.rummikub.ui;
 
 import com.github.apixandru.games.rummikub.client.RummikubGame;
-import com.github.apixandru.games.rummikub.model.Player;
-import com.github.apixandru.games.rummikub.model.PlayerCallback;
+import com.github.apixandru.games.rummikub.api.Player;
+import com.github.apixandru.games.rummikub.api.PlayerCallback;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,7 +10,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Collections;
 
-import static com.github.apixandru.games.rummikub.model.Constants.NUM_COLS;
+import static com.github.apixandru.games.rummikub.api.Constants.NUM_COLS;
 import static java.lang.Math.max;
 
 /**

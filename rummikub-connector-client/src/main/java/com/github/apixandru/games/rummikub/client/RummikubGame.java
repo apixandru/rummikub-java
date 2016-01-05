@@ -4,12 +4,12 @@ import com.github.apixandru.games.rummikub.brotocol.Brotocol;
 import com.github.apixandru.games.rummikub.brotocol.IntReader;
 import com.github.apixandru.games.rummikub.brotocol.SocketIntReader;
 import com.github.apixandru.games.rummikub.brotocol.SocketIntWriter;
-import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.Color;
-import com.github.apixandru.games.rummikub.model.Constants;
-import com.github.apixandru.games.rummikub.model.Player;
-import com.github.apixandru.games.rummikub.model.PlayerCallback;
-import com.github.apixandru.games.rummikub.model.Rank;
+import com.github.apixandru.games.rummikub.api.Card;
+import com.github.apixandru.games.rummikub.api.Color;
+import com.github.apixandru.games.rummikub.api.Constants;
+import com.github.apixandru.games.rummikub.api.Player;
+import com.github.apixandru.games.rummikub.api.PlayerCallback;
+import com.github.apixandru.games.rummikub.api.Rank;
 
 import java.io.IOException;
 import java.net.Socket;
