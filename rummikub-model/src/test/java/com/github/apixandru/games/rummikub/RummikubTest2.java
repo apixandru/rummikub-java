@@ -104,6 +104,17 @@ public final class RummikubTest2 {
     }
 
     /**
+     * Each player should receive 14 cards.
+     */
+    @Test
+    public void testPlayerReceivesCard() {
+        final Player player2 = rummikub.addPlayer("Johnny", null);
+
+        assertEquals(14, ImplementationDetails.countCards(player));
+        assertEquals(14, ImplementationDetails.countCards(player2));
+    }
+
+    /**
      * If you haven't done anything in a turn, you are given a card.
      */
     @Test

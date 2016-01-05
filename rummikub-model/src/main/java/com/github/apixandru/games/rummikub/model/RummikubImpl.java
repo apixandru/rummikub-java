@@ -49,7 +49,14 @@ final class RummikubImpl implements Rummikub, BoardCallback {
      *
      */
     private void giveCard() {
-        this.currentPlayer.receiveCard(this.cardPile.nextCard());
+        giveCard(this.currentPlayer);
+    }
+
+    /**
+     * @param player
+     */
+    private void giveCard(final PlayerImpl<?> player) {
+        player.receiveCard(this.cardPile.nextCard());
     }
 
     /**
@@ -78,17 +85,17 @@ final class RummikubImpl implements Rummikub, BoardCallback {
         if (null == this.currentPlayer) {
             this.currentPlayer = player;
         }
-        giveCards(14);
+        giveCards(player, 14);
         return player;
     }
 
     /**
+     * @param player
      * @param num
-     * @return
      */
-    private void giveCards(final int num) {
+    private void giveCards(final PlayerImpl<?> player, final int num) {
         for (int i = 0; i < num; i++) {
-            giveCard();
+            giveCard(player);
         }
     }
 
