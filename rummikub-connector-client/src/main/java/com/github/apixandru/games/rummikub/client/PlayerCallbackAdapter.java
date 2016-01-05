@@ -72,7 +72,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
      */
     private void handleReceivedCard(final Card card, final IntReader reader) throws IOException {
         final int hintIndex = reader.readInt();
-        this.callback.cardReceived(card, this.hints.get(hintIndex));
+        this.callback.cardReceived(card, -1 == hintIndex ? null : this.hints.get(hintIndex));
     }
 
     /**

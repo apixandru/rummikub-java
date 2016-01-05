@@ -22,12 +22,18 @@ import java.util.List;
  */
 public class RummikubGame {
 
+    /**
+     * @param callback
+     * @param hints
+     * @param <H>
+     * @return
+     * @throws IOException
+     */
     public static <H> Player<H> connect(final PlayerCallback<H> callback, final List<H> hints) throws IOException {
         final Socket socket = new Socket("localhost", 50122);
         final SocketIntReader reader = new SocketIntReader(socket);
-        final SocketIntWriter writer = new SocketIntWriter(socket);
-
         final List<Card> cards = handleReceiveCardList(reader);
+        final SocketIntWriter writer = new SocketIntWriter(socket);
 
         new Thread(new PlayerCallbackAdapter<>(reader, callback, cards, hints)).start();
         return new SocketPlayer<>(writer, cards, hints);
@@ -39,8 +45,9 @@ public class RummikubGame {
      * @throws IOException
      */
     private static List<Card> handleReceiveCardList(final IntReader reader) throws IOException {
-        if (Brotocol.AUX_CARDS != reader.readInt()) {
-            throw new IllegalArgumentException();
+        final int i1 = reader.readInt();
+        if (Brotocol.AUX_CARDS != i1) {
+            throw new IllegalArgumentException("Unexpected header: " + i1);
         }
         final List<Card> cards = new ArrayList<>();
 

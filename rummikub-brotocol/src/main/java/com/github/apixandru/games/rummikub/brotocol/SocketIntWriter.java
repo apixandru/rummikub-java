@@ -20,6 +20,7 @@ public class SocketIntWriter implements IntWriter {
     public SocketIntWriter(final Socket socket) throws IOException {
         this.socket = socket;
         this.out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        flush(); // send out the object stream header
     }
 
     @Override

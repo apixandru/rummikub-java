@@ -33,7 +33,7 @@ public final class Main {
 
         final PlayerUi player = new PlayerUi();
         final PlayerCallback<CardSlot> callback = new CardSlotCallback(board, player);
-        RummikubGame.connect(callback, Collections.emptyList());
+//        RummikubGame.connect(callback, Collections.emptyList());
         final Player<CardSlot> actualPlayer = RummikubFactory.newInstance().addPlayer("John", callback);
 
         final JPanel comp = createMiddlePanel(actualPlayer);
