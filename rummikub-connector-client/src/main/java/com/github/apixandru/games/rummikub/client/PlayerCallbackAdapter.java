@@ -2,17 +2,13 @@ package com.github.apixandru.games.rummikub.client;
 
 import com.github.apixandru.games.rummikub.brotocol.IntReader;
 import com.github.apixandru.games.rummikub.model.Card;
-import com.github.apixandru.games.rummikub.model.Color;
-import com.github.apixandru.games.rummikub.model.Constants;
 import com.github.apixandru.games.rummikub.model.PlayerCallback;
-import com.github.apixandru.games.rummikub.model.Rank;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.github.apixandru.games.rummikub.brotocol.Brotocol.AUX_CARDS;
 import static com.github.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_PLACED;
 import static com.github.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_REMOVED;
 import static com.github.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEIVED_CARD;
@@ -21,7 +17,7 @@ import static com.github.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEI
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-public final class PlayerCallbackAdapter<H> implements Runnable {
+final class PlayerCallbackAdapter<H> implements Runnable {
 
     private final IntReader intReader;
     private final PlayerCallback<H> callback;
@@ -46,10 +42,6 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
         try (IntReader reader = intReader) {
             while (true) {
                 final int input = reader.readInt();
-                if (AUX_CARDS == input) {
-                    handleReceiveCardList(reader);
-                    continue;
-                }
                 final Card card = this.cards.get(reader.readInt());
                 switch (input) {
                     case SERVER_CARD_PLACED:
@@ -68,33 +60,6 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * @param reader
-     * @throws IOException
-     */
-    private void handleReceiveCardList(final IntReader reader) throws IOException {
-
-        final Color[] colorValues = Color.values();
-        final Rank[] rankValues = Rank.values();
-
-        for (int i = 0; i < Constants.NUM_CARDS; i++) {
-            this.cards.add(new Card(orNull(reader.readInt(), colorValues), orNull(reader.readInt(), rankValues)));
-        }
-    }
-
-    /**
-     * @param index
-     * @param values
-     * @param <T>
-     * @return
-     */
-    private static <T> T orNull(final int index, T... values) {
-        if (-1 == index) {
-            return null;
-        }
-        return values[index];
     }
 
     /**

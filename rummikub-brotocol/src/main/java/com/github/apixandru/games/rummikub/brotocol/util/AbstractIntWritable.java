@@ -1,11 +1,9 @@
 package com.github.apixandru.games.rummikub.brotocol.util;
 
 import com.github.apixandru.games.rummikub.brotocol.IntWriter;
-import com.github.apixandru.games.rummikub.brotocol.SocketIntWriter;
 import com.github.apixandru.games.rummikub.model.Card;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
