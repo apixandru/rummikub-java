@@ -7,7 +7,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Collections;
 
 import static com.apixandru.games.rummikub.api.Constants.NUM_COLS;
 import static java.lang.Math.max;
@@ -31,7 +30,7 @@ public final class Main {
 
         final PlayerUi player = new PlayerUi();
         final CardSlotCallback callback = new CardSlotCallback(board, player);
-        final Player<CardSlot> actualPlayer = RummikubGame.connect(callback, Collections.emptyList());
+        final Player<CardSlot> actualPlayer = RummikubGame.connect(callback, player.getAllSlots());
 //        final Player<CardSlot> actualPlayer = RummikubFactory.newInstance().addPlayer("John", callback);
 
         final JPanel comp = createMiddlePanel(actualPlayer);
