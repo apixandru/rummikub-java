@@ -1,8 +1,8 @@
 package com.apixandru.games.rummikub.ui;
 
-import com.apixandru.games.rummikub.client.RummikubGame;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.PlayerCallback;
+import com.apixandru.games.rummikub.client.RummikubGame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

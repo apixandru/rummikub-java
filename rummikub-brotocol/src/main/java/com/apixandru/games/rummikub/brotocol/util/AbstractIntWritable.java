@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.brotocol.util;
 
-import com.apixandru.games.rummikub.brotocol.IntWriter;
 import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.games.rummikub.brotocol.IntWriter;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
 package com.apixandru.games.rummikub.client;
 
-import com.apixandru.games.rummikub.brotocol.IntReader;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.PlayerCallback;
+import com.apixandru.games.rummikub.brotocol.IntReader;
 
 import java.io.IOException;
 import java.util.ArrayList;

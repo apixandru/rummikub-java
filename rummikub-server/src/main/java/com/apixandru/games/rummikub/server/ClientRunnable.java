@@ -1,8 +1,8 @@
 package com.apixandru.games.rummikub.server;
 
-import com.apixandru.games.rummikub.brotocol.IntReader;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Player;
+import com.apixandru.games.rummikub.brotocol.IntReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,13 +70,13 @@ final class ClientRunnable implements Runnable {
      * @throws IOException
      */
     private void handleMoveCardOnBoard(final IntReader reader) throws IOException {
-        log.info("Received on moveCardOnBoard request.");
+        log.debug("Received on moveCardOnBoard request.");
         final Card card = readCard(reader);
         final int fromX = reader.readInt();
         final int fromY = reader.readInt();
         final int toX = reader.readInt();
         final int toY = reader.readInt();
-        log.info("Params: Card={}, fromX={}, fromY={}, toX={}, toY={}", card, fromX, fromY, toX, toY);
+        log.debug("Params: Card={}, fromX={}, fromY={}, toX={}, toY={}", card, fromX, fromY, toX, toY);
         player.moveCardOnBoard(card, fromX, fromY, toX, toY);
     }
 
@@ -85,12 +85,12 @@ final class ClientRunnable implements Runnable {
      * @throws IOException
      */
     private void handleTakeCardFromBoard(final IntReader reader) throws IOException {
-        log.info("Received on takeCardFromBoard request.");
+        log.debug("Received on takeCardFromBoard request.");
         final Card card = readCard(reader);
         final int x = reader.readInt();
         final int y = reader.readInt();
         final int hint = reader.readInt();
-        log.info("Params: Card={}, x={}, y={}, hint={}", card, x, y, hint);
+        log.debug("Params: Card={}, x={}, y={}, hint={}", card, x, y, hint);
         player.takeCardFromBoard(card, x, y, hint);
     }
 
@@ -98,7 +98,7 @@ final class ClientRunnable implements Runnable {
      *
      */
     private void handleEndTurn() {
-        log.info("Received on endTurn request.");
+        log.debug("Received on endTurn request.");
         player.endTurn();
     }
 
@@ -107,11 +107,11 @@ final class ClientRunnable implements Runnable {
      * @throws IOException
      */
     private void handlePlaceCardOnBoard(final IntReader reader) throws IOException {
-        log.info("Received on placeCardOnBoard request.");
+        log.debug("Received on placeCardOnBoard request.");
         final Card card = readCard(reader);
         final int x = reader.readInt();
         final int y = reader.readInt();
-        log.info("Params: Card={}, x={}, y={}", card, x, y);
+        log.debug("Params: Card={}, x={}, y={}", card, x, y);
         player.placeCardOnBoard(card, x, y);
     }
 

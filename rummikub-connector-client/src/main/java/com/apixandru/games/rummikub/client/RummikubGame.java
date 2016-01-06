@@ -1,15 +1,15 @@
 package com.apixandru.games.rummikub.client;
 
-import com.apixandru.games.rummikub.brotocol.Brotocol;
-import com.apixandru.games.rummikub.brotocol.IntReader;
-import com.apixandru.games.rummikub.brotocol.SocketIntReader;
-import com.apixandru.games.rummikub.brotocol.SocketIntWriter;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Color;
 import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.api.Rank;
+import com.apixandru.games.rummikub.brotocol.Brotocol;
+import com.apixandru.games.rummikub.brotocol.IntReader;
+import com.apixandru.games.rummikub.brotocol.SocketIntReader;
+import com.apixandru.games.rummikub.brotocol.SocketIntWriter;
 
 import java.io.IOException;
 import java.net.Socket;

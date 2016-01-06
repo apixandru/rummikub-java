@@ -1,13 +1,15 @@
 package com.apixandru.games.rummikub.server;
 
-import com.apixandru.games.rummikub.brotocol.IntWriter;
-import com.apixandru.games.rummikub.brotocol.SocketIntReader;
-import com.apixandru.games.rummikub.brotocol.SocketIntWriter;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.Rummikub;
 import com.apixandru.games.rummikub.api.RummikubFactory;
+import com.apixandru.games.rummikub.brotocol.IntWriter;
+import com.apixandru.games.rummikub.brotocol.SocketIntReader;
+import com.apixandru.games.rummikub.brotocol.SocketIntWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -22,20 +24,28 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.AUX_CARDS;
  */
 public class Main {
 
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) throws IOException {
 
         final ServerSocket serverSocket = new ServerSocket(50122);
+
+        log.debug("Listening on port {}", 50122);
 
         final Rummikub game = RummikubFactory.newInstance();
 
         final List<Card> cards = game.getCards();
 
         while (true) {
+            log.debug("Waiting for client...");
             final Socket socket = serverSocket.accept();
+            log.debug("Accepted client.");
             final SocketIntWriter writer = new SocketIntWriter(socket);
             sendCards(writer, cards);
             final SocketIntReader reader = new SocketIntReader(socket);
+            log.debug("Registering player...");
             final Player<Integer> player = game.addPlayer("Player", new ClientCallback(writer, cards));
+            log.debug("Player registered.");
             final ClientRunnable runnable = new ClientRunnable(reader, cards, player);
             new Thread(runnable).start();
         }
@@ -46,6 +56,7 @@ public class Main {
      *
      */
     private static void sendCards(final IntWriter writer, final List<Card> cards) {
+        log.debug("Sending cards to client.");
         writer.write(AUX_CARDS);
         final int[] ints = new int[Constants.NUM_CARDS * 2];
         for (int i = 0, to = cards.size(); i < to; i++) {
