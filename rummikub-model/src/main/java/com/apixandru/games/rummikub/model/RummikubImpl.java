@@ -96,7 +96,7 @@ final class RummikubImpl implements Rummikub, BoardCallback {
         final PlayerImpl<H> player = new PlayerImpl<>(listener, callback);
         this.players.add(player);
         if (null == this.currentPlayer) {
-            this.currentPlayer = player;
+            setNextPlayer();
         }
         giveCards(player, 14);
         return player;

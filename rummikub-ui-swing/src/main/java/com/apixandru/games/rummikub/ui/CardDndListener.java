@@ -34,6 +34,7 @@ final class CardDndListener extends MouseAdapter {
     /**
      * @param dragSource
      * @param player
+     * @param turnIndicator
      */
     CardDndListener(final DragSource dragSource, final Player<CardSlot> player, final TurnIndicator turnIndicator) {
         this.dragSource = dragSource;
@@ -164,8 +165,11 @@ final class CardDndListener extends MouseAdapter {
      * @param component
      * @return
      */
-    private static boolean canDrop(JComponent component) {
-        return component instanceof CardSlot;
+    private boolean canDrop(JComponent component) {
+        if (!(component instanceof CardSlot)) {
+            return false;
+        }
+        return this.turnIndicator.isMyTurn();
     }
 
     /**
