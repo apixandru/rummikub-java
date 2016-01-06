@@ -1,11 +1,11 @@
 /**
  *
  */
-package com.apixandru.games.rummikub.api;
+package com.apixandru.games.rummikub.model;
 
+import com.apixandru.games.rummikub.api.Color;
+import com.apixandru.games.rummikub.api.Rank;
 import org.junit.Test;
-
-import static com.apixandru.games.rummikub.api.TestUtils.card;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -16,22 +16,22 @@ public final class CreateCardTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testNoColorRank() {
-        card(null, Rank.EIGHT);
+        TestUtils.card(null, Rank.EIGHT);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testColorNoRank() {
-        card(Color.BLACK, null);
+        TestUtils.card(Color.BLACK, null);
     }
 
     @Test
     public void testColorRank() {
-        card(Color.BLACK, Rank.ONE);
+        TestUtils.card(Color.BLACK, Rank.ONE);
     }
 
     @Test
     public void testNoColorNoRank() {
-        card(null, null);
+        TestUtils.card(null, null);
     }
 
 }

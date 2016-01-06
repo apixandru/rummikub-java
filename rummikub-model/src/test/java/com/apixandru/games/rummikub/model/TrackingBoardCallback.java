@@ -1,6 +1,8 @@
-package com.apixandru.games.rummikub.api;
+package com.apixandru.games.rummikub.model;
 
-import com.apixandru.games.rummikub.api.support.BoardAction;
+import com.apixandru.games.rummikub.api.BoardCallback;
+import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.games.rummikub.model.support.BoardAction;
 
 import java.util.ArrayList;
 import java.util.Collections;

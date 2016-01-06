@@ -3,11 +3,11 @@ package com.apixandru.games.rummikub.server;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.api.Rummikub;
-import com.apixandru.games.rummikub.api.RummikubFactory;
 import com.apixandru.games.rummikub.brotocol.IntWriter;
 import com.apixandru.games.rummikub.brotocol.SocketIntReader;
 import com.apixandru.games.rummikub.brotocol.SocketIntWriter;
+import com.apixandru.games.rummikub.model.Rummikub;
+import com.apixandru.games.rummikub.model.RummikubFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

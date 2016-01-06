@@ -1,4 +1,7 @@
-package com.apixandru.games.rummikub.api;
+package com.apixandru.games.rummikub.model;
+
+import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.games.rummikub.api.Player;
 
 /**
  * @author Alexandru-Constantin Bledea

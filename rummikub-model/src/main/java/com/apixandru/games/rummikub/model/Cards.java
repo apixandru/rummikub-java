@@ -1,7 +1,11 @@
 /**
  *
  */
-package com.apixandru.games.rummikub.api;
+package com.apixandru.games.rummikub.model;
+
+import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.games.rummikub.api.Color;
+import com.apixandru.games.rummikub.api.Rank;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -86,13 +90,25 @@ public final class Cards {
                 expected = rank;
                 first = false;
             }
-//			if rank is null then joker, matches
+//            if rank is null then joker, matches
             if (rank != null && expected != rank) {
                 return false;
             }
-            expected = Rank.next(expected);
+            expected = next(expected);
         }
         return true;
+    }
+
+
+    /**
+     * @return
+     */
+    static Rank next(final Rank rank) {
+        final Rank[] values = Rank.values();
+        if (null == rank || rank.ordinal() >= values.length - 1) {
+            return null;
+        }
+        return values[rank.ordinal() + 1];
     }
 
     /**

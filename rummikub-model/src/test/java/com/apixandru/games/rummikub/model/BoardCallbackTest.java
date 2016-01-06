@@ -1,15 +1,12 @@
-package com.apixandru.games.rummikub.api;
+package com.apixandru.games.rummikub.model;
 
-import com.apixandru.games.rummikub.api.support.BoardAction;
+import com.apixandru.games.rummikub.model.support.BoardAction;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static com.apixandru.games.rummikub.api.TestUtils.BLACK_ONE_1;
-import static com.apixandru.games.rummikub.api.TestUtils.BLACK_ONE_2;
-import static com.apixandru.games.rummikub.api.TestUtils.assertEmpty;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -26,7 +23,7 @@ public final class BoardCallbackTest {
     public void setup() {
         callback.clear();
         board = new Board(callback);
-        board.placeCard(BLACK_ONE_1, 0, 6);
+        board.placeCard(TestUtils.BLACK_ONE_1, 0, 6);
     }
 
     /**
@@ -34,7 +31,7 @@ public final class BoardCallbackTest {
      */
     @Test
     public void testFirePlaceCardSame() {
-        board.placeCard(BLACK_ONE_1, 0, 6);
+        board.placeCard(TestUtils.BLACK_ONE_1, 0, 6);
 
         final List<BoardAction> actions = callback.getActions();
         assertEquals(2, actions.size());
@@ -43,7 +40,7 @@ public final class BoardCallbackTest {
             final BoardAction boardAction = actions.get(i);
 
             Assert.assertEquals(BoardAction.Action.ADDED, boardAction.action);
-            assertEquals(BLACK_ONE_1, boardAction.card);
+            Assert.assertEquals(TestUtils.BLACK_ONE_1, boardAction.card);
             assertEquals(0, boardAction.x);
             assertEquals(6, boardAction.y);
         }
@@ -57,9 +54,9 @@ public final class BoardCallbackTest {
     public void testShouldntFireIfSlotTaken() {
         callback.clear();
 
-        board.placeCard(BLACK_ONE_2, 0, 6);
+        board.placeCard(TestUtils.BLACK_ONE_2, 0, 6);
 
-        assertEmpty(callback.getActions());
+        TestUtils.assertEmpty(callback.getActions());
     }
 
     /**
@@ -72,7 +69,7 @@ public final class BoardCallbackTest {
         final BoardAction boardAction = actions.get(0);
 
         Assert.assertEquals(BoardAction.Action.ADDED, boardAction.action);
-        assertEquals(BLACK_ONE_1, boardAction.card);
+        Assert.assertEquals(TestUtils.BLACK_ONE_1, boardAction.card);
         assertEquals(0, boardAction.x);
         assertEquals(6, boardAction.y);
     }
@@ -92,7 +89,7 @@ public final class BoardCallbackTest {
         final BoardAction boardAction = actions.get(0);
 
         Assert.assertEquals(BoardAction.Action.REMOVED, boardAction.action);
-        assertEquals(BLACK_ONE_1, boardAction.card);
+        Assert.assertEquals(TestUtils.BLACK_ONE_1, boardAction.card);
         assertEquals(0, boardAction.x);
         assertEquals(6, boardAction.y);
     }
@@ -108,13 +105,13 @@ public final class BoardCallbackTest {
 
         final BoardAction actionRemove = actions.get(0);
         Assert.assertEquals(BoardAction.Action.REMOVED, actionRemove.action);
-        assertEquals(BLACK_ONE_1, actionRemove.card);
+        Assert.assertEquals(TestUtils.BLACK_ONE_1, actionRemove.card);
         assertEquals(0, actionRemove.x);
         assertEquals(6, actionRemove.y);
 
         final BoardAction actionAdded = actions.get(1);
         Assert.assertEquals(BoardAction.Action.ADDED, actionAdded.action);
-        assertEquals(BLACK_ONE_1, actionAdded.card);
+        Assert.assertEquals(TestUtils.BLACK_ONE_1, actionAdded.card);
         assertEquals(1, actionAdded.x);
         assertEquals(5, actionAdded.y);
     }
