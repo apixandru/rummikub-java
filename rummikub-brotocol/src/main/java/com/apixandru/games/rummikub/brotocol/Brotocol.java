@@ -15,6 +15,7 @@ public interface Brotocol {
     int SERVER_RECEIVED_CARD = 5;
     int SERVER_CARD_PLACED = 6;
     int SERVER_CARD_REMOVED = 7;
+    int SERVER_NEW_TURN = 8;
 
     int AUX_CARDS = 8;
 

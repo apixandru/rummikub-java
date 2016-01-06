@@ -1,7 +1,6 @@
 package com.apixandru.games.rummikub.ui;
 
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.client.RummikubGame;
 
 import javax.swing.*;
@@ -31,7 +30,7 @@ public final class Main {
         final BoardUi board = new BoardUi();
 
         final PlayerUi player = new PlayerUi();
-        final PlayerCallback<CardSlot> callback = new CardSlotCallback(board, player);
+        final CardSlotCallback callback = new CardSlotCallback(board, player);
         final Player<CardSlot> actualPlayer = RummikubGame.connect(callback, Collections.emptyList());
 //        final Player<CardSlot> actualPlayer = RummikubFactory.newInstance().addPlayer("John", callback);
 
@@ -43,7 +42,9 @@ public final class Main {
         layeredPane.add(player, JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(comp);
 
-        final CardDndListener listener = new CardDndListener(new ComponentDragSource(player, board), actualPlayer);
+        final ComponentDragSource dragSource = new ComponentDragSource(player, board);
+        final CardDndListener listener = new CardDndListener(dragSource, actualPlayer, callback);
+
         layeredPane.addMouseListener(listener);
         layeredPane.addMouseMotionListener(listener);
 

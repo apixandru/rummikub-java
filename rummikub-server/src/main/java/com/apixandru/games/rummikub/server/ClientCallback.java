@@ -10,6 +10,7 @@ import java.util.List;
 
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_PLACED;
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_REMOVED;
+import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_NEW_TURN;
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEIVED_CARD;
 
 /**
@@ -40,6 +41,11 @@ final class ClientCallback extends AbstractIntWritable implements PlayerCallback
     @Override
     public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
         write(SERVER_CARD_REMOVED, card, x, y);
+    }
+
+    @Override
+    public void newTurn(final boolean myTurn) {
+        write(SERVER_NEW_TURN, myTurn ? 1 : 0);
     }
 
 }

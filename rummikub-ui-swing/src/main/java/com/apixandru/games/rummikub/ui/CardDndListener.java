@@ -20,6 +20,7 @@ final class CardDndListener extends MouseAdapter {
 
     private final DragSource dragSource;
     private final Player<CardSlot> player;
+    private final TurnIndicator turnIndicator;
 
     private CardSlot draggablePieceParent;
     private CardUi draggablePiece;
@@ -34,9 +35,10 @@ final class CardDndListener extends MouseAdapter {
      * @param dragSource
      * @param player
      */
-    CardDndListener(final DragSource dragSource, final Player<CardSlot> player) {
+    CardDndListener(final DragSource dragSource, final Player<CardSlot> player, final TurnIndicator turnIndicator) {
         this.dragSource = dragSource;
         this.player = player;
+        this.turnIndicator = turnIndicator;
     }
 
     /* (non-Javadoc)
@@ -118,6 +120,9 @@ final class CardDndListener extends MouseAdapter {
         this.dropTarget = null;
     }
 
+    /**
+     * @param destComponent
+     */
     private void transferTo(final CardSlot destComponent) {
         final int toX = destComponent.x;
         final int toY = destComponent.y;

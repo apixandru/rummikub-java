@@ -12,4 +12,9 @@ public interface PlayerCallback<H> extends BoardCallback {
      */
     void cardReceived(Card card, H hint);
 
+    /**
+     * @param myTurn
+     */
+    void newTurn(boolean myTurn);
+
 }
