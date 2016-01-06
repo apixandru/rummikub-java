@@ -74,6 +74,14 @@ final class RummikubImpl implements Rummikub, BoardCallback {
             nextPlayerIndex = 0;
         }
         this.currentPlayer = this.players.get(nextPlayerIndex);
+        signalNewTurn();
+    }
+
+    /**
+     *
+     */
+    private void signalNewTurn() {
+        players.forEach(player -> player.newTurn(player == this.currentPlayer));
     }
 
     /**

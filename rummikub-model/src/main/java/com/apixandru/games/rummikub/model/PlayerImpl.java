@@ -87,4 +87,11 @@ final class PlayerImpl<H> implements Player<H>, BoardCallback {
         this.callback.ifPresent(callback -> callback.onCardRemovedFromBoard(card, x, y));
     }
 
+    /**
+     * @param mine
+     */
+    void newTurn(final boolean mine) {
+        this.callback.ifPresent(callback -> callback.newTurn(mine));
+    }
+
 }

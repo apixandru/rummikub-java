@@ -45,7 +45,7 @@ final class ClientCallback extends AbstractIntWritable implements PlayerCallback
 
     @Override
     public void newTurn(final boolean myTurn) {
-        write(SERVER_NEW_TURN, myTurn ? 1 : 0);
+        writeAndFlush(SERVER_NEW_TURN, myTurn ? 1 : 0);
     }
 
 }

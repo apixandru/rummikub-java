@@ -34,15 +34,22 @@ public class AbstractIntWritable {
      */
     protected final void write(final int header, final Card card, int... ints) {
         write(header, this.cards.indexOf(card));
-        write(ints);
-        flush();
+        writeAndFlush(ints);
     }
 
     /**
      * @param ints
      */
-    protected final void write(int... ints) {
+    private void write(int... ints) {
         this.writer.write(ints);
+    }
+
+    /**
+     * @param ints
+     */
+    protected final void writeAndFlush(int... ints) {
+        write(ints);
+        flush();
     }
 
     /**

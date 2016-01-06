@@ -11,6 +11,7 @@ import java.util.List;
 
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_PLACED;
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_REMOVED;
+import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_NEW_TURN;
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEIVED_CARD;
 
 /**
@@ -45,16 +46,18 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         try (IntReader reader = intReader) {
             while (true) {
                 final int input = reader.readInt();
-                final Card card = this.cards.get(reader.readInt());
                 switch (input) {
                     case SERVER_CARD_PLACED:
-                        handleCardPlaced(card, reader);
+                        handleCardPlaced(getCard(reader), reader);
                         break;
                     case SERVER_CARD_REMOVED:
-                        handleCardRemoved(card, reader);
+                        handleCardRemoved(getCard(reader), reader);
                         break;
                     case SERVER_RECEIVED_CARD:
-                        handleReceivedCard(card, reader);
+                        handleReceivedCard(getCard(reader), reader);
+                        break;
+                    case SERVER_NEW_TURN:
+                        handleNewTurn(reader);
                         break;
                     default:
                         throw new IllegalArgumentException("Unknown input: " + input);
@@ -63,6 +66,19 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private Card getCard(final IntReader reader) throws IOException {
+        return this.cards.get(reader.readInt());
+    }
+
+    /**
+     * @param reader
+     * @throws IOException
+     */
+    private void handleNewTurn(final IntReader reader) throws IOException {
+        final boolean myTurn = reader.readInt() == 1;
+        this.callback.newTurn(myTurn);
     }
 
     /**

@@ -14,7 +14,7 @@ final class CardSlotCallback implements PlayerCallback<CardSlot>, TurnIndicator 
     private final BoardUi board;
     private final PlayerUi player;
 
-    private AtomicBoolean myTurn;
+    private AtomicBoolean myTurn = new AtomicBoolean();
 
     public CardSlotCallback(final BoardUi board, final PlayerUi player) {
         this.board = board;

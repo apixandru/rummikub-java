@@ -49,8 +49,7 @@ final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
 
     @Override
     public void endTurn() {
-        write(CLIENT_END_TURN);
-        flush();
+        writeAndFlush(CLIENT_END_TURN);
     }
 
     @Override
