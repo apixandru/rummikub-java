@@ -170,7 +170,13 @@ final class CardDndListener extends MouseAdapter {
             return false;
         }
         final Transfer type = Transfer.of(this.draggablePieceParent, (CardSlot) component);
-        return type == Transfer.PLAYER_TO_PLAYER || this.moveHelper.canInteractWithBoard();
+        if (type == Transfer.PLAYER_TO_PLAYER) {
+            return true;
+        }
+        if (!this.moveHelper.canInteractWithBoard()) {
+            return false;
+        }
+        return type != Transfer.BOARD_TO_PLAYER || this.moveHelper.canTakeCardFromBoard(this.draggablePiece.card);
     }
 
     /**
