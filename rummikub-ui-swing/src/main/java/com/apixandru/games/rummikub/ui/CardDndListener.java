@@ -20,7 +20,7 @@ final class CardDndListener extends MouseAdapter {
 
     private final DragSource dragSource;
     private final Player<CardSlot> player;
-    private final TurnIndicator turnIndicator;
+    private final MoveHelper moveHelper;
 
     private CardSlot draggablePieceParent;
     private CardUi draggablePiece;
@@ -34,12 +34,12 @@ final class CardDndListener extends MouseAdapter {
     /**
      * @param dragSource
      * @param player
-     * @param turnIndicator
+     * @param moveHelper
      */
-    CardDndListener(final DragSource dragSource, final Player<CardSlot> player, final TurnIndicator turnIndicator) {
+    CardDndListener(final DragSource dragSource, final Player<CardSlot> player, final MoveHelper moveHelper) {
         this.dragSource = dragSource;
         this.player = player;
-        this.turnIndicator = turnIndicator;
+        this.moveHelper = moveHelper;
     }
 
     /* (non-Javadoc)
@@ -135,7 +135,7 @@ final class CardDndListener extends MouseAdapter {
                 this.player.placeCardOnBoard(this.draggablePiece.card, toX, toY);
                 break;
             case BOARD_TO_PLAYER:
-                if (!this.player.canMoveCardOffBoard(this.draggablePiece.card)) {
+                if (!this.moveHelper.canTakeCardFromBoard(this.draggablePiece.card)) {
                     transferTo(this.draggablePieceParent);
                     return;
                 }
@@ -169,7 +169,7 @@ final class CardDndListener extends MouseAdapter {
         if (!(component instanceof CardSlot)) {
             return false;
         }
-        return this.turnIndicator.isMyTurn();
+        return this.moveHelper.canInteractWithBoard();
     }
 
     /**

@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import static com.apixandru.games.rummikub.api.Constants.NUM_COLS;
 import static java.lang.Math.max;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -52,7 +53,7 @@ public final class Main {
 
         frame.setContentPane(layeredPane);
         frame.pack();
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 

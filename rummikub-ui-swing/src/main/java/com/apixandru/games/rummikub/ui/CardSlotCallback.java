@@ -4,13 +4,18 @@ import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.PlayerCallback;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-final class CardSlotCallback implements PlayerCallback<CardSlot>, TurnIndicator {
+final class CardSlotCallback implements PlayerCallback<CardSlot>, MoveHelper {
+
+    private final List<Card> cardsLockedOnBoard = new ArrayList<>();
+    private final List<Card> cardsJustPlacedOnBoard = new ArrayList<>();
 
     private final BoardUi board;
     private final PlayerUi player;
@@ -38,22 +43,31 @@ final class CardSlotCallback implements PlayerCallback<CardSlot>, TurnIndicator 
     @Override
     public void onCardPlacedOnBoard(final Card card, final int x, final int y) {
         UiUtil.placeCard(new CardUi(card), board.slots[y][x]);
+        this.cardsJustPlacedOnBoard.add(card);
     }
 
     @Override
     public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
         UiUtil.removeCard(board.slots[y][x]);
+        this.cardsJustPlacedOnBoard.remove(card);
     }
 
     @Override
     public void newTurn(final boolean myTurn) {
         this.btnEndTurn.setEnabled(myTurn);
         this.myTurn.set(myTurn);
+        this.cardsLockedOnBoard.addAll(this.cardsJustPlacedOnBoard);
+        this.cardsJustPlacedOnBoard.clear();
     }
 
     @Override
-    public boolean isMyTurn() {
+    public boolean canInteractWithBoard() {
         return this.myTurn.get();
+    }
+
+    @Override
+    public boolean canTakeCardFromBoard(final Card card) {
+        return canInteractWithBoard() && this.cardsJustPlacedOnBoard.contains(card);
     }
 
 }
