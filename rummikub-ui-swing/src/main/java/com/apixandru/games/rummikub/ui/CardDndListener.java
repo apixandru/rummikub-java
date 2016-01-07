@@ -135,10 +135,6 @@ final class CardDndListener extends MouseAdapter {
                 this.player.placeCardOnBoard(this.draggablePiece.card, toX, toY);
                 break;
             case BOARD_TO_PLAYER:
-                if (!this.moveHelper.canTakeCardFromBoard(this.draggablePiece.card)) {
-                    transferTo(this.draggablePieceParent);
-                    return;
-                }
                 this.player.takeCardFromBoard(this.draggablePiece.card, fromX, fromY, destComponent);
                 break;
             case BOARD_TO_BOARD:
