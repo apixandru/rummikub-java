@@ -42,10 +42,4 @@ interface PlayerListener {
      */
     void moveCardOnBoard(Player player, Card card, int fromX, int fromY, int toX, int toY);
 
-    /**
-     * @param card
-     * @return
-     */
-    boolean canMoveCardOffBoard(Card card);
-
 }

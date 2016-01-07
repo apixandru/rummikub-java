@@ -37,10 +37,4 @@ public interface Player<H> {
      */
     void endTurn();
 
-    /**
-     * @param card
-     * @return
-     */
-    boolean canMoveCardOffBoard(Card card);
-
 }

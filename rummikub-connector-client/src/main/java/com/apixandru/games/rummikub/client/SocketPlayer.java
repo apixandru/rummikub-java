@@ -52,9 +52,4 @@ final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
         writeAndFlush(CLIENT_END_TURN);
     }
 
-    @Override
-    public boolean canMoveCardOffBoard(final Card card) {
-        return true;
-    }
-
 }

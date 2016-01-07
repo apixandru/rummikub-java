@@ -165,8 +165,11 @@ final class RummikubImpl implements Rummikub, BoardCallback {
             }
         }
 
-        @Override
-        public boolean canMoveCardOffBoard(final Card card) {
+        /**
+         * @param card
+         * @return
+         */
+        private boolean canMoveCardOffBoard(final Card card) {
             return !undoManager.wasOnBoard(card);
         }
 

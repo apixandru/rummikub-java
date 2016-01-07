@@ -49,11 +49,6 @@ final class PlayerImpl<H> implements Player<H>, BoardCallback {
         this.listener.requestEndTurn(this);
     }
 
-    @Override
-    public boolean canMoveCardOffBoard(final Card card) {
-        return this.listener.canMoveCardOffBoard(card);
-    }
-
     /**
      * @param card
      * @param hint
