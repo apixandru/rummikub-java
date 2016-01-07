@@ -2,6 +2,8 @@ package com.apixandru.games.rummikub.ui;
 
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.client.RummikubGame;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,6 +20,8 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  */
 public final class Main {
 
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
+
     static final int TILE_WIDTH = 60;
     static final int TILE_HEIGHT = 90;
     private static final int BOARD_WIDTH = NUM_COLS * TILE_WIDTH;
@@ -26,14 +30,20 @@ public final class Main {
      * @param args
      */
     public static void main(final String[] args) throws IOException {
+        if (1 != args.length) {
+            log.error("Argument must be server ip.");
+            return;
+        }
+
+        final String serverIp = args[0];
+
         final JFrame frame = new JFrame();
         final BoardUi board = new BoardUi();
 
         final PlayerUi player = new PlayerUi();
         final JButton btnEndTurn = new JButton("End Turn");
         final CardSlotCallback callback = new CardSlotCallback(board, player, btnEndTurn);
-        final Player<CardSlot> actualPlayer = RummikubGame.connect(callback, player.getAllSlots());
-//        final Player<CardSlot> actualPlayer = RummikubFactory.newInstance().addPlayer("John", callback);
+        final Player<CardSlot> actualPlayer = RummikubGame.connect(serverIp, callback, player.getAllSlots());
 
         final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);

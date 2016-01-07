@@ -23,14 +23,15 @@ import java.util.List;
 public class RummikubGame {
 
     /**
+     * @param ip
      * @param callback
      * @param hints
      * @param <H>
      * @return
      * @throws IOException
      */
-    public static <H> Player<H> connect(final PlayerCallback<H> callback, final List<H> hints) throws IOException {
-        final Socket socket = new Socket("localhost", 50122);
+    public static <H> Player<H> connect(final String ip, final PlayerCallback<H> callback, final List<H> hints) throws IOException {
+        final Socket socket = new Socket(ip, 50122);
         final SocketIntReader reader = new SocketIntReader(socket);
         final List<Card> cards = handleReceiveCardList(reader);
         final SocketIntWriter writer = new SocketIntWriter(socket);
