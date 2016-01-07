@@ -3,6 +3,7 @@ package com.apixandru.games.rummikub.ui;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.PlayerCallback;
 
+import javax.swing.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -13,16 +14,20 @@ final class CardSlotCallback implements PlayerCallback<CardSlot>, TurnIndicator 
 
     private final BoardUi board;
     private final PlayerUi player;
+    private final JButton btnEndTurn;
 
     private AtomicBoolean myTurn = new AtomicBoolean();
 
     /**
      * @param board
      * @param player
+     * @param btnEndTurn
      */
-    public CardSlotCallback(final BoardUi board, final PlayerUi player) {
+    public CardSlotCallback(final BoardUi board, final PlayerUi player, final JButton btnEndTurn) {
         this.board = board;
         this.player = player;
+        this.btnEndTurn = btnEndTurn;
+        newTurn(false);
     }
 
     @Override
@@ -42,6 +47,7 @@ final class CardSlotCallback implements PlayerCallback<CardSlot>, TurnIndicator 
 
     @Override
     public void newTurn(final boolean myTurn) {
+        this.btnEndTurn.setEnabled(myTurn);
         this.myTurn.set(myTurn);
     }
 

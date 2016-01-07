@@ -29,11 +29,12 @@ public final class Main {
         final BoardUi board = new BoardUi();
 
         final PlayerUi player = new PlayerUi();
-        final CardSlotCallback callback = new CardSlotCallback(board, player);
+        final JButton btnEndTurn = new JButton("End Turn");
+        final CardSlotCallback callback = new CardSlotCallback(board, player, btnEndTurn);
         final Player<CardSlot> actualPlayer = RummikubGame.connect(callback, player.getAllSlots());
 //        final Player<CardSlot> actualPlayer = RummikubFactory.newInstance().addPlayer("John", callback);
 
-        final JPanel comp = createMiddlePanel(actualPlayer);
+        final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
 
         final JLayeredPane layeredPane = new JLayeredPane();
@@ -59,15 +60,15 @@ public final class Main {
     }
 
     /**
+     * @param btnEndTurn
      * @param actualPlayer
      * @return
      */
-    private static JPanel createMiddlePanel(final Player<CardSlot> actualPlayer) {
+    private static JPanel createMiddlePanel(final JButton btnEndTurn, final Player<CardSlot> actualPlayer) {
         final JPanel panel = new JPanel();
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         panel.add(Box.createHorizontalGlue());
-        final JButton btnEndTurn = new JButton("End Turn");
         btnEndTurn.addActionListener((e) -> actualPlayer.endTurn());
         panel.add(btnEndTurn);
         return panel;
