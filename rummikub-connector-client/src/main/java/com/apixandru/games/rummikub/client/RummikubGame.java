@@ -36,7 +36,7 @@ public class RummikubGame {
         final List<Card> cards = handleReceiveCardList(reader);
         final SocketIntWriter writer = new SocketIntWriter(socket);
 
-        new Thread(new PlayerCallbackAdapter<>(reader, callback, cards, hints)).start();
+        new Thread(new PlayerCallbackAdapter<>(reader, callback, cards, hints), "Callback adapter").start();
         return new SocketPlayer<>(writer, cards, hints);
     }
 

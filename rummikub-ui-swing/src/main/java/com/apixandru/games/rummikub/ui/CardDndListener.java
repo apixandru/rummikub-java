@@ -169,7 +169,8 @@ final class CardDndListener extends MouseAdapter {
         if (!(component instanceof CardSlot)) {
             return false;
         }
-        return this.moveHelper.canInteractWithBoard();
+        final Transfer type = Transfer.of(this.draggablePieceParent, (CardSlot) component);
+        return type == Transfer.PLAYER_TO_PLAYER || this.moveHelper.canInteractWithBoard();
     }
 
     /**

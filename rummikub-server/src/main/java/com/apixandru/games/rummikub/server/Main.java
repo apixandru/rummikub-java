@@ -36,6 +36,7 @@ public class Main {
 
         final List<Card> cards = game.getCards();
 
+        int playerId = 0;
         while (true) {
             log.debug("Waiting for client...");
             final Socket socket = serverSocket.accept();
@@ -47,7 +48,7 @@ public class Main {
             final Player<Integer> player = game.addPlayer("Player", new ClientCallback(writer, cards));
             log.debug("Player registered.");
             final ClientRunnable runnable = new ClientRunnable(reader, cards, player);
-            new Thread(runnable).start();
+            new Thread(runnable, "Player " + playerId++).start();
         }
 
     }
