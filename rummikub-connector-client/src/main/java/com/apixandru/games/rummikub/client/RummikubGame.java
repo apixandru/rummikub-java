@@ -5,7 +5,6 @@ import com.apixandru.games.rummikub.api.Color;
 import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.Rank;
-import com.apixandru.games.rummikub.brotocol.Brotocol;
 import com.apixandru.games.rummikub.brotocol.IntReader;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 
@@ -43,10 +42,6 @@ final class RummikubGame {
      * @throws IOException
      */
     private static List<Card> handleReceiveCardList(final IntReader reader) throws IOException {
-        final int i1 = reader.readInt();
-        if (Brotocol.AUX_CARDS != i1) {
-            throw new IllegalArgumentException("Unexpected header: " + i1);
-        }
         final List<Card> cards = new ArrayList<>();
 
         final Color[] colorValues = Color.values();

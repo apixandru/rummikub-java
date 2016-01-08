@@ -15,8 +15,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
-import static com.apixandru.games.rummikub.brotocol.Brotocol.AUX_CARDS;
-
 /**
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
@@ -57,7 +55,6 @@ public class Main {
      */
     private static void sendCards(final IntWriter writer, final List<Card> cards) {
         log.debug("Sending cards to client.");
-        writer.write(AUX_CARDS);
         final int[] ints = new int[Constants.NUM_CARDS * 2];
         for (int i = 0, to = cards.size(); i < to; i++) {
             final Card card = cards.get(i);
