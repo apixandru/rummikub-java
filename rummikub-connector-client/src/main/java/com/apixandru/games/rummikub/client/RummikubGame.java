@@ -4,7 +4,6 @@ import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Color;
 import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.api.Rank;
 import com.apixandru.games.rummikub.brotocol.Brotocol;
 import com.apixandru.games.rummikub.brotocol.IntReader;
@@ -20,24 +19,23 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-public class RummikubGame {
+final class RummikubGame {
 
     /**
+     * @param connector
      * @param ip
-     * @param callback
-     * @param hints
      * @param <H>
      * @return
      * @throws IOException
      */
-    public static <H> Player<H> connect(final String ip, final PlayerCallback<H> callback, final List<H> hints) throws IOException {
+    static <H> Player<H> connect(final RummikubConnector<H> connector, final String ip) throws IOException {
         final Socket socket = new Socket(ip, 50122);
         final SocketIntReader reader = new SocketIntReader(socket);
         final List<Card> cards = handleReceiveCardList(reader);
         final SocketIntWriter writer = new SocketIntWriter(socket);
 
-        new Thread(new PlayerCallbackAdapter<>(reader, callback, cards, hints), "Callback adapter").start();
-        return new SocketPlayer<>(writer, cards, hints);
+        new Thread(new PlayerCallbackAdapter<>(reader, connector.callback, cards, connector.hints), "Callback adapter").start();
+        return new SocketPlayer<>(writer, cards, connector.hints);
     }
 
 
@@ -67,7 +65,7 @@ public class RummikubGame {
      * @param <T>
      * @return
      */
-    private static <T> T orNull(final int index, T... values) {
+    private static <T> T orNull(final int index, final T[] values) {
         if (-1 == index) {
             return null;
         }

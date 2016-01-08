@@ -8,7 +8,16 @@ import javax.swing.*;
  * @author Alexandru-Constantin Bledea
  * @since January 08, 2016
  */
-public final class SwingConnectionListener implements ConnectionListener {
+final class SwingConnectionListener implements ConnectionListener {
+
+    private final JFrame frame;
+
+    /**
+     * @param frame
+     */
+    SwingConnectionListener(final JFrame frame) {
+        this.frame = frame;
+    }
 
     @Override
     public void onDisconnected() {
@@ -16,7 +25,7 @@ public final class SwingConnectionListener implements ConnectionListener {
                 "You have been disconnected from the server. Press OK to exit.",
                 "Disconnected",
                 JOptionPane.ERROR_MESSAGE);
-        System.exit(1);
+        frame.dispose();
     }
 
 }

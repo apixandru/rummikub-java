@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.ui;
 
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.client.RummikubGame;
+import com.apixandru.games.rummikub.client.RummikubConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +43,12 @@ public final class Main {
         final PlayerUi player = new PlayerUi();
         final JButton btnEndTurn = new JButton("End Turn");
         final CardSlotCallback callback = new CardSlotCallback(board, player, btnEndTurn);
-        final Player<CardSlot> actualPlayer = RummikubGame.connect(serverIp, callback, player.getAllSlots());
+
+        final Player<CardSlot> actualPlayer =
+                RummikubConnector.from(callback)
+                        .setHints(player.getAllSlots())
+                        .setConnectionListener(new SwingConnectionListener(frame))
+                        .connectTo(serverIp);
 
         final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
