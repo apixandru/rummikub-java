@@ -4,8 +4,7 @@ import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.IntWriter;
-import com.apixandru.games.rummikub.brotocol.SocketIntReader;
-import com.apixandru.games.rummikub.brotocol.SocketIntWriter;
+import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.games.rummikub.model.Rummikub;
 import com.apixandru.games.rummikub.model.RummikubFactory;
 import org.slf4j.Logger;
@@ -41,13 +40,13 @@ public class Main {
             log.debug("Waiting for client...");
             final Socket socket = serverSocket.accept();
             log.debug("Accepted client.");
-            final SocketIntWriter writer = new SocketIntWriter(socket);
-            sendCards(writer, cards);
-            final SocketIntReader reader = new SocketIntReader(socket);
+
+            final SocketWrapper wrapper = new SocketWrapper(socket);
+            sendCards(wrapper, cards);
             log.debug("Registering player...");
-            final Player<Integer> player = game.addPlayer("Player", new ClientCallback(writer, cards));
+            final Player<Integer> player = game.addPlayer("Player", new ClientCallback(wrapper, cards));
             log.debug("Player registered.");
-            final ClientRunnable runnable = new ClientRunnable(reader, cards, player);
+            final ClientRunnable runnable = new ClientRunnable(wrapper, cards, player);
             new Thread(runnable, "Player " + playerId++).start();
         }
 

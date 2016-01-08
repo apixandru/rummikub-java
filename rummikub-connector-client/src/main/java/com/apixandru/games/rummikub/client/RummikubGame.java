@@ -7,8 +7,7 @@ import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.Rank;
 import com.apixandru.games.rummikub.brotocol.Brotocol;
 import com.apixandru.games.rummikub.brotocol.IntReader;
-import com.apixandru.games.rummikub.brotocol.SocketIntReader;
-import com.apixandru.games.rummikub.brotocol.SocketIntWriter;
+import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -30,12 +29,12 @@ final class RummikubGame {
      */
     static <H> Player<H> connect(final RummikubConnector<H> connector, final String ip) throws IOException {
         final Socket socket = new Socket(ip, 50122);
-        final SocketIntReader reader = new SocketIntReader(socket);
-        final List<Card> cards = handleReceiveCardList(reader);
-        final SocketIntWriter writer = new SocketIntWriter(socket);
+        final SocketWrapper wrapper = new SocketWrapper(socket);
+        final List<Card> cards = handleReceiveCardList(wrapper);
 
-        new Thread(new PlayerCallbackAdapter<>(reader, connector.callback, cards, connector.hints), "Callback adapter").start();
-        return new SocketPlayer<>(writer, cards, connector.hints);
+        new Thread(new PlayerCallbackAdapter<>(connector, wrapper, cards), "Callback adapter").start();
+
+        return new SocketPlayer<>(wrapper, cards, connector.hints);
     }
 
 

@@ -3,7 +3,10 @@ package com.apixandru.games.rummikub.client;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.IntReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,30 +23,33 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEIVED_CAR
  */
 final class PlayerCallbackAdapter<H> implements Runnable {
 
+    private final Logger log = LoggerFactory.getLogger(PlayerCallbackAdapter.class);
+
     private final IntReader intReader;
     private final PlayerCallback<H> callback;
     private final List<Card> cards;
     private final List<H> hints;
+    private final ConnectionListener connectionListener;
 
     /**
+     * @param connector
      * @param reader
-     * @param callback
      * @param cards
-     * @param hints
      */
-    public PlayerCallbackAdapter(final IntReader reader,
-                                 final PlayerCallback<H> callback,
-                                 final List<Card> cards,
-                                 final List<H> hints) {
+    PlayerCallbackAdapter(final RummikubConnector<H> connector,
+                          final IntReader reader,
+                          final List<Card> cards) {
         this.intReader = reader;
-        this.callback = callback;
+        this.callback = connector.callback;
+        this.connectionListener = connector.connectionListener;
         this.cards = Collections.unmodifiableList(new ArrayList<>(cards));
-        this.hints = Collections.unmodifiableList(new ArrayList<H>(hints));
+        this.hints = Collections.unmodifiableList(new ArrayList<H>(connector.hints));
     }
+
 
     @Override
     public void run() {
-        try (IntReader reader = intReader) {
+        try (final IntReader reader = intReader) {
             while (true) {
                 final int input = reader.readInt();
                 switch (input) {
@@ -63,9 +69,12 @@ final class PlayerCallbackAdapter<H> implements Runnable {
                         throw new IllegalArgumentException("Unknown input: " + input);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (final EOFException e) {
+            log.debug("Server was shutdown?", e);
+        } catch (final IOException e) {
+            log.error("Unknown exception", e);
         }
+        this.connectionListener.onDisconnected();
     }
 
     private Card getCard(final IntReader reader) throws IOException {
