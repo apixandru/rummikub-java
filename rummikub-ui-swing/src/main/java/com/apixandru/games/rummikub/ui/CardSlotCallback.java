@@ -67,7 +67,7 @@ final class CardSlotCallback implements PlayerCallback<CardSlot>, MoveHelper {
 
     @Override
     public boolean canTakeCardFromBoard(final Card card) {
-        return canInteractWithBoard() && this.cardsJustPlacedOnBoard.contains(card);
+        return canInteractWithBoard() && !this.cardsLockedOnBoard.contains(card);
     }
 
 }
