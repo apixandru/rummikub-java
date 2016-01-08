@@ -11,7 +11,7 @@ import java.net.Socket;
  * @author Alexandru-Constantin Bledea
  * @since January 08, 2016
  */
-public final class SocketWrapper implements IntReader, IntWriter {
+public final class SocketWrapper implements BroReader, BroWriter {
 
     private final Socket socket;
     private final ObjectInputStream in;

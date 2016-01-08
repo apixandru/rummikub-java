@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.brotocol.util;
 
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.brotocol.IntWriter;
+import com.apixandru.games.rummikub.brotocol.BroWriter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class AbstractIntWritable {
 
-    protected final IntWriter writer;
+    protected final BroWriter writer;
     protected final List<Card> cards;
 
     /**
@@ -22,7 +22,7 @@ public class AbstractIntWritable {
      * @param cards
      * @throws IOException
      */
-    public AbstractIntWritable(final IntWriter writer, final List<Card> cards) throws IOException {
+    public AbstractIntWritable(final BroWriter writer, final List<Card> cards) throws IOException {
         this.cards = Collections.unmodifiableList(new ArrayList<>(cards));
         this.writer = writer;
     }

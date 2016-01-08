@@ -44,7 +44,7 @@ public final class Card {
 
     @Override
     public String toString() {
-        return rank + " " + color;
+        return null == rank ? "JOKER" : rank + " " + color;
     }
 
 }

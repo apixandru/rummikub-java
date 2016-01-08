@@ -2,7 +2,7 @@ package com.apixandru.games.rummikub.server;
 
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.PlayerCallback;
-import com.apixandru.games.rummikub.brotocol.IntWriter;
+import com.apixandru.games.rummikub.brotocol.BroWriter;
 import com.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ final class ClientCallback extends AbstractIntWritable implements PlayerCallback
      * @param cards
      * @throws IOException
      */
-    ClientCallback(final IntWriter writer, final List<Card> cards) throws IOException {
+    ClientCallback(final BroWriter writer, final List<Card> cards) throws IOException {
         super(writer, cards);
     }
 

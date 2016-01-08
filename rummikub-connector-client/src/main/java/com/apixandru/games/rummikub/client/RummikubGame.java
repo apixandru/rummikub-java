@@ -5,7 +5,7 @@ import com.apixandru.games.rummikub.api.Color;
 import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.Rank;
-import com.apixandru.games.rummikub.brotocol.IntReader;
+import com.apixandru.games.rummikub.brotocol.BroReader;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 
 import java.io.IOException;
@@ -41,7 +41,7 @@ final class RummikubGame {
      * @param reader
      * @throws IOException
      */
-    private static List<Card> handleReceiveCardList(final IntReader reader) throws IOException {
+    private static List<Card> handleReceiveCardList(final BroReader reader) throws IOException {
         final List<Card> cards = new ArrayList<>();
 
         final Color[] colorValues = Color.values();

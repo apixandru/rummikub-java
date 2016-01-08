@@ -3,7 +3,7 @@ package com.apixandru.games.rummikub.server;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.brotocol.IntWriter;
+import com.apixandru.games.rummikub.brotocol.BroWriter;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.games.rummikub.model.Rummikub;
 import com.apixandru.games.rummikub.model.RummikubFactory;
@@ -51,9 +51,10 @@ public class Main {
     }
 
     /**
-     *
+     * @param writer
+     * @param cards
      */
-    private static void sendCards(final IntWriter writer, final List<Card> cards) {
+    private static void sendCards(final BroWriter writer, final List<Card> cards) {
         log.debug("Sending cards to client.");
         final int[] ints = new int[Constants.NUM_CARDS * 2];
         for (int i = 0, to = cards.size(); i < to; i++) {
