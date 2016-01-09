@@ -17,7 +17,7 @@ final class CardSlotCallback implements PlayerCallback<CardSlot>, MoveHelper {
     private final List<Card> cardsLockedOnBoard = new ArrayList<>();
     private final List<Card> cardsJustPlacedOnBoard = new ArrayList<>();
 
-    private final BoardUi board;
+    private final JGridPanel board;
     private final PlayerUi player;
     private final JButton btnEndTurn;
 
@@ -28,7 +28,7 @@ final class CardSlotCallback implements PlayerCallback<CardSlot>, MoveHelper {
      * @param player
      * @param btnEndTurn
      */
-    public CardSlotCallback(final BoardUi board, final PlayerUi player, final JButton btnEndTurn) {
+    public CardSlotCallback(final JGridPanel board, final PlayerUi player, final JButton btnEndTurn) {
         this.board = board;
         this.player = player;
         this.btnEndTurn = btnEndTurn;

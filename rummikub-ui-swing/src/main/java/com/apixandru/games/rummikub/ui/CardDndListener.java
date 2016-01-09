@@ -22,6 +22,8 @@ final class CardDndListener extends MouseAdapter {
     private final Player<CardSlot> player;
     private final MoveHelper moveHelper;
 
+    private final JGridPanel board;
+
     private CardSlot draggablePieceParent;
     private CardUi draggablePiece;
 
@@ -33,12 +35,14 @@ final class CardDndListener extends MouseAdapter {
 
     /**
      * @param dragSource
+     * @param board
      * @param player
      * @param moveHelper
      */
-    CardDndListener(final DragSource dragSource, final Player<CardSlot> player, final MoveHelper moveHelper) {
+    CardDndListener(final DragSource dragSource, final JGridPanel board, final Player<CardSlot> player, final MoveHelper moveHelper) {
         this.dragSource = dragSource;
         this.player = player;
+        this.board = board;
         this.moveHelper = moveHelper;
     }
 
@@ -130,7 +134,7 @@ final class CardDndListener extends MouseAdapter {
         final int fromX = this.draggablePieceParent.x;
         final int fromY = this.draggablePieceParent.y;
 
-        switch (Transfer.of(this.draggablePieceParent, destComponent)) {
+        switch (transferOf(this.draggablePieceParent, destComponent)) {
             case PLAYER_TO_BOARD:
                 this.player.placeCardOnBoard(this.draggablePiece.card, toX, toY);
                 break;
@@ -169,7 +173,7 @@ final class CardDndListener extends MouseAdapter {
         if (!(component instanceof CardSlot)) {
             return false;
         }
-        final Transfer type = Transfer.of(this.draggablePieceParent, (CardSlot) component);
+        final Transfer type = transferOf(this.draggablePieceParent, (CardSlot) component);
         if (type == Transfer.PLAYER_TO_PLAYER) {
             return true;
         }
@@ -206,25 +210,31 @@ final class CardDndListener extends MouseAdapter {
         this.draggablePiece.setLocation(event.getX() + xOffset, event.getY() + yOffset);
     }
 
+    /**
+     * @param from
+     * @param to
+     * @return
+     */
+    Transfer transferOf(CardSlot from, CardSlot to) {
+        final boolean toBoard = to.getParent() == board;
+        if (from.getParent() == board) {
+            if (toBoard) {
+                return Transfer.BOARD_TO_BOARD;
+            }
+            return Transfer.BOARD_TO_PLAYER;
+        }
+        if (toBoard) {
+            return Transfer.PLAYER_TO_BOARD;
+        }
+        return Transfer.PLAYER_TO_PLAYER;
+    }
+
     private enum Transfer {
         BOARD_TO_PLAYER,
         PLAYER_TO_PLAYER,
         PLAYER_TO_BOARD,
         BOARD_TO_BOARD;
 
-        static Transfer of(CardSlot from, CardSlot to) {
-            final boolean toBoard = to.getParent() instanceof BoardUi;
-            if (from.getParent() instanceof BoardUi) {
-                if (toBoard) {
-                    return BOARD_TO_BOARD;
-                }
-                return BOARD_TO_PLAYER;
-            }
-            if (toBoard) {
-                return PLAYER_TO_BOARD;
-            }
-            return PLAYER_TO_PLAYER;
-        }
     }
 
 }

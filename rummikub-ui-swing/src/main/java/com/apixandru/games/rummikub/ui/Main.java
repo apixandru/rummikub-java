@@ -11,6 +11,7 @@ import java.awt.*;
 import java.io.IOException;
 
 import static com.apixandru.games.rummikub.api.Constants.NUM_COLS;
+import static com.apixandru.games.rummikub.api.Constants.NUM_ROWS;
 import static java.lang.Math.max;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -38,7 +39,7 @@ public final class Main {
         final String serverIp = args[0];
 
         final JFrame frame = new JFrame();
-        final BoardUi board = new BoardUi();
+        final JGridPanel board = RummikubUi.newBoard();
 
         final PlayerUi player = new PlayerUi();
         final JButton btnEndTurn = new JButton("End Turn");
@@ -59,7 +60,7 @@ public final class Main {
         layeredPane.add(comp);
 
         final ComponentDragSource dragSource = new ComponentDragSource(player, board);
-        final CardDndListener listener = new CardDndListener(dragSource, actualPlayer, callback);
+        final CardDndListener listener = new CardDndListener(dragSource, board, actualPlayer, callback);
 
         layeredPane.addMouseListener(listener);
         layeredPane.addMouseMotionListener(listener);
