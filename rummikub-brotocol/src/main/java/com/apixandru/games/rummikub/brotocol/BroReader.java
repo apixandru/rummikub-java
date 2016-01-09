@@ -19,6 +19,12 @@ public interface BroReader extends Closeable {
      * @return
      * @throws IOException
      */
+    boolean readBoolean() throws IOException;
+
+    /**
+     * @return
+     * @throws IOException
+     */
     String readString() throws IOException;
 
 }

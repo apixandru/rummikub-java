@@ -14,6 +14,7 @@ import java.util.List;
 
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_PLACED;
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_REMOVED;
+import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_GAME_OVER;
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_NEW_TURN;
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEIVED_CARD;
 
@@ -46,7 +47,6 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         this.hints = Collections.unmodifiableList(new ArrayList<H>(connector.hints));
     }
 
-
     @Override
     public void run() {
         try (final BroReader reader = this.reader) {
@@ -65,6 +65,8 @@ final class PlayerCallbackAdapter<H> implements Runnable {
                     case SERVER_NEW_TURN:
                         handleNewTurn(reader);
                         break;
+                    case SERVER_GAME_OVER:
+                        handleGameOver(reader);
                     default:
                         throw new IllegalArgumentException("Unknown input: " + input);
                 }
@@ -91,7 +93,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
      * @throws IOException
      */
     private void handleNewTurn(final BroReader reader) throws IOException {
-        final boolean myTurn = reader.readInt() == 1;
+        final boolean myTurn = reader.readBoolean();
         this.callback.newTurn(myTurn);
     }
 
@@ -125,6 +127,16 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         final int x = reader.readInt();
         final int y = reader.readInt();
         this.callback.onCardPlacedOnBoard(card, x, y);
+    }
+
+    /**
+     * @param reader
+     */
+    private void handleGameOver(final BroReader reader) throws IOException {
+        final String player = reader.readString();
+        final boolean quit = reader.readBoolean();
+        final boolean me = reader.readBoolean();
+        this.callback.gameOver(player, quit, me);
     }
 
 }

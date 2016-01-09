@@ -2,6 +2,7 @@ package com.apixandru.games.rummikub.model;
 
 import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.PlayerCallback;
 
@@ -13,19 +14,23 @@ import java.util.Optional;
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-final class PlayerImpl<H> implements Player<H>, BoardCallback {
+final class PlayerImpl<H> implements Player<H>, BoardCallback, GameEventListener {
 
     private final PlayerListener listener;
+    final String name;
+
     final Optional<PlayerCallback<H>> callback;
 
     final List<Card> cards = new ArrayList<>();
 
     /**
+     * @param name
      * @param listener
      * @param callback
      */
-    PlayerImpl(final PlayerListener listener, final PlayerCallback<H> callback) {
+    PlayerImpl(final String name, final PlayerListener listener, final PlayerCallback<H> callback) {
         this.listener = listener;
+        this.name = name;
         this.callback = Optional.ofNullable(callback);
     }
 
@@ -85,8 +90,14 @@ final class PlayerImpl<H> implements Player<H>, BoardCallback {
     /**
      * @param mine
      */
-    void newTurn(final boolean mine) {
+    @Override
+    public void newTurn(final boolean mine) {
         this.callback.ifPresent(callback -> callback.newTurn(mine));
+    }
+
+    @Override
+    public void gameOver(final String player, final boolean quit, final boolean me) {
+        this.callback.ifPresent(callback -> callback.gameOver(player, quit, me));
     }
 
 }

@@ -35,6 +35,11 @@ public final class SocketWrapper implements BroReader, BroWriter {
     }
 
     @Override
+    public boolean readBoolean() throws IOException {
+        return this.in.readInt() == 1;
+    }
+
+    @Override
     public String readString() throws IOException {
         final int length = readInt();
         final StringBuilder sb = new StringBuilder(length);
