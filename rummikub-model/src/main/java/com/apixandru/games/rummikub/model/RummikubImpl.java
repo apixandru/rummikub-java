@@ -54,7 +54,7 @@ final class RummikubImpl implements Rummikub, BoardCallback {
 
     private void gameOverOrSetNextPlayer() {
         if (currentPlayer.cards.isEmpty()) {
-            this.players.forEach(player -> player.gameOver(currentPlayer.name, false, player == this.currentPlayer));
+            this.players.forEach(player -> player.gameOver(currentPlayer.getName(), false, player == this.currentPlayer));
             this.gameOver = true;
             return;
         }
@@ -111,6 +111,14 @@ final class RummikubImpl implements Rummikub, BoardCallback {
         }
         giveCards(player, 14);
         return player;
+    }
+
+    @Override
+    public <H> void removePlayer(final Player<H> player) {
+        if (this.players.remove(player)) {
+            this.players.forEach(p -> p.gameOver(player.getName(), true, false));
+            this.gameOver = true;
+        }
     }
 
     /**

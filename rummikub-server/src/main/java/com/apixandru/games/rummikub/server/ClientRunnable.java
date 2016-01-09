@@ -3,9 +3,11 @@ package com.apixandru.games.rummikub.server;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.BroReader;
+import com.apixandru.games.rummikub.model.Rummikub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,6 +27,7 @@ final class ClientRunnable implements Runnable {
     private final BroReader broReader;
     private final List<Card> cards;
     private final Player<Integer> player;
+    private final Rummikub game;
 
     /**
      * @param reader
@@ -32,10 +35,14 @@ final class ClientRunnable implements Runnable {
      * @param player
      * @throws IOException
      */
-    ClientRunnable(final BroReader reader, final List<Card> cards, final Player<Integer> player) throws IOException {
+    ClientRunnable(final BroReader reader,
+                   final List<Card> cards,
+                   final Player<Integer> player,
+                   final Rummikub game) throws IOException {
         this.cards = cards;
         this.broReader = reader;
         this.player = player;
+        this.game = game;
     }
 
     @Override
@@ -60,9 +67,12 @@ final class ClientRunnable implements Runnable {
                         throw new IllegalArgumentException("Unknown input: " + input);
                 }
             }
+        } catch (final EOFException e) {
+            log.debug("Player quit the game");
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.game.removePlayer(this.player);
     }
 
     /**

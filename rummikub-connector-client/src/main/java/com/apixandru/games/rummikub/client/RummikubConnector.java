@@ -16,6 +16,7 @@ public final class RummikubConnector<E> {
 
     List<E> hints;
     ConnectionListener connectionListener;
+    String playerName;
 
     /**
      * @param callback
@@ -39,6 +40,15 @@ public final class RummikubConnector<E> {
      */
     public RummikubConnector<E> setHints(final List<E> hints) {
         this.hints = hints;
+        return this;
+    }
+
+    /**
+     * @param name
+     * @return
+     */
+    public RummikubConnector<E> setPlayerName(final String name) {
+        this.playerName = name;
         return this;
     }
 

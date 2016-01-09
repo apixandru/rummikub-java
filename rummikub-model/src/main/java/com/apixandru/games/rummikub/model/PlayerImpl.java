@@ -17,7 +17,7 @@ import java.util.Optional;
 final class PlayerImpl<H> implements Player<H>, BoardCallback, GameEventListener {
 
     private final PlayerListener listener;
-    final String name;
+    private final String name;
 
     final Optional<PlayerCallback<H>> callback;
 
@@ -98,6 +98,11 @@ final class PlayerImpl<H> implements Player<H>, BoardCallback, GameEventListener
     @Override
     public void gameOver(final String player, final boolean quit, final boolean me) {
         this.callback.ifPresent(callback -> callback.gameOver(player, quit, me));
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
     }
 
 }

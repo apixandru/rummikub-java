@@ -49,6 +49,7 @@ public final class Main {
                 RummikubConnector.from(callback)
                         .setHints(player.getAllSlots())
                         .setConnectionListener(new SwingConnectionListener(frame))
+                        .setPlayerName("Skippy")
                         .connectTo(serverIp);
 
         final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);

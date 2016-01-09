@@ -19,6 +19,12 @@ public interface Rummikub {
      */
     <H> Player<H> addPlayer(String name, PlayerCallback<H> callback);
 
+    /**
+     * @param player
+     * @param <H>
+     */
+    <H> void removePlayer(Player<H> player);
+
     // temporary
     List<Card> getCards();
 

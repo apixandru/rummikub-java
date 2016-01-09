@@ -7,6 +7,11 @@ package com.apixandru.games.rummikub.api;
 public interface Player<H> {
 
     /**
+     * @return
+     */
+    String getName();
+
+    /**
      * @param card
      * @param x
      * @param y

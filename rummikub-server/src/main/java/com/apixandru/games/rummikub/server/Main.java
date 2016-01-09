@@ -3,6 +3,7 @@ package com.apixandru.games.rummikub.server;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
+import com.apixandru.games.rummikub.brotocol.BroReader;
 import com.apixandru.games.rummikub.brotocol.BroWriter;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.games.rummikub.model.Rummikub;
@@ -42,12 +43,22 @@ public class Main {
             final SocketWrapper wrapper = new SocketWrapper(socket);
             sendCards(wrapper, cards);
             log.debug("Registering player...");
-            final Player<Integer> player = game.addPlayer("Player", new ClientCallback(wrapper, cards));
+            final String playerName = getPlayerName(wrapper);
+            final Player<Integer> player = game.addPlayer(playerName, new ClientCallback(wrapper, cards));
             log.debug("Player registered.");
-            final ClientRunnable runnable = new ClientRunnable(wrapper, cards, player);
+            final ClientRunnable runnable = new ClientRunnable(wrapper, cards, player, game);
             new Thread(runnable, "Player " + playerId++).start();
         }
 
+    }
+
+    /**
+     * @param reader
+     * @return
+     * @throws IOException
+     */
+    private static String getPlayerName(final BroReader reader) throws IOException {
+        return reader.readString();
     }
 
     /**

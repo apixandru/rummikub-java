@@ -20,6 +20,7 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_TAKE_CARD;
 final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
 
     private final List<H> hints;
+    private final String playerName;
 
     /**
      * @param writer
@@ -27,9 +28,15 @@ final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
      * @param hints
      * @throws IOException
      */
-    SocketPlayer(final BroWriter writer, final List<Card> cards, final List<H> hints) throws IOException {
+    SocketPlayer(final String playerName, final BroWriter writer, final List<Card> cards, final List<H> hints) throws IOException {
         super(writer, cards);
         this.hints = hints;
+        this.playerName = playerName;
+    }
+
+    @Override
+    public String getName() {
+        return this.playerName;
     }
 
     @Override
