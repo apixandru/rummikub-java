@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.apixandru.games.rummikub.ui;
+package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Card;
 import org.slf4j.Logger;

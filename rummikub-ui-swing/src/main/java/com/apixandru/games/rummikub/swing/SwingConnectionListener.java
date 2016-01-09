@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.ui;
+package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.client.ConnectionListener;
 

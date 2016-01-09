@@ -1,8 +1,7 @@
-package com.apixandru.games.rummikub.ui;
+package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.client.RummikubConnector;
-import com.apixandru.games.rummikub.ui.ServerData.ConnectionData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +30,7 @@ public final class Main {
      * @param args
      */
     public static void main(final String[] args) throws IOException {
-        final ConnectionData connectionData = ServerData.getConnectionData();
+        final ServerData.ConnectionData connectionData = ServerData.getConnectionData();
         if (null == connectionData) {
             return;
         }

@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.ui;
+package com.apixandru.games.rummikub.swing;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

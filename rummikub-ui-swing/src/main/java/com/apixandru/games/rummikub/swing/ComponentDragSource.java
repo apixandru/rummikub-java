@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.apixandru.games.rummikub.ui;
+package com.apixandru.games.rummikub.swing;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +24,7 @@ final class ComponentDragSource implements DragSource {
     }
 
     /* (non-Javadoc)
-     * @see com.apixandru.games.rummikub.ui.DragSource#getComponentAt(int, int)
+     * @see DragSource#getComponentAt(int, int)
      */
     @Override
     public JComponent getComponentAt(final int x, final int y) {
@@ -46,7 +46,7 @@ final class ComponentDragSource implements DragSource {
     }
 
     /* (non-Javadoc)
-     * @see com.apixandru.games.rummikub.ui.DragSource#beginDrag(java.awt.Component)
+     * @see DragSource#beginDrag(java.awt.Component)
      */
     @Override
     public void beginDrag(final CardUi component) {
@@ -54,7 +54,7 @@ final class ComponentDragSource implements DragSource {
     }
 
     /* (non-Javadoc)
-     * @see com.apixandru.games.rummikub.ui.DragSource#endDrag(java.awt.Component)
+     * @see DragSource#endDrag(java.awt.Component)
      */
     @Override
     public void endDrag(final CardUi component) {

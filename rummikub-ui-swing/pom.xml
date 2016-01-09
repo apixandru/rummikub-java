@@ -27,7 +27,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.apixandru.games.rummikub.ui.Main</mainClass>
+                            <mainClass>com.apixandru.games.rummikub.swing.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
