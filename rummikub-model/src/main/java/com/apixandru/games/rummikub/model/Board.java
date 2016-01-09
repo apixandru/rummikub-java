@@ -2,13 +2,16 @@ package com.apixandru.games.rummikub.model;
 
 import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.model.util.Util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import static com.apixandru.games.rummikub.api.Constants.NUM_COLS;
+import static com.apixandru.games.rummikub.api.Constants.NUM_ROWS;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -24,7 +27,7 @@ final class Board {
      */
     Board(final BoardCallback callback) {
         this.callback = Optional.ofNullable(callback);
-        this.cards = new Card[Constants.NUM_ROWS][Constants.NUM_COLS];
+        this.cards = new Card[NUM_ROWS][NUM_COLS];
     }
 
     /**
@@ -33,7 +36,7 @@ final class Board {
      * @return
      */
     private boolean inBounds(final int x, final int y) {
-        return y < Constants.NUM_ROWS && x < Constants.NUM_COLS;
+        return y < NUM_ROWS && x < NUM_COLS;
     }
 
     /**
@@ -102,6 +105,21 @@ final class Board {
                 .map(Util::splitNonEmptyGroups)
                 .flatMap(List::stream)
                 .map(CardGroup::new);
+    }
+
+    /**
+     * @return
+     */
+    List<Card> removeAllCards() {
+        final List<Card> cards = new ArrayList<>();
+        for (int y = 0; y < NUM_ROWS; y++) {
+            for (int x = 0; x < NUM_COLS; x++) {
+                if (!isFree(x, y)) {
+                    cards.add(removeCard(x, y));
+                }
+            }
+        }
+        return cards;
     }
 
 }

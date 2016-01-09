@@ -72,6 +72,9 @@ final class RummikubImpl implements Rummikub, BoardCallback {
      * @param player
      */
     private void giveCard(final PlayerImpl<?> player) {
+        if (!this.cardPile.hasMoreCards()) {
+            this.cardPile.setCards(this.board.removeAllCards());
+        }
         player.receiveCard(this.cardPile.nextCard());
     }
 

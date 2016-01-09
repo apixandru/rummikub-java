@@ -7,9 +7,9 @@ import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Color;
 import com.apixandru.games.rummikub.api.Rank;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -17,7 +17,7 @@ import java.util.Queue;
  */
 final class CardPile {
 
-    final Queue<Card> cards;
+    final LinkedList<Card> cards = new LinkedList<>();
 
     {
         final LinkedList<Card> cards = new LinkedList<>();
@@ -32,30 +32,36 @@ final class CardPile {
             cards.add(new Card(null, null));
         }
 
-        Collections.shuffle(cards);
-
-        this.cards = cards;
+        setCards(cards);
     }
 
     /**
      * @return
      */
-    public int getNumberOfCards() {
+    int getNumberOfCards() {
         return this.cards.size();
     }
 
     /**
      * @return
      */
-    public boolean hasMoreCards() {
+    boolean hasMoreCards() {
         return !this.cards.isEmpty();
     }
 
     /**
      * @return
      */
-    public Card nextCard() {
+    Card nextCard() {
         return this.cards.remove();
+    }
+
+    /**
+     * @param cards
+     */
+    void setCards(final Collection<Card> cards) {
+        this.cards.addAll(cards);
+        Collections.shuffle(this.cards);
     }
 
 }
