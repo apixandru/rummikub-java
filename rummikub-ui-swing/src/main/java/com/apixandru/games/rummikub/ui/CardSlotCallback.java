@@ -50,6 +50,7 @@ final class CardSlotCallback implements PlayerCallback<CardSlot>, MoveHelper {
     public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
         UiUtil.removeCard(board.slots[y][x]);
         this.cardsJustPlacedOnBoard.remove(card);
+        this.cardsLockedOnBoard.remove(card);
     }
 
     @Override
