@@ -14,6 +14,11 @@ public interface BroWriter extends Closeable {
     void write(int... ints);
 
     /**
+     * @param string
+     */
+    void write(String string);
+
+    /**
      *
      */
     void flush();

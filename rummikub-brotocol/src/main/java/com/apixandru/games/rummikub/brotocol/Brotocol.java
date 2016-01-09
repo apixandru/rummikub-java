@@ -11,6 +11,7 @@ public interface Brotocol {
     int CLIENT_TAKE_CARD = 2;
     int CLIENT_END_TURN = 3;
 
+    int SERVER_GAME_OVER = 4;
     int SERVER_RECEIVED_CARD = 5;
     int SERVER_CARD_PLACED = 6;
     int SERVER_CARD_REMOVED = 7;

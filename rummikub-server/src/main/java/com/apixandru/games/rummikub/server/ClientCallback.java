@@ -10,6 +10,7 @@ import java.util.List;
 
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_PLACED;
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_REMOVED;
+import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_GAME_OVER;
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_NEW_TURN;
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEIVED_CARD;
 
@@ -30,22 +31,32 @@ final class ClientCallback extends AbstractIntWritable implements PlayerCallback
 
     @Override
     public void cardReceived(final Card card, final Integer hint) {
-        write(SERVER_RECEIVED_CARD, card, hint == null ? -1 : hint);
+        writeAndFlush(SERVER_RECEIVED_CARD, card, hint == null ? -1 : hint);
     }
 
     @Override
     public void onCardPlacedOnBoard(final Card card, final int x, final int y) {
-        write(SERVER_CARD_PLACED, card, x, y);
+        writeAndFlush(SERVER_CARD_PLACED, card, x, y);
     }
 
     @Override
     public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
-        write(SERVER_CARD_REMOVED, card, x, y);
+        writeAndFlush(SERVER_CARD_REMOVED, card, x, y);
     }
 
     @Override
     public void newTurn(final boolean myTurn) {
-        writeAndFlush(SERVER_NEW_TURN, myTurn ? 1 : 0);
+        write(SERVER_NEW_TURN);
+        write(myTurn);
+        flush();
+    }
+
+    @Override
+    public void gameOver(final String player, final boolean quit, final boolean me) {
+        write(SERVER_GAME_OVER);
+        write(player);
+        write(quit, me);
+        flush();
     }
 
 }

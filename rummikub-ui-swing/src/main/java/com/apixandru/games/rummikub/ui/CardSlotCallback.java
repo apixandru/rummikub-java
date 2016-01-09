@@ -61,6 +61,11 @@ final class CardSlotCallback implements PlayerCallback<CardSlot>, MoveHelper {
     }
 
     @Override
+    public void gameOver(final String player, final boolean quit, final boolean me) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public boolean canInteractWithBoard() {
         return this.myTurn.get();
     }

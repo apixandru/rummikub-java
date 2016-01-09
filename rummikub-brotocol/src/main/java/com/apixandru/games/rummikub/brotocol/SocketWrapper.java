@@ -35,9 +35,13 @@ public final class SocketWrapper implements BroReader, BroWriter {
     }
 
     @Override
-    public void close() throws IOException {
-        this.in.close();
-        this.socket.close();
+    public String readString() throws IOException {
+        final int length = readInt();
+        final StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb.append((char) readInt());
+        }
+        return sb.toString();
     }
 
     @Override
@@ -52,12 +56,26 @@ public final class SocketWrapper implements BroReader, BroWriter {
     }
 
     @Override
+    public void write(final String string) {
+        write(string.length());
+        for (char c : string.toCharArray()) {
+            write((int) c);
+        }
+    }
+
+    @Override
     public void flush() {
         try {
             this.out.flush();
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    @Override
+    public void close() throws IOException {
+        this.in.close();
+        this.socket.close();
     }
 
 }

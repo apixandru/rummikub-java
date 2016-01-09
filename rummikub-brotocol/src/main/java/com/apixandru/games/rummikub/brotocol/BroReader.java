@@ -15,4 +15,10 @@ public interface BroReader extends Closeable {
      */
     int readInt() throws IOException;
 
+    /**
+     * @return
+     * @throws IOException
+     */
+    String readString() throws IOException;
+
 }

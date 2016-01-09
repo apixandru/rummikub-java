@@ -34,17 +34,17 @@ final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
 
     @Override
     public void placeCardOnBoard(final Card card, final int x, final int y) {
-        write(CLIENT_PLACE_CARD, card, x, y);
+        writeAndFlush(CLIENT_PLACE_CARD, card, x, y);
     }
 
     @Override
     public void moveCardOnBoard(final Card card, final int fromX, final int fromY, final int toX, final int toY) {
-        write(CLIENT_MOVE_CARD, card, fromX, fromY, toX, toY);
+        writeAndFlush(CLIENT_MOVE_CARD, card, fromX, fromY, toX, toY);
     }
 
     @Override
     public void takeCardFromBoard(final Card card, final int x, final int y, final H hint) {
-        write(CLIENT_TAKE_CARD, card, x, y, this.hints.indexOf(hint));
+        writeAndFlush(CLIENT_TAKE_CARD, card, x, y, this.hints.indexOf(hint));
     }
 
     @Override

@@ -32,7 +32,7 @@ public class AbstractIntWritable {
      * @param card
      * @param ints
      */
-    protected final void write(final int header, final Card card, int... ints) {
+    protected final void writeAndFlush(final int header, final Card card, int... ints) {
         write(header, this.cards.indexOf(card));
         writeAndFlush(ints);
     }
@@ -40,8 +40,17 @@ public class AbstractIntWritable {
     /**
      * @param ints
      */
-    private void write(int... ints) {
+    protected final void write(int... ints) {
         this.writer.write(ints);
+    }
+
+    /**
+     * @param booleans
+     */
+    protected final void write(boolean... booleans) {
+        for (boolean bool : booleans) {
+            write(bool ? 1 : 0);
+        }
     }
 
     /**
@@ -50,6 +59,13 @@ public class AbstractIntWritable {
     protected final void writeAndFlush(int... ints) {
         write(ints);
         flush();
+    }
+
+    /**
+     * @param string
+     */
+    protected final void write(final String string) {
+        this.writer.write(string);
     }
 
     /**
