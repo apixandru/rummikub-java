@@ -2,6 +2,7 @@ package com.apixandru.games.rummikub.ui;
 
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.client.RummikubConnector;
+import com.apixandru.games.rummikub.ui.ServerData.ConnectionData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +12,6 @@ import java.awt.*;
 import java.io.IOException;
 
 import static com.apixandru.games.rummikub.api.Constants.NUM_COLS;
-import static com.apixandru.games.rummikub.api.Constants.NUM_ROWS;
 import static java.lang.Math.max;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -31,12 +31,10 @@ public final class Main {
      * @param args
      */
     public static void main(final String[] args) throws IOException {
-        if (1 != args.length) {
-            log.error("Argument must be server ip.");
+        final ConnectionData connectionData = ServerData.getConnectionData();
+        if (null == connectionData) {
             return;
         }
-
-        final String serverIp = args[0];
 
         final JFrame frame = new JFrame();
         final JGridPanel board = RummikubUi.newBoard();
@@ -49,8 +47,8 @@ public final class Main {
                 RummikubConnector.from(callback)
                         .setHints(player.getAllSlots())
                         .setConnectionListener(new SwingConnectionListener(frame))
-                        .setPlayerName("Skippy")
-                        .connectTo(serverIp);
+                        .setPlayerName(connectionData.username)
+                        .link(connectionData.socket);
 
         final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);

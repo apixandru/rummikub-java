@@ -19,14 +19,13 @@ import java.util.List;
 final class RummikubGame {
 
     /**
-     * @param <H>
      * @param connector
-     * @param ip
+     * @param socket
+     * @param <H>
      * @return
      * @throws IOException
      */
-    static <H> SocketPlayer<H> connect(final RummikubConnector<H> connector, final String ip) throws IOException {
-        final Socket socket = new Socket(ip, 50122);
+    static <H> SocketPlayer<H> connect(final RummikubConnector<H> connector, final Socket socket) throws IOException {
         final SocketWrapper wrapper = new SocketWrapper(socket);
         sendPlayerName(connector.playerName, wrapper);
         final List<Card> cards = handleReceiveCardList(wrapper);

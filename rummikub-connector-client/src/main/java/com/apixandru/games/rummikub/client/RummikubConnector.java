@@ -4,6 +4,7 @@ import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.PlayerCallback;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.util.List;
 
 /**
@@ -53,12 +54,12 @@ public final class RummikubConnector<E> {
     }
 
     /**
-     * @param ipAddress
+     * @param socket
      * @return
      * @throws IOException
      */
-    public Player<E> connectTo(final String ipAddress) throws IOException {
-        return RummikubGame.connect(this, ipAddress);
+    public Player<E> link(final Socket socket) throws IOException {
+        return RummikubGame.connect(this, socket);
     }
 
     /**

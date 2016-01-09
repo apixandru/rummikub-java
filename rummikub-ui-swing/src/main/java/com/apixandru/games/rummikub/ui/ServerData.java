@@ -1,7 +1,12 @@
 package com.apixandru.games.rummikub.ui;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.prefs.Preferences;
 
 import static javax.swing.JOptionPane.OK_CANCEL_OPTION;
@@ -13,13 +18,17 @@ import static javax.swing.JOptionPane.QUESTION_MESSAGE;
  */
 final class ServerData {
 
+    private static final Logger log = LoggerFactory.getLogger(ServerData.class);
+
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_USERNAME = "username";
 
     private static final String OPT_CONNECT = "Connect";
     private static final String OPT_CANCEL = "Cancel";
 
-    private static final String[] OPTIONS = {"Connect", "Cancel"};
+    private static final String[] OPTIONS = {OPT_CONNECT, OPT_CANCEL};
+
+    private static final int CHOICE_CONNECT = 0;
 
     /**
      *
@@ -36,38 +45,48 @@ final class ServerData {
         final JTextField tfUsername = newField(prefs, KEY_USERNAME);
         final JTextField tfAddress = newField(prefs, KEY_ADDRESS);
 
-        final int option = JOptionPane.showOptionDialog(
-                null,
-                createLoginPanel(tfUsername, tfAddress),
-                "Rummikub Connector",
-                OK_CANCEL_OPTION,
-                QUESTION_MESSAGE,
-                null,
-                OPTIONS,
-                OPT_CONNECT);
+        while (true) {
+            final int option = JOptionPane.showOptionDialog(
+                    null,
+                    createLoginPanel(tfUsername, tfAddress),
+                    "Connection Data",
+                    OK_CANCEL_OPTION,
+                    QUESTION_MESSAGE,
+                    null,
+                    OPTIONS,
+                    OPT_CONNECT);
 
-        if (option == JOptionPane.CANCEL_OPTION) {
-            return null;
+            if (CHOICE_CONNECT != option) {
+                return null;
+            }
+
+            final String address = tfAddress.getText();
+            final String username = tfUsername.getText();
+
+            prefs.put(KEY_ADDRESS, address);
+            prefs.put(KEY_USERNAME, username);
+
+            try {
+                return new ConnectionData(new Socket(address, 50122), username);
+            } catch (IOException ex) {
+                log.debug("Could not connect to " + address);
+                JOptionPane.showMessageDialog(null,
+                        "Cannot connect to " + address + "!",
+                        "Cannot connect",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
-
-        final String username = tfUsername.getText();
-        final String address = tfAddress.getText();
-
-        prefs.put(KEY_ADDRESS, address);
-        prefs.put(KEY_USERNAME, username);
-
-        return new ConnectionData(address, username);
     }
 
     /**
-     * @param tfUsername
-     * @param tfAddress
+     * @param username
+     * @param address
      * @return
      */
-    private static JPanel createLoginPanel(final JTextField tfUsername, final JTextField tfAddress) {
+    private static JPanel createLoginPanel(final JTextField username, final JTextField address) {
         final JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.add(createLabels(), BorderLayout.WEST);
-        panel.add(newPanel(tfUsername, tfAddress), BorderLayout.CENTER);
+        panel.add(newPanel(address, username), BorderLayout.CENTER);
         return panel;
     }
 
@@ -104,15 +123,15 @@ final class ServerData {
      */
     static final class ConnectionData {
 
-        final String ipAddress;
+        final Socket socket;
         final String username;
 
         /**
-         * @param ipAddress
+         * @param socket
          * @param username
          */
-        ConnectionData(final String ipAddress, final String username) {
-            this.ipAddress = ipAddress;
+        ConnectionData(final Socket socket, final String username) {
+            this.socket = socket;
             this.username = username;
         }
 
