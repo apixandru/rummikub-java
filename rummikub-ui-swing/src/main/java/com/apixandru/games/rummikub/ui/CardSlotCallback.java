@@ -62,7 +62,20 @@ final class CardSlotCallback implements PlayerCallback<CardSlot>, MoveHelper {
 
     @Override
     public void gameOver(final String player, final boolean quit, final boolean me) {
-        throw new UnsupportedOperationException();
+        String message;
+        int icon;
+        if (quit) {
+            message = player + " quit the game.";
+            icon = JOptionPane.ERROR_MESSAGE;
+        } else if (me) {
+            message = "You won!";
+            icon = JOptionPane.INFORMATION_MESSAGE;
+        } else {
+            message = player + " won.";
+            icon = JOptionPane.INFORMATION_MESSAGE;
+        }
+        JOptionPane.showMessageDialog(null, message, "Game Over", icon);
+        System.exit(1);
     }
 
     @Override
