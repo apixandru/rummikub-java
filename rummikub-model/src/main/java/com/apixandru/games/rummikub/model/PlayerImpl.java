@@ -83,8 +83,8 @@ final class PlayerImpl<H> implements Player<H>, BoardCallback, GameEventListener
     }
 
     @Override
-    public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
-        this.callback.ifPresent(callback -> callback.onCardRemovedFromBoard(card, x, y));
+    public void onCardRemovedFromBoard(final Card card, final int x, final int y, final boolean reset) {
+        this.callback.ifPresent(callback -> callback.onCardRemovedFromBoard(card, x, y, reset));
     }
 
     /**

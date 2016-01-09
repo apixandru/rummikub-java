@@ -22,7 +22,7 @@ public final class TrackingBoardCallback implements BoardCallback {
     }
 
     @Override
-    public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
+    public void onCardRemovedFromBoard(final Card card, final int x, final int y, boolean reset) {
         this.actions.add(new BoardAction(BoardAction.Action.REMOVED, card, x, y));
     }
 

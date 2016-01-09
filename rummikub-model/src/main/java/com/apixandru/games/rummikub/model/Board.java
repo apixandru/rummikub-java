@@ -72,11 +72,20 @@ final class Board {
      * @param y
      * @return
      */
-    Card removeCard(final int x, final int y) {
+    Card removeCard(final int x, final int y, final boolean unlock) {
         final Card card = cards[y][x];
-        this.callback.ifPresent(callback -> callback.onCardRemovedFromBoard(card, x, y));
+        this.callback.ifPresent(callback -> callback.onCardRemovedFromBoard(card, x, y, unlock));
         cards[y][x] = null;
         return card;
+    }
+
+    /**
+     * @param x
+     * @param y
+     * @return
+     */
+    Card removeCard(final int x, final int y) {
+        return removeCard(x, y, false);
     }
 
     /**
@@ -115,7 +124,7 @@ final class Board {
         for (int y = 0; y < NUM_ROWS; y++) {
             for (int x = 0; x < NUM_COLS; x++) {
                 if (!isFree(x, y)) {
-                    cards.add(removeCard(x, y));
+                    cards.add(removeCard(x, y, true));
                 }
             }
         }

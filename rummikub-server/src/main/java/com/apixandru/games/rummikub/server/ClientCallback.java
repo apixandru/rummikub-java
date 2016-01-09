@@ -40,8 +40,10 @@ final class ClientCallback extends AbstractIntWritable implements PlayerCallback
     }
 
     @Override
-    public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
-        writeAndFlush(SERVER_CARD_REMOVED, card, x, y);
+    public void onCardRemovedFromBoard(final Card card, final int x, final int y, final boolean reset) {
+        write(SERVER_CARD_REMOVED, card, x, y);
+        write(reset);
+        flush();
     }
 
     @Override

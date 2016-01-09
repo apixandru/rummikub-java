@@ -115,7 +115,8 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private void handleCardRemoved(final Card card, final BroReader reader) throws IOException {
         final int x = reader.readInt();
         final int y = reader.readInt();
-        this.callback.onCardRemovedFromBoard(card, x, y);
+        final boolean unlock = reader.readBoolean();
+        this.callback.onCardRemovedFromBoard(card, x, y, unlock);
     }
 
     /**

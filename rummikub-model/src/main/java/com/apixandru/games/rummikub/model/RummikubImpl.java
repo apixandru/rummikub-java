@@ -145,8 +145,8 @@ final class RummikubImpl implements Rummikub, BoardCallback {
     }
 
     @Override
-    public void onCardRemovedFromBoard(final Card card, final int x, final int y) {
-        this.players.forEach(player -> player.onCardRemovedFromBoard(card, x, y));
+    public void onCardRemovedFromBoard(final Card card, final int x, final int y, final boolean reset) {
+        this.players.forEach(player -> player.onCardRemovedFromBoard(card, x, y, reset));
     }
 
     /**

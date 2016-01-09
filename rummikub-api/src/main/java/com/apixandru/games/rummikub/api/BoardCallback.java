@@ -17,7 +17,8 @@ public interface BoardCallback {
      * @param card
      * @param x
      * @param y
+     * @param reset
      */
-    void onCardRemovedFromBoard(Card card, int x, int y);
+    void onCardRemovedFromBoard(Card card, int x, int y, boolean reset);
 
 }
