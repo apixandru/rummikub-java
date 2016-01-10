@@ -9,6 +9,20 @@ package com.apixandru.games.rummikub.api;
  */
 public enum Color {
 
-    RED, BLUE, BLACK, YELLOW
+    RED("RED"),
+    BLUE("BLU"),
+    BLACK("BLK"),
+    YELLOW("YLW");
+
+    private final String string;
+
+    Color(final String string) {
+        this.string = string;
+    }
+
+    @Override
+    public String toString() {
+        return string;
+    }
 
 }
