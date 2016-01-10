@@ -17,8 +17,8 @@ public class AbstractIntWritable {
     private final List<Card> cards;
 
     /**
-     * @param writer
-     * @param cards
+     * @param writer the writer
+     * @param cards  the list of all the cards in the game
      */
     protected AbstractIntWritable(final BroWriter writer, final List<Card> cards) {
         this.cards = Collections.unmodifiableList(new ArrayList<>(cards));
@@ -26,9 +26,9 @@ public class AbstractIntWritable {
     }
 
     /**
-     * @param header
-     * @param card
-     * @param ints
+     * @param header the opcode
+     * @param card   the card
+     * @param ints   other values to be written
      */
     protected final void writeAndFlush(final int header, final Card card, int... ints) {
         write(header, card, ints);
@@ -36,9 +36,9 @@ public class AbstractIntWritable {
     }
 
     /**
-     * @param header
-     * @param card
-     * @param ints
+     * @param header the opcode
+     * @param card   the card
+     * @param ints   other values to be written
      */
     protected final void write(final int header, final Card card, int... ints) {
         write(header, this.cards.indexOf(card));
@@ -46,14 +46,14 @@ public class AbstractIntWritable {
     }
 
     /**
-     * @param ints
+     * @param ints values to be written
      */
     protected final void write(int... ints) {
         this.writer.write(ints);
     }
 
     /**
-     * @param booleans
+     * @param booleans values to be written
      */
     protected final void write(boolean... booleans) {
         for (boolean bool : booleans) {
@@ -62,7 +62,7 @@ public class AbstractIntWritable {
     }
 
     /**
-     * @param ints
+     * @param ints values to be written
      */
     protected final void writeAndFlush(int... ints) {
         write(ints);
@@ -70,7 +70,7 @@ public class AbstractIntWritable {
     }
 
     /**
-     * @param string
+     * @param string the string to be written
      */
     protected final void write(final String string) {
         this.writer.write(string);

@@ -7,17 +7,17 @@ package com.apixandru.games.rummikub.api;
 public interface BoardCallback {
 
     /**
-     * @param card
-     * @param x
-     * @param y
+     * @param card the card that
+     * @param x the x column on the board
+     * @param y the row on the board
      */
     void onCardPlacedOnBoard(Card card, int x, int y);
 
     /**
-     * @param card
-     * @param x
-     * @param y
-     * @param reset
+     * @param card the card that
+     * @param x the x column on the board
+     * @param y the row on the board
+     * @param reset was the event triggered by the board getting reset
      */
     void onCardRemovedFromBoard(Card card, int x, int y, boolean reset);
 

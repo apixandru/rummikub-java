@@ -26,9 +26,9 @@ final class ClientCallback extends AbstractIntWritable implements PlayerCallback
     private final String playerName;
 
     /**
-     * @param playerName
-     * @param writer
-     * @param cards
+     * @param playerName the player name
+     * @param writer the writer
+     * @param cards  the list of all the cards in the game
      */
     ClientCallback(final String playerName, final BroWriter writer, final List<Card> cards) {
         super(writer, cards);

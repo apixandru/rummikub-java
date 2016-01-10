@@ -10,19 +10,19 @@ import java.io.IOException;
 public interface BroReader extends Closeable {
 
     /**
-     * @return
+     * @return the next value as an integer
      * @throws IOException
      */
     int readInt() throws IOException;
 
     /**
-     * @return
+     * @return the next value as a boolean
      * @throws IOException
      */
     boolean readBoolean() throws IOException;
 
     /**
-     * @return
+     * @return the next value as a string
      * @throws IOException
      */
     String readString() throws IOException;

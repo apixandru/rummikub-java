@@ -13,8 +13,8 @@ public final class Card {
     private final Rank rank;
 
     /**
-     * @param color
-     * @param rank
+     * @param color the color
+     * @param rank the rank
      */
     public Card(final Color color, final Rank rank) {
         if (null == color) {

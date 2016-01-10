@@ -33,9 +33,9 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private final ConnectionListener connectionListener;
 
     /**
-     * @param connector
-     * @param reader
-     * @param cards
+     * @param connector the connector
+     * @param reader    the reader
+     * @param cards     the list of all the cards in the game
      */
     PlayerCallbackAdapter(final RummikubConnector<H> connector,
                           final BroReader reader,
@@ -54,19 +54,19 @@ final class PlayerCallbackAdapter<H> implements Runnable {
                 final int input = reader.readInt();
                 switch (input) {
                     case SERVER_CARD_PLACED:
-                        handleCardPlaced(getCard(reader), reader);
+                        handleCardPlaced(getCard());
                         break;
                     case SERVER_CARD_REMOVED:
-                        handleCardRemoved(getCard(reader), reader);
+                        handleCardRemoved(getCard());
                         break;
                     case SERVER_RECEIVED_CARD:
-                        handleReceivedCard(getCard(reader), reader);
+                        handleReceivedCard(getCard());
                         break;
                     case SERVER_NEW_TURN:
-                        handleNewTurn(reader);
+                        handleNewTurn();
                         break;
                     case SERVER_GAME_OVER:
-                        handleGameOver(reader);
+                        handleGameOver();
                     default:
                         throw new IllegalArgumentException("Unknown input: " + input);
                 }
@@ -80,39 +80,35 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     }
 
     /**
-     * @param reader
-     * @return
+     * @return the card identified by the index
      * @throws IOException
      */
-    private Card getCard(final BroReader reader) throws IOException {
+    private Card getCard() throws IOException {
         return this.cards.get(reader.readInt());
     }
 
     /**
-     * @param reader
      * @throws IOException
      */
-    private void handleNewTurn(final BroReader reader) throws IOException {
+    private void handleNewTurn() throws IOException {
         final boolean myTurn = reader.readBoolean();
         this.callback.newTurn(myTurn);
     }
 
     /**
-     * @param card
-     * @param reader
+     * @param card the card
      * @throws IOException
      */
-    private void handleReceivedCard(final Card card, final BroReader reader) throws IOException {
+    private void handleReceivedCard(final Card card) throws IOException {
         final int hintIndex = reader.readInt();
         this.callback.cardReceived(card, -1 == hintIndex ? null : this.hints.get(hintIndex));
     }
 
     /**
-     * @param card
-     * @param reader
+     * @param card the card
      * @throws IOException
      */
-    private void handleCardRemoved(final Card card, final BroReader reader) throws IOException {
+    private void handleCardRemoved(final Card card) throws IOException {
         final int x = reader.readInt();
         final int y = reader.readInt();
         final boolean unlock = reader.readBoolean();
@@ -120,20 +116,18 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     }
 
     /**
-     * @param card
-     * @param reader
+     * @param card the card
      * @throws IOException
      */
-    private void handleCardPlaced(final Card card, final BroReader reader) throws IOException {
+    private void handleCardPlaced(final Card card) throws IOException {
         final int x = reader.readInt();
         final int y = reader.readInt();
         this.callback.onCardPlacedOnBoard(card, x, y);
     }
 
     /**
-     * @param reader
      */
-    private void handleGameOver(final BroReader reader) throws IOException {
+    private void handleGameOver() throws IOException {
         final String player = reader.readString();
         final boolean quit = reader.readBoolean();
         final boolean me = reader.readBoolean();

@@ -19,10 +19,10 @@ import java.util.List;
 final class RummikubGame {
 
     /**
-     * @param connector
-     * @param socket
-     * @param <H>
-     * @return
+     * @param connector the connector
+     * @param socket    the socket
+     * @param <H>       the hint type
+     * @return the socket player
      * @throws IOException
      */
     static <H> SocketPlayer<H> connect(final RummikubConnector<H> connector, final Socket socket) throws IOException {
@@ -35,18 +35,16 @@ final class RummikubGame {
     }
 
     /**
-     * @param playerName
-     * @param wrapper
-     * @param <H>
+     * @param playerName the player name
+     * @param wrapper    the socket wrapper
      */
-    private static <H> void sendPlayerName(final String playerName, final SocketWrapper wrapper) {
+    private static void sendPlayerName(final String playerName, final SocketWrapper wrapper) {
         wrapper.write(playerName);
         wrapper.flush();
     }
 
-
     /**
-     * @param reader
+     * @param reader the reader
      * @throws IOException
      */
     private static List<Card> handleReceiveCardList(final BroReader reader) throws IOException {
@@ -62,10 +60,10 @@ final class RummikubGame {
     }
 
     /**
-     * @param index
-     * @param values
-     * @param <T>
-     * @return
+     * @param index  the index in the array
+     * @param values the array
+     * @param <T>    the element type
+     * @return the value at the index or null if the index is -1
      */
     private static <T> T orNull(final int index, final T[] values) {
         if (-1 == index) {

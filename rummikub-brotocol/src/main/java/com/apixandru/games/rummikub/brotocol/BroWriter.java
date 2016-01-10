@@ -9,12 +9,12 @@ import java.io.Closeable;
 public interface BroWriter extends Closeable {
 
     /**
-     * @param ints
+     * @param ints the ints to be written
      */
     void write(int... ints);
 
     /**
-     * @param string
+     * @param string the string to be written
      */
     void write(String string);
 

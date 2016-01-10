@@ -24,44 +24,44 @@ final class ClientRunnable implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(ClientRunnable.class);
 
-    private final BroReader broReader;
+    private final BroReader reader;
     private final List<Card> cards;
     private final Player<Integer> player;
     private final Rummikub<Integer> game;
 
     /**
-     * @param reader
-     * @param cards
-     * @param player
-     * @param game
+     * @param reader the reader
+     * @param cards  the list of all the cards in the game
+     * @param player the current player
+     * @param game   the game
      */
     ClientRunnable(final BroReader reader,
                    final List<Card> cards,
                    final Player<Integer> player,
                    final Rummikub<Integer> game) {
         this.cards = cards;
-        this.broReader = reader;
+        this.reader = reader;
         this.player = player;
         this.game = game;
     }
 
     @Override
     public void run() {
-        try (BroReader reader = broReader) {
+        try (final BroReader reader = this.reader) {
             while (true) {
                 final int input = reader.readInt();
                 switch (input) {
                     case CLIENT_PLACE_CARD:
-                        handlePlaceCardOnBoard(reader);
+                        handlePlaceCardOnBoard();
                         break;
                     case CLIENT_END_TURN:
                         handleEndTurn();
                         break;
                     case CLIENT_TAKE_CARD:
-                        handleTakeCardFromBoard(reader);
+                        handleTakeCardFromBoard();
                         break;
                     case CLIENT_MOVE_CARD:
-                        handleMoveCardOnBoard(reader);
+                        handleMoveCardOnBoard();
                         break;
                     default:
                         throw new IllegalArgumentException("Unknown input: " + input);
@@ -76,12 +76,11 @@ final class ClientRunnable implements Runnable {
     }
 
     /**
-     * @param reader
      * @throws IOException
      */
-    private void handleMoveCardOnBoard(final BroReader reader) throws IOException {
+    private void handleMoveCardOnBoard() throws IOException {
         log.debug("Received on moveCardOnBoard request.");
-        final Card card = readCard(reader);
+        final Card card = readCard();
         final int fromX = reader.readInt();
         final int fromY = reader.readInt();
         final int toX = reader.readInt();
@@ -91,12 +90,11 @@ final class ClientRunnable implements Runnable {
     }
 
     /**
-     * @param reader
      * @throws IOException
      */
-    private void handleTakeCardFromBoard(final BroReader reader) throws IOException {
+    private void handleTakeCardFromBoard() throws IOException {
         log.debug("Received on takeCardFromBoard request.");
-        final Card card = readCard(reader);
+        final Card card = readCard();
         final int x = reader.readInt();
         final int y = reader.readInt();
         final int hint = reader.readInt();
@@ -113,12 +111,11 @@ final class ClientRunnable implements Runnable {
     }
 
     /**
-     * @param reader
      * @throws IOException
      */
-    private void handlePlaceCardOnBoard(final BroReader reader) throws IOException {
+    private void handlePlaceCardOnBoard() throws IOException {
         log.debug("Received on placeCardOnBoard request.");
-        final Card card = readCard(reader);
+        final Card card = readCard();
         final int x = reader.readInt();
         final int y = reader.readInt();
         log.debug("Params: Card={}, x={}, y={}", card, x, y);
@@ -126,11 +123,10 @@ final class ClientRunnable implements Runnable {
     }
 
     /**
-     * @param reader
-     * @return
+     * @return the card identified by the position in the list of cards
      * @throws IOException
      */
-    private Card readCard(final BroReader reader) throws IOException {
+    private Card readCard() throws IOException {
         return this.cards.get(reader.readInt());
     }
 

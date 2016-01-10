@@ -18,7 +18,7 @@ public final class SocketWrapper implements BroReader, BroWriter {
     private final ObjectOutputStream out;
 
     /**
-     * @param socket
+     * @param socket the socket to wrap
      */
     public SocketWrapper(final Socket socket) throws IOException {
         this.socket = socket;

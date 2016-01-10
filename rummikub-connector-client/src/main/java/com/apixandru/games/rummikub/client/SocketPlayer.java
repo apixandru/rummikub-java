@@ -22,10 +22,10 @@ final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
     private final String playerName;
 
     /**
-     * @param playerName
-     * @param writer
-     * @param cards
-     * @param hints
+     * @param playerName the player name
+     * @param writer     the writer
+     * @param cards      the list of all the cards in the game
+     * @param hints      the client hints
      */
     SocketPlayer(final String playerName, final BroWriter writer, final List<Card> cards, final List<H> hints) {
         super(writer, cards);

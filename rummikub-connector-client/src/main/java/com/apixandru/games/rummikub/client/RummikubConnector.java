@@ -20,15 +20,15 @@ public final class RummikubConnector<E> {
     String playerName;
 
     /**
-     * @param callback
+     * @param callback the callback
      */
     private RummikubConnector(final PlayerCallback<E> callback) {
         this.callback = callback;
     }
 
     /**
-     * @param connectionListener
-     * @return
+     * @param connectionListener the connection listener
+     * @return this
      */
     public RummikubConnector<E> setConnectionListener(final ConnectionListener connectionListener) {
         this.connectionListener = connectionListener;
@@ -36,8 +36,8 @@ public final class RummikubConnector<E> {
     }
 
     /**
-     * @param hints
-     * @return
+     * @param hints the client hints
+     * @return this
      */
     public RummikubConnector<E> setHints(final List<E> hints) {
         this.hints = hints;
@@ -45,8 +45,8 @@ public final class RummikubConnector<E> {
     }
 
     /**
-     * @param name
-     * @return
+     * @param name the player name
+     * @return this
      */
     public RummikubConnector<E> setPlayerName(final String name) {
         this.playerName = name;
@@ -54,8 +54,8 @@ public final class RummikubConnector<E> {
     }
 
     /**
-     * @param socket
-     * @return
+     * @param socket the socket
+     * @return this
      * @throws IOException
      */
     public Player<E> link(final Socket socket) throws IOException {
@@ -63,8 +63,8 @@ public final class RummikubConnector<E> {
     }
 
     /**
-     * @param callback
-     * @return
+     * @param callback the player callback
+     * @return a new rummikub connector
      */
     public static <H> RummikubConnector<H> from(final PlayerCallback<H> callback) {
         return new RummikubConnector<>(callback);

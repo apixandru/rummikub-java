@@ -24,7 +24,7 @@ final class RummikubServer {
     private static final Logger log = LoggerFactory.getLogger(RummikubServer.class);
 
     /**
-     * @param serverSocket
+     * @param serverSocket the server socket
      */
     RummikubServer(final ServerSocket serverSocket) throws IOException {
         log.debug("Listening on port {}", serverSocket.getLocalPort());
@@ -53,9 +53,9 @@ final class RummikubServer {
     }
 
     /**
-     * @param playerName
-     * @param writer
-     * @param cards
+     * @param playerName the player name
+     * @param writer     the writer
+     * @param cards      the list of all the cards in the game
      */
     private static void sendCards(final String playerName, final BroWriter writer, final List<Card> cards) {
         log.debug("[{}] Sending cards.", playerName);
@@ -71,11 +71,10 @@ final class RummikubServer {
     }
 
     /**
-     * @param constant
-     * @param <E>
-     * @return
+     * @param constant the enum constant
+     * @return the ordinal value of the constant or -1 if null
      */
-    private static <E extends Enum<E>> int ordinal(final E constant) {
+    private static int ordinal(final Enum<?> constant) {
         return null == constant ? -1 : constant.ordinal();
     }
 
