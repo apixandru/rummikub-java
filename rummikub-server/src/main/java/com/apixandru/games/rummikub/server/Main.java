@@ -44,7 +44,7 @@ public class Main {
             sendCards(wrapper, cards);
             log.debug("Registering player...");
             final String playerName = getPlayerName(wrapper);
-            final Player<Integer> player = game.addPlayer(playerName, new ClientCallback(wrapper, cards));
+            final Player<Integer> player = game.addPlayer(playerName, new ClientCallback(playerName, wrapper, cards));
             log.debug("Player registered.");
             final ClientRunnable runnable = new ClientRunnable(wrapper, cards, player, game);
             new Thread(runnable, "Player " + playerId++).start();
