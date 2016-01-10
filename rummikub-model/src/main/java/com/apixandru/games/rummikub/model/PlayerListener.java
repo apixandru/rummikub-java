@@ -1,7 +1,6 @@
 package com.apixandru.games.rummikub.model;
 
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.Player;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -12,7 +11,7 @@ interface PlayerListener {
     /**
      * @param player
      */
-    void requestEndTurn(Player player);
+    void requestEndTurn(PlayerImpl player);
 
     /**
      * @param player
@@ -21,7 +20,7 @@ interface PlayerListener {
      * @param y
      * @return
      */
-    void placeCardOnBoard(Player player, Card card, int x, int y);
+    void placeCardOnBoard(PlayerImpl player, Card card, int x, int y);
 
     /**
      * @param player
@@ -30,7 +29,7 @@ interface PlayerListener {
      * @param y
      * @param hint
      */
-    void takeCardFromBoard(Player player, Card card, int x, int y, final Object hint);
+    void takeCardFromBoard(PlayerImpl player, Card card, int x, int y, final Integer hint);
 
     /**
      * @param player
@@ -40,6 +39,6 @@ interface PlayerListener {
      * @param toX
      * @param toY
      */
-    void moveCardOnBoard(Player player, Card card, int fromX, int fromY, int toX, int toY);
+    void moveCardOnBoard(PlayerImpl player, Card card, int fromX, int fromY, int toX, int toY);
 
 }

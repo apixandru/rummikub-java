@@ -10,20 +10,19 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-public interface Rummikub {
+public interface Rummikub<H> {
 
     /**
      * @param name
      * @param callback
      * @return
      */
-    <H> Player<H> addPlayer(String name, PlayerCallback<H> callback);
+    Player<H> addPlayer(String name, PlayerCallback<H> callback);
 
     /**
      * @param player
-     * @param <H>
      */
-    <H> void removePlayer(Player<H> player);
+    void removePlayer(Player<H> player);
 
     // temporary
     List<Card> getCards();

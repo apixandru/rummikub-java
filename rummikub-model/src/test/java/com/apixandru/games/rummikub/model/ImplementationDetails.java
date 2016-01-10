@@ -59,7 +59,7 @@ public final class ImplementationDetails {
      * @return
      */
     public static List<Card> getCards(final Player<?> player) {
-        return ((PlayerImpl<?>) player).cards;
+        return ((PlayerImpl) player).cards;
     }
 
     /**

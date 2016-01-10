@@ -12,7 +12,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-final class RummikubImpl implements Rummikub, BoardCallback {
+final class RummikubImpl implements Rummikub<Integer>, BoardCallback {
 
     private final UndoManager undoManager = new UndoManager();
 
@@ -71,7 +71,7 @@ final class RummikubImpl implements Rummikub, BoardCallback {
     /**
      * @param player
      */
-    private void giveCard(final PlayerImpl<?> player) {
+    private void giveCard(final PlayerImpl player) {
         if (!this.cardPile.hasMoreCards()) {
             this.cardPile.setCards(this.board.removeAllCards());
         }
@@ -106,8 +106,8 @@ final class RummikubImpl implements Rummikub, BoardCallback {
     }
 
     @Override
-    public <H> Player<H> addPlayer(final String name, final PlayerCallback<H> callback) {
-        final PlayerImpl<H> player = new PlayerImpl<>(name, listener, callback);
+    public Player<Integer> addPlayer(final String name, final PlayerCallback<Integer> callback) {
+        final PlayerImpl player = new PlayerImpl(name, listener, callback);
         this.players.add(player);
         if (null == this.currentPlayer) {
             setNextPlayer();
@@ -117,7 +117,7 @@ final class RummikubImpl implements Rummikub, BoardCallback {
     }
 
     @Override
-    public <H> void removePlayer(final Player<H> player) {
+    public void removePlayer(final Player<Integer> player) {
         if (this.players.remove(player)) {
             this.players.forEach(p -> p.gameOver(player.getName(), true, false));
             this.gameOver = true;
@@ -128,7 +128,7 @@ final class RummikubImpl implements Rummikub, BoardCallback {
      * @param player
      * @param num
      */
-    private void giveCards(final PlayerImpl<?> player, final int num) {
+    private void giveCards(final PlayerImpl player, final int num) {
         for (int i = 0; i < num; i++) {
             giveCard(player);
         }
@@ -155,14 +155,14 @@ final class RummikubImpl implements Rummikub, BoardCallback {
     private class PlayerListenerImpl implements PlayerListener {
 
         @Override
-        public void requestEndTurn(final Player player) {
+        public void requestEndTurn(final PlayerImpl player) {
             if (currentPlayer == player) {
                 endTurn();
             }
         }
 
         @Override
-        public void placeCardOnBoard(final Player player, final Card card, final int x, final int y) {
+        public void placeCardOnBoard(final PlayerImpl player, final Card card, final int x, final int y) {
             if (currentPlayer == player && board.placeCard(card, x, y)) {
                 currentPlayer.removeCard(card);
                 undoManager.addAction(new UndoManager.UndoPlayerToBoard(x, y));
@@ -170,8 +170,7 @@ final class RummikubImpl implements Rummikub, BoardCallback {
         }
 
         @Override
-        @SuppressWarnings("unchecked")
-        public void takeCardFromBoard(final Player player, final Card card, final int x, final int y, final Object hint) {
+        public void takeCardFromBoard(final PlayerImpl player, final Card card, final int x, final int y, final Integer hint) {
             if (currentPlayer == player && canMoveCardOffBoard(card)) {
                 final Card cardFromBoard = board.removeCard(x, y);
                 currentPlayer.receiveCard(cardFromBoard, hint);
@@ -180,7 +179,7 @@ final class RummikubImpl implements Rummikub, BoardCallback {
         }
 
         @Override
-        public void moveCardOnBoard(final Player player, final Card card, final int fromX, final int fromY, final int toX, final int toY) {
+        public void moveCardOnBoard(final PlayerImpl player, final Card card, final int fromX, final int fromY, final int toX, final int toY) {
             if (currentPlayer == player) {
                 board.moveCard(fromX, fromY, toX, toY);
                 undoManager.addAction(new UndoManager.UndoBoardToBoard(fromX, fromY, toX, toY));

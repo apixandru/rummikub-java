@@ -14,12 +14,12 @@ import java.util.Optional;
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-final class PlayerImpl<H> implements Player<H>, BoardCallback, GameEventListener {
+final class PlayerImpl implements Player<Integer>, BoardCallback, GameEventListener {
 
     private final PlayerListener listener;
     private final String name;
 
-    final Optional<PlayerCallback<H>> callback;
+    final Optional<PlayerCallback<Integer>> callback;
 
     final List<Card> cards = new ArrayList<>();
 
@@ -28,7 +28,7 @@ final class PlayerImpl<H> implements Player<H>, BoardCallback, GameEventListener
      * @param listener
      * @param callback
      */
-    PlayerImpl(final String name, final PlayerListener listener, final PlayerCallback<H> callback) {
+    PlayerImpl(final String name, final PlayerListener listener, final PlayerCallback<Integer> callback) {
         this.listener = listener;
         this.name = name;
         this.callback = Optional.ofNullable(callback);
@@ -45,7 +45,7 @@ final class PlayerImpl<H> implements Player<H>, BoardCallback, GameEventListener
     }
 
     @Override
-    public void takeCardFromBoard(final Card card, final int x, final int y, final H hint) {
+    public void takeCardFromBoard(final Card card, final int x, final int y, final Integer hint) {
         this.listener.takeCardFromBoard(this, card, x, y, hint);
     }
 
@@ -58,7 +58,7 @@ final class PlayerImpl<H> implements Player<H>, BoardCallback, GameEventListener
      * @param card
      * @param hint
      */
-    public void receiveCard(final Card card, final H hint) {
+    public void receiveCard(final Card card, final Integer hint) {
         this.cards.add(card);
         this.callback.ifPresent(callback -> callback.cardReceived(card, hint));
     }
