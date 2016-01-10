@@ -7,7 +7,6 @@ import com.apixandru.games.rummikub.model.util.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import static com.apixandru.games.rummikub.api.Constants.NUM_COLS;
@@ -19,14 +18,14 @@ import static com.apixandru.games.rummikub.api.Constants.NUM_ROWS;
  */
 final class Board {
 
+    private final List<BoardCallback> boardCallbacks = new ArrayList<>();
+
     final Card[][] cards;
-    private final Optional<BoardCallback> callback;
 
     /**
-     * @param callback
+     *
      */
-    Board(final BoardCallback callback) {
-        this.callback = Optional.ofNullable(callback);
+    Board() {
         this.cards = new Card[NUM_ROWS][NUM_COLS];
     }
 
@@ -63,7 +62,9 @@ final class Board {
             return false;
         }
         cards[y][x] = card;
-        this.callback.ifPresent(callback -> callback.onCardPlacedOnBoard(card, x, y));
+        for (final BoardCallback callback : boardCallbacks) {
+            callback.onCardPlacedOnBoard(card, x, y);
+        }
         return true;
     }
 
@@ -74,7 +75,9 @@ final class Board {
      */
     Card removeCard(final int x, final int y, final boolean unlock) {
         final Card card = cards[y][x];
-        this.callback.ifPresent(callback -> callback.onCardRemovedFromBoard(card, x, y, unlock));
+        for (final BoardCallback boardCallback : boardCallbacks) {
+            boardCallback.onCardRemovedFromBoard(card, x, y, unlock);
+        }
         cards[y][x] = null;
         return card;
     }
@@ -102,7 +105,7 @@ final class Board {
     /**
      * @return
      */
-    public boolean isValid() {
+    boolean isValid() {
         return streamGroups().allMatch(CardGroup::isValid);
     }
 
@@ -129,6 +132,15 @@ final class Board {
             }
         }
         return cards;
+    }
+
+    /**
+     * @param boardCallback
+     */
+    void addBoardListener(final BoardCallback boardCallback) {
+        if (null != boardCallback) {
+            this.boardCallbacks.add(boardCallback);
+        }
     }
 
 }

@@ -21,7 +21,7 @@ public final class BoardTest {
 
     @Before
     public void setup() {
-        board = new Board(null);
+        board = new Board();
     }
 
     /**

@@ -1,6 +1,5 @@
 package com.apixandru.games.rummikub.model;
 
-import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.PlayerCallback;
@@ -12,7 +11,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-final class RummikubImpl implements Rummikub<Integer>, BoardCallback {
+final class RummikubImpl implements Rummikub<Integer> {
 
     private final UndoManager undoManager = new UndoManager();
 
@@ -32,7 +31,7 @@ final class RummikubImpl implements Rummikub<Integer>, BoardCallback {
      *
      */
     RummikubImpl() {
-        this.board = new Board(this);
+        this.board = new Board();
         this.undoManager.reset(board);
     }
 
@@ -117,6 +116,7 @@ final class RummikubImpl implements Rummikub<Integer>, BoardCallback {
     @Override
     public Player<Integer> addPlayer(final String name, final PlayerCallback<Integer> callback) {
         final PlayerImpl player = new PlayerImpl(name, listener, callback);
+        this.board.addBoardListener(callback);
         this.players.add(player);
         if (null == this.currentPlayer) {
             setNextPlayer();
@@ -151,24 +151,6 @@ final class RummikubImpl implements Rummikub<Integer>, BoardCallback {
     @Override
     public List<Card> getCards() {
         return new ArrayList<>(this.cardPile.cards);
-    }
-
-    @Override
-    public void onCardPlacedOnBoard(final Card card, final int x, final int y) {
-        this.players.forEach(
-                player -> player.callback.ifPresent(
-                        callback -> callback.onCardPlacedOnBoard(card, x, y)
-                )
-        );
-    }
-
-    @Override
-    public void onCardRemovedFromBoard(final Card card, final int x, final int y, final boolean reset) {
-        this.players.forEach(
-                player -> player.callback.ifPresent(
-                        callback -> callback.onCardRemovedFromBoard(card, x, y, reset)
-                )
-        );
     }
 
     /**

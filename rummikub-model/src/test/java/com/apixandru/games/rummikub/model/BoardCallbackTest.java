@@ -22,7 +22,8 @@ public final class BoardCallbackTest {
     @Before
     public void setup() {
         callback.clear();
-        board = new Board(callback);
+        board = new Board();
+        this.board.addBoardListener(callback);
         board.placeCard(TestUtils.BLACK_ONE_1, 0, 6);
     }
 
