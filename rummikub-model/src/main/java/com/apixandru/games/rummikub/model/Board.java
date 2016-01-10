@@ -73,7 +73,7 @@ final class Board {
      * @param y
      * @return
      */
-    Card removeCard(final int x, final int y, final boolean unlock) {
+    private Card removeCard(final int x, final int y, final boolean unlock) {
         final Card card = cards[y][x];
         for (final BoardCallback boardCallback : boardCallbacks) {
             boardCallback.onCardRemovedFromBoard(card, x, y, unlock);

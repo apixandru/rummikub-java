@@ -17,7 +17,7 @@ import java.util.function.Function;
  * @author Alexandru-Constantin Bledea
  * @since Sep 16, 2015
  */
-public final class Cards {
+final class Cards {
 
     /**
      *
@@ -103,7 +103,7 @@ public final class Cards {
     /**
      * @return
      */
-    static Rank next(final Rank rank) {
+    private static Rank next(final Rank rank) {
         final Rank[] values = Rank.values();
         if (null == rank || rank.ordinal() >= values.length - 1) {
             return null;
@@ -122,14 +122,6 @@ public final class Cards {
      */
     private static boolean isValidRankInRun(final Rank rank, final int cardNumberInRun) {
         return rank.ordinal() >= cardNumberInRun;
-    }
-
-    /**
-     * @param card
-     * @return
-     */
-    public static boolean isJoker(final Card card) {
-        return card.getRank() == null && card.getColor() == null;
     }
 
 }

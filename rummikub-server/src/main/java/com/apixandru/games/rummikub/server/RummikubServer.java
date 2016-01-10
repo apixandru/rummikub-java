@@ -29,7 +29,7 @@ final class RummikubServer {
     RummikubServer(final ServerSocket serverSocket) throws IOException {
         log.debug("Listening on port {}", serverSocket.getLocalPort());
 
-        final Rummikub game = RummikubFactory.newInstance();
+        final Rummikub<Integer> game = RummikubFactory.newInstance();
 
         final List<Card> cards = game.getCards();
 

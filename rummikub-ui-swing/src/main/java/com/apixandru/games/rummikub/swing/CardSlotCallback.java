@@ -21,7 +21,7 @@ final class CardSlotCallback implements PlayerCallback<CardSlot>, MoveHelper {
     private final PlayerUi player;
     private final JButton btnEndTurn;
 
-    private AtomicBoolean myTurn = new AtomicBoolean();
+    private final AtomicBoolean myTurn = new AtomicBoolean();
 
     /**
      * @param board

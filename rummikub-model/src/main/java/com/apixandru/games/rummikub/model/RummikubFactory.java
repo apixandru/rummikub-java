@@ -15,7 +15,7 @@ public final class RummikubFactory {
     /**
      * @return
      */
-    public static Rummikub newInstance() {
+    public static Rummikub<Integer> newInstance() {
         return new RummikubImpl();
     }
 

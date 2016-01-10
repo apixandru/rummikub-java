@@ -215,7 +215,7 @@ final class CardDndListener extends MouseAdapter {
      * @param to
      * @return
      */
-    Transfer transferOf(CardSlot from, CardSlot to) {
+    private Transfer transferOf(CardSlot from, CardSlot to) {
         final boolean toBoard = to.getParent() == board;
         if (from.getParent() == board) {
             if (toBoard) {
@@ -233,7 +233,7 @@ final class CardDndListener extends MouseAdapter {
         BOARD_TO_PLAYER,
         PLAYER_TO_PLAYER,
         PLAYER_TO_BOARD,
-        BOARD_TO_BOARD;
+        BOARD_TO_BOARD
 
     }
 

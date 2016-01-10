@@ -49,7 +49,7 @@ final class CardUi extends JPanel {
      * @param card
      * @return
      */
-    public static boolean isJoker(final Card card) {
+    private static boolean isJoker(final Card card) {
         return card.getRank() == null && card.getColor() == null;
     }
 

@@ -7,7 +7,6 @@ import com.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.List;
 
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_PLACED;
@@ -30,9 +29,8 @@ final class ClientCallback extends AbstractIntWritable implements PlayerCallback
      * @param playerName
      * @param writer
      * @param cards
-     * @throws IOException
      */
-    ClientCallback(final String playerName, final BroWriter writer, final List<Card> cards) throws IOException {
+    ClientCallback(final String playerName, final BroWriter writer, final List<Card> cards) {
         super(writer, cards);
         this.playerName = playerName;
     }

@@ -21,7 +21,6 @@ final class CardPile {
 
     {
         final LinkedList<Card> cards = new LinkedList<>();
-        int id = 1;
         for (int i = 0; i < 2; i++) {
             for (final Rank rank : Rank.values()) {
                 for (final Color color : Color.values()) {

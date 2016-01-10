@@ -5,7 +5,6 @@ import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.BroWriter;
 import com.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 
-import java.io.IOException;
 import java.util.List;
 
 import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_END_TURN;
@@ -23,12 +22,12 @@ final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
     private final String playerName;
 
     /**
+     * @param playerName
      * @param writer
      * @param cards
      * @param hints
-     * @throws IOException
      */
-    SocketPlayer(final String playerName, final BroWriter writer, final List<Card> cards, final List<H> hints) throws IOException {
+    SocketPlayer(final String playerName, final BroWriter writer, final List<Card> cards, final List<H> hints) {
         super(writer, cards);
         this.hints = hints;
         this.playerName = playerName;

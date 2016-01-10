@@ -27,18 +27,18 @@ final class ClientRunnable implements Runnable {
     private final BroReader broReader;
     private final List<Card> cards;
     private final Player<Integer> player;
-    private final Rummikub game;
+    private final Rummikub<Integer> game;
 
     /**
      * @param reader
      * @param cards
      * @param player
-     * @throws IOException
+     * @param game
      */
     ClientRunnable(final BroReader reader,
                    final List<Card> cards,
                    final Player<Integer> player,
-                   final Rummikub game) throws IOException {
+                   final Rummikub<Integer> game) {
         this.cards = cards;
         this.broReader = reader;
         this.player = player;

@@ -44,7 +44,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         this.callback = connector.callback;
         this.connectionListener = connector.connectionListener;
         this.cards = Collections.unmodifiableList(new ArrayList<>(cards));
-        this.hints = Collections.unmodifiableList(new ArrayList<H>(connector.hints));
+        this.hints = Collections.unmodifiableList(new ArrayList<>(connector.hints));
     }
 
     @Override

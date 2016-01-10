@@ -25,8 +25,8 @@ import static org.junit.Assert.assertTrue;
  */
 public final class RummikubTest2 {
 
-    private Rummikub rummikub;
-    private Player<Object> player;
+    private Rummikub<Integer> rummikub;
+    private Player<Integer> player;
 
     @Before
     public void setup() {
