@@ -54,7 +54,12 @@ final class RummikubImpl implements Rummikub<Integer>, BoardCallback {
 
     private void gameOverOrSetNextPlayer() {
         if (currentPlayer.cards.isEmpty()) {
-            this.players.forEach(player -> player.gameOver(currentPlayer.getName(), false, player == this.currentPlayer));
+            final String playerName = currentPlayer.getName();
+            this.players.forEach(
+                    player -> player.callback.ifPresent(
+                            callback -> callback.gameOver(playerName, false, player == this.currentPlayer)
+                    )
+            );
             this.gameOver = true;
             return;
         }
@@ -95,7 +100,11 @@ final class RummikubImpl implements Rummikub<Integer>, BoardCallback {
      *
      */
     private void signalNewTurn() {
-        players.forEach(player -> player.newTurn(player == this.currentPlayer));
+        this.players.forEach(
+                player -> player.callback.ifPresent(
+                        callback -> callback.newTurn(player == this.currentPlayer)
+                )
+        );
     }
 
     /**
@@ -119,7 +128,12 @@ final class RummikubImpl implements Rummikub<Integer>, BoardCallback {
     @Override
     public void removePlayer(final Player<Integer> player) {
         if (this.players.remove(player)) {
-            this.players.forEach(p -> p.gameOver(player.getName(), true, false));
+            final String playerName = player.getName();
+            this.players.forEach(
+                    player1 -> player1.callback.ifPresent(
+                            callback -> callback.gameOver(playerName, true, false)
+                    )
+            );
             this.gameOver = true;
         }
     }
@@ -141,12 +155,20 @@ final class RummikubImpl implements Rummikub<Integer>, BoardCallback {
 
     @Override
     public void onCardPlacedOnBoard(final Card card, final int x, final int y) {
-        this.players.forEach(player -> player.onCardPlacedOnBoard(card, x, y));
+        this.players.forEach(
+                player -> player.callback.ifPresent(
+                        callback -> callback.onCardPlacedOnBoard(card, x, y)
+                )
+        );
     }
 
     @Override
     public void onCardRemovedFromBoard(final Card card, final int x, final int y, final boolean reset) {
-        this.players.forEach(player -> player.onCardRemovedFromBoard(card, x, y, reset));
+        this.players.forEach(
+                player -> player.callback.ifPresent(
+                        callback -> callback.onCardRemovedFromBoard(card, x, y, reset)
+                )
+        );
     }
 
     /**
