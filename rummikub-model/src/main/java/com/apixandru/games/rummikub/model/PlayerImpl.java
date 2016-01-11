@@ -17,7 +17,7 @@ final class PlayerImpl implements Player<Integer> {
     private final PlayerListener listener;
     private final String name;
 
-    final Optional<PlayerCallback<Integer>> callback;
+    private final Optional<PlayerCallback<Integer>> callback;
 
     final List<Card> cards = new ArrayList<>();
 
