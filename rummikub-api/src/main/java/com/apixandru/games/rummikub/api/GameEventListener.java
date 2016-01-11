@@ -13,8 +13,8 @@ public interface GameEventListener {
 
     /**
      * @param player the player that triggered the event
-     * @param quit if the event was triggered by the player quitting
-     * @param me if I triggered the event
+     * @param quit   if the event was triggered by the player quitting
+     * @param me     if I triggered the event
      */
     void gameOver(String player, boolean quit, boolean me);
 

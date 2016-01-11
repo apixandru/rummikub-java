@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.server;
 
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.PlayerCallback;
+import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.brotocol.BroWriter;
 import com.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEIVED_CAR
  * @author Alexandru-Constantin Bledea
  * @since January 05, 2016
  */
-final class ClientCallback extends AbstractIntWritable implements PlayerCallback<Integer> {
+final class ClientCallback extends AbstractIntWritable implements CompoundCallback<Integer> {
 
     private static final Logger log = LoggerFactory.getLogger(ClientCallback.class);
 
@@ -27,8 +27,8 @@ final class ClientCallback extends AbstractIntWritable implements PlayerCallback
 
     /**
      * @param playerName the player name
-     * @param writer the writer
-     * @param cards  the list of all the cards in the game
+     * @param writer     the writer
+     * @param cards      the list of all the cards in the game
      */
     ClientCallback(final String playerName, final BroWriter writer, final List<Card> cards) {
         super(writer, cards);

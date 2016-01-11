@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.client;
 
+import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.api.PlayerCallback;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public final class RummikubConnector<E> {
 
-    final PlayerCallback<E> callback;
+    final CompoundCallback<E> callback;
 
     List<E> hints;
     ConnectionListener connectionListener;
@@ -22,7 +22,7 @@ public final class RummikubConnector<E> {
     /**
      * @param callback the callback
      */
-    private RummikubConnector(final PlayerCallback<E> callback) {
+    private RummikubConnector(final CompoundCallback<E> callback) {
         this.callback = callback;
     }
 
@@ -66,7 +66,7 @@ public final class RummikubConnector<E> {
      * @param callback the player callback
      * @return a new rummikub connector
      */
-    public static <H> RummikubConnector<H> from(final PlayerCallback<H> callback) {
+    public static <H> RummikubConnector<H> from(final CompoundCallback<H> callback) {
         return new RummikubConnector<>(callback);
     }
 

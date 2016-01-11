@@ -1,9 +1,9 @@
 package com.apixandru.games.rummikub.server;
 
 import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.BroWriter;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.games.rummikub.model.Rummikub;
@@ -42,7 +42,7 @@ final class RummikubServer {
             sendCards(playerName, wrapper, cards);
 
             log.debug("Registering {}...", playerName);
-            final PlayerCallback<Integer> callback = new ClientCallback(playerName, wrapper, cards);
+            final CompoundCallback<Integer> callback = new ClientCallback(playerName, wrapper, cards);
 
             final Player<Integer> player = game.addPlayer(playerName, callback);
             log.debug("{} registered.", playerName);

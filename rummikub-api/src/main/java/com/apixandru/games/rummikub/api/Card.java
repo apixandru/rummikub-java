@@ -14,7 +14,7 @@ public final class Card {
 
     /**
      * @param color the color
-     * @param rank the rank
+     * @param rank  the rank
      */
     public Card(final Color color, final Rank rank) {
         if (null == color) {

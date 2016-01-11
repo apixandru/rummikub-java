@@ -1,8 +1,8 @@
 package com.apixandru.games.rummikub.model;
 
 import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.api.PlayerCallback;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface Rummikub<H> {
      * @param callback
      * @return
      */
-    Player<H> addPlayer(String name, PlayerCallback<H> callback);
+    Player<H> addPlayer(String name, CompoundCallback<H> callback);
 
     /**
      * @param player

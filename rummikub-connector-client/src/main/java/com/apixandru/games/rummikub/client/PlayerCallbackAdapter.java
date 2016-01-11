@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.client;
 
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.PlayerCallback;
+import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.brotocol.BroReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private final Logger log = LoggerFactory.getLogger(PlayerCallbackAdapter.class);
 
     private final BroReader reader;
-    private final PlayerCallback<H> callback;
+    private final CompoundCallback<H> callback;
     private final List<Card> cards;
     private final List<H> hints;
     private final ConnectionListener connectionListener;

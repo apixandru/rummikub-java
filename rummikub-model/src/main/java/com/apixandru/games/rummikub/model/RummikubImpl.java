@@ -1,9 +1,9 @@
 package com.apixandru.games.rummikub.model;
 
 import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.api.PlayerCallback;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -114,7 +114,7 @@ final class RummikubImpl implements Rummikub<Integer> {
     }
 
     @Override
-    public Player<Integer> addPlayer(final String name, final PlayerCallback<Integer> callback) {
+    public Player<Integer> addPlayer(final String name, final CompoundCallback<Integer> callback) {
         final PlayerImpl player = new PlayerImpl(name, listener, callback);
         this.board.addBoardListener(callback);
         if (null != callback) {

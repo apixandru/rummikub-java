@@ -5,7 +5,7 @@ package com.apixandru.games.rummikub.api;
  * @author Alexandru-Constantin Bledea
  * @since December 27, 2015
  */
-public interface PlayerCallback<H> extends BoardCallback, GameEventListener {
+public interface PlayerCallback<H> {
 
     /**
      * @param card the card
