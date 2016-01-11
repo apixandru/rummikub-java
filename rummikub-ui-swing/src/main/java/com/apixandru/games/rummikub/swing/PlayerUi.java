@@ -1,5 +1,8 @@
 package com.apixandru.games.rummikub.swing;
 
+import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.games.rummikub.api.PlayerCallback;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,7 +12,7 @@ import java.util.stream.Stream;
  * @author Alexandru-Constantin Bledea
  * @since December 19, 2015
  */
-class PlayerUi extends JGridPanel {
+class PlayerUi extends JGridPanel implements PlayerCallback<CardSlot> {
 
     /**
      *
@@ -22,7 +25,7 @@ class PlayerUi extends JGridPanel {
      * @param slot
      * @return
      */
-    public CardSlot orFirstFreeSlot(final CardSlot slot) {
+    private CardSlot orFirstFreeSlot(final CardSlot slot) {
         if (null != slot) {
             return slot;
         }
@@ -45,6 +48,11 @@ class PlayerUi extends JGridPanel {
      */
     List<CardSlot> getAllSlots() {
         return getCardSlotStream().collect(Collectors.toList());
+    }
+
+    @Override
+    public void cardReceived(final Card card, final CardSlot hint) {
+        UiUtil.placeCard(card, orFirstFreeSlot(hint));
     }
 
 }

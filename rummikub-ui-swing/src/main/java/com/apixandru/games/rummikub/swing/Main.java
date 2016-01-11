@@ -42,8 +42,10 @@ public final class Main {
         final JButton btnEndTurn = new JButton("End Turn");
         final CardSlotCallback callback = new CardSlotCallback(board, player, btnEndTurn);
 
+        final CompoundCallbackAdapter adapter = new CompoundCallbackAdapter(player, callback, callback);
+
         final Player<CardSlot> actualPlayer =
-                RummikubConnector.from(callback)
+                RummikubConnector.from(adapter)
                         .setHints(player.getAllSlots())
                         .setConnectionListener(new SwingConnectionListener(frame))
                         .setPlayerName(connectionData.username)

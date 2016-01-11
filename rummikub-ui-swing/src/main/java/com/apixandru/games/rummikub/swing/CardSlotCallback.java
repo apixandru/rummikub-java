@@ -1,7 +1,8 @@
 package com.apixandru.games.rummikub.swing;
 
+import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.CompoundCallback;
+import com.apixandru.games.rummikub.api.GameEventListener;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-final class CardSlotCallback implements CompoundCallback<CardSlot>, MoveHelper {
+final class CardSlotCallback implements BoardCallback, GameEventListener, MoveHelper {
 
     private final List<Card> cardsLockedOnBoard = new ArrayList<>();
     private final List<Card> cardsJustPlacedOnBoard = new ArrayList<>();
@@ -33,11 +34,6 @@ final class CardSlotCallback implements CompoundCallback<CardSlot>, MoveHelper {
         this.player = player;
         this.btnEndTurn = btnEndTurn;
         newTurn(false);
-    }
-
-    @Override
-    public void cardReceived(final Card card, final CardSlot hint) {
-        UiUtil.placeCard(card, player.orFirstFreeSlot(hint));
     }
 
     @Override
