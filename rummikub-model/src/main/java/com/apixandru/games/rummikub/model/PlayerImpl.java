@@ -56,7 +56,7 @@ final class PlayerImpl implements Player<Integer> {
      * @param card
      * @param hint
      */
-    public void receiveCard(final Card card, final Integer hint) {
+    void receiveCard(final Card card, final Integer hint) {
         this.cards.add(card);
         this.callback.ifPresent(callback -> callback.cardReceived(card, hint));
     }
@@ -64,14 +64,14 @@ final class PlayerImpl implements Player<Integer> {
     /**
      * @param card
      */
-    public void receiveCard(final Card card) {
+    void receiveCard(final Card card) {
         receiveCard(card, null);
     }
 
     /**
      * @param card
      */
-    public void removeCard(final Card card) {
+    void removeCard(final Card card) {
         this.cards.remove(card);
     }
 

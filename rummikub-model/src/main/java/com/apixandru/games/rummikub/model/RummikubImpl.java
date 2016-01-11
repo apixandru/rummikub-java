@@ -15,7 +15,7 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     private final UndoManager undoManager = new UndoManager();
 
-    final Board board;
+    final Board board = new Board();
 
     private final List<PlayerImpl> players = new ArrayList<>();
 
@@ -31,7 +31,6 @@ final class RummikubImpl implements Rummikub<Integer> {
      *
      */
     RummikubImpl() {
-        this.board = new Board();
         this.undoManager.reset(board);
     }
 
