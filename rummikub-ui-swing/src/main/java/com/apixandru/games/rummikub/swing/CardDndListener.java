@@ -132,10 +132,6 @@ final class CardDndListener extends MouseAdapter {
      * @param destComponent
      */
     private void transferTo(final CardSlot destComponent) {
-        if (this.draggablePieceParent == destComponent) {
-            UiUtil.placeCard(this.draggablePiece, destComponent);
-            return;
-        }
         final int toX = destComponent.x;
         final int toY = destComponent.y;
         final int fromX = this.draggablePieceParent.x;
@@ -155,7 +151,7 @@ final class CardDndListener extends MouseAdapter {
                 }
                 this.player.moveCardOnBoard(this.draggablePiece.card, fromX, fromY, toX, toY);
                 break;
-            case PLAYER_TO_PLAYER:
+            default:
                 UiUtil.placeCard(this.draggablePiece, destComponent);
         }
     }
@@ -181,7 +177,7 @@ final class CardDndListener extends MouseAdapter {
             return false;
         }
         final Transfer type = transferOf(this.draggablePieceParent, (CardSlot) component);
-        if (type == Transfer.PLAYER_TO_PLAYER) {
+        if (type == Transfer.PLAYER_TO_PLAYER || type == Transfer.NONE) {
             return true;
         }
         if (!this.moveHelper.canInteractWithBoard()) {
@@ -231,6 +227,9 @@ final class CardDndListener extends MouseAdapter {
      * @return
      */
     private Transfer transferOf(final CardSlot from, final CardSlot to) {
+        if (to == from) {
+            return Transfer.NONE;
+        }
         final boolean toBoard = fromBoard(to);
         if (fromBoard(from)) {
             if (toBoard) {
@@ -248,8 +247,8 @@ final class CardDndListener extends MouseAdapter {
         BOARD_TO_PLAYER,
         PLAYER_TO_PLAYER,
         PLAYER_TO_BOARD,
-        BOARD_TO_BOARD
-
+        BOARD_TO_BOARD,
+        NONE
     }
 
 }
