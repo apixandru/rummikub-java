@@ -77,7 +77,7 @@ final class UiUtil {
      * @param slot
      */
     public static void placeCard(final Card card, final CardSlot slot) {
-        placeCard(new CardUi(card), slot);
+        placeCard(CardUi.of(card), slot);
     }
 
     /**

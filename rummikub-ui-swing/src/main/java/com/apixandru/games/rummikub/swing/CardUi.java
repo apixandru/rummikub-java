@@ -8,12 +8,16 @@ import com.apixandru.games.rummikub.api.Card;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since Oct 10, 2015
  */
 final class CardUi extends JPanel {
+
+    private static final Map<Card, CardUi> cash = new HashMap<>();
 
     private static final Dimension dimension = new Dimension(60, 96);
 
@@ -24,7 +28,7 @@ final class CardUi extends JPanel {
     /**
      * @param card
      */
-    public CardUi(final Card card) {
+    private CardUi(final Card card) {
         this.card = card;
         setMinimumSize(dimension);
         setMaximumSize(dimension);
@@ -64,4 +68,18 @@ final class CardUi extends JPanel {
         g.fillOval((getWidth() - RADIUS) / 2, (int) (getHeight() - RADIUS * 1.7), RADIUS, RADIUS);
         g.setColor(color);
     }
+
+    /**
+     * @param card
+     * @return
+     */
+    static CardUi of(final Card card) {
+        if (cash.containsKey(card)) {
+            return cash.get(card);
+        }
+        final CardUi cardUi = new CardUi(card);
+        cash.put(card, cardUi);
+        return cardUi;
+    }
+
 }

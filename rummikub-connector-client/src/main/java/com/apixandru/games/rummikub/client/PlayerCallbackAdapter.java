@@ -142,6 +142,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     }
 
     /**
+     *
      */
     private void handleGameOver() throws IOException {
         final String player = reader.readString();

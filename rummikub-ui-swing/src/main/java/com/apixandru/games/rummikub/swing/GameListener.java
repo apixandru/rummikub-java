@@ -39,7 +39,7 @@ final class GameListener implements BoardCallback, GameEventListener, MoveHelper
 
     @Override
     public void onCardPlacedOnBoard(final Card card, final int x, final int y) {
-        UiUtil.placeCard(new CardUi(card), board.slots[y][x]);
+        UiUtil.placeCard(card, board.slots[y][x]);
         this.cardsJustPlacedOnBoard.add(card);
     }
 
