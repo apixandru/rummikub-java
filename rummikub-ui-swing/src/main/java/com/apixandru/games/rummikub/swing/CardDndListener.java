@@ -55,6 +55,9 @@ final class CardDndListener extends MouseAdapter {
         if (null == card) {
             return;
         }
+        if (fromBoard((CardSlot) card.getParent()) && !moveHelper.canInteractWithBoard()) {
+            return;
+        }
         this.draggablePiece = card;
 
         this.draggablePieceParent = (CardSlot) card.getParent();
@@ -211,13 +214,21 @@ final class CardDndListener extends MouseAdapter {
     }
 
     /**
+     * @param slot
+     * @return
+     */
+    private boolean fromBoard(final CardSlot slot) {
+        return slot.getParent() == board;
+    }
+
+    /**
      * @param from
      * @param to
      * @return
      */
-    private Transfer transferOf(CardSlot from, CardSlot to) {
-        final boolean toBoard = to.getParent() == board;
-        if (from.getParent() == board) {
+    private Transfer transferOf(final CardSlot from, final CardSlot to) {
+        final boolean toBoard = fromBoard(to);
+        if (fromBoard(from)) {
             if (toBoard) {
                 return Transfer.BOARD_TO_BOARD;
             }
