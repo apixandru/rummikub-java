@@ -78,6 +78,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
                         break;
                     case SERVER_GAME_OVER:
                         handleGameOver();
+                        break;
                     default:
                         throw new IllegalArgumentException("Unknown input: " + input);
                 }

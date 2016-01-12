@@ -3,6 +3,7 @@ package com.apixandru.games.rummikub.swing;
 import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.GameEventListener;
+import com.apixandru.games.rummikub.client.ConnectionListener;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-final class CardSlotCallback implements BoardCallback, GameEventListener, MoveHelper {
+final class GameListener implements BoardCallback, GameEventListener, MoveHelper, ConnectionListener {
 
     private final List<Card> cardsLockedOnBoard = new ArrayList<>();
     private final List<Card> cardsJustPlacedOnBoard = new ArrayList<>();
@@ -22,12 +23,15 @@ final class CardSlotCallback implements BoardCallback, GameEventListener, MoveHe
     private final JButton btnEndTurn;
 
     private final AtomicBoolean myTurn = new AtomicBoolean();
+    private final JFrame frame;
 
     /**
+     * @param frame
      * @param board
      * @param btnEndTurn
      */
-    public CardSlotCallback(final JGridPanel board, final JButton btnEndTurn) {
+    GameListener(final JFrame frame, final JGridPanel board, final JButton btnEndTurn) {
+        this.frame = frame;
         this.board = board;
         this.btnEndTurn = btnEndTurn;
         newTurn(false);
@@ -57,6 +61,16 @@ final class CardSlotCallback implements BoardCallback, GameEventListener, MoveHe
     }
 
     @Override
+    public boolean canInteractWithBoard() {
+        return this.myTurn.get();
+    }
+
+    @Override
+    public boolean canTakeCardFromBoard(final Card card) {
+        return canInteractWithBoard() && !this.cardsLockedOnBoard.contains(card);
+    }
+
+    @Override
     public void gameOver(final String player, final boolean quit, final boolean me) {
         String message;
         int icon;
@@ -70,18 +84,17 @@ final class CardSlotCallback implements BoardCallback, GameEventListener, MoveHe
             message = player + " won.";
             icon = JOptionPane.INFORMATION_MESSAGE;
         }
-        JOptionPane.showMessageDialog(null, message, "Game Over", icon);
-        System.exit(1);
+        JOptionPane.showMessageDialog(frame, message, "Game Over", icon);
+        frame.dispose();
     }
 
     @Override
-    public boolean canInteractWithBoard() {
-        return this.myTurn.get();
-    }
-
-    @Override
-    public boolean canTakeCardFromBoard(final Card card) {
-        return canInteractWithBoard() && !this.cardsLockedOnBoard.contains(card);
+    public void onDisconnected() {
+        JOptionPane.showMessageDialog(frame,
+                "You have been disconnected from the server. Press OK to exit.",
+                "Disconnected",
+                JOptionPane.ERROR_MESSAGE);
+        frame.dispose();
     }
 
 }

@@ -39,7 +39,7 @@ public final class Main {
         final JGridPanel board = RummikubUi.newBoard();
 
         final JButton btnEndTurn = new JButton("End Turn");
-        final CardSlotCallback callback = new CardSlotCallback(board, btnEndTurn);
+        final GameListener callback = new GameListener(frame, board, btnEndTurn);
 
         final PlayerUi player = new PlayerUi();
 
@@ -47,8 +47,8 @@ public final class Main {
                 RummikubConnector.from(player)
                         .setBoardCallback(callback)
                         .setGameEventListener(callback)
+                        .setConnectionListener(callback)
                         .setHints(player.getAllSlots())
-                        .setConnectionListener(new SwingConnectionListener(frame))
                         .setPlayerName(connectionData.username)
                         .link(connectionData.socket);
 
