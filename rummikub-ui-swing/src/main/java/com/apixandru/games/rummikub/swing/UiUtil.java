@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 
+import static com.apixandru.games.rummikub.swing.UiConstants.FONT_SCALE;
+
 /**
  * @author apixandru
  * @since Aug 11, 2015
@@ -17,7 +19,7 @@ final class UiUtil {
 
     private static final Logger log = LoggerFactory.getLogger(UiUtil.class);
 
-    public static final Font CARD_FONT = new Font(null, Font.BOLD, 32);
+    public static final Font CARD_FONT = new Font(null, Font.BOLD, (int) (32 * FONT_SCALE));
 
     /**
      * @param component

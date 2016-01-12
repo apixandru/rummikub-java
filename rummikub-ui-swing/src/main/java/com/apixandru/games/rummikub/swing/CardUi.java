@@ -23,7 +23,7 @@ final class CardUi extends JPanel {
 
     private final Color color;
     final Card card;
-    private static final int RADIUS = 20;
+    private static final int RADIUS = (int) (20 * UiConstants.scale);
 
     /**
      * @param card

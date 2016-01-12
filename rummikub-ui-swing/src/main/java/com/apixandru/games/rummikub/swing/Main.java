@@ -11,6 +11,8 @@ import java.awt.*;
 import java.io.IOException;
 
 import static com.apixandru.games.rummikub.api.Constants.NUM_COLS;
+import static com.apixandru.games.rummikub.swing.UiConstants.TILE_HEIGHT;
+import static com.apixandru.games.rummikub.swing.UiConstants.TILE_WIDTH;
 import static java.lang.Math.max;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -22,8 +24,6 @@ public final class Main {
 
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
-    static final int TILE_WIDTH = 60;
-    static final int TILE_HEIGHT = 90;
     private static final int BOARD_WIDTH = NUM_COLS * TILE_WIDTH;
 
     /**
