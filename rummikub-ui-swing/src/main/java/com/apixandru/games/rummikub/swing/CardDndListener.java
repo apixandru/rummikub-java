@@ -132,6 +132,10 @@ final class CardDndListener extends MouseAdapter {
      * @param destComponent
      */
     private void transferTo(final CardSlot destComponent) {
+        if (this.draggablePieceParent == destComponent) {
+            UiUtil.placeCard(this.draggablePiece, destComponent);
+            return;
+        }
         final int toX = destComponent.x;
         final int toY = destComponent.y;
         final int fromX = this.draggablePieceParent.x;
