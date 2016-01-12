@@ -104,6 +104,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
      */
     private void handleNewTurn() throws IOException {
         final boolean myTurn = reader.readBoolean();
+        log.debug("Received newTurn(myTurn={})", myTurn);
         this.gameEventListener.newTurn(myTurn);
     }
 
@@ -113,6 +114,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
      */
     private void handleReceivedCard(final Card card) throws IOException {
         final int hintIndex = reader.readInt();
+        log.debug("Received cardReceived(card={}, hintIndex={})", card, hintIndex);
         this.playerCallback.cardReceived(card, -1 == hintIndex ? null : this.hints.get(hintIndex));
     }
 
@@ -124,6 +126,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         final int x = reader.readInt();
         final int y = reader.readInt();
         final boolean unlock = reader.readBoolean();
+        log.debug("Received onCardRemovedFromBoard(card={}, x={}, y={}, unlock={})", card, x, y, unlock);
         this.boardCallback.onCardRemovedFromBoard(card, x, y, unlock);
     }
 
@@ -134,6 +137,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private void handleCardPlaced(final Card card) throws IOException {
         final int x = reader.readInt();
         final int y = reader.readInt();
+        log.debug("Received onCardPlacedOnBoard(card={}, x={}, y={})", card, x, y);
         this.boardCallback.onCardPlacedOnBoard(card, x, y);
     }
 
@@ -143,6 +147,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         final String player = reader.readString();
         final boolean quit = reader.readBoolean();
         final boolean me = reader.readBoolean();
+        log.debug("Received gameOver(player={}, quit={}, me={})", player, quit, me);
         this.gameEventListener.gameOver(player, quit, me);
     }
 
