@@ -19,19 +19,16 @@ final class CardSlotCallback implements BoardCallback, GameEventListener, MoveHe
     private final List<Card> cardsJustPlacedOnBoard = new ArrayList<>();
 
     private final JGridPanel board;
-    private final PlayerUi player;
     private final JButton btnEndTurn;
 
     private final AtomicBoolean myTurn = new AtomicBoolean();
 
     /**
      * @param board
-     * @param player
      * @param btnEndTurn
      */
-    public CardSlotCallback(final JGridPanel board, final PlayerUi player, final JButton btnEndTurn) {
+    public CardSlotCallback(final JGridPanel board, final JButton btnEndTurn) {
         this.board = board;
-        this.player = player;
         this.btnEndTurn = btnEndTurn;
         newTurn(false);
     }

@@ -1,7 +1,9 @@
 package com.apixandru.games.rummikub.client;
 
-import com.apixandru.games.rummikub.api.CompoundCallback;
+import com.apixandru.games.rummikub.api.BoardCallback;
+import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
+import com.apixandru.games.rummikub.api.PlayerCallback;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -13,7 +15,9 @@ import java.util.List;
  */
 public final class RummikubConnector<E> {
 
-    final CompoundCallback<E> callback;
+    final PlayerCallback<E> callback;
+    BoardCallback boardCallback;
+    GameEventListener gameEventListener;
 
     List<E> hints;
     ConnectionListener connectionListener;
@@ -22,7 +26,7 @@ public final class RummikubConnector<E> {
     /**
      * @param callback the callback
      */
-    private RummikubConnector(final CompoundCallback<E> callback) {
+    private RummikubConnector(final PlayerCallback<E> callback) {
         this.callback = callback;
     }
 
@@ -54,6 +58,24 @@ public final class RummikubConnector<E> {
     }
 
     /**
+     * @param boardCallback the board callback
+     * @return this
+     */
+    public RummikubConnector<E> setBoardCallback(final BoardCallback boardCallback) {
+        this.boardCallback = boardCallback;
+        return this;
+    }
+
+    /**
+     * @param gameEventListener the game event listener
+     * @return this
+     */
+    public RummikubConnector<E> setGameEventListener(final GameEventListener gameEventListener) {
+        this.gameEventListener = gameEventListener;
+        return this;
+    }
+
+    /**
      * @param socket the socket
      * @return this
      * @throws IOException
@@ -66,7 +88,7 @@ public final class RummikubConnector<E> {
      * @param callback the player callback
      * @return a new rummikub connector
      */
-    public static <H> RummikubConnector<H> from(final CompoundCallback<H> callback) {
+    public static <H> RummikubConnector<H> from(final PlayerCallback<H> callback) {
         return new RummikubConnector<>(callback);
     }
 

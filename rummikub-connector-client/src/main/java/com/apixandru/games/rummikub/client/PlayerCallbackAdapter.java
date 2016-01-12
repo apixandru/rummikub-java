@@ -1,7 +1,9 @@
 package com.apixandru.games.rummikub.client;
 
+import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.CompoundCallback;
+import com.apixandru.games.rummikub.api.GameEventListener;
+import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.BroReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +29,11 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private final Logger log = LoggerFactory.getLogger(PlayerCallbackAdapter.class);
 
     private final BroReader reader;
-    private final CompoundCallback<H> callback;
+
+    private final PlayerCallback<H> playerCallback;
+    private final BoardCallback boardCallback;
+    private final GameEventListener gameEventListener;
+
     private final List<Card> cards;
     private final List<H> hints;
     private final ConnectionListener connectionListener;
@@ -41,8 +47,13 @@ final class PlayerCallbackAdapter<H> implements Runnable {
                           final BroReader reader,
                           final List<Card> cards) {
         this.reader = reader;
-        this.callback = connector.callback;
+
+        this.playerCallback = connector.callback;
+        this.boardCallback = connector.boardCallback;
+        this.gameEventListener = connector.gameEventListener;
+
         this.connectionListener = connector.connectionListener;
+
         this.cards = Collections.unmodifiableList(new ArrayList<>(cards));
         this.hints = Collections.unmodifiableList(new ArrayList<>(connector.hints));
     }
@@ -92,7 +103,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
      */
     private void handleNewTurn() throws IOException {
         final boolean myTurn = reader.readBoolean();
-        this.callback.newTurn(myTurn);
+        this.gameEventListener.newTurn(myTurn);
     }
 
     /**
@@ -101,7 +112,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
      */
     private void handleReceivedCard(final Card card) throws IOException {
         final int hintIndex = reader.readInt();
-        this.callback.cardReceived(card, -1 == hintIndex ? null : this.hints.get(hintIndex));
+        this.playerCallback.cardReceived(card, -1 == hintIndex ? null : this.hints.get(hintIndex));
     }
 
     /**
@@ -112,7 +123,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         final int x = reader.readInt();
         final int y = reader.readInt();
         final boolean unlock = reader.readBoolean();
-        this.callback.onCardRemovedFromBoard(card, x, y, unlock);
+        this.boardCallback.onCardRemovedFromBoard(card, x, y, unlock);
     }
 
     /**
@@ -122,7 +133,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private void handleCardPlaced(final Card card) throws IOException {
         final int x = reader.readInt();
         final int y = reader.readInt();
-        this.callback.onCardPlacedOnBoard(card, x, y);
+        this.boardCallback.onCardPlacedOnBoard(card, x, y);
     }
 
     /**
@@ -131,7 +142,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         final String player = reader.readString();
         final boolean quit = reader.readBoolean();
         final boolean me = reader.readBoolean();
-        this.callback.gameOver(player, quit, me);
+        this.gameEventListener.gameOver(player, quit, me);
     }
 
 }

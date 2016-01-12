@@ -73,6 +73,7 @@ public final class SocketWrapper implements BroReader, BroWriter {
         try {
             this.out.flush();
         } catch (IOException e) {
+//            deez exceptions happen
             throw new IllegalStateException(e);
         }
     }
