@@ -8,6 +8,7 @@ import com.apixandru.games.rummikub.brotocol.server.PacketCardPlaced;
 import com.apixandru.games.rummikub.brotocol.server.PacketCardRemoved;
 import com.apixandru.games.rummikub.brotocol.server.PacketGameOver;
 import com.apixandru.games.rummikub.brotocol.server.PacketNewTurn;
+import com.apixandru.games.rummikub.brotocol.server.PacketReceiveCard;
 import com.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,10 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
     @Override
     public void cardReceived(final Card card, final Integer hint) {
         log.debug("[{}] Sending cardReceived(card={}, hint={})", playerName, card, hint);
+        final PacketReceiveCard packet = new PacketReceiveCard();
+        packet.card = card;
+        packet.hint = hint;
+//        packetWriter.writePacket(packet);
         writeAndFlush(SERVER_RECEIVED_CARD, card, hint == null ? -1 : hint);
     }
 
