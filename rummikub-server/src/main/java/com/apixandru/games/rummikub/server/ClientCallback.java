@@ -3,6 +3,11 @@ package com.apixandru.games.rummikub.server;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.brotocol.BroWriter;
+import com.apixandru.games.rummikub.brotocol.PacketWriter;
+import com.apixandru.games.rummikub.brotocol.server.PacketCardPlaced;
+import com.apixandru.games.rummikub.brotocol.server.PacketCardRemoved;
+import com.apixandru.games.rummikub.brotocol.server.PacketGameOver;
+import com.apixandru.games.rummikub.brotocol.server.PacketNewTurn;
 import com.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +27,8 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEIVED_CAR
 final class ClientCallback extends AbstractIntWritable implements CompoundCallback<Integer> {
 
     private static final Logger log = LoggerFactory.getLogger(ClientCallback.class);
+
+    private final PacketWriter packetWriter = null; // properly initialize this at some point
 
     private final String playerName;
 
@@ -44,12 +51,23 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
     @Override
     public void onCardPlacedOnBoard(final Card card, final int x, final int y) {
         log.debug("[{}] Sending onCardPlacedOnBoard(card={}, x={}, y={})", playerName, card, x, y);
+        final PacketCardPlaced packet = new PacketCardPlaced();
+        packet.card = card;
+        packet.x = x;
+        packet.y = y;
+//        packetWriter.writePacket(packet);
         writeAndFlush(SERVER_CARD_PLACED, card, x, y);
     }
 
     @Override
     public void onCardRemovedFromBoard(final Card card, final int x, final int y, final boolean reset) {
         log.debug("[{}] Sending onCardRemovedFromBoard(card={}, x={}, y={}, reset={})", playerName, card, x, y, reset);
+        final PacketCardRemoved packet = new PacketCardRemoved();
+        packet.card = card;
+        packet.x = x;
+        packet.y = y;
+        packet.reset = reset;
+//        packetWriter.writePacket(packet);
         write(SERVER_CARD_REMOVED, card, x, y);
         write(reset);
         flush();
@@ -58,6 +76,9 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
     @Override
     public void newTurn(final boolean myTurn) {
         log.debug("[{}] Sending newTurn(myTurn={})", playerName, myTurn);
+        final PacketNewTurn packet = new PacketNewTurn();
+        packet.myTurn = myTurn;
+//        packetWriter.writePacket(packet);
         write(SERVER_NEW_TURN);
         write(myTurn);
         flush();
@@ -66,6 +87,11 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
     @Override
     public void gameOver(final String player, final boolean quit, final boolean me) {
         log.debug("[{}] Sending gameOver(player={}, quit={}, me={})", playerName, player, quit, me);
+        final PacketGameOver packet = new PacketGameOver();
+        packet.player = player;
+        packet.quit = quit;
+        packet.me = me;
+//        packetWriter.writePacket(packet);
         write(SERVER_GAME_OVER);
         write(player);
         write(quit, me);

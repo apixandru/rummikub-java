@@ -11,7 +11,7 @@ import java.net.Socket;
  * @author Alexandru-Constantin Bledea
  * @since January 08, 2016
  */
-public final class SocketWrapper implements BroReader, BroWriter {
+public final class SocketWrapper implements BroReader, BroWriter, PacketWriter, PacketReader {
 
     private final Socket socket;
     private final ObjectInputStream in;
@@ -66,6 +66,48 @@ public final class SocketWrapper implements BroReader, BroWriter {
         for (char c : string.toCharArray()) {
             write((int) c);
         }
+    }
+
+    @Override
+    public void writePacket(final Packet packet) {
+        try {
+            synchronized (out) {
+                writeSafe(packet);
+            }
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    /**
+     * @param packet
+     * @throws IOException
+     */
+    private void writeSafe(final Packet packet) throws IOException {
+        // this is really not that safe and probably has a large overhead
+        out.writeObject(packet);
+        out.flush();
+    }
+
+    @Override
+    public synchronized Packet readPacket() {
+        try {
+            synchronized (in) {
+                return readSafe();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    /**
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    private Packet readSafe() throws IOException, ClassNotFoundException {
+        // this is really not that safe and probably has a large overhead
+        return (Packet) in.readObject();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.apixandru.games.rummikub.brotocol.server;
 
+import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.brotocol.Header;
 import com.apixandru.games.rummikub.brotocol.Packet;
 
@@ -11,4 +12,10 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_REMOVED
  */
 @Header(SERVER_CARD_REMOVED)
 public class PacketCardRemoved implements Packet {
+
+    public Card card;
+    public int x;
+    public int y;
+    public boolean reset;
+
 }

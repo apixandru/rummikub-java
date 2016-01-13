@@ -11,4 +11,11 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_GAME_OVER;
  */
 @Header(SERVER_GAME_OVER)
 public class PacketGameOver implements Packet {
+
+    public String player;
+
+    public boolean quit;
+
+    public boolean me;
+
 }
