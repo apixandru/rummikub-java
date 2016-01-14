@@ -1,6 +1,7 @@
 package com.apixandru.games.rummikub.server;
 
 import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.BroReader;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
@@ -14,9 +15,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.EOFException;
 import java.io.IOException;
-import java.util.List;
 
-import static com.apixandru.games.rummikub.brotocol.Brotocol.*;
+import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_END_TURN;
+import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_MOVE_CARD;
+import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_PLACE_CARD;
+import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_TAKE_CARD;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -27,22 +30,18 @@ final class ClientRunnable implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(ClientRunnable.class);
 
     private final BroReader reader;
-    private final List<Card> cards;
     private final Player<Integer> player;
     private final Rummikub<Integer> game;
     private final String playerName;
 
     /**
      * @param reader the reader
-     * @param cards  the list of all the cards in the game
      * @param player the current player
      * @param game   the game
      */
     ClientRunnable(final BroReader reader,
-                   final List<Card> cards,
                    final Player<Integer> player,
                    final Rummikub<Integer> game) {
-        this.cards = cards;
         this.reader = reader;
         this.player = player;
         this.playerName = player.getName();
@@ -128,7 +127,7 @@ final class ClientRunnable implements Runnable {
      * @throws IOException
      */
     private Card readCard() throws IOException {
-        return this.cards.get(reader.readInt());
+        return Constants.CARDS.get(reader.readInt());
     }
 
     private class PlaceCardOnBoardHandler implements PacketHandler<PacketPlaceCard> {

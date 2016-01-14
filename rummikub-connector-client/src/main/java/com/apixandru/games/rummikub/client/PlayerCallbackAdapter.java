@@ -2,6 +2,7 @@ package com.apixandru.games.rummikub.client;
 
 import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.BroReader;
@@ -34,18 +35,15 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private final BoardCallback boardCallback;
     private final GameEventListener gameEventListener;
 
-    private final List<Card> cards;
     private final List<H> hints;
     private final ConnectionListener connectionListener;
 
     /**
      * @param connector the connector
      * @param reader    the reader
-     * @param cards     the list of all the cards in the game
      */
     PlayerCallbackAdapter(final RummikubConnector<H> connector,
-                          final BroReader reader,
-                          final List<Card> cards) {
+                          final BroReader reader) {
         this.reader = reader;
 
         this.playerCallback = connector.callback;
@@ -54,7 +52,6 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
         this.connectionListener = connector.connectionListener;
 
-        this.cards = Collections.unmodifiableList(new ArrayList<>(cards));
         this.hints = Collections.unmodifiableList(new ArrayList<>(connector.hints));
     }
 
@@ -96,7 +93,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
      * @throws IOException
      */
     private Card getCard() throws IOException {
-        return this.cards.get(reader.readInt());
+        return Constants.CARDS.get(reader.readInt());
     }
 
     /**

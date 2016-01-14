@@ -150,11 +150,6 @@ final class RummikubImpl implements Rummikub<Integer> {
         }
     }
 
-    @Override
-    public List<Card> getCards() {
-        return new ArrayList<>(this.cardPile.cards);
-    }
-
     /**
      *
      */

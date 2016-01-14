@@ -29,9 +29,9 @@ final class RummikubGame {
         final SocketWrapper wrapper = new SocketWrapper(socket);
         sendPlayerName(connector.playerName, wrapper);
         final List<Card> cards = handleReceiveCardList(wrapper);
-        new Thread(new PlayerCallbackAdapter<>(connector, wrapper, cards), "Callback adapter").start();
+        new Thread(new PlayerCallbackAdapter<>(connector, wrapper), "Callback adapter").start();
 
-        return new SocketPlayer<>(connector.playerName, wrapper, cards, connector.hints);
+        return new SocketPlayer<>(connector.playerName, wrapper, connector.hints);
     }
 
     /**

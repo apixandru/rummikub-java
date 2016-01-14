@@ -13,8 +13,6 @@ import com.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_PLACED;
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_REMOVED;
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_GAME_OVER;
@@ -36,10 +34,9 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
     /**
      * @param playerName the player name
      * @param writer     the writer
-     * @param cards      the list of all the cards in the game
      */
-    ClientCallback(final String playerName, final BroWriter writer, final List<Card> cards) {
-        super(writer, cards);
+    ClientCallback(final String playerName, final BroWriter writer) {
+        super(writer);
         this.playerName = playerName;
     }
 

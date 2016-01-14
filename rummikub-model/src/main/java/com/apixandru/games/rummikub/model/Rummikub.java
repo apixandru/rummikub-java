@@ -1,10 +1,7 @@
 package com.apixandru.games.rummikub.model;
 
-import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.Player;
-
-import java.util.List;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -23,8 +20,5 @@ public interface Rummikub<H> {
      * @param player
      */
     void removePlayer(Player<H> player);
-
-    // temporary
-    List<Card> getCards();
 
 }

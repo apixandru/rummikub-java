@@ -4,8 +4,7 @@
 package com.apixandru.games.rummikub.model;
 
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.Color;
-import com.apixandru.games.rummikub.api.Rank;
+import com.apixandru.games.rummikub.api.Constants;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -17,21 +16,10 @@ import java.util.LinkedList;
  */
 final class CardPile {
 
-    final LinkedList<Card> cards = new LinkedList<>();
+    private final LinkedList<Card> cards = new LinkedList<>();
 
     {
-        final LinkedList<Card> cards = new LinkedList<>();
-        for (int i = 0; i < 2; i++) {
-            for (final Rank rank : Rank.values()) {
-                for (final Color color : Color.values()) {
-                    cards.add(new Card(color, rank));
-                }
-            }
-            // joker
-            cards.add(new Card(null, null));
-        }
-
-        setCards(cards);
+        setCards(Constants.CARDS);
     }
 
     /**

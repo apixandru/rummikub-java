@@ -31,22 +31,20 @@ final class RummikubServer {
 
         final Rummikub<Integer> game = RummikubFactory.newInstance();
 
-        final List<Card> cards = game.getCards();
-
         while (true) {
             log.debug("Waiting for client...");
             final SocketWrapper wrapper = new SocketWrapper(serverSocket.accept());
 
             final String playerName = wrapper.readString();
             log.debug("Accepted {}.", playerName);
-            sendCards(playerName, wrapper, cards);
+            sendCards(playerName, wrapper);
 
             log.debug("Registering {}...", playerName);
-            final CompoundCallback<Integer> callback = new ClientCallback(playerName, wrapper, cards);
+            final CompoundCallback<Integer> callback = new ClientCallback(playerName, wrapper);
 
             final Player<Integer> player = game.addPlayer(playerName, callback);
             log.debug("{} registered.", playerName);
-            final ClientRunnable runnable = new ClientRunnable(wrapper, cards, player, game);
+            final ClientRunnable runnable = new ClientRunnable(wrapper, player, game);
             new Thread(runnable, playerName).start();
         }
 
@@ -55,11 +53,11 @@ final class RummikubServer {
     /**
      * @param playerName the player name
      * @param writer     the writer
-     * @param cards      the list of all the cards in the game
      */
-    private static void sendCards(final String playerName, final BroWriter writer, final List<Card> cards) {
+    private static void sendCards(final String playerName, final BroWriter writer) {
         log.debug("[{}] Sending cards.", playerName);
         final int[] ints = new int[Constants.NUM_CARDS * 2];
+        final List<Card> cards = Constants.CARDS;
         for (int i = 0, to = cards.size(); i < to; i++) {
             final Card card = cards.get(i);
             final int index = i * 2;
