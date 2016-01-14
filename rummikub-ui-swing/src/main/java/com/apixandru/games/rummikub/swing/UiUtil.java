@@ -71,7 +71,7 @@ final class UiUtil {
     public static void placeCard(final CardUi card, final CardSlot slot) {
         log.debug("Place card request for " + card.card + " on (" + slot.x + ", " + slot.y + ")");
         slot.add(card);
-        slot.validate();
+        slot.stateChanged();
     }
 
     /**
@@ -87,7 +87,7 @@ final class UiUtil {
      */
     public static void removeCard(final CardSlot slot) {
         slot.removeAll();
-        slot.repaint();
+        slot.stateChanged();
     }
 
 }
