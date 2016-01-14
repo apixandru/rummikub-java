@@ -1,5 +1,6 @@
 package com.apixandru.games.rummikub.brotocol.client;
 
+import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.brotocol.Header;
 import com.apixandru.games.rummikub.brotocol.Packet;
 
@@ -11,4 +12,9 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_PLACE_CARD;
  */
 @Header(CLIENT_PLACE_CARD)
 public class PacketPlaceCard implements Packet {
+
+    public Card card;
+    public int x;
+    public int y;
+
 }
