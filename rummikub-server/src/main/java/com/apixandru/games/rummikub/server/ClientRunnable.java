@@ -3,6 +3,11 @@ package com.apixandru.games.rummikub.server;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.BroReader;
+import com.apixandru.games.rummikub.brotocol.PacketHandler;
+import com.apixandru.games.rummikub.brotocol.client.PacketEndTurn;
+import com.apixandru.games.rummikub.brotocol.client.PacketMoveCard;
+import com.apixandru.games.rummikub.brotocol.client.PacketPlaceCard;
+import com.apixandru.games.rummikub.brotocol.client.PacketTakeCard;
 import com.apixandru.games.rummikub.model.Rummikub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,10 +16,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.util.List;
 
-import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_END_TURN;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_MOVE_CARD;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_PLACE_CARD;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_TAKE_CARD;
+import static com.apixandru.games.rummikub.brotocol.Brotocol.*;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -127,6 +129,54 @@ final class ClientRunnable implements Runnable {
      */
     private Card readCard() throws IOException {
         return this.cards.get(reader.readInt());
+    }
+
+    private class PlaceCardOnBoardHandler implements PacketHandler<PacketPlaceCard> {
+
+        @Override
+        public <H> void handle(final PacketPlaceCard packet) {
+            final Card card = packet.card;
+            final int x = packet.x;
+            final int y = packet.y;
+            log.debug("[{}] Received placeCardOnBoard(card={}, x={}, y={})", playerName, card, x, y);
+            player.placeCardOnBoard(card, x, y);
+        }
+    }
+
+    private class EndTurnHandler implements PacketHandler<PacketEndTurn> {
+
+        @Override
+        public <H> void handle(final PacketEndTurn packet) {
+            log.debug("[{}] Received endTurn()", playerName);
+            player.endTurn();
+        }
+    }
+
+    private class MoveCardHandler implements PacketHandler<PacketMoveCard> {
+
+        @Override
+        public <H> void handle(final PacketMoveCard packet) {
+            final Card card = packet.card;
+            final int fromX = packet.fromX;
+            final int fromY = packet.fromY;
+            final int toX = packet.toX;
+            final int toY = packet.toY;
+            log.debug("[{}] Received moveCardOnBoard(card={}, fromX={}, fromY={}, toX={}, toY={})", playerName, card, fromX, fromY, toX, toY);
+            player.moveCardOnBoard(card, fromX, fromY, toX, toY);
+        }
+    }
+
+    private class TakeCardHandler implements PacketHandler<PacketTakeCard> {
+
+        @Override
+        public <H> void handle(final PacketTakeCard packet) {
+            final Card card = packet.card;
+            final int x = packet.x;
+            final int y = packet.y;
+            final int hint = packet.hint;
+            log.debug("[{}] Received takeCardFromBoard(card={}, x={}, y={}, hint={})", playerName, card, x, y, hint);
+            player.takeCardFromBoard(card, x, y, hint);
+        }
     }
 
 }
