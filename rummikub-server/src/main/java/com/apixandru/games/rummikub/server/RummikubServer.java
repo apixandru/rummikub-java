@@ -1,10 +1,7 @@
 package com.apixandru.games.rummikub.server;
 
-import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.CompoundCallback;
-import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.brotocol.BroWriter;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.games.rummikub.model.Rummikub;
 import com.apixandru.games.rummikub.model.RummikubFactory;
@@ -13,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.List;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -37,7 +33,6 @@ final class RummikubServer {
 
             final String playerName = wrapper.readString();
             log.debug("Accepted {}.", playerName);
-            sendCards(playerName, wrapper);
 
             log.debug("Registering {}...", playerName);
             final CompoundCallback<Integer> callback = new ClientCallback(playerName, wrapper);
@@ -48,24 +43,6 @@ final class RummikubServer {
             new Thread(runnable, playerName).start();
         }
 
-    }
-
-    /**
-     * @param playerName the player name
-     * @param writer     the writer
-     */
-    private static void sendCards(final String playerName, final BroWriter writer) {
-        log.debug("[{}] Sending cards.", playerName);
-        final int[] ints = new int[Constants.NUM_CARDS * 2];
-        final List<Card> cards = Constants.CARDS;
-        for (int i = 0, to = cards.size(); i < to; i++) {
-            final Card card = cards.get(i);
-            final int index = i * 2;
-            ints[index] = ordinal(card.getColor());
-            ints[index + 1] = ordinal(card.getRank());
-        }
-        writer.write(ints);
-        writer.flush();
     }
 
     /**
