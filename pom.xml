@@ -16,6 +16,7 @@
         <module>rummikub-connector-client</module>
         <module>rummikub-server</module>
         <module>rummikub-api</module>
+        <module>fieldserializer</module>
     </modules>
 
     <properties>
@@ -79,6 +80,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>rummikub-connector-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>fieldserializer</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
