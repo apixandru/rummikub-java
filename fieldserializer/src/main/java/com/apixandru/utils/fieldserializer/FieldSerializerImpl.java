@@ -80,19 +80,27 @@ public final class FieldSerializerImpl implements FieldSerializer {
     }
 
     @Override
-    public void writeFields(final Object packet, final DataOutput output) throws IllegalAccessException, IOException {
-        for (final Field field : packet.getClass().getDeclaredFields()) {
-            deserialize(field, packet, output);
+    public void writeFields(final Object packet, final DataOutput output) throws IOException {
+        try {
+            for (final Field field : packet.getClass().getDeclaredFields()) {
+                deserialize(field, packet, output);
+            }
+        } catch (final IllegalAccessException e) {
+            throw new IOException("Failed to serialize data", e);
         }
     }
 
     @Override
-    public <T> T readFields(final Class<T> clasz, final DataInput input) throws IOException, IllegalAccessException, InstantiationException {
-        final T object = clasz.newInstance();
-        for (final Field field : clasz.getDeclaredFields()) {
-            serialize(field, object, input);
+    public <T> T readFields(final Class<T> clasz, final DataInput input) throws IOException {
+        try {
+            final T object = clasz.newInstance();
+            for (final Field field : clasz.getDeclaredFields()) {
+                serialize(field, object, input);
+            }
+            return object;
+        } catch (final InstantiationException | IllegalAccessException e) {
+            throw new IOException("Failed to deserialize data", e);
         }
-        return object;
     }
 
 }

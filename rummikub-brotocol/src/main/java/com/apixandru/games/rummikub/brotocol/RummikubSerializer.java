@@ -66,26 +66,18 @@ final class RummikubSerializer implements Serializer {
 
     @Override
     public void serialize(final Packet packet, final ObjectOutput output) throws IOException {
-        try {
-            final int value = packet.getClass().getAnnotation(Header.class).value();
-            output.write(value);
-            serializer.writeFields(packet, output);
-            output.flush();
-        } catch (IllegalAccessException e) {
-            throw new IOException("Failed to serialize packet", e);
-        }
+        final int value = packet.getClass().getAnnotation(Header.class).value();
+        output.write(value);
+        serializer.writeFields(packet, output);
+        output.flush();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public Packet deserialize(final ObjectInput input) throws IOException {
         final int read = input.read();
-        final Class<Packet> aClass = packets.get(read);
-        try {
-            return serializer.readFields(aClass, input);
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new IOException("Failed to deserialize packet", e);
-        }
+        final Class<Packet> clasz = packets.get(read);
+        return serializer.readFields(clasz, input);
     }
 
 }

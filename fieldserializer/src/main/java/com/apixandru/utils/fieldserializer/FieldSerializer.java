@@ -13,10 +13,9 @@ public interface FieldSerializer {
     /**
      * @param packet
      * @param output
-     * @throws IllegalAccessException
      * @throws IOException
      */
-    void writeFields(final Object packet, final DataOutput output) throws IllegalAccessException, IOException;
+    void writeFields(final Object packet, final DataOutput output) throws IOException;
 
     /**
      * @param clasz
@@ -24,9 +23,7 @@ public interface FieldSerializer {
      * @param <T>
      * @return
      * @throws IOException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
      */
-    <T> T readFields(final Class<T> clasz, final DataInput input) throws IOException, IllegalAccessException, InstantiationException;
+    <T> T readFields(final Class<T> clasz, final DataInput input) throws IOException;
 
 }
