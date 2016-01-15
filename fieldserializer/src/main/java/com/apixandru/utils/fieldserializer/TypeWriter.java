@@ -15,6 +15,6 @@ public interface TypeWriter<T> {
      * @param output the output object
      * @throws IOException
      */
-    void writer(T type, DataOutput output) throws IOException;
+    void write(T type, DataOutput output) throws IOException;
 
 }

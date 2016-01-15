@@ -11,17 +11,17 @@ import java.io.IOException;
 public interface FieldSerializer {
 
     /**
-     * @param packet
-     * @param output
+     * @param object the object
+     * @param output the output
      * @throws IOException
      */
-    void writeFields(final Object packet, final DataOutput output) throws IOException;
+    void writeFields(final Object object, final DataOutput output) throws IOException;
 
     /**
-     * @param clasz
-     * @param input
-     * @param <T>
-     * @return
+     * @param clasz the class to deserialize
+     * @param input the input
+     * @param <T>   the type
+     * @return the deserialized object
      * @throws IOException
      */
     <T> T readFields(final Class<T> clasz, final DataInput input) throws IOException;

@@ -47,30 +47,30 @@ public final class FieldSerializerImpl implements FieldSerializer {
     }
 
     /**
-     * @param field
-     * @param packet
-     * @param output
+     * @param field  the field to write
+     * @param object the object for the field
+     * @param output the output
      * @throws IllegalAccessException
      * @throws IOException
      */
     @SuppressWarnings("unchecked")
-    private void deserialize(final Field field, final Object packet, final DataOutput output) throws IllegalAccessException, IOException {
+    private void write(final Field field, final Object object, final DataOutput output) throws IllegalAccessException, IOException {
         final Class<?> type = field.getType();
         if (!writers.containsKey(type)) {
             throw new IOException("No deserializer registered for " + type);
         }
         final TypeWriter typeWriter = writers.get(type);
-        typeWriter.writer(field.get(packet), output);
+        typeWriter.write(field.get(object), output);
     }
 
     /**
-     * @param field
-     * @param object
-     * @param input
+     * @param field  the field to read
+     * @param object the object for the field
+     * @param input  the input
      * @throws IOException
      * @throws IllegalAccessException
      */
-    private void serialize(final Field field, final Object object, final DataInput input) throws IOException, IllegalAccessException {
+    private void read(final Field field, final Object object, final DataInput input) throws IOException, IllegalAccessException {
         final Class<?> type = field.getType();
         if (!readers.containsKey(type)) {
             throw new IOException("No serializer registered for " + type);
@@ -80,10 +80,10 @@ public final class FieldSerializerImpl implements FieldSerializer {
     }
 
     @Override
-    public void writeFields(final Object packet, final DataOutput output) throws IOException {
+    public void writeFields(final Object object, final DataOutput output) throws IOException {
         try {
-            for (final Field field : packet.getClass().getDeclaredFields()) {
-                deserialize(field, packet, output);
+            for (final Field field : object.getClass().getDeclaredFields()) {
+                write(field, object, output);
             }
         } catch (final IllegalAccessException e) {
             throw new IOException("Failed to serialize data", e);
@@ -95,7 +95,7 @@ public final class FieldSerializerImpl implements FieldSerializer {
         try {
             final T object = clasz.newInstance();
             for (final Field field : clasz.getDeclaredFields()) {
-                serialize(field, object, input);
+                read(field, object, input);
             }
             return object;
         } catch (final InstantiationException | IllegalAccessException e) {
