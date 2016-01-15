@@ -5,8 +5,14 @@ import com.apixandru.games.rummikub.brotocol.client.PacketEndTurn;
 import com.apixandru.games.rummikub.brotocol.client.PacketMoveCard;
 import com.apixandru.games.rummikub.brotocol.client.PacketPlaceCard;
 import com.apixandru.games.rummikub.brotocol.client.PacketTakeCard;
+import com.apixandru.games.rummikub.brotocol.server.PacketCardPlaced;
+import com.apixandru.games.rummikub.brotocol.server.PacketCardRemoved;
+import com.apixandru.games.rummikub.brotocol.server.PacketGameOver;
+import com.apixandru.games.rummikub.brotocol.server.PacketNewTurn;
+import com.apixandru.games.rummikub.brotocol.server.PacketReceiveCard;
+import com.apixandru.utils.fieldserializer.FieldSerializer;
+import com.apixandru.utils.fieldserializer.FieldSerializerImpl;
 
-import java.io.DataInput;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
@@ -24,29 +30,32 @@ final class RummikubSerializer implements Serializer {
 
     private final Map<Integer, Class> packets = new HashMap<>();
 
-    private final Map<Class, OutputWriter> writers = new HashMap<>();
-    private final Map<Class, InputReader> readers = new HashMap<>();
+    private final FieldSerializer serializer;
 
     {
-        register(int.class, (i, output) -> output.writeInt(i));
-        register(int.class, DataInput::readInt);
+        FieldSerializerImpl serialiser = new FieldSerializerImpl();
 
-        register(boolean.class, (i, output) -> output.writeBoolean(i));
-        register(boolean.class, DataInput::readBoolean);
-
-        register(Integer.class, (i, output) -> output.writeInt(i == null ? -1 : i));
-        register(Integer.class, input -> {
+        serialiser.register(Integer.class, (i, output) -> output.writeInt(i == null ? -1 : i));
+        serialiser.register(Integer.class, input -> {
             final int i = input.readInt();
             return -1 == i ? null : i;
         });
 
-        register(Card.class, (card, output) -> output.writeInt(CARDS.indexOf(card)));
-        register(Card.class, input -> CARDS.get(input.readInt()));
+        serialiser.register(Card.class, (card, output) -> output.writeInt(CARDS.indexOf(card)));
+        serialiser.register(Card.class, input -> CARDS.get(input.readInt()));
+
+        this.serializer = serialiser;
 
         register(PacketPlaceCard.class);
         register(PacketMoveCard.class);
         register(PacketTakeCard.class);
         register(PacketEndTurn.class);
+
+        register(PacketGameOver.class);
+        register(PacketNewTurn.class);
+        register(PacketCardPlaced.class);
+        register(PacketCardRemoved.class);
+        register(PacketReceiveCard.class);
     }
 
     /**
@@ -56,31 +65,13 @@ final class RummikubSerializer implements Serializer {
         this.packets.put(packetClass.getAnnotation(Header.class).value(), packetClass);
     }
 
-    /**
-     * @param type
-     * @param writer
-     * @param <T>
-     */
-    private <T> void register(Class<T> type, OutputWriter<T> writer) {
-        writers.put(type, writer);
-    }
-
-    /**
-     * @param type
-     * @param reader
-     * @param <T>
-     */
-    private <T> void register(Class<T> type, InputReader<T> reader) {
-        readers.put(type, reader);
-    }
-
     @Override
     public void serialize(final Packet packet, final ObjectOutput output) throws IOException {
         try {
             final int value = packet.getClass().getAnnotation(Header.class).value();
             output.write(value);
             for (final Field field : packet.getClass().getDeclaredFields()) {
-                writers.get(field.getType()).convert(field.get(packet), output);
+                serializer.deserialize(field, packet, output);
             }
             output.flush();
         } catch (IllegalAccessException e) {
@@ -96,7 +87,7 @@ final class RummikubSerializer implements Serializer {
             final Packet packet = (Packet) aClass.newInstance();
 
             for (final Field field : packet.getClass().getDeclaredFields()) {
-                field.set(packet, readers.get(field.getType()).read(input));
+                serializer.serialize(field, packet, input);
             }
             return packet;
         } catch (InstantiationException | IllegalAccessException e) {

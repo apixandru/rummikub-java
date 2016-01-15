@@ -2,6 +2,7 @@ package com.apixandru.games.rummikub.brotocol;
 
 import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.brotocol.client.PacketPlaceCard;
+import com.apixandru.games.rummikub.brotocol.server.PacketGameOver;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
@@ -19,36 +21,60 @@ import static org.junit.Assert.assertSame;
  */
 public final class TestRummikubSerializer {
 
+    private final RummikubSerializer rummikubSerializer = new RummikubSerializer();
+
     /**
      *
      */
     @Test
     public void testSerializeDeserialize() throws IOException {
-        final RummikubSerializer rummikubSerializer = new RummikubSerializer();
+        final PacketPlaceCard original = new PacketPlaceCard();
+        original.card = Constants.CARDS.get(0);
+        original.x = 3;
+        original.y = 4;
 
-        final PacketPlaceCard packet = new PacketPlaceCard();
-        packet.card = Constants.CARDS.get(0);
-        packet.x = 3;
-        packet.y = 4;
+        final PacketPlaceCard deserialized = transport(original);
+        assertSame(original.card, deserialized.card);
+        assertEquals(original.x, deserialized.x);
+        assertEquals(original.y, deserialized.y);
+    }
 
+    /**
+     *
+     */
+    @Test
+    public void testPacketGameOver() throws IOException {
+        final PacketGameOver original = new PacketGameOver();
+        original.player = "Shaggy";
+        original.quit = false;
+        original.me = true;
+
+        final PacketGameOver deserialized = transport(original);
+        assertEquals(original.player, deserialized.player);
+        assertEquals(original.quit, deserialized.quit);
+        assertEquals(original.me, deserialized.me);
+    }
+
+    /**
+     * @param packet
+     * @param <P>
+     * @return
+     * @throws IOException
+     */
+    private <P extends Packet> P transport(final P packet) throws IOException {
         final byte[] bytes;
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
-             ObjectOutputStream daos = new ObjectOutputStream(baos)) {
+        try (final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+             final ObjectOutputStream daos = new ObjectOutputStream(baos)) {
             rummikubSerializer.serialize(packet, daos);
             bytes = baos.toByteArray();
         }
 
-        final PacketPlaceCard deserialized;
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-             ObjectInputStream dais = new ObjectInputStream(bais)) {
-            Packet packet2 = rummikubSerializer.deserialize(dais);
-            assertNotNull(packet2);
-            deserialized = (PacketPlaceCard) packet2;
+        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+             final ObjectInputStream dais = new ObjectInputStream(bais)) {
+            final Packet deserialized = rummikubSerializer.deserialize(dais);
+            assertNotNull(deserialized);
+            return (P) deserialized;
         }
-
-        assertSame(packet.card, deserialized.card);
-        assertSame(packet.x, deserialized.x);
-        assertSame(packet.y, deserialized.y);
     }
 
 }
