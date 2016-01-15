@@ -3,7 +3,6 @@ package com.apixandru.utils.fieldserializer;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.io.ObjectInput;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,9 +46,15 @@ public final class FieldSerializerImpl implements FieldSerializer {
         readers.put(type, reader);
     }
 
-    @Override
+    /**
+     * @param field
+     * @param packet
+     * @param output
+     * @throws IllegalAccessException
+     * @throws IOException
+     */
     @SuppressWarnings("unchecked")
-    public void deserialize(final Field field, final Object packet, final DataOutput output) throws IllegalAccessException, IOException {
+    private void deserialize(final Field field, final Object packet, final DataOutput output) throws IllegalAccessException, IOException {
         final Class<?> type = field.getType();
         if (!writers.containsKey(type)) {
             throw new IOException("No deserializer registered for " + type);
@@ -58,14 +63,36 @@ public final class FieldSerializerImpl implements FieldSerializer {
         typeWriter.writer(field.get(packet), output);
     }
 
-    @Override
-    public void serialize(final Field field, final Object object, final ObjectInput input) throws IOException, IllegalAccessException {
+    /**
+     * @param field
+     * @param object
+     * @param input
+     * @throws IOException
+     * @throws IllegalAccessException
+     */
+    private void serialize(final Field field, final Object object, final DataInput input) throws IOException, IllegalAccessException {
         final Class<?> type = field.getType();
         if (!readers.containsKey(type)) {
             throw new IOException("No serializer registered for " + type);
         }
         final TypeReader typeReader = readers.get(type);
         field.set(object, typeReader.read(input));
+    }
+
+    @Override
+    public void writeFields(final Object packet, final DataOutput output) throws IllegalAccessException, IOException {
+        for (final Field field : packet.getClass().getDeclaredFields()) {
+            deserialize(field, packet, output);
+        }
+    }
+
+    @Override
+    public <T> T readFields(final Class<T> clasz, final DataInput input) throws IOException, IllegalAccessException, InstantiationException {
+        final T object = clasz.newInstance();
+        for (final Field field : clasz.getDeclaredFields()) {
+            serialize(field, object, input);
+        }
+        return object;
     }
 
 }

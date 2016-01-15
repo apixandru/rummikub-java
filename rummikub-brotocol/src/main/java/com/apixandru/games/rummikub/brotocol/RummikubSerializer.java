@@ -16,7 +16,6 @@ import com.apixandru.utils.fieldserializer.FieldSerializerImpl;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,9 +69,7 @@ final class RummikubSerializer implements Serializer {
         try {
             final int value = packet.getClass().getAnnotation(Header.class).value();
             output.write(value);
-            for (final Field field : packet.getClass().getDeclaredFields()) {
-                serializer.deserialize(field, packet, output);
-            }
+            serializer.writeFields(packet, output);
             output.flush();
         } catch (IllegalAccessException e) {
             throw new IOException("Failed to serialize packet", e);
@@ -80,16 +77,12 @@ final class RummikubSerializer implements Serializer {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Packet deserialize(final ObjectInput input) throws IOException {
         final int read = input.read();
-        final Class aClass = packets.get(read);
+        final Class<Packet> aClass = packets.get(read);
         try {
-            final Packet packet = (Packet) aClass.newInstance();
-
-            for (final Field field : packet.getClass().getDeclaredFields()) {
-                serializer.serialize(field, packet, input);
-            }
-            return packet;
+            return serializer.readFields(aClass, input);
         } catch (InstantiationException | IllegalAccessException e) {
             throw new IOException("Failed to deserialize packet", e);
         }

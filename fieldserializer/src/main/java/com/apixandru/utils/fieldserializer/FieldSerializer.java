@@ -1,9 +1,8 @@
 package com.apixandru.utils.fieldserializer;
 
+import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.io.ObjectInput;
-import java.lang.reflect.Field;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -12,19 +11,22 @@ import java.lang.reflect.Field;
 public interface FieldSerializer {
 
     /**
-     * @param field
-     * @param object
+     * @param packet
      * @param output
      * @throws IllegalAccessException
      * @throws IOException
      */
-    void deserialize(Field field, Object object, DataOutput output) throws IllegalAccessException, IOException;
+    void writeFields(final Object packet, final DataOutput output) throws IllegalAccessException, IOException;
 
     /**
-     * @param field
-     * @param object
+     * @param clasz
      * @param input
+     * @param <T>
+     * @return
+     * @throws IOException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
      */
-    void serialize(Field field, Object object, ObjectInput input) throws IOException, IllegalAccessException;
+    <T> T readFields(final Class<T> clasz, final DataInput input) throws IOException, IllegalAccessException, InstantiationException;
 
 }
