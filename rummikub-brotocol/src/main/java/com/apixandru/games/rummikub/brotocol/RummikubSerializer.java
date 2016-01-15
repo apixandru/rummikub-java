@@ -32,18 +32,18 @@ final class RummikubSerializer implements Serializer {
     private final FieldSerializer serializer;
 
     {
-        FieldSerializerImpl serialiser = new FieldSerializerImpl();
+        final FieldSerializerImpl serializer = new FieldSerializerImpl();
 
-        serialiser.register(Integer.class, (i, output) -> output.writeInt(i == null ? -1 : i));
-        serialiser.register(Integer.class, input -> {
+        serializer.register(Integer.class, (i, output) -> output.writeInt(i == null ? -1 : i));
+        serializer.register(Integer.class, input -> {
             final int i = input.readInt();
             return -1 == i ? null : i;
         });
 
-        serialiser.register(Card.class, (card, output) -> output.writeInt(CARDS.indexOf(card)));
-        serialiser.register(Card.class, input -> CARDS.get(input.readInt()));
+        serializer.register(Card.class, (card, output) -> output.writeInt(CARDS.indexOf(card)));
+        serializer.register(Card.class, input -> CARDS.get(input.readInt()));
 
-        this.serializer = serialiser;
+        this.serializer = serializer;
 
         register(PacketPlaceCard.class);
         register(PacketMoveCard.class);
