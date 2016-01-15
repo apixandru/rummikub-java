@@ -87,7 +87,7 @@ public final class SocketWrapper implements BroReader, BroWriter, PacketWriter, 
             synchronized (in) {
                 return serializer.deserialize(in);
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             throw new IllegalStateException(e);
         }
     }

@@ -35,17 +35,4 @@ final class RummikubGame {
         wrapper.flush();
     }
 
-    /**
-     * @param index  the index in the array
-     * @param values the array
-     * @param <T>    the element type
-     * @return the value at the index or null if the index is -1
-     */
-    private static <T> T orNull(final int index, final T[] values) {
-        if (-1 == index) {
-            return null;
-        }
-        return values[index];
-    }
-
 }

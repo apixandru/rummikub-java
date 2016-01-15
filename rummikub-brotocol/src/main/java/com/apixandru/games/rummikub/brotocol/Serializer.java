@@ -21,8 +21,7 @@ public interface Serializer {
      * @param input
      * @return
      * @throws IOException
-     * @throws ClassNotFoundException
      */
-    Packet deserialize(ObjectInput input) throws IOException, ClassNotFoundException;
+    Packet deserialize(ObjectInput input) throws IOException;
 
 }

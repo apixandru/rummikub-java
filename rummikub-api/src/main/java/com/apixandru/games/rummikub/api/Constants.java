@@ -1,6 +1,7 @@
 package com.apixandru.games.rummikub.api;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public final class Constants {
             // joker
             cards.add(new Card(null, null));
         }
-        CARDS = cards;
+        CARDS = Collections.unmodifiableList(cards);
     }
 
     private Constants() {

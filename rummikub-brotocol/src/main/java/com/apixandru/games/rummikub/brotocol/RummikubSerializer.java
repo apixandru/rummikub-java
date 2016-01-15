@@ -22,9 +22,13 @@ final class RummikubSerializer implements Serializer {
     }
 
     @Override
-    public Packet deserialize(final ObjectInput input) throws IOException, ClassNotFoundException {
+    public Packet deserialize(final ObjectInput input) throws IOException {
         // this is really not that safe and probably has a large overhead
-        return (Packet) input.readObject();
+        try {
+            return (Packet) input.readObject();
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("Cannot deserialize packet", e);
+        }
     }
 
 
