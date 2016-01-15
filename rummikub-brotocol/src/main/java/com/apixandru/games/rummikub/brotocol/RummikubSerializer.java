@@ -23,20 +23,24 @@ import static com.apixandru.games.rummikub.api.Constants.CARDS;
 final class RummikubSerializer implements Serializer {
 
     private final Map<Integer, Class> packets = new HashMap<>();
+
     private final Map<Class, OutputWriter> writers = new HashMap<>();
     private final Map<Class, InputReader> readers = new HashMap<>();
 
     {
-        register(int.class, (i, output) -> output.write(i));
+        register(int.class, (i, output) -> output.writeInt(i));
         register(int.class, DataInput::readInt);
 
-        register(Integer.class, (i, output) -> output.write(i == null ? -1 : i));
+        register(boolean.class, (i, output) -> output.writeBoolean(i));
+        register(boolean.class, DataInput::readBoolean);
+
+        register(Integer.class, (i, output) -> output.writeInt(i == null ? -1 : i));
         register(Integer.class, input -> {
             final int i = input.readInt();
             return -1 == i ? null : i;
         });
 
-        register(Card.class, (card, output) -> output.write(CARDS.indexOf(card)));
+        register(Card.class, (card, output) -> output.writeInt(CARDS.indexOf(card)));
         register(Card.class, input -> CARDS.get(input.readInt()));
 
         register(PacketPlaceCard.class);
