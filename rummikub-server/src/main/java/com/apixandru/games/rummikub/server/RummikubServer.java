@@ -45,12 +45,4 @@ final class RummikubServer {
 
     }
 
-    /**
-     * @param constant the enum constant
-     * @return the ordinal value of the constant or -1 if null
-     */
-    private static int ordinal(final Enum<?> constant) {
-        return null == constant ? -1 : constant.ordinal();
-    }
-
 }

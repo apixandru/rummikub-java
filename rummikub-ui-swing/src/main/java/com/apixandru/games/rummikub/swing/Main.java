@@ -2,8 +2,6 @@ package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.client.RummikubConnector;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -21,8 +19,6 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  * @since Oct 15, 2015
  */
 public final class Main {
-
-    private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     private static final int BOARD_WIDTH = NUM_COLS * TILE_WIDTH;
 
