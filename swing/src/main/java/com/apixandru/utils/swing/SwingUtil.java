@@ -11,7 +11,7 @@ public final class SwingUtil {
     /**
      *
      */
-    SwingUtil() {
+    private SwingUtil() {
     }
 
     /**

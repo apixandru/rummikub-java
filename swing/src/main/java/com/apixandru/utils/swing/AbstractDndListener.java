@@ -14,7 +14,7 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
     private final Color colorAccept;
     private final Color colorReject;
 
-    protected final DragSource<C> dragSource;
+    private final DragSource<C> dragSource;
     private final Class<C> componentClass;
 
     protected P draggablePieceParent;
@@ -23,8 +23,8 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
     private int xOffset;
     private int yOffset;
 
-    protected P dropTarget;
-    protected Color dropTargetOriginalColor;
+    private P dropTarget;
+    private Color dropTargetOriginalColor;
 
     /**
      * @param componentClass draggable type class
@@ -53,7 +53,7 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
     /**
      *
      */
-    protected final void resetBackground() {
+    private void resetBackground() {
         SwingUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
         this.dropTarget = null;
     }
@@ -96,7 +96,7 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
      * @return draggable
      */
     @SuppressWarnings("unchecked")
-    protected final C getDraggable(final MouseEvent event) {
+    private C getDraggable(final MouseEvent event) {
         Component c = getComponentAt(event);
         while (null != c && !(componentClass.isInstance(c))) {
             c = c.getParent();
@@ -119,7 +119,7 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
     /**
      * @param event mouse event
      */
-    protected final void updateDropIndicator(final MouseEvent event) {
+    private void updateDropIndicator(final MouseEvent event) {
         final P component = getComponentOrInitialLocation(event);
 
         if (this.dropTarget != component) {
@@ -166,7 +166,7 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
      * @return the component or initial location
      */
     @SuppressWarnings("unchecked")
-    protected final P getComponentOrInitialLocation(final MouseEvent event) {
+    private P getComponentOrInitialLocation(final MouseEvent event) {
         final JComponent component = getComponentAt(event);
         if (null == component || !canDrop(component)) {
             return this.draggablePieceParent;
@@ -177,14 +177,14 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
     /**
      * @param event mouse event
      */
-    protected final void updateMovingPieceLocation(final MouseEvent event) {
+    private void updateMovingPieceLocation(final MouseEvent event) {
         this.draggablePiece.setLocation(event.getX() + xOffset, event.getY() + yOffset);
     }
 
     /**
      * @param event mouse event
      */
-    protected final void computeHoverOffset(MouseEvent event) {
+    private void computeHoverOffset(MouseEvent event) {
         final Point parentLocation = this.dragSource.getPosition(this.draggablePiece);
         this.xOffset = parentLocation.x - event.getX();
         this.yOffset = parentLocation.y - event.getY();

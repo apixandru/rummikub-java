@@ -31,7 +31,7 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
         this.in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
     }
 
-    public int readInt() throws IOException {
+    private int readInt() throws IOException {
         return this.in.readInt();
     }
 
@@ -44,7 +44,7 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
         return sb.toString();
     }
 
-    public void write(final int... ints) {
+    private void write(final int... ints) {
         try {
             for (int oneInt : ints) {
                 this.out.writeInt(oneInt);

@@ -68,6 +68,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void run() {
         try (final Closeable closeMe = this.reader) {
             while (true) {
@@ -86,7 +87,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private class CardPlacedHandler implements PacketHandler<PacketCardPlaced> {
 
         @Override
-        public <H> void handle(final PacketCardPlaced packet) {
+        public void handle(final PacketCardPlaced packet) {
             final Card card = packet.card;
             final int x = packet.x;
             final int y = packet.y;
@@ -99,7 +100,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private class CardRemovedHandler implements PacketHandler<PacketCardRemoved> {
 
         @Override
-        public <H> void handle(final PacketCardRemoved packet) {
+        public void handle(final PacketCardRemoved packet) {
             final Card card = packet.card;
             final int x = packet.x;
             final int y = packet.y;
@@ -113,7 +114,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private class GameOverHandler implements PacketHandler<PacketGameOver> {
 
         @Override
-        public <H> void handle(final PacketGameOver packet) {
+        public void handle(final PacketGameOver packet) {
             final String player = packet.player;
             final boolean quit = packet.quit;
             final boolean me = packet.me;
@@ -125,7 +126,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private class NewTurnHandler implements PacketHandler<PacketNewTurn> {
 
         @Override
-        public <H> void handle(final PacketNewTurn packet) {
+        public void handle(final PacketNewTurn packet) {
             final boolean myTurn = packet.myTurn;
             log.debug("Received newTurn(myTurn={})", myTurn);
             gameEventListener.newTurn(myTurn);
@@ -135,7 +136,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private class ReceiveCardHandler implements PacketHandler<PacketReceiveCard> {
 
         @Override
-        public <H> void handle(final PacketReceiveCard packet) {
+        public void handle(final PacketReceiveCard packet) {
             final Card card = packet.card;
             final Integer hintIndex = packet.hint;
             log.debug("Received cardReceived(card={}, hintIndex={})", card, hintIndex);

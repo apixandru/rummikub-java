@@ -9,6 +9,6 @@ public interface PacketHandler<P extends Packet> {
     /**
      * @param packet the packet to handle
      */
-    <H> void handle(P packet);
+    void handle(P packet);
 
 }

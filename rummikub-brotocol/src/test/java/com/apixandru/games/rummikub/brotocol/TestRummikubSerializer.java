@@ -61,6 +61,7 @@ public final class TestRummikubSerializer {
      * @return
      * @throws IOException
      */
+    @SuppressWarnings("unchecked")
     private <P extends Packet> P transport(final P packet) throws IOException {
         final byte[] bytes;
         try (final ByteArrayOutputStream baos = new ByteArrayOutputStream();

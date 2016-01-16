@@ -53,6 +53,7 @@ final class ClientRunnable implements Runnable {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void run() {
         try (final Closeable automaticallyCloseMe = this.reader) {
             while (true) {
@@ -71,7 +72,7 @@ final class ClientRunnable implements Runnable {
     private class PlaceCardOnBoardHandler implements PacketHandler<PacketPlaceCard> {
 
         @Override
-        public <H> void handle(final PacketPlaceCard packet) {
+        public void handle(final PacketPlaceCard packet) {
             final Card card = packet.card;
             final int x = packet.x;
             final int y = packet.y;
@@ -83,7 +84,7 @@ final class ClientRunnable implements Runnable {
     private class EndTurnHandler implements PacketHandler<PacketEndTurn> {
 
         @Override
-        public <H> void handle(final PacketEndTurn packet) {
+        public void handle(final PacketEndTurn packet) {
             log.debug("[{}] Received endTurn()", playerName);
             player.endTurn();
         }
@@ -92,7 +93,7 @@ final class ClientRunnable implements Runnable {
     private class MoveCardHandler implements PacketHandler<PacketMoveCard> {
 
         @Override
-        public <H> void handle(final PacketMoveCard packet) {
+        public void handle(final PacketMoveCard packet) {
             final Card card = packet.card;
             final int fromX = packet.fromX;
             final int fromY = packet.fromY;
@@ -106,7 +107,7 @@ final class ClientRunnable implements Runnable {
     private class TakeCardHandler implements PacketHandler<PacketTakeCard> {
 
         @Override
-        public <H> void handle(final PacketTakeCard packet) {
+        public void handle(final PacketTakeCard packet) {
             final Card card = packet.card;
             final int x = packet.x;
             final int y = packet.y;
