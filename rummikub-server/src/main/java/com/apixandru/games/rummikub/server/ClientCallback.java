@@ -13,12 +13,6 @@ import com.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_PLACED;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_REMOVED;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_GAME_OVER;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_NEW_TURN;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEIVED_CARD;
-
 /**
  * @author Alexandru-Constantin Bledea
  * @since January 05, 2016
@@ -27,7 +21,7 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
 
     private static final Logger log = LoggerFactory.getLogger(ClientCallback.class);
 
-    private final PacketWriter packetWriter = null; // properly initialize this at some point
+    private final PacketWriter packetWriter;
 
     private final String playerName;
 
@@ -37,6 +31,7 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
      */
     ClientCallback(final String playerName, final BroWriter writer) {
         super(writer);
+        this.packetWriter = writer;
         this.playerName = playerName;
     }
 
@@ -46,8 +41,7 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
         final PacketReceiveCard packet = new PacketReceiveCard();
         packet.card = card;
         packet.hint = hint;
-//        packetWriter.writePacket(packet);
-        writeAndFlush(SERVER_RECEIVED_CARD, card, hint == null ? -1 : hint);
+        packetWriter.writePacket(packet);
     }
 
     @Override
@@ -57,8 +51,7 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
         packet.card = card;
         packet.x = x;
         packet.y = y;
-//        packetWriter.writePacket(packet);
-        writeAndFlush(SERVER_CARD_PLACED, card, x, y);
+        packetWriter.writePacket(packet);
     }
 
     @Override
@@ -69,10 +62,7 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
         packet.x = x;
         packet.y = y;
         packet.reset = reset;
-//        packetWriter.writePacket(packet);
-        write(SERVER_CARD_REMOVED, card, x, y);
-        write(reset);
-        flush();
+        packetWriter.writePacket(packet);
     }
 
     @Override
@@ -80,10 +70,7 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
         log.debug("[{}] Sending newTurn(myTurn={})", playerName, myTurn);
         final PacketNewTurn packet = new PacketNewTurn();
         packet.myTurn = myTurn;
-//        packetWriter.writePacket(packet);
-        write(SERVER_NEW_TURN);
-        write(myTurn);
-        flush();
+        packetWriter.writePacket(packet);
     }
 
     @Override
@@ -93,11 +80,7 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
         packet.player = player;
         packet.quit = quit;
         packet.me = me;
-//        packetWriter.writePacket(packet);
-        write(SERVER_GAME_OVER);
-        write(player);
-        write(quit, me);
-        flush();
+        packetWriter.writePacket(packet);
     }
 
 }

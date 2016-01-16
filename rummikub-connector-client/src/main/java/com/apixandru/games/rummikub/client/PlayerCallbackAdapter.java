@@ -2,10 +2,16 @@ package com.apixandru.games.rummikub.client;
 
 import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.BroReader;
+import com.apixandru.games.rummikub.brotocol.Packet;
+import com.apixandru.games.rummikub.brotocol.PacketHandler;
+import com.apixandru.games.rummikub.brotocol.server.PacketCardPlaced;
+import com.apixandru.games.rummikub.brotocol.server.PacketCardRemoved;
+import com.apixandru.games.rummikub.brotocol.server.PacketGameOver;
+import com.apixandru.games.rummikub.brotocol.server.PacketNewTurn;
+import com.apixandru.games.rummikub.brotocol.server.PacketReceiveCard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,15 +19,12 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-
-import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_PLACED;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_REMOVED;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_GAME_OVER;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_NEW_TURN;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEIVED_CARD;
+import java.util.Map;
 
 /**
+ * @param <H> hint type
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
@@ -30,6 +33,8 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private final Logger log = LoggerFactory.getLogger(PlayerCallbackAdapter.class);
 
     private final BroReader reader;
+
+    private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
     private final PlayerCallback<H> playerCallback;
     private final BoardCallback boardCallback;
@@ -53,32 +58,21 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         this.connectionListener = connector.connectionListener;
 
         this.hints = Collections.unmodifiableList(new ArrayList<>(connector.hints));
+
+        handlers.put(PacketCardPlaced.class, new CardPlacedHandler());
+        handlers.put(PacketCardRemoved.class, new CardRemovedHandler());
+        handlers.put(PacketNewTurn.class, new NewTurnHandler());
+        handlers.put(PacketGameOver.class, new GameOverHandler());
+        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler());
     }
 
     @Override
     public void run() {
         try (final BroReader reader = this.reader) {
             while (true) {
-                final int input = reader.readInt();
-                switch (input) {
-                    case SERVER_CARD_PLACED:
-                        handleCardPlaced(getCard());
-                        break;
-                    case SERVER_CARD_REMOVED:
-                        handleCardRemoved(getCard());
-                        break;
-                    case SERVER_RECEIVED_CARD:
-                        handleReceivedCard(getCard());
-                        break;
-                    case SERVER_NEW_TURN:
-                        handleNewTurn();
-                        break;
-                    case SERVER_GAME_OVER:
-                        handleGameOver();
-                        return; // don't listen to any more events
-                    default:
-                        throw new IllegalArgumentException("Unknown input: " + input);
-                }
+                final Packet input = reader.readPacket();
+                final PacketHandler packetHandler = handlers.get(input.getClass());
+                packetHandler.handle(input);
             }
         } catch (final EOFException e) {
             log.debug("Server was shutdown?", e);
@@ -88,65 +82,64 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         this.connectionListener.onDisconnected();
     }
 
-    /**
-     * @return the card identified by the index
-     * @throws IOException
-     */
-    private Card getCard() throws IOException {
-        return Constants.CARDS.get(reader.readInt());
+    private class CardPlacedHandler implements PacketHandler<PacketCardPlaced> {
+
+        @Override
+        public <H> void handle(final PacketCardPlaced packet) {
+            final Card card = packet.card;
+            final int x = packet.x;
+            final int y = packet.y;
+            log.debug("Received onCardPlacedOnBoard(card={}, x={}, y={})", card, x, y);
+            boardCallback.onCardPlacedOnBoard(card, x, y);
+
+        }
     }
 
-    /**
-     * @throws IOException
-     */
-    private void handleNewTurn() throws IOException {
-        final boolean myTurn = reader.readBoolean();
-        log.debug("Received newTurn(myTurn={})", myTurn);
-        this.gameEventListener.newTurn(myTurn);
+    private class CardRemovedHandler implements PacketHandler<PacketCardRemoved> {
+
+        @Override
+        public <H> void handle(final PacketCardRemoved packet) {
+            final Card card = packet.card;
+            final int x = packet.x;
+            final int y = packet.y;
+            final boolean reset = packet.reset;
+            log.debug("Received onCardRemovedFromBoard(card={}, x={}, y={}, reset={})", card, x, y, reset);
+            boardCallback.onCardRemovedFromBoard(card, x, y, reset);
+
+        }
     }
 
-    /**
-     * @param card the card
-     * @throws IOException
-     */
-    private void handleReceivedCard(final Card card) throws IOException {
-        final int hintIndex = reader.readInt();
-        log.debug("Received cardReceived(card={}, hintIndex={})", card, hintIndex);
-        this.playerCallback.cardReceived(card, -1 == hintIndex ? null : this.hints.get(hintIndex));
+    private class GameOverHandler implements PacketHandler<PacketGameOver> {
+
+        @Override
+        public <H> void handle(final PacketGameOver packet) {
+            final String player = packet.player;
+            final boolean quit = packet.quit;
+            final boolean me = packet.me;
+            log.debug("Received gameOver(player={}, quit={}, me={})", player, quit, me);
+            gameEventListener.gameOver(player, quit, me);
+        }
     }
 
-    /**
-     * @param card the card
-     * @throws IOException
-     */
-    private void handleCardRemoved(final Card card) throws IOException {
-        final int x = reader.readInt();
-        final int y = reader.readInt();
-        final boolean unlock = reader.readBoolean();
-        log.debug("Received onCardRemovedFromBoard(card={}, x={}, y={}, unlock={})", card, x, y, unlock);
-        this.boardCallback.onCardRemovedFromBoard(card, x, y, unlock);
+    private class NewTurnHandler implements PacketHandler<PacketNewTurn> {
+
+        @Override
+        public <H> void handle(final PacketNewTurn packet) {
+            final boolean myTurn = packet.myTurn;
+            log.debug("Received newTurn(myTurn={})", myTurn);
+            gameEventListener.newTurn(myTurn);
+        }
     }
 
-    /**
-     * @param card the card
-     * @throws IOException
-     */
-    private void handleCardPlaced(final Card card) throws IOException {
-        final int x = reader.readInt();
-        final int y = reader.readInt();
-        log.debug("Received onCardPlacedOnBoard(card={}, x={}, y={})", card, x, y);
-        this.boardCallback.onCardPlacedOnBoard(card, x, y);
-    }
+    private class ReceiveCardHandler implements PacketHandler<PacketReceiveCard> {
 
-    /**
-     *
-     */
-    private void handleGameOver() throws IOException {
-        final String player = reader.readString();
-        final boolean quit = reader.readBoolean();
-        final boolean me = reader.readBoolean();
-        log.debug("Received gameOver(player={}, quit={}, me={})", player, quit, me);
-        this.gameEventListener.gameOver(player, quit, me);
+        @Override
+        public <H> void handle(final PacketReceiveCard packet) {
+            final Card card = packet.card;
+            final Integer hintIndex = packet.hint;
+            log.debug("Received cardReceived(card={}, hintIndex={})", card, hintIndex);
+            playerCallback.cardReceived(card, null == hintIndex ? null : hints.get(hintIndex));
+        }
     }
 
 }
