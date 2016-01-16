@@ -82,13 +82,9 @@ public final class SocketWrapper implements BroReader, BroWriter, PacketWriter, 
     }
 
     @Override
-    public synchronized Packet readPacket() {
-        try {
-            synchronized (in) {
-                return serializer.deserialize(in);
-            }
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
+    public synchronized Packet readPacket() throws IOException {
+        synchronized (in) {
+            return serializer.deserialize(in);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.apixandru.games.rummikub.brotocol;
 
 import java.io.Closeable;
+import java.io.IOException;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -10,7 +11,8 @@ public interface PacketReader extends Closeable {
 
     /**
      * @return packet
+     * @throws IOException
      */
-    Packet readPacket();
+    Packet readPacket() throws IOException;
 
 }
