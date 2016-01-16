@@ -12,20 +12,16 @@ import com.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 
 import java.util.List;
 
-import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_END_TURN;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_MOVE_CARD;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_PLACE_CARD;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_TAKE_CARD;
-
 /**
+ * @param <H> hint type
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
 final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
 
-    private final List<H> hints;
+    private final PacketWriter writer;
     private final String playerName;
-    private final PacketWriter writer = null; // properly initialize
+    private final List<H> hints;
 
     /**
      * @param playerName the player name
@@ -34,6 +30,7 @@ final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
      */
     SocketPlayer(final String playerName, final BroWriter writer, final List<H> hints) {
         super(writer);
+        this.writer = writer;
         this.hints = hints;
         this.playerName = playerName;
     }
@@ -49,8 +46,7 @@ final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
         packet.card = card;
         packet.x = x;
         packet.y = y;
-//        writer.writePacket(packet);
-        writeAndFlush(CLIENT_PLACE_CARD, card, x, y);
+        writer.writePacket(packet);
     }
 
     @Override
@@ -61,8 +57,7 @@ final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
         packet.fromY = fromY;
         packet.toX = toX;
         packet.toY = toY;
-//        writer.writePacket(packet);
-        writeAndFlush(CLIENT_MOVE_CARD, card, fromX, fromY, toX, toY);
+        writer.writePacket(packet);
     }
 
     @Override
@@ -72,15 +67,13 @@ final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
         packet.x = x;
         packet.y = y;
         packet.hint = this.hints.indexOf(hint);
-//        writer.writePacket(packet);
-        writeAndFlush(CLIENT_TAKE_CARD, card, x, y, this.hints.indexOf(hint));
+        writer.writePacket(packet);
     }
 
     @Override
     public void endTurn() {
         final PacketEndTurn packet = new PacketEndTurn();
-//        writer.writePacket(packet);
-        writeAndFlush(CLIENT_END_TURN);
+        writer.writePacket(packet);
     }
 
 }

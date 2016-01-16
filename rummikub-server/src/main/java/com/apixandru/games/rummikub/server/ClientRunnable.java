@@ -1,9 +1,9 @@
 package com.apixandru.games.rummikub.server;
 
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.BroReader;
+import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.client.PacketEndTurn;
 import com.apixandru.games.rummikub.brotocol.client.PacketMoveCard;
@@ -13,13 +13,11 @@ import com.apixandru.games.rummikub.model.Rummikub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Closeable;
 import java.io.EOFException;
 import java.io.IOException;
-
-import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_END_TURN;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_MOVE_CARD;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_PLACE_CARD;
-import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_TAKE_CARD;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -28,7 +26,7 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_TAKE_CARD;
 final class ClientRunnable implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(ClientRunnable.class);
-
+    private final Map<Class, PacketHandler> handlers = new HashMap<>();
     private final BroReader reader;
     private final Player<Integer> player;
     private final Rummikub<Integer> game;
@@ -46,29 +44,21 @@ final class ClientRunnable implements Runnable {
         this.player = player;
         this.playerName = player.getName();
         this.game = game;
+
+        handlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler());
+        handlers.put(PacketEndTurn.class, new EndTurnHandler());
+        handlers.put(PacketMoveCard.class, new MoveCardHandler());
+        handlers.put(PacketTakeCard.class, new TakeCardHandler());
+
     }
 
     @Override
     public void run() {
-        try (final BroReader reader = this.reader) {
+        try (final Closeable automaticallyCloseMe = this.reader) {
             while (true) {
-                final int input = reader.readInt();
-                switch (input) {
-                    case CLIENT_PLACE_CARD:
-                        handlePlaceCardOnBoard();
-                        break;
-                    case CLIENT_END_TURN:
-                        handleEndTurn();
-                        break;
-                    case CLIENT_TAKE_CARD:
-                        handleTakeCardFromBoard();
-                        break;
-                    case CLIENT_MOVE_CARD:
-                        handleMoveCardOnBoard();
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown input: " + input);
-                }
+                final Packet input = reader.readPacket();
+                final PacketHandler packetHandler = handlers.get(input.getClass());
+                packetHandler.handle(input);
             }
         } catch (final EOFException e) {
             log.debug("{} quit the game", playerName);
@@ -76,58 +66,6 @@ final class ClientRunnable implements Runnable {
             e.printStackTrace();
         }
         this.game.removePlayer(this.player);
-    }
-
-    /**
-     * @throws IOException
-     */
-    private void handleMoveCardOnBoard() throws IOException {
-        final Card card = readCard();
-        final int fromX = reader.readInt();
-        final int fromY = reader.readInt();
-        final int toX = reader.readInt();
-        final int toY = reader.readInt();
-        log.debug("[{}] Received moveCardOnBoard(card={}, fromX={}, fromY={}, toX={}, toY={})", playerName, card, fromX, fromY, toX, toY);
-        player.moveCardOnBoard(card, fromX, fromY, toX, toY);
-    }
-
-    /**
-     * @throws IOException
-     */
-    private void handleTakeCardFromBoard() throws IOException {
-        final Card card = readCard();
-        final int x = reader.readInt();
-        final int y = reader.readInt();
-        final int hint = reader.readInt();
-        log.debug("[{}] Received takeCardFromBoard(card={}, x={}, y={}, hint={})", playerName, card, x, y, hint);
-        player.takeCardFromBoard(card, x, y, hint);
-    }
-
-    /**
-     *
-     */
-    private void handleEndTurn() {
-        log.debug("[{}] Received endTurn()", playerName);
-        player.endTurn();
-    }
-
-    /**
-     * @throws IOException
-     */
-    private void handlePlaceCardOnBoard() throws IOException {
-        final Card card = readCard();
-        final int x = reader.readInt();
-        final int y = reader.readInt();
-        log.debug("[{}] Received placeCardOnBoard(card={}, x={}, y={})", playerName, card, x, y);
-        player.placeCardOnBoard(card, x, y);
-    }
-
-    /**
-     * @return the card identified by the position in the list of cards
-     * @throws IOException
-     */
-    private Card readCard() throws IOException {
-        return Constants.CARDS.get(reader.readInt());
     }
 
     private class PlaceCardOnBoardHandler implements PacketHandler<PacketPlaceCard> {
