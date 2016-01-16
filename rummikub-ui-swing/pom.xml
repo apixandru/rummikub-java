@@ -18,6 +18,10 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>rummikub-connector-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>swing</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

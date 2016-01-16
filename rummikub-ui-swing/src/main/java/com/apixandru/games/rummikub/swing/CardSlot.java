@@ -23,12 +23,4 @@ final class CardSlot extends JPanel {
         this.y = y;
     }
 
-    /**
-     *
-     */
-    void stateChanged() {
-        validate();
-        repaint();
-    }
-
 }

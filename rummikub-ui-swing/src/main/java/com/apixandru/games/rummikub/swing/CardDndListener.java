@@ -4,21 +4,22 @@
 package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Player;
+import com.apixandru.utils.swing.AbstractDndListener;
+import com.apixandru.utils.swing.DragSource;
+import com.apixandru.utils.swing.SwingUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since Oct 13, 2015
  */
-final class CardDndListener extends MouseAdapter {
+final class CardDndListener extends AbstractDndListener<CardUi> {
 
     private final Color hoverColor = Color.PINK;
 
-    private final DragSource dragSource;
     private final Player<CardSlot> player;
     private final MoveHelper moveHelper;
 
@@ -39,8 +40,8 @@ final class CardDndListener extends MouseAdapter {
      * @param player
      * @param moveHelper
      */
-    CardDndListener(final DragSource dragSource, final JGridPanel board, final Player<CardSlot> player, final MoveHelper moveHelper) {
-        this.dragSource = dragSource;
+    CardDndListener(final DragSource<CardUi> dragSource, final JGridPanel board, final Player<CardSlot> player, final MoveHelper moveHelper) {
+        super(CardUi.class, dragSource);
         this.player = player;
         this.board = board;
         this.moveHelper = moveHelper;
@@ -51,7 +52,7 @@ final class CardDndListener extends MouseAdapter {
      */
     @Override
     public void mousePressed(final MouseEvent e) {
-        final CardUi card = getCard(e);
+        final CardUi card = getDraggable(e);
         if (null == card) {
             return;
         }
@@ -101,8 +102,8 @@ final class CardDndListener extends MouseAdapter {
         if (this.dropTarget != component) {
             resetBackground();
 
-            this.dropTargetOriginalColor = UiUtil.getBackground(component);
-            UiUtil.setBackground(component, this.hoverColor);
+            this.dropTargetOriginalColor = SwingUtil.getBackground(component);
+            SwingUtil.setBackground(component, this.hoverColor);
             this.dropTarget = component;
         }
     }
@@ -110,7 +111,7 @@ final class CardDndListener extends MouseAdapter {
     /**
      */
     private void resetBackground() {
-        UiUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
+        SwingUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
     }
 
     /* (non-Javadoc)
@@ -184,26 +185,6 @@ final class CardDndListener extends MouseAdapter {
             return false;
         }
         return type != Transfer.BOARD_TO_PLAYER || this.moveHelper.canTakeCardFromBoard(this.draggablePiece.card);
-    }
-
-    /**
-     * @param event
-     * @return
-     */
-    private CardUi getCard(final MouseEvent event) {
-        Component c = getComponentAt(event);
-        while (null != c && !(c instanceof CardUi)) {
-            c = c.getParent();
-        }
-        return (CardUi) c;
-    }
-
-    /**
-     * @param event
-     * @return
-     */
-    private JComponent getComponentAt(final MouseEvent event) {
-        return this.dragSource.getComponentAt(event.getX(), event.getY());
     }
 
     /**

@@ -4,6 +4,7 @@
 package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.utils.swing.SwingUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,27 +21,6 @@ final class UiUtil {
     private static final Logger log = LoggerFactory.getLogger(UiUtil.class);
 
     public static final Font CARD_FONT = new Font(null, Font.BOLD, (int) (32 * FONT_SCALE));
-
-    /**
-     * @param component
-     * @param color
-     */
-    public static void setBackground(final Component component, final Color color) {
-        if (null != component) {
-            component.setBackground(color);
-        }
-    }
-
-    /**
-     * @param component
-     * @return
-     */
-    public static Color getBackground(final Component component) {
-        if (null == component) {
-            return null;
-        }
-        return component.getBackground();
-    }
 
     /**
      * @param color
@@ -71,7 +51,7 @@ final class UiUtil {
     public static void placeCard(final CardUi card, final CardSlot slot) {
         log.debug("Place card request for " + card.card + " on (" + slot.x + ", " + slot.y + ")");
         slot.add(card);
-        slot.stateChanged();
+        SwingUtil.setChanged(slot);
     }
 
     /**
@@ -87,7 +67,7 @@ final class UiUtil {
      */
     public static void removeCard(final CardSlot slot) {
         slot.removeAll();
-        slot.stateChanged();
+        SwingUtil.setChanged(slot);
     }
 
 }

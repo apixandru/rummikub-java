@@ -1,31 +1,32 @@
 /**
  *
  */
-package com.apixandru.games.rummikub.swing;
+package com.apixandru.utils.swing;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
+ * @param <C> the component type
  * @author Alexandru-Constantin Bledea
  * @since Oct 15, 2015
  */
-final class ComponentDragSource implements DragSource {
+public class ComponentDragSource<C extends Component> implements DragSource<C> {
 
     private final Container parent;
-    private final Container[] containers;
+    private final Collection<Container> containers;
 
     /**
-     * @param containers
+     * @param containers the containers involved in the drag and drop
      */
     public ComponentDragSource(final Container... containers) {
         this.parent = containers[0].getParent();
-        this.containers = containers;
+        this.containers = new ArrayList<>(Arrays.asList(containers));
     }
 
-    /* (non-Javadoc)
-     * @see DragSource#getComponentAt(int, int)
-     */
     @Override
     public JComponent getComponentAt(final int x, final int y) {
         for (Container container : containers) {
@@ -38,28 +39,22 @@ final class ComponentDragSource implements DragSource {
     }
 
     @Override
-    public Point getPosition(final CardUi component) {
+    public Point getPosition(final C component) {
         final Container pieceParent = component.getParent();
         final Point parentLocation = pieceParent.getLocation();
         final Point parentParentLocation = pieceParent.getParent().getLocation();
         return new Point(parentLocation.x + parentParentLocation.x, parentLocation.y + parentParentLocation.y);
     }
 
-    /* (non-Javadoc)
-     * @see DragSource#beginDrag(java.awt.Component)
-     */
     @Override
-    public void beginDrag(final CardUi component) {
+    public void beginDrag(final C component) {
         this.parent.add(component, JLayeredPane.DRAG_LAYER);
     }
 
-    /* (non-Javadoc)
-     * @see DragSource#endDrag(java.awt.Component)
-     */
     @Override
-    public void endDrag(final CardUi component) {
+    public void endDrag(final C component) {
         this.parent.remove(component);
-        this.parent.repaint();
+        SwingUtil.setChanged(this.parent);
     }
 
 }

@@ -2,6 +2,7 @@ package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.client.RummikubConnector;
+import com.apixandru.utils.swing.ComponentDragSource;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -56,7 +57,7 @@ public final class Main {
         layeredPane.add(player, JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(comp);
 
-        final ComponentDragSource dragSource = new ComponentDragSource(player, board);
+        final ComponentDragSource<CardUi> dragSource = new ComponentDragSource<>(player, board);
         final CardDndListener listener = new CardDndListener(dragSource, board, actualPlayer, callback);
 
         layeredPane.addMouseListener(listener);
