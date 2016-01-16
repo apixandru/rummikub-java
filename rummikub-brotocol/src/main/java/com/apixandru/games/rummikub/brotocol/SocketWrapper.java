@@ -11,7 +11,7 @@ import java.net.Socket;
  * @author Alexandru-Constantin Bledea
  * @since January 08, 2016
  */
-public final class SocketWrapper implements BroReader, BroWriter, PacketWriter, PacketReader {
+public final class SocketWrapper implements PacketWriter, PacketReader {
 
     private final Serializer serializer = new RummikubSerializer();
 
@@ -31,17 +31,10 @@ public final class SocketWrapper implements BroReader, BroWriter, PacketWriter, 
         this.in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
     }
 
-    @Override
     public int readInt() throws IOException {
         return this.in.readInt();
     }
 
-    @Override
-    public boolean readBoolean() throws IOException {
-        return this.in.readInt() == 1;
-    }
-
-    @Override
     public String readString() throws IOException {
         final int length = readInt();
         final StringBuilder sb = new StringBuilder(length);
@@ -51,7 +44,6 @@ public final class SocketWrapper implements BroReader, BroWriter, PacketWriter, 
         return sb.toString();
     }
 
-    @Override
     public void write(final int... ints) {
         try {
             for (int oneInt : ints) {
@@ -62,7 +54,6 @@ public final class SocketWrapper implements BroReader, BroWriter, PacketWriter, 
         }
     }
 
-    @Override
     public void write(final String string) {
         write(string.length());
         for (char c : string.toCharArray()) {
@@ -88,7 +79,6 @@ public final class SocketWrapper implements BroReader, BroWriter, PacketWriter, 
         }
     }
 
-    @Override
     public void flush() {
         try {
             this.out.flush();

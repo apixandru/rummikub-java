@@ -2,13 +2,11 @@ package com.apixandru.games.rummikub.client;
 
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.brotocol.BroWriter;
 import com.apixandru.games.rummikub.brotocol.PacketWriter;
 import com.apixandru.games.rummikub.brotocol.client.PacketEndTurn;
 import com.apixandru.games.rummikub.brotocol.client.PacketMoveCard;
 import com.apixandru.games.rummikub.brotocol.client.PacketPlaceCard;
 import com.apixandru.games.rummikub.brotocol.client.PacketTakeCard;
-import com.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 
 import java.util.List;
 
@@ -17,7 +15,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
+final class SocketPlayer<H> implements Player<H> {
 
     private final PacketWriter writer;
     private final String playerName;
@@ -28,8 +26,7 @@ final class SocketPlayer<H> extends AbstractIntWritable implements Player<H> {
      * @param writer     the writer
      * @param hints      the client hints
      */
-    SocketPlayer(final String playerName, final BroWriter writer, final List<H> hints) {
-        super(writer);
+    SocketPlayer(final String playerName, final PacketWriter writer, final List<H> hints) {
         this.writer = writer;
         this.hints = hints;
         this.playerName = playerName;

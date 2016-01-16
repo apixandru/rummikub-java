@@ -2,9 +2,9 @@ package com.apixandru.games.rummikub.server;
 
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.brotocol.BroReader;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
+import com.apixandru.games.rummikub.brotocol.PacketReader;
 import com.apixandru.games.rummikub.brotocol.client.PacketEndTurn;
 import com.apixandru.games.rummikub.brotocol.client.PacketMoveCard;
 import com.apixandru.games.rummikub.brotocol.client.PacketPlaceCard;
@@ -27,7 +27,7 @@ final class ClientRunnable implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(ClientRunnable.class);
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
-    private final BroReader reader;
+    private final PacketReader reader;
     private final Player<Integer> player;
     private final Rummikub<Integer> game;
     private final String playerName;
@@ -37,7 +37,7 @@ final class ClientRunnable implements Runnable {
      * @param player the current player
      * @param game   the game
      */
-    ClientRunnable(final BroReader reader,
+    ClientRunnable(final PacketReader reader,
                    final Player<Integer> player,
                    final Rummikub<Integer> game) {
         this.reader = reader;

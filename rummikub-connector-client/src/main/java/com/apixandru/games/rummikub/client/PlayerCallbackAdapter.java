@@ -4,9 +4,9 @@ import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.PlayerCallback;
-import com.apixandru.games.rummikub.brotocol.BroReader;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
+import com.apixandru.games.rummikub.brotocol.PacketReader;
 import com.apixandru.games.rummikub.brotocol.server.PacketCardPlaced;
 import com.apixandru.games.rummikub.brotocol.server.PacketCardRemoved;
 import com.apixandru.games.rummikub.brotocol.server.PacketGameOver;
@@ -15,6 +15,7 @@ import com.apixandru.games.rummikub.brotocol.server.PacketReceiveCard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Closeable;
 import java.io.EOFException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
     private final Logger log = LoggerFactory.getLogger(PlayerCallbackAdapter.class);
 
-    private final BroReader reader;
+    private final PacketReader reader;
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
@@ -48,7 +49,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
      * @param reader    the reader
      */
     PlayerCallbackAdapter(final RummikubConnector<H> connector,
-                          final BroReader reader) {
+                          final PacketReader reader) {
         this.reader = reader;
 
         this.playerCallback = connector.callback;
@@ -68,7 +69,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
     @Override
     public void run() {
-        try (final BroReader reader = this.reader) {
+        try (final Closeable closeMe = this.reader) {
             while (true) {
                 final Packet input = reader.readPacket();
                 final PacketHandler packetHandler = handlers.get(input.getClass());

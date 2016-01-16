@@ -2,14 +2,12 @@ package com.apixandru.games.rummikub.server;
 
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.CompoundCallback;
-import com.apixandru.games.rummikub.brotocol.BroWriter;
 import com.apixandru.games.rummikub.brotocol.PacketWriter;
 import com.apixandru.games.rummikub.brotocol.server.PacketCardPlaced;
 import com.apixandru.games.rummikub.brotocol.server.PacketCardRemoved;
 import com.apixandru.games.rummikub.brotocol.server.PacketGameOver;
 import com.apixandru.games.rummikub.brotocol.server.PacketNewTurn;
 import com.apixandru.games.rummikub.brotocol.server.PacketReceiveCard;
-import com.apixandru.games.rummikub.brotocol.util.AbstractIntWritable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * @author Alexandru-Constantin Bledea
  * @since January 05, 2016
  */
-final class ClientCallback extends AbstractIntWritable implements CompoundCallback<Integer> {
+final class ClientCallback implements CompoundCallback<Integer> {
 
     private static final Logger log = LoggerFactory.getLogger(ClientCallback.class);
 
@@ -29,8 +27,7 @@ final class ClientCallback extends AbstractIntWritable implements CompoundCallba
      * @param playerName the player name
      * @param writer     the writer
      */
-    ClientCallback(final String playerName, final BroWriter writer) {
-        super(writer);
+    ClientCallback(final String playerName, final PacketWriter writer) {
         this.packetWriter = writer;
         this.playerName = playerName;
     }
