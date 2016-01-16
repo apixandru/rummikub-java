@@ -11,6 +11,8 @@ import java.awt.event.MouseEvent;
  */
 public abstract class AbstractDndListener<C extends Component, P extends Component> extends MouseAdapter {
 
+    private final Color hoverColor = Color.PINK;
+
     protected final DragSource<C> dragSource;
     private final Class<C> componentClass;
 
@@ -20,6 +22,9 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
     private int xOffset;
     private int yOffset;
 
+    protected P dropTarget;
+    protected Color dropTargetOriginalColor;
+
     /**
      * @param componentClass draggable type class
      * @param dragSource     the drag source
@@ -27,6 +32,15 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
     protected AbstractDndListener(final Class<C> componentClass, final DragSource<C> dragSource) {
         this.dragSource = dragSource;
         this.componentClass = componentClass;
+    }
+
+
+    /**
+     *
+     */
+    protected final void resetBackground() {
+        SwingUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
+        this.dropTarget = null;
     }
 
     /**
@@ -46,10 +60,6 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
         updateDropIndicator(e);
     }
 
-
-    /* (non-Javadoc)
-     * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
-     */
     @Override
     public void mouseReleased(final MouseEvent e) {
         if (this.draggablePiece == null) {
@@ -57,6 +67,7 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
         }
         this.dragSource.endDrag(this.draggablePiece);
         onDropped(getComponentOrInitialLocation(e));
+        resetBackground();
         this.draggablePiece = null;
     }
 
@@ -93,7 +104,39 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
     /**
      * @param event mouse event
      */
-    protected abstract void updateDropIndicator(final MouseEvent event);
+    protected final void updateDropIndicator(final MouseEvent event) {
+        final P component = getComponentOrInitialLocation(event);
+
+        if (this.dropTarget != component) {
+            resetBackground();
+
+            this.dropTargetOriginalColor = SwingUtil.getBackground(component);
+            SwingUtil.setBackground(component, this.hoverColor);
+            this.dropTarget = component;
+        }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public final void mousePressed(final MouseEvent e) {
+        final C card = getDraggable(e);
+        if (null == card) {
+            return;
+        }
+        if (canDrag(card)) {
+            return;
+        }
+        this.draggablePiece = card;
+
+        this.draggablePieceParent = (P) card.getParent();
+
+        computeHoverOffset(e);
+
+        this.dragSource.beginDrag(this.draggablePiece);
+
+        updateMovingPieceLocation(e);
+        updateDropIndicator(e);
+    }
 
     /**
      * @param event mouse event

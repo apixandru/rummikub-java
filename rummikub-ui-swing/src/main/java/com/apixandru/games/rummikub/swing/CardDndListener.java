@@ -6,11 +6,8 @@ package com.apixandru.games.rummikub.swing;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.utils.swing.AbstractDndListener;
 import com.apixandru.utils.swing.DragSource;
-import com.apixandru.utils.swing.SwingUtil;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseEvent;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -18,16 +15,10 @@ import java.awt.event.MouseEvent;
  */
 final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
 
-    private final Color hoverColor = Color.PINK;
-
     private final Player<CardSlot> player;
     private final MoveHelper moveHelper;
 
     private final JGridPanel board;
-
-    private CardSlot dropTarget;
-    private Color dropTargetOriginalColor;
-
 
     /**
      * @param dragSource
@@ -42,59 +33,15 @@ final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
         this.moveHelper = moveHelper;
     }
 
-    /* (non-Javadoc)
-     * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
-     */
-    @Override
-    public void mousePressed(final MouseEvent e) {
-        final CardUi card = getDraggable(e);
-        if (null == card) {
-            return;
-        }
-        if (canDrag(card)) {
-            return;
-        }
-        this.draggablePiece = card;
-
-        this.draggablePieceParent = (CardSlot) card.getParent();
-
-        computeHoverOffset(e);
-
-        this.dragSource.beginDrag(this.draggablePiece);
-
-        updateMovingPieceLocation(e);
-        updateDropIndicator(e);
-    }
-
     @Override
     protected boolean canDrag(final CardUi card) {
         return fromBoard((CardSlot) card.getParent()) && !moveHelper.canInteractWithBoard();
     }
 
-    @Override
-    protected void updateDropIndicator(final MouseEvent event) {
-        final CardSlot component = getComponentOrInitialLocation(event);
-
-        if (this.dropTarget != component) {
-            resetBackground();
-
-            this.dropTargetOriginalColor = SwingUtil.getBackground(component);
-            SwingUtil.setBackground(component, this.hoverColor);
-            this.dropTarget = component;
-        }
-    }
-
-    /**
-     */
-    private void resetBackground() {
-        SwingUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
-        this.dropTarget = null;
-    }
 
     @Override
     protected void onDropped(final CardSlot target) {
         transferTo(target);
-        resetBackground();
     }
 
     /**
