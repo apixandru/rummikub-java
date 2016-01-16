@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
  * @author Alexandru-Constantin Bledea
  * @since Oct 13, 2015
  */
-final class CardDndListener extends AbstractDndListener<CardUi> {
+final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
 
     private final Color hoverColor = Color.PINK;
 
@@ -25,14 +25,8 @@ final class CardDndListener extends AbstractDndListener<CardUi> {
 
     private final JGridPanel board;
 
-    private CardSlot draggablePieceParent;
-    private CardUi draggablePiece;
-
     private CardSlot dropTarget;
     private Color dropTargetOriginalColor;
-
-    private int xOffset;
-    private int yOffset;
 
     /**
      * @param dragSource
@@ -69,16 +63,6 @@ final class CardDndListener extends AbstractDndListener<CardUi> {
 
         updateMovingPieceLocation(e);
         updateDropIndicator(e);
-    }
-
-    /**
-     * @param e
-     */
-    private void computeHoverOffset(MouseEvent e) {
-        final Point parentLocation = this.dragSource.getPosition(this.draggablePiece);
-
-        this.xOffset = parentLocation.x - e.getX();
-        this.yOffset = parentLocation.y - e.getY();
     }
 
     /* (non-Javadoc)
@@ -185,13 +169,6 @@ final class CardDndListener extends AbstractDndListener<CardUi> {
             return false;
         }
         return type != Transfer.BOARD_TO_PLAYER || this.moveHelper.canTakeCardFromBoard(this.draggablePiece.card);
-    }
-
-    /**
-     * @param event
-     */
-    private void updateMovingPieceLocation(final MouseEvent event) {
-        this.draggablePiece.setLocation(event.getX() + xOffset, event.getY() + yOffset);
     }
 
     /**

@@ -9,10 +9,16 @@ import java.awt.event.MouseEvent;
  * @author Alexandru-Constantin Bledea
  * @since January 16, 2016
  */
-public abstract class AbstractDndListener<C extends Component> extends MouseAdapter {
+public abstract class AbstractDndListener<C extends Component, P extends Component> extends MouseAdapter {
 
     protected final DragSource<C> dragSource;
     private final Class<C> componentClass;
+
+    protected P draggablePieceParent;
+    protected C draggablePiece;
+
+    private int xOffset;
+    private int yOffset;
 
     /**
      * @param componentClass draggable type class
@@ -43,6 +49,24 @@ public abstract class AbstractDndListener<C extends Component> extends MouseAdap
             c = c.getParent();
         }
         return (C) c;
+    }
+
+    /**
+     * @param event mouse event
+     */
+    protected final void updateMovingPieceLocation(final MouseEvent event) {
+        this.draggablePiece.setLocation(event.getX() + xOffset, event.getY() + yOffset);
+    }
+
+
+    /**
+     * @param event mouse event
+     */
+    protected final void computeHoverOffset(MouseEvent event) {
+        final Point parentLocation = this.dragSource.getPosition(this.draggablePiece);
+
+        this.xOffset = parentLocation.x - event.getX();
+        this.yOffset = parentLocation.y - event.getY();
     }
 
 }
