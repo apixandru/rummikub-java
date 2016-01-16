@@ -11,7 +11,8 @@ import java.awt.event.MouseEvent;
  */
 public abstract class AbstractDndListener<C extends Component, P extends Component> extends MouseAdapter {
 
-    private final Color hoverColor = Color.PINK;
+    private final Color colorAccept;
+    private final Color colorReject;
 
     protected final DragSource<C> dragSource;
     private final Class<C> componentClass;
@@ -30,10 +31,24 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
      * @param dragSource     the drag source
      */
     protected AbstractDndListener(final Class<C> componentClass, final DragSource<C> dragSource) {
-        this.dragSource = dragSource;
-        this.componentClass = componentClass;
+        this(componentClass, dragSource, new Color(0xccffcc), new Color(0xffcccf));
     }
 
+    /**
+     * @param componentClass draggable type class
+     * @param dragSource     the drag source
+     * @param acceptColor    the accept drop indicator color
+     * @param rejectColor    the accept drop indicator color
+     */
+    protected AbstractDndListener(final Class<C> componentClass,
+                                  final DragSource<C> dragSource,
+                                  final Color acceptColor,
+                                  final Color rejectColor) {
+        this.dragSource = dragSource;
+        this.componentClass = componentClass;
+        this.colorAccept = acceptColor;
+        this.colorReject = rejectColor;
+    }
 
     /**
      *
@@ -111,9 +126,17 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
             resetBackground();
 
             this.dropTargetOriginalColor = SwingUtil.getBackground(component);
-            SwingUtil.setBackground(component, this.hoverColor);
+            SwingUtil.setBackground(component, getDropIndicatorColor(component));
             this.dropTarget = component;
         }
+    }
+
+    /**
+     * @param dropTarget the drop target
+     * @return colorReject if the target is the same as the initial location, accept otherwise
+     */
+    private Color getDropIndicatorColor(final P dropTarget) {
+        return dropTarget == this.draggablePieceParent ? this.colorReject : this.colorAccept;
     }
 
     @Override

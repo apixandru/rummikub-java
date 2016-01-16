@@ -38,16 +38,8 @@ final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
         return fromBoard((CardSlot) card.getParent()) && !moveHelper.canInteractWithBoard();
     }
 
-
     @Override
-    protected void onDropped(final CardSlot target) {
-        transferTo(target);
-    }
-
-    /**
-     * @param destComponent
-     */
-    private void transferTo(final CardSlot destComponent) {
+    protected void onDropped(final CardSlot destComponent) {
         final int toX = destComponent.x;
         final int toY = destComponent.y;
         final int fromX = this.draggablePieceParent.x;
