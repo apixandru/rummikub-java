@@ -16,7 +16,6 @@
         <module>rummikub-connector-client</module>
         <module>rummikub-server</module>
         <module>rummikub-api</module>
-        <module>fieldserializer</module>
     </modules>
 
     <properties>
@@ -83,11 +82,23 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>com.apixandru.utils</groupId>
                 <artifactId>fieldserializer</artifactId>
-                <version>${project.version}</version>
+                <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+
+        <!--
+            This repository only hold compiled projects from https://github.com/apixandru
+        -->
+        <repository>
+            <id>dropbox</id>
+            <url>https://dl.dropboxusercontent.com/u/9134474/maven</url>
+        </repository>
+
+    </repositories>
 
 </project>
