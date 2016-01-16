@@ -28,6 +28,7 @@ final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
     private CardSlot dropTarget;
     private Color dropTargetOriginalColor;
 
+
     /**
      * @param dragSource
      * @param board
@@ -71,18 +72,7 @@ final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
     }
 
     @Override
-    public void mouseDragged(final MouseEvent e) {
-        if (this.draggablePiece == null) {
-            return;
-        }
-        updateMovingPieceLocation(e);
-        updateDropIndicator(e);
-    }
-
-    /**
-     * @param event
-     */
-    private void updateDropIndicator(final MouseEvent event) {
+    protected void updateDropIndicator(final MouseEvent event) {
         final CardSlot component = getComponentOrInitialLocation(event);
 
         if (this.dropTarget != component) {
@@ -98,21 +88,13 @@ final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
      */
     private void resetBackground() {
         SwingUtil.setBackground(this.dropTarget, this.dropTargetOriginalColor);
+        this.dropTarget = null;
     }
 
-    /* (non-Javadoc)
-     * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
-     */
     @Override
-    public void mouseReleased(final MouseEvent e) {
-        if (this.draggablePiece == null) {
-            return;
-        }
-        this.dragSource.endDrag(this.draggablePiece);
-        transferTo(getComponentOrInitialLocation(e));
+    protected void onDropped(final CardSlot target) {
+        transferTo(target);
         resetBackground();
-        this.draggablePiece = null;
-        this.dropTarget = null;
     }
 
     /**

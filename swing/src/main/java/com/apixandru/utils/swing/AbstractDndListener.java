@@ -37,6 +37,33 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
         return this.dragSource.getComponentAt(event.getX(), event.getY());
     }
 
+    @Override
+    public final void mouseDragged(final MouseEvent e) {
+        if (null == this.draggablePiece) {
+            return;
+        }
+        updateMovingPieceLocation(e);
+        updateDropIndicator(e);
+    }
+
+
+    /* (non-Javadoc)
+     * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
+     */
+    @Override
+    public void mouseReleased(final MouseEvent e) {
+        if (this.draggablePiece == null) {
+            return;
+        }
+        this.dragSource.endDrag(this.draggablePiece);
+        onDropped(getComponentOrInitialLocation(e));
+        this.draggablePiece = null;
+    }
+
+    /**
+     * @param target target
+     */
+    protected abstract void onDropped(final P target);
 
     /**
      * @param event mouse event
@@ -63,6 +90,10 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
      */
     protected abstract boolean canDrop(JComponent target);
 
+    /**
+     * @param event mouse event
+     */
+    protected abstract void updateDropIndicator(final MouseEvent event);
 
     /**
      * @param event mouse event
@@ -89,7 +120,6 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
      */
     protected final void computeHoverOffset(MouseEvent event) {
         final Point parentLocation = this.dragSource.getPosition(this.draggablePiece);
-
         this.xOffset = parentLocation.x - event.getX();
         this.yOffset = parentLocation.y - event.getY();
     }
