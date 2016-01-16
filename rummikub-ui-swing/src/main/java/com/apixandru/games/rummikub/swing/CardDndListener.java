@@ -50,7 +50,7 @@ final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
         if (null == card) {
             return;
         }
-        if (fromBoard((CardSlot) card.getParent()) && !moveHelper.canInteractWithBoard()) {
+        if (canDrag(card)) {
             return;
         }
         this.draggablePiece = card;
@@ -65,9 +65,11 @@ final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
         updateDropIndicator(e);
     }
 
-    /* (non-Javadoc)
-     * @see java.awt.event.MouseAdapter#mouseDragged(java.awt.event.MouseEvent)
-     */
+    @Override
+    protected boolean canDrag(final CardUi card) {
+        return fromBoard((CardSlot) card.getParent()) && !moveHelper.canInteractWithBoard();
+    }
+
     @Override
     public void mouseDragged(final MouseEvent e) {
         if (this.draggablePiece == null) {
@@ -141,23 +143,8 @@ final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
         }
     }
 
-    /**
-     * @param event
-     * @return
-     */
-    private CardSlot getComponentOrInitialLocation(final MouseEvent event) {
-        final JComponent component = getComponentAt(event);
-        if (null == component || !canDrop(component)) {
-            return this.draggablePieceParent;
-        }
-        return (CardSlot) component;
-    }
-
-    /**
-     * @param component
-     * @return
-     */
-    private boolean canDrop(JComponent component) {
+    @Override
+    protected boolean canDrop(JComponent component) {
         if (!(component instanceof CardSlot)) {
             return false;
         }

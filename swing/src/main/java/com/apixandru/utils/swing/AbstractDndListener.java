@@ -33,7 +33,7 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
      * @param event mouse event
      * @return component
      */
-    protected final JComponent getComponentAt(final MouseEvent event) {
+    private JComponent getComponentAt(final MouseEvent event) {
         return this.dragSource.getComponentAt(event.getX(), event.getY());
     }
 
@@ -52,12 +52,37 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
     }
 
     /**
+     * @param draggable the draggable piece
+     * @return can drag
+     */
+    protected abstract boolean canDrag(C draggable);
+
+    /**
+     * @param target the drop candidate
+     * @return can drop
+     */
+    protected abstract boolean canDrop(JComponent target);
+
+
+    /**
+     * @param event mouse event
+     * @return the component or initial location
+     */
+    @SuppressWarnings("unchecked")
+    protected final P getComponentOrInitialLocation(final MouseEvent event) {
+        final JComponent component = getComponentAt(event);
+        if (null == component || !canDrop(component)) {
+            return this.draggablePieceParent;
+        }
+        return (P) component;
+    }
+
+    /**
      * @param event mouse event
      */
     protected final void updateMovingPieceLocation(final MouseEvent event) {
         this.draggablePiece.setLocation(event.getX() + xOffset, event.getY() + yOffset);
     }
-
 
     /**
      * @param event mouse event
