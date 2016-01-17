@@ -42,33 +42,40 @@ final class ServerData {
     public static ConnectionData getConnectionData() {
         final Preferences prefs = Preferences.userNodeForPackage(ServerData.class);
 
-        final JTextField tfUsername = newField(prefs, KEY_USERNAME);
-        final JTextField tfAddress = newField(prefs, KEY_ADDRESS);
+        String address = System.getProperty("rk.address");
+        String username = System.getProperty("rk.user");
+
+        final JTextField tfUsername = newField(prefs, KEY_USERNAME, username);
+        final JTextField tfAddress = newField(prefs, KEY_ADDRESS, address);
+
+        boolean showDialog = null == address || null == username;
 
         while (true) {
-            final int option = JOptionPane.showOptionDialog(
-                    null,
-                    createLoginPanel(tfUsername, tfAddress),
-                    "Connection Data",
-                    OK_CANCEL_OPTION,
-                    QUESTION_MESSAGE,
-                    null,
-                    OPTIONS,
-                    OPT_CONNECT);
+            if (showDialog) {
+                final int option = JOptionPane.showOptionDialog(
+                        null,
+                        createLoginPanel(tfUsername, tfAddress),
+                        "Connection Data",
+                        OK_CANCEL_OPTION,
+                        QUESTION_MESSAGE,
+                        null,
+                        OPTIONS,
+                        OPT_CONNECT);
 
-            if (CHOICE_CONNECT != option) {
-                return null;
+                if (CHOICE_CONNECT != option) {
+                    return null;
+                }
+
+                address = tfAddress.getText();
+                username = tfUsername.getText();
+
+                prefs.put(KEY_ADDRESS, address);
+                prefs.put(KEY_USERNAME, username);
             }
-
-            final String address = tfAddress.getText();
-            final String username = tfUsername.getText();
-
-            prefs.put(KEY_ADDRESS, address);
-            prefs.put(KEY_USERNAME, username);
-
             try {
                 return new ConnectionData(new Socket(address, 50122), username);
             } catch (IOException ex) {
+                showDialog = true;
                 log.debug("Could not connect to " + address);
                 JOptionPane.showMessageDialog(null,
                         "Cannot connect to " + address + "!",
@@ -105,10 +112,11 @@ final class ServerData {
     /**
      * @param prefs
      * @param key
+     * @param override
      * @return
      */
-    private static JTextField newField(final Preferences prefs, final String key) {
-        return new JTextField(prefs.get(key, ""));
+    private static JTextField newField(final Preferences prefs, final String key, final String override) {
+        return new JTextField(null == override ? prefs.get(key, "") : override);
     }
 
     /**
