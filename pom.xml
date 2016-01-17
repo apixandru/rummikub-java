@@ -16,7 +16,6 @@
         <module>rummikub-connector-client</module>
         <module>rummikub-server</module>
         <module>rummikub-api</module>
-        <module>swing</module>
     </modules>
 
     <properties>
@@ -88,7 +87,7 @@
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>com.apixandru.utils</groupId>
                 <artifactId>swing</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
@@ -101,8 +100,8 @@
             This repository only hold compiled projects from https://github.com/apixandru
         -->
         <repository>
-            <id>dropbox</id>
-            <url>https://dl.dropboxusercontent.com/u/9134474/maven</url>
+            <id>apixandru-snapshots</id>
+            <url>http://maven.vampirefox.com</url>
         </repository>
 
     </repositories>
