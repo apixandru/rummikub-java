@@ -52,7 +52,12 @@ public final class Main {
         final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
 
-        final JLayeredPane layeredPane = new JLayeredPane();
+        final JLayeredPane layeredPane = new JLayeredPane() {
+            @Override
+            public String toString() {
+                return "the drag layer";
+            }
+        };
         layeredPane.add(board, JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(player, JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(comp);

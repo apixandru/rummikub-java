@@ -48,13 +48,12 @@ public class ComponentDragSource<C extends Component> implements DragSource<C> {
 
     @Override
     public void beginDrag(final C component) {
-        this.parent.add(component, JLayeredPane.DRAG_LAYER);
+        SwingUtil.addAndNotify(component, this.parent, JLayeredPane.DRAG_LAYER);
     }
 
     @Override
     public void endDrag(final C component) {
-        this.parent.remove(component);
-        SwingUtil.setChanged(this.parent);
+        SwingUtil.removeAndNotify(component, this.parent);
     }
 
 }

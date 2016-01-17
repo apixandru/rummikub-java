@@ -48,26 +48,24 @@ final class UiUtil {
      * @param card
      * @param slot
      */
-    public static void placeCard(final CardUi card, final CardSlot slot) {
-        log.debug("Place card request for " + card.card + " on (" + slot.x + ", " + slot.y + ")");
-        slot.add(card);
-        SwingUtil.setChanged(slot);
+    public static void placeCard(final Card card, final CardSlot slot) {
+        placeCard(CardUi.of(card), slot);
     }
 
     /**
      * @param card
      * @param slot
      */
-    public static void placeCard(final Card card, final CardSlot slot) {
-        placeCard(CardUi.of(card), slot);
+    public static void placeCard(final CardUi card, final CardSlot slot) {
+        SwingUtil.addAndNotify(card, slot);
     }
 
     /**
+     * @param card
      * @param slot
      */
-    public static void removeCard(final CardSlot slot) {
-        slot.removeAll();
-        SwingUtil.setChanged(slot);
+    public static void removeCard(final Card card, final CardSlot slot) {
+        SwingUtil.removeAndNotify(CardUi.of(card), slot);
     }
 
 }

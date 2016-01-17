@@ -82,4 +82,8 @@ final class CardUi extends JPanel {
         return cardUi;
     }
 
+    @Override
+    public String toString() {
+        return card.toString();
+    }
 }

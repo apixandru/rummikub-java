@@ -23,4 +23,9 @@ final class CardSlot extends JPanel {
         this.y = y;
     }
 
+    @Override
+    public String toString() {
+        return String.format("(%d, %d)", x, y);
+    }
+
 }

@@ -45,7 +45,7 @@ final class GameListener implements BoardCallback, GameEventListener, MoveHelper
 
     @Override
     public void onCardRemovedFromBoard(final Card card, final int x, final int y, final boolean reset) {
-        UiUtil.removeCard(board.slots[y][x]);
+        UiUtil.removeCard(card, board.slots[y][x]);
         this.cardsJustPlacedOnBoard.remove(card);
         if (reset) {
             this.cardsLockedOnBoard.remove(card);
