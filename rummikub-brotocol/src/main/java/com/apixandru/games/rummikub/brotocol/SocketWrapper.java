@@ -26,38 +26,21 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
         this.socket = socket;
 
         this.out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        flush(); // send out the stream header
+        this.out.flush(); // send out the stream header
 
         this.in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
     }
 
-    private int readInt() throws IOException {
-        return this.in.readInt();
-    }
-
     public String readString() throws IOException {
-        final int length = readInt();
-        final StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            sb.append((char) readInt());
-        }
-        return sb.toString();
-    }
-
-    private void write(final int... ints) {
-        try {
-            for (int oneInt : ints) {
-                this.out.writeInt(oneInt);
-            }
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
+        return this.in.readUTF();
     }
 
     public void write(final String string) {
-        write(string.length());
-        for (char c : string.toCharArray()) {
-            write((int) c);
+        try {
+            this.out.writeUTF(string);
+            this.out.flush();
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
         }
     }
 
@@ -68,7 +51,6 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
                 serializer.serialize(packet, out);
             }
         } catch (IOException e) {
-            throw new IllegalStateException(e);
         }
     }
 
@@ -76,15 +58,6 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
     public synchronized Packet readPacket() throws IOException {
         synchronized (in) {
             return serializer.deserialize(in);
-        }
-    }
-
-    public void flush() {
-        try {
-            this.out.flush();
-        } catch (IOException e) {
-//            deez exceptions happen
-            throw new IllegalStateException(e);
         }
     }
 

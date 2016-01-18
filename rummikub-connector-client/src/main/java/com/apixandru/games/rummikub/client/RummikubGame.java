@@ -32,7 +32,6 @@ final class RummikubGame {
      */
     private static void sendPlayerName(final String playerName, final SocketWrapper wrapper) {
         wrapper.write(playerName);
-        wrapper.flush();
     }
 
 }
