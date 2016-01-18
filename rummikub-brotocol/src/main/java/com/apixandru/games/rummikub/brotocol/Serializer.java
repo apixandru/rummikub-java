@@ -1,8 +1,8 @@
 package com.apixandru.games.rummikub.brotocol;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -15,13 +15,13 @@ public interface Serializer {
      * @param output
      * @throws IOException
      */
-    void serialize(Packet packet, ObjectOutput output) throws IOException;
+    void serialize(Packet packet, DataOutputStream output) throws IOException;
 
     /**
      * @param input
      * @return
      * @throws IOException
      */
-    Packet deserialize(ObjectInput input) throws IOException;
+    Packet deserialize(DataInputStream input) throws IOException;
 
 }

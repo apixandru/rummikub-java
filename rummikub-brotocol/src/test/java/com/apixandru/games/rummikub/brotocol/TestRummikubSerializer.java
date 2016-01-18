@@ -7,9 +7,9 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -65,13 +65,13 @@ public final class TestRummikubSerializer {
     private <P extends Packet> P transport(final P packet) throws IOException {
         final byte[] bytes;
         try (final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-             final ObjectOutputStream daos = new ObjectOutputStream(baos)) {
+             final DataOutputStream daos = new DataOutputStream(baos)) {
             rummikubSerializer.serialize(packet, daos);
             bytes = baos.toByteArray();
         }
 
         try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-             final ObjectInputStream dais = new ObjectInputStream(bais)) {
+             final DataInputStream dais = new DataInputStream(bais)) {
             final Packet deserialized = rummikubSerializer.deserialize(dais);
             assertNotNull(deserialized);
             return (P) deserialized;

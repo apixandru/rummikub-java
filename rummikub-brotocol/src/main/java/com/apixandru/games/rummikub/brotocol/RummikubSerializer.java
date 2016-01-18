@@ -13,9 +13,9 @@ import com.apixandru.games.rummikub.brotocol.server.PacketReceiveCard;
 import com.apixandru.utils.fieldserializer.FieldSerializer;
 import com.apixandru.utils.fieldserializer.FieldSerializerImpl;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,17 +65,17 @@ final class RummikubSerializer implements Serializer {
     }
 
     @Override
-    public void serialize(final Packet packet, final ObjectOutput output) throws IOException {
+    public void serialize(final Packet packet, final DataOutputStream output) throws IOException {
         final int value = packet.getClass().getAnnotation(Header.class).value();
-        output.write(value);
+        output.writeByte(value);
         serializer.writeFields(packet, output);
         output.flush();
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public Packet deserialize(final ObjectInput input) throws IOException {
-        final int read = input.read();
+    public Packet deserialize(final DataInputStream input) throws IOException {
+        final int read = input.readByte();
         final Class<Packet> clasz = packets.get(read);
         return serializer.readFields(clasz, input);
     }

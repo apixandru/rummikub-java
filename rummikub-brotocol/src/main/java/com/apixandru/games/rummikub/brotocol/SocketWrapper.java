@@ -2,9 +2,9 @@ package com.apixandru.games.rummikub.brotocol;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
@@ -16,8 +16,8 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
     private final Serializer serializer = new RummikubSerializer();
 
     private final Socket socket;
-    private final ObjectInputStream in;
-    private final ObjectOutputStream out;
+    private final DataInputStream in;
+    private final DataOutputStream out;
 
     /**
      * @param socket the socket to wrap
@@ -25,10 +25,10 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
     public SocketWrapper(final Socket socket) throws IOException {
         this.socket = socket;
 
-        this.out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        flush(); // send out the object stream header
+        this.out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        flush(); // send out the stream header
 
-        this.in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+        this.in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
     }
 
     private int readInt() throws IOException {
