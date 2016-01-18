@@ -85,7 +85,7 @@ public final class BoardTest {
     }
 
     /**
-     * Position B should be taken if a card was moved from positon A to position B.
+     * Position B should be taken if a card was moved from position A to position B.
      */
     @Test
     public void testMoveCardOnBoard() {

@@ -51,6 +51,7 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
                 serializer.serialize(packet, out);
             }
         } catch (IOException e) {
+            throw new IllegalStateException("Failed to send packet", e);
         }
     }
 

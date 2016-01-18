@@ -18,8 +18,6 @@ import static com.apixandru.games.rummikub.swing.UiConstants.FONT_SCALE;
  */
 final class UiUtil {
 
-    private static final Logger log = LoggerFactory.getLogger(UiUtil.class);
-
     public static final Font CARD_FONT = new Font(null, Font.BOLD, (int) (32 * FONT_SCALE));
 
     /**
