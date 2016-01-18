@@ -17,6 +17,6 @@ public @interface Header {
     /**
      * @return
      */
-    int value();
+    Brotocol value();
 
 }

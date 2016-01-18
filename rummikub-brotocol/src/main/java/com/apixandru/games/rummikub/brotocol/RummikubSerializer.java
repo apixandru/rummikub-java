@@ -61,12 +61,12 @@ final class RummikubSerializer implements Serializer {
      * @param packetClass
      */
     private void register(final Class<? extends Packet> packetClass) {
-        this.packets.put(packetClass.getAnnotation(Header.class).value(), packetClass);
+        this.packets.put(packetClass.getAnnotation(Header.class).value().ordinal(), packetClass);
     }
 
     @Override
     public void serialize(final Packet packet, final DataOutputStream output) throws IOException {
-        final int value = packet.getClass().getAnnotation(Header.class).value();
+        final int value = packet.getClass().getAnnotation(Header.class).value().ordinal();
         output.writeByte(value);
         serializer.writeFields(packet, output);
         output.flush();
