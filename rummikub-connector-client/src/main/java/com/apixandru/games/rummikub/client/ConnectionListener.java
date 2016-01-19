@@ -9,6 +9,6 @@ public interface ConnectionListener {
     /**
      *
      */
-    void onDisconnected();
+    void onConnectionLost();
 
 }

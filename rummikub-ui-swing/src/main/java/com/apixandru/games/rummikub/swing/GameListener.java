@@ -89,7 +89,7 @@ final class GameListener implements BoardCallback, GameEventListener, MoveHelper
     }
 
     @Override
-    public void onDisconnected() {
+    public void onConnectionLost() {
         JOptionPane.showMessageDialog(frame,
                 "You have been disconnected from the server. Press OK to exit.",
                 "Disconnected",

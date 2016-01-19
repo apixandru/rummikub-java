@@ -5,8 +5,6 @@ package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.utils.swing.SwingUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 

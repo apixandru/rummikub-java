@@ -44,6 +44,8 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private final List<H> hints;
     private final ConnectionListener connectionListener;
 
+    private boolean continueReading = true;
+
     /**
      * @param connector the connector
      * @param reader    the reader
@@ -71,17 +73,18 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     @SuppressWarnings("unchecked")
     public void run() {
         try (final Closeable closeMe = this.reader) {
-            while (true) {
+            while (continueReading) {
                 final Packet input = reader.readPacket();
                 final PacketHandler packetHandler = handlers.get(input.getClass());
                 packetHandler.handle(input);
             }
         } catch (final EOFException e) {
             log.debug("Server was shutdown?", e);
+            this.connectionListener.onConnectionLost();
         } catch (final IOException e) {
             log.error("Unknown exception", e);
+            this.connectionListener.onConnectionLost();
         }
-        this.connectionListener.onDisconnected();
     }
 
     private class CardPlacedHandler implements PacketHandler<PacketCardPlaced> {
@@ -120,6 +123,8 @@ final class PlayerCallbackAdapter<H> implements Runnable {
             final boolean me = packet.me;
             log.debug("Received gameOver(player={}, quit={}, me={})", player, quit, me);
             gameEventListener.gameOver(player, quit, me);
+
+            continueReading = false;
         }
     }
 
