@@ -14,6 +14,7 @@ import com.apixandru.utils.fieldserializer.FieldSerializer;
 import com.apixandru.utils.fieldserializer.FieldSerializerImpl;
 
 import java.io.DataInputStream;
+import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -40,8 +41,11 @@ final class RummikubSerializer implements Serializer {
             return -1 == i ? null : i;
         });
 
-        serializer.register(Card.class, (card, output) -> output.writeInt(CARDS.indexOf(card)));
-        serializer.register(Card.class, input -> CARDS.get(input.readInt()));
+        serializer.register(Card.class, (card, output) -> writeSafeByte(CARDS.indexOf(card), output));
+        serializer.register(Card.class, input -> CARDS.get(input.readByte()));
+
+        serializer.register(int.class, RummikubSerializer::writeSafeByte);
+        serializer.register(int.class, dataInput -> (int) dataInput.readByte());
 
         this.serializer = serializer;
 
@@ -55,6 +59,19 @@ final class RummikubSerializer implements Serializer {
         register(PacketCardPlaced.class);
         register(PacketCardRemoved.class);
         register(PacketReceiveCard.class);
+    }
+
+    /**
+     * @param intValue
+     * @param output
+     * @throws IOException
+     */
+    private static void writeSafeByte(final int intValue, final DataOutput output) throws IOException {
+        final byte byteValue = (byte) intValue;
+        if (byteValue != intValue) {
+            throw new IllegalArgumentException();
+        }
+        output.writeByte(byteValue);
     }
 
     /**
