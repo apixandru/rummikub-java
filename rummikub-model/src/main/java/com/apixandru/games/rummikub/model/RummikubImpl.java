@@ -30,8 +30,6 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     PlayerImpl currentPlayer;
 
-    private boolean gameOver;
-
     /**
      *
      */
@@ -61,7 +59,6 @@ final class RummikubImpl implements Rummikub<Integer> {
             this.gameEventListeners.forEach(
                     (player, listener) -> listener.gameOver(playerName, false, player == this.currentPlayer)
             );
-            this.gameOver = true;
             return;
         }
         setNextPlayer();
@@ -136,7 +133,6 @@ final class RummikubImpl implements Rummikub<Integer> {
             this.gameEventListeners.forEach(
                     (player1, listener) -> listener.gameOver(playerName, true, false)
             );
-            this.gameOver = true;
         }
     }
 

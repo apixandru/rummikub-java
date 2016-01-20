@@ -1,7 +1,6 @@
 package com.apixandru.games.rummikub.model;
 
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.model.util.Util;
 
 import java.util.ArrayList;
 import java.util.Arrays;

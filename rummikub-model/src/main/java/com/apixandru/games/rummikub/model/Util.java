@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.model.util;
+package com.apixandru.games.rummikub.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since November 22, 2015
  */
-public final class Util {
+final class Util {
 
     private Util() {
     }
@@ -20,7 +20,7 @@ public final class Util {
      * @return
      */
     @SafeVarargs
-    public static <E> List<List<E>> splitNonEmptyGroups(E... list) {
+    static <E> List<List<E>> splitNonEmptyGroups(E... list) {
         List<List<E>> result = new ArrayList<>();
         List<E> elementList = new ArrayList<>();
         for (E element : Arrays.asList(list)) {
@@ -45,7 +45,7 @@ public final class Util {
      * @param <E>
      * @return
      */
-    public static <E> List<E> revertedCopy(List<E> list) {
+    static <E> List<E> revertedCopy(List<E> list) {
         if (null == list) {
             return Collections.emptyList();
         }
@@ -59,7 +59,7 @@ public final class Util {
      * @param <E>
      * @return
      */
-    public static <E> E[][] copyOf(final E[][] array) {
+    static <E> E[][] copyOf(final E[][] array) {
         final E[][] es = Arrays.copyOf(array, array.length);
         for (int i = 0; i < es.length; i++) {
             es[i] = Arrays.copyOf(es[i], es[i].length);
