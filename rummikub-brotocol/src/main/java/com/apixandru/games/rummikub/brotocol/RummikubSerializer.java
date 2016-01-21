@@ -1,6 +1,7 @@
 package com.apixandru.games.rummikub.brotocol;
 
 import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.games.rummikub.brotocol.client.PacketEndTurn;
 import com.apixandru.games.rummikub.brotocol.client.PacketMoveCard;
 import com.apixandru.games.rummikub.brotocol.client.PacketPlaceCard;
@@ -46,6 +47,9 @@ final class RummikubSerializer implements Serializer {
 
         serializer.register(int.class, RummikubSerializer::writeSafeByte);
         serializer.register(int.class, dataInput -> (int) dataInput.readByte());
+
+        serializer.register(GameOverReason.class, (reason, output) -> writeSafeByte(reason.ordinal(), output));
+        serializer.register(GameOverReason.class, input -> GameOverReason.values()[input.readByte()]);
 
         this.serializer = serializer;
 

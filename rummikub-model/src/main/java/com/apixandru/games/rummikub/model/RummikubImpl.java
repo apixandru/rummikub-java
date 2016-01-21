@@ -10,6 +10,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.apixandru.games.rummikub.api.GameOverReason.GAME_WON;
+import static com.apixandru.games.rummikub.api.GameOverReason.PLAYER_QUIT;
+
 /**
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
@@ -57,7 +60,7 @@ final class RummikubImpl implements Rummikub<Integer> {
         if (currentPlayer.cards.isEmpty()) {
             final String playerName = currentPlayer.getName();
             this.gameEventListeners.forEach(
-                    (player, listener) -> listener.gameOver(playerName, false, player == this.currentPlayer)
+                    (player, listener) -> listener.gameOver(playerName, GAME_WON, player == this.currentPlayer)
             );
             return;
         }
@@ -131,7 +134,7 @@ final class RummikubImpl implements Rummikub<Integer> {
             this.gameEventListeners.remove(player);
             final String playerName = player.getName();
             this.gameEventListeners.forEach(
-                    (player1, listener) -> listener.gameOver(playerName, true, false)
+                    (player1, listener) -> listener.gameOver(playerName, PLAYER_QUIT, false)
             );
         }
     }

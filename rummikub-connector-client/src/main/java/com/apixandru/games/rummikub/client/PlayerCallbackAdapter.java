@@ -3,6 +3,7 @@ package com.apixandru.games.rummikub.client;
 import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.GameEventListener;
+import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
@@ -119,10 +120,10 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         @Override
         public void handle(final PacketGameOver packet) {
             final String player = packet.player;
-            final boolean quit = packet.quit;
+            final GameOverReason reason = packet.reason;
             final boolean me = packet.me;
-            log.debug("Received gameOver(player={}, quit={}, me={})", player, quit, me);
-            gameEventListener.gameOver(player, quit, me);
+            log.debug("Received gameOver(player={}, reason={}, me={})", player, reason, me);
+            gameEventListener.gameOver(player, reason, me);
 
             continueReading = false;
         }

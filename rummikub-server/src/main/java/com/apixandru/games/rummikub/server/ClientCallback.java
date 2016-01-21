@@ -2,6 +2,7 @@ package com.apixandru.games.rummikub.server;
 
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.CompoundCallback;
+import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.games.rummikub.brotocol.PacketWriter;
 import com.apixandru.games.rummikub.brotocol.server.PacketCardPlaced;
 import com.apixandru.games.rummikub.brotocol.server.PacketCardRemoved;
@@ -71,11 +72,11 @@ final class ClientCallback implements CompoundCallback<Integer> {
     }
 
     @Override
-    public void gameOver(final String player, final boolean quit, final boolean me) {
-        log.debug("[{}] Sending gameOver(player={}, quit={}, me={})", playerName, player, quit, me);
+    public void gameOver(final String player, final GameOverReason reason, final boolean me) {
+        log.debug("[{}] Sending gameOver(player={}, reason={}, me={})", playerName, player, reason, me);
         final PacketGameOver packet = new PacketGameOver();
         packet.player = player;
-        packet.quit = quit;
+        packet.reason = reason;
         packet.me = me;
         packetWriter.writePacket(packet);
     }

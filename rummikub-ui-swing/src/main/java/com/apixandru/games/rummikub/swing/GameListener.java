@@ -3,6 +3,7 @@ package com.apixandru.games.rummikub.swing;
 import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.GameEventListener;
+import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.games.rummikub.client.ConnectionListener;
 
 import javax.swing.*;
@@ -71,18 +72,29 @@ final class GameListener implements BoardCallback, GameEventListener, MoveHelper
     }
 
     @Override
-    public void gameOver(final String player, final boolean quit, final boolean me) {
+    public void gameOver(final String player, final GameOverReason reason, final boolean me) {
         String message;
         int icon;
-        if (quit) {
-            message = player + " quit the game.";
-            icon = JOptionPane.ERROR_MESSAGE;
-        } else if (me) {
-            message = "You won!";
-            icon = JOptionPane.INFORMATION_MESSAGE;
-        } else {
-            message = player + " won.";
-            icon = JOptionPane.INFORMATION_MESSAGE;
+        switch (reason) {
+            case PLAYER_QUIT:
+                message = player + " quit the game.";
+                icon = JOptionPane.ERROR_MESSAGE;
+                break;
+            case GAME_WON:
+                if (me) {
+                    message = "You won!";
+                    icon = JOptionPane.INFORMATION_MESSAGE;
+                } else {
+                    message = player + " won.";
+                    icon = JOptionPane.INFORMATION_MESSAGE;
+                }
+                break;
+            case NO_MORE_CARDS:
+                message = "No more cards left!";
+                icon = JOptionPane.INFORMATION_MESSAGE;
+                break;
+            default:
+                throw new IllegalArgumentException(String.valueOf(reason));
         }
         JOptionPane.showMessageDialog(frame, message, "Game Over", icon);
         frame.dispose();

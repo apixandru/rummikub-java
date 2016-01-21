@@ -1,5 +1,6 @@
 package com.apixandru.games.rummikub.brotocol.server;
 
+import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.games.rummikub.brotocol.Header;
 import com.apixandru.games.rummikub.brotocol.Packet;
 
@@ -14,7 +15,7 @@ public class PacketGameOver implements Packet {
 
     public String player;
 
-    public boolean quit;
+    public GameOverReason reason;
 
     public boolean me;
 
