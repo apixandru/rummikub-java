@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.apixandru.games.rummikub.api.GameOverReason.GAME_WON;
+import static com.apixandru.games.rummikub.api.GameOverReason.NO_MORE_CARDS;
 import static com.apixandru.games.rummikub.api.GameOverReason.PLAYER_QUIT;
 
 /**
@@ -79,7 +80,15 @@ final class RummikubImpl implements Rummikub<Integer> {
      */
     private void giveCard(final PlayerImpl player) {
         if (!this.cardPile.hasMoreCards()) {
-            this.cardPile.setCards(this.board.removeAllCards());
+            final List<Card> cardsFromBoard = this.board.removeAllCards();
+            if (cardsFromBoard.isEmpty()) {
+                String playerName = player.getName();
+                this.gameEventListeners.forEach(
+                        (player1, listener) -> listener.gameOver(playerName, NO_MORE_CARDS, player1 == this.currentPlayer)
+                );
+                return;
+            }
+            this.cardPile.setCards(cardsFromBoard);
         }
         player.receiveCard(this.cardPile.nextCard());
     }
