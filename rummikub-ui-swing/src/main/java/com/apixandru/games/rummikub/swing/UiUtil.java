@@ -6,7 +6,8 @@ package com.apixandru.games.rummikub.swing;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.utils.swing.SwingUtil;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 
 import static com.apixandru.games.rummikub.swing.UiConstants.FONT_SCALE;
 

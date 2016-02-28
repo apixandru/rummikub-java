@@ -13,5 +13,6 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_NEW_TURN;
 public class PacketNewTurn implements Packet {
 
     public boolean myTurn;
+    public String playerName;
 
 }

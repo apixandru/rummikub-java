@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.swing;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import java.awt.GridLayout;
 
 import static com.apixandru.games.rummikub.api.Constants.NUM_COLS;
 import static com.apixandru.games.rummikub.swing.UiConstants.TILE_HEIGHT;

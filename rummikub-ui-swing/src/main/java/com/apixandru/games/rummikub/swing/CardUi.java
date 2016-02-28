@@ -5,9 +5,12 @@ package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Card;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
 

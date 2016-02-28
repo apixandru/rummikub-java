@@ -6,7 +6,9 @@ import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.games.rummikub.client.ConnectionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -35,7 +37,7 @@ final class GameListener implements BoardCallback, GameEventListener, MoveHelper
         this.frame = frame;
         this.board = board;
         this.btnEndTurn = btnEndTurn;
-        newTurn(false);
+        newTurn(null, false); // TODO something else to distinguish?
     }
 
     @Override
@@ -54,7 +56,7 @@ final class GameListener implements BoardCallback, GameEventListener, MoveHelper
     }
 
     @Override
-    public void newTurn(final boolean myTurn) {
+    public void newTurn(final String player, final boolean myTurn) {
         this.btnEndTurn.setEnabled(myTurn);
         this.myTurn.set(myTurn);
         this.cardsLockedOnBoard.addAll(this.cardsJustPlacedOnBoard);

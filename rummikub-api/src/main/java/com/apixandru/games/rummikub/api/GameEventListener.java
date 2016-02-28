@@ -7,9 +7,10 @@ package com.apixandru.games.rummikub.api;
 public interface GameEventListener {
 
     /**
+     * @param player the player
      * @param myTurn indicates if it's my turn
      */
-    void newTurn(boolean myTurn);
+    void newTurn(String player, boolean myTurn);
 
     /**
      * @param player the player that triggered the event

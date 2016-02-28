@@ -4,9 +4,16 @@ import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.client.RummikubConnector;
 import com.apixandru.utils.swing.ComponentDragSource;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.io.IOException;
 
 import static com.apixandru.games.rummikub.api.Constants.NUM_COLS;

@@ -7,7 +7,7 @@ import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.utils.swing.AbstractDndListener;
 import com.apixandru.utils.swing.DragSource;
 
-import javax.swing.*;
+import javax.swing.JComponent;
 
 /**
  * @author Alexandru-Constantin Bledea

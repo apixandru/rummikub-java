@@ -1,8 +1,9 @@
 package com.apixandru.games.rummikub.swing;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
 
 /**
  * @author Alexandru-Constantin Bledea

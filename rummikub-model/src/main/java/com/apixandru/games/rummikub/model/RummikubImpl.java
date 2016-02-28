@@ -110,8 +110,9 @@ final class RummikubImpl implements Rummikub<Integer> {
      *
      */
     private void signalNewTurn() {
+        final String currentPlayerName = this.currentPlayer.getName();
         this.gameEventListeners.forEach(
-                (player, listener) -> listener.newTurn(player == this.currentPlayer)
+                (player, listener) -> listener.newTurn(currentPlayerName, player == this.currentPlayer)
         );
     }
 

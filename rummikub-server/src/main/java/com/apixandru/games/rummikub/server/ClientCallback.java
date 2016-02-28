@@ -64,10 +64,11 @@ final class ClientCallback implements CompoundCallback<Integer> {
     }
 
     @Override
-    public void newTurn(final boolean myTurn) {
-        log.debug("[{}] Sending newTurn(myTurn={})", playerName, myTurn);
+    public void newTurn(final String player, final boolean myTurn) {
+        log.debug("[{}] Sending newTurn(player={}, myTurn={})", playerName, player, myTurn);
         final PacketNewTurn packet = new PacketNewTurn();
         packet.myTurn = myTurn;
+        packet.playerName = player;
         packetWriter.writePacket(packet);
     }
 

@@ -134,8 +134,9 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         @Override
         public void handle(final PacketNewTurn packet) {
             final boolean myTurn = packet.myTurn;
-            log.debug("Received newTurn(myTurn={})", myTurn);
-            gameEventListener.newTurn(myTurn);
+            final String playerName = packet.playerName;
+            log.debug("Received newTurn(player={}, myTurn={})", playerName, myTurn);
+            gameEventListener.newTurn(playerName, myTurn);
         }
     }
 
