@@ -2,6 +2,8 @@ package com.apixandru.games.rummikub.model;
 
 import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,9 +19,11 @@ import static com.apixandru.games.rummikub.api.Constants.NUM_ROWS;
  */
 final class Board {
 
-    private final List<BoardCallback> boardCallbacks = new ArrayList<>();
+    private static final Logger log = LoggerFactory.getLogger(Board.class);
 
     final Card[][] cards;
+
+    private final List<BoardCallback> boardCallbacks = new ArrayList<>();
 
     /**
      *
@@ -98,7 +102,11 @@ final class Board {
      */
     void moveCard(final int fromX, final int fromY, final int toX, final int toY) {
         final Card card = removeCard(fromX, fromY);
-        placeCard(card, toX, toY);
+        if (!placeCard(card, toX, toY)) {
+            final boolean inBounds = inBounds(toX, toY);
+            final boolean free = isFree(toX, toY);
+            log.error("Cannot place {} on board. inBounds={}, free={}, cards[y][x]={}", card, inBounds, free, cards[toX][toY]);
+        }
     }
 
     /**
