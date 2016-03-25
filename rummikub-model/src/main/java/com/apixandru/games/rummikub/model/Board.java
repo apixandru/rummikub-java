@@ -105,7 +105,7 @@ final class Board {
         if (!placeCard(card, toX, toY)) {
             final boolean inBounds = inBounds(toX, toY);
             final boolean free = isFree(toX, toY);
-            log.error("Cannot place {} on board. inBounds={}, free={}, cards[y][x]={}", card, inBounds, free, cards[toX][toY]);
+            log.error("Cannot place {} on board. inBounds={}, free={}, cards[{}][{}]={}", card, inBounds, free, toX, toY, cards[toY][toX]);
         }
     }
 
