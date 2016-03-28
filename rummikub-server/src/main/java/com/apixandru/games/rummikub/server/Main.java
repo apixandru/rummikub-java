@@ -7,7 +7,7 @@ import java.net.ServerSocket;
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-public class Main {
+class Main {
 
     public static void main(String[] args) throws IOException {
 

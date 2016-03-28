@@ -26,7 +26,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  * @author Alexandru-Constantin Bledea
  * @since Oct 15, 2015
  */
-public final class Main {
+final class Main {
 
     private static final int BOARD_WIDTH = NUM_COLS * TILE_WIDTH;
 
