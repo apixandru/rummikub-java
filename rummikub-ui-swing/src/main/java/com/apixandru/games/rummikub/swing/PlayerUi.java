@@ -14,17 +14,10 @@ import java.util.stream.Stream;
  */
 class PlayerUi extends JGridPanel implements PlayerCallback<CardSlot> {
 
-    /**
-     *
-     */
     PlayerUi() {
         super(3, 7);
     }
 
-    /**
-     * @param slot
-     * @return
-     */
     private CardSlot orFirstFreeSlot(final CardSlot slot) {
         if (null != slot) {
             return slot;
@@ -35,17 +28,11 @@ class PlayerUi extends JGridPanel implements PlayerCallback<CardSlot> {
                 .get();
     }
 
-    /**
-     * @return
-     */
     private Stream<CardSlot> getCardSlotStream() {
         return Arrays.stream(this.slots)
                 .flatMap(Arrays::stream);
     }
 
-    /**
-     * @return
-     */
     List<CardSlot> getAllSlots() {
         return getCardSlotStream().collect(Collectors.toList());
     }

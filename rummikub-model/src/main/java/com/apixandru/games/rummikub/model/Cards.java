@@ -19,15 +19,9 @@ import java.util.function.Function;
  */
 final class Cards {
 
-    /**
-     *
-     */
     private Cards() {
     }
 
-    /**
-     * @return
-     */
     static boolean isDifferentColors(final Collection<Card> cards) {
         final Collection<Color> colors = new HashSet<>();
         for (final Card card : cards) {
@@ -43,26 +37,14 @@ final class Cards {
         return true;
     }
 
-    /**
-     * @param cards
-     * @return
-     */
     static boolean isSameRanks(final Collection<Card> cards) {
         return haveSameProperties(cards, Card::getRank);
     }
 
-    /**
-     * @return
-     */
     static boolean isAllSameColor(final Collection<Card> cards) {
         return haveSameProperties(cards, Card::getColor);
     }
 
-    /**
-     * @param cards
-     * @param function
-     * @return
-     */
     private static boolean haveSameProperties(final Collection<Card> cards, final Function<Card, ?> function) {
 //        if all were the same property then it would return 1, if there were only jokers it would return 0
         return cards
@@ -73,10 +55,6 @@ final class Cards {
                 .count() < 2;
     }
 
-    /**
-     * @param cards
-     * @return
-     */
     static boolean isAscendingRanks(final List<Card> cards) {
         Rank expected = null;
         boolean first = true;
@@ -100,9 +78,6 @@ final class Cards {
     }
 
 
-    /**
-     * @return
-     */
     private static Rank next(final Rank rank) {
         final Rank[] values = Rank.values();
         if (null == rank || rank.ordinal() >= values.length - 1) {

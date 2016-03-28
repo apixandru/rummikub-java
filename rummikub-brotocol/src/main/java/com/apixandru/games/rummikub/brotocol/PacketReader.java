@@ -9,10 +9,6 @@ import java.io.IOException;
  */
 public interface PacketReader extends Closeable {
 
-    /**
-     * @return packet
-     * @throws IOException
-     */
     Packet readPacket() throws IOException;
 
 }

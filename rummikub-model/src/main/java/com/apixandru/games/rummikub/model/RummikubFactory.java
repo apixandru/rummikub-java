@@ -6,15 +6,9 @@ package com.apixandru.games.rummikub.model;
  */
 public final class RummikubFactory {
 
-    /**
-     *
-     */
     private RummikubFactory() {
     }
 
-    /**
-     * @return
-     */
     public static Rummikub<Integer> newInstance() {
         return new RummikubImpl();
     }

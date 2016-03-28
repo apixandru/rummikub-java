@@ -11,9 +11,6 @@ final class RummikubUi {
     private RummikubUi() {
     }
 
-    /**
-     * @return
-     */
     static JGridPanel newBoard() {
         return new JGridPanel(NUM_ROWS, 0);
     }

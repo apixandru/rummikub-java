@@ -13,10 +13,6 @@ final class CardSlot extends JPanel {
 
     final int x, y;
 
-    /**
-     * @param x
-     * @param y
-     */
     CardSlot(final int x, final int y) {
         super(new BorderLayout());
         setBorder(new LineBorder(Color.LIGHT_GRAY));

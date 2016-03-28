@@ -23,73 +23,41 @@ public final class RummikubConnector<E> {
     ConnectionListener connectionListener;
     String playerName;
 
-    /**
-     * @param callback the callback
-     */
     private RummikubConnector(final PlayerCallback<E> callback) {
         this.callback = callback;
     }
 
-    /**
-     * @param connectionListener the connection listener
-     * @return this
-     */
+    public static <H> RummikubConnector<H> from(final PlayerCallback<H> callback) {
+        return new RummikubConnector<>(callback);
+    }
+
     public RummikubConnector<E> setConnectionListener(final ConnectionListener connectionListener) {
         this.connectionListener = connectionListener;
         return this;
     }
 
-    /**
-     * @param hints the client hints
-     * @return this
-     */
     public RummikubConnector<E> setHints(final List<E> hints) {
         this.hints = hints;
         return this;
     }
 
-    /**
-     * @param name the player name
-     * @return this
-     */
     public RummikubConnector<E> setPlayerName(final String name) {
         this.playerName = name;
         return this;
     }
 
-    /**
-     * @param boardCallback the board callback
-     * @return this
-     */
     public RummikubConnector<E> setBoardCallback(final BoardCallback boardCallback) {
         this.boardCallback = boardCallback;
         return this;
     }
 
-    /**
-     * @param gameEventListener the game event listener
-     * @return this
-     */
     public RummikubConnector<E> setGameEventListener(final GameEventListener gameEventListener) {
         this.gameEventListener = gameEventListener;
         return this;
     }
 
-    /**
-     * @param socket the socket
-     * @return this
-     * @throws IOException
-     */
     public Player<E> link(final Socket socket) throws IOException {
         return RummikubGame.connect(this, socket);
-    }
-
-    /**
-     * @param callback the player callback
-     * @return a new rummikub connector
-     */
-    public static <H> RummikubConnector<H> from(final PlayerCallback<H> callback) {
-        return new RummikubConnector<>(callback);
     }
 
 }

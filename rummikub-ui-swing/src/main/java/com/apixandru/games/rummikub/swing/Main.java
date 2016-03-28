@@ -30,9 +30,6 @@ public final class Main {
 
     private static final int BOARD_WIDTH = NUM_COLS * TILE_WIDTH;
 
-    /**
-     * @param args
-     */
     public static void main(final String[] args) throws IOException {
         final ServerData.ConnectionData connectionData = ServerData.getConnectionData();
         if (null == connectionData) {
@@ -86,11 +83,6 @@ public final class Main {
 
     }
 
-    /**
-     * @param btnEndTurn
-     * @param actualPlayer
-     * @return
-     */
     private static JPanel createMiddlePanel(final JButton btnEndTurn, final Player<CardSlot> actualPlayer) {
         final JPanel panel = new JPanel();
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -101,10 +93,6 @@ public final class Main {
         return panel;
     }
 
-    /**
-     * @param container
-     * @return
-     */
     private static Dimension computeSize(Container container) {
         int width = 0;
         int height = 0;

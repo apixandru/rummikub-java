@@ -19,9 +19,6 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
     private final DataInputStream in;
     private final DataOutputStream out;
 
-    /**
-     * @param socket the socket to wrap
-     */
     public SocketWrapper(final Socket socket) throws IOException {
         this.socket = socket;
 

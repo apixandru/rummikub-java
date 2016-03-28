@@ -21,11 +21,6 @@ final class SocketPlayer<H> implements Player<H> {
     private final String playerName;
     private final List<H> hints;
 
-    /**
-     * @param playerName the player name
-     * @param writer     the writer
-     * @param hints      the client hints
-     */
     SocketPlayer(final String playerName, final PacketWriter writer, final List<H> hints) {
         this.writer = writer;
         this.hints = hints;

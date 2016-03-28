@@ -9,16 +9,8 @@ import com.apixandru.games.rummikub.api.Player;
  */
 public interface Rummikub<H> {
 
-    /**
-     * @param name
-     * @param callback
-     * @return
-     */
     Player<H> addPlayer(String name, CompoundCallback<H> callback);
 
-    /**
-     * @param player
-     */
     void removePlayer(Player<H> player);
 
 }

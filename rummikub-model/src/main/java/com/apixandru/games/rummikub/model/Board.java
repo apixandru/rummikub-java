@@ -25,38 +25,19 @@ final class Board {
 
     private final List<BoardCallback> boardCallbacks = new ArrayList<>();
 
-    /**
-     *
-     */
     Board() {
         this.cards = new Card[NUM_ROWS][NUM_COLS];
     }
 
-    /**
-     * @param x
-     * @param y
-     * @return
-     */
     private boolean inBounds(final int x, final int y) {
         return y < NUM_ROWS && x < NUM_COLS;
     }
 
-    /**
-     * @param x
-     * @param y
-     * @return
-     */
     boolean isFree(int x, int y) {
         return null == cards[y][x];
     }
 
 
-    /**
-     * @param card
-     * @param x
-     * @param y
-     * @return
-     */
     boolean placeCard(Card card, int x, int y) {
         if (!inBounds(x, y)) {
             return false;
@@ -71,11 +52,6 @@ final class Board {
         return true;
     }
 
-    /**
-     * @param x
-     * @param y
-     * @return
-     */
     private Card removeCard(final int x, final int y, final boolean unlock) {
         final Card card = cards[y][x];
         for (final BoardCallback boardCallback : boardCallbacks) {
@@ -85,21 +61,10 @@ final class Board {
         return card;
     }
 
-    /**
-     * @param x
-     * @param y
-     * @return
-     */
     Card removeCard(final int x, final int y) {
         return removeCard(x, y, false);
     }
 
-    /**
-     * @param fromX
-     * @param fromY
-     * @param toX
-     * @param toY
-     */
     void moveCard(final int fromX, final int fromY, final int toX, final int toY) {
         final Card card = removeCard(fromX, fromY);
         if (!placeCard(card, toX, toY)) {
@@ -110,16 +75,10 @@ final class Board {
         }
     }
 
-    /**
-     * @return
-     */
     boolean isValid() {
         return streamGroups().allMatch(CardGroup::isValid);
     }
 
-    /**
-     * @return
-     */
     Stream<CardGroup> streamGroups() {
         return Arrays.stream(cards)
                 .map(Util::splitNonEmptyGroups)
@@ -127,9 +86,6 @@ final class Board {
                 .map(CardGroup::new);
     }
 
-    /**
-     * @return
-     */
     List<Card> removeAllCards() {
         final List<Card> cards = new ArrayList<>();
         for (int y = 0; y < NUM_ROWS; y++) {
@@ -142,9 +98,6 @@ final class Board {
         return cards;
     }
 
-    /**
-     * @param boardCallback
-     */
     void addBoardListener(final BoardCallback boardCallback) {
         if (null != boardCallback) {
             this.boardCallbacks.add(boardCallback);

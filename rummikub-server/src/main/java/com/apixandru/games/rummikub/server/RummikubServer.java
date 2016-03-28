@@ -19,9 +19,6 @@ final class RummikubServer {
 
     private static final Logger log = LoggerFactory.getLogger(RummikubServer.class);
 
-    /**
-     * @param serverSocket the server socket
-     */
     RummikubServer(final ServerSocket serverSocket) throws IOException {
         log.debug("Listening on port {}", serverSocket.getLocalPort());
 

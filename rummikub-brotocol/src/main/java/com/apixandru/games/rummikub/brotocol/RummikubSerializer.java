@@ -65,11 +65,6 @@ final class RummikubSerializer implements Serializer {
         register(PacketReceiveCard.class);
     }
 
-    /**
-     * @param intValue
-     * @param output
-     * @throws IOException
-     */
     private static void writeSafeByte(final int intValue, final DataOutput output) throws IOException {
         final byte byteValue = (byte) intValue;
         if (byteValue != intValue) {
@@ -78,9 +73,6 @@ final class RummikubSerializer implements Serializer {
         output.writeByte(byteValue);
     }
 
-    /**
-     * @param packetClass
-     */
     private void register(final Class<? extends Packet> packetClass) {
         this.packets.put(packetClass.getAnnotation(Header.class).value().ordinal(), packetClass);
     }

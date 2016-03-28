@@ -8,9 +8,6 @@ import java.io.Closeable;
  */
 public interface PacketWriter extends Closeable {
 
-    /**
-     * @param packet
-     */
     void writePacket(Packet packet);
 
 }

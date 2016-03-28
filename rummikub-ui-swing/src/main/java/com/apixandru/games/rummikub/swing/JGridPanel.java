@@ -15,10 +15,6 @@ class JGridPanel extends JPanel {
 
     final CardSlot[][] slots;
 
-    /**
-     * @param rows
-     * @param offset
-     */
     JGridPanel(final int rows, final int offset) {
         slots = new CardSlot[rows][NUM_COLS];
         setLayout(new GridLayout(rows, NUM_COLS));

@@ -19,17 +19,20 @@ final class UndoManager {
 
     private Card[][] cardsOnBoard;
 
-    /**
-     * @param action
-     */
+    private static long count(final Card[][] cards) {
+        return streamNotNull(cards).count();
+    }
+
+    private static Stream<Card> streamNotNull(final Card[][] cards) {
+        return Arrays.stream(cards)
+                .flatMap(Arrays::stream)
+                .filter(Objects::nonNull);
+    }
+
     void addAction(UndoAction action) {
         this.undoActions.add(action);
     }
 
-    /**
-     * @param player
-     * @param board
-     */
     void undo(PlayerImpl player, Board board) {
         for (UndoAction undoAction : Util.revertedCopy(this.undoActions)) {
             undoAction.undo(player, board);
@@ -37,53 +40,20 @@ final class UndoManager {
         reset(board);
     }
 
-    /**
-     * @param card
-     * @return
-     */
     boolean wasOnBoard(final Card card) {
         return streamNotNull(this.cardsOnBoard)
                 .collect(Collectors.toList())
                 .contains(card);
     }
 
-    /**
-     * @param board
-     * @return
-     */
     public boolean hasChanged(final Board board) {
         return !Arrays.deepEquals(board.cards, cardsOnBoard);
     }
 
-    /**
-     * @param board
-     * @return
-     */
     public boolean justMovedCards(final Board board) {
         return count(board.cards) == count(this.cardsOnBoard);
     }
 
-    /**
-     * @param cards
-     * @return
-     */
-    private static long count(final Card[][] cards) {
-        return streamNotNull(cards).count();
-    }
-
-
-    /**
-     * @return
-     */
-    private static Stream<Card> streamNotNull(final Card[][] cards) {
-        return Arrays.stream(cards)
-                .flatMap(Arrays::stream)
-                .filter(Objects::nonNull);
-    }
-
-    /**
-     * @param board
-     */
     void reset(final Board board) {
         this.cardsOnBoard = Util.copyOf(board.cards);
         this.undoActions.clear();

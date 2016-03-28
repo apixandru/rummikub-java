@@ -24,10 +24,6 @@ final class ClientCallback implements CompoundCallback<Integer> {
 
     private final String playerName;
 
-    /**
-     * @param playerName the player name
-     * @param writer     the writer
-     */
     ClientCallback(final String playerName, final PacketWriter writer) {
         this.packetWriter = writer;
         this.playerName = playerName;

@@ -28,11 +28,6 @@ final class GameListener implements BoardCallback, GameEventListener, MoveHelper
     private final AtomicBoolean myTurn = new AtomicBoolean();
     private final JFrame frame;
 
-    /**
-     * @param frame
-     * @param board
-     * @param btnEndTurn
-     */
     GameListener(final JFrame frame, final JGridPanel board, final JButton btnEndTurn) {
         this.frame = frame;
         this.board = board;

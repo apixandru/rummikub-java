@@ -21,9 +21,6 @@ final class CardGroup {
         this.cards = Collections.unmodifiableList(new ArrayList<>(cards));
     }
 
-    /**
-     * @return
-     */
     public boolean isValid() {
         if (size() < 3) {
             return false;
@@ -31,11 +28,6 @@ final class CardGroup {
         return isValidGroup() || isValidRun();
     }
 
-    /**
-     * A valid group cannot have more than one color repeating
-     *
-     * @return
-     */
     private boolean isValidGroup() {
         if (size() > 4) {
             return false;
@@ -46,11 +38,6 @@ final class CardGroup {
         return Cards.isSameRanks(cards);
     }
 
-    /**
-     * A valid run
-     *
-     * @return
-     */
     private boolean isValidRun() {
         if (!Cards.isAllSameColor(cards)) {
             return false;
@@ -58,9 +45,6 @@ final class CardGroup {
         return Cards.isAscendingRanks(cards);
     }
 
-    /**
-     * @return
-     */
     private int size() {
         return cards.size();
     }

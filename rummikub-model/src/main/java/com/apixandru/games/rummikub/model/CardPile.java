@@ -22,30 +22,18 @@ final class CardPile {
         setCards(Constants.CARDS);
     }
 
-    /**
-     * @return
-     */
     int getNumberOfCards() {
         return this.cards.size();
     }
 
-    /**
-     * @return
-     */
     boolean hasMoreCards() {
         return !this.cards.isEmpty();
     }
 
-    /**
-     * @return
-     */
     Card nextCard() {
         return this.cards.remove();
     }
 
-    /**
-     * @param cards
-     */
     void setCards(final Collection<Card> cards) {
         this.cards.addAll(cards);
         Collections.shuffle(this.cards);

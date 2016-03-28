@@ -20,12 +20,6 @@ final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
 
     private final JGridPanel board;
 
-    /**
-     * @param dragSource
-     * @param board
-     * @param player
-     * @param moveHelper
-     */
     CardDndListener(final DragSource<CardUi> dragSource, final JGridPanel board, final Player<CardSlot> player, final MoveHelper moveHelper) {
         super(CardUi.class, dragSource);
         this.player = player;
@@ -79,19 +73,10 @@ final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
         return type != Transfer.BOARD_TO_PLAYER || this.moveHelper.canTakeCardFromBoard(this.draggablePiece.card);
     }
 
-    /**
-     * @param slot
-     * @return
-     */
     private boolean fromBoard(final CardSlot slot) {
         return slot.getParent() == board;
     }
 
-    /**
-     * @param from
-     * @param to
-     * @return
-     */
     private Transfer transferOf(final CardSlot from, final CardSlot to) {
         if (to == from) {
             return Transfer.NONE;

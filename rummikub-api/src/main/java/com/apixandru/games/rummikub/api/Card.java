@@ -12,10 +12,6 @@ public final class Card {
     private final Color color;
     private final Rank rank;
 
-    /**
-     * @param color the color
-     * @param rank  the rank
-     */
     public Card(final Color color, final Rank rank) {
         if (null == color) {
             if (null != rank) {
@@ -28,16 +24,10 @@ public final class Card {
         this.rank = rank;
     }
 
-    /**
-     * @return the color
-     */
     public Color getColor() {
         return color;
     }
 
-    /**
-     * @return the rank
-     */
     public Rank getRank() {
         return rank;
     }

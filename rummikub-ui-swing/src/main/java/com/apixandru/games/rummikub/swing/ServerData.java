@@ -36,15 +36,9 @@ final class ServerData {
 
     private static final int CHOICE_CONNECT = 0;
 
-    /**
-     *
-     */
     private ServerData() {
     }
 
-    /**
-     * @return
-     */
     public static ConnectionData getConnectionData() {
         final Preferences prefs = Preferences.userNodeForPackage(ServerData.class);
 
@@ -91,11 +85,6 @@ final class ServerData {
         }
     }
 
-    /**
-     * @param username
-     * @param address
-     * @return
-     */
     private static JPanel createLoginPanel(final JTextField username, final JTextField address) {
         final JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.add(createLabels(), BorderLayout.WEST);
@@ -103,10 +92,6 @@ final class ServerData {
         return panel;
     }
 
-    /**
-     * @param components
-     * @return
-     */
     private static JPanel newPanel(final Component... components) {
         final JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
         for (Component component : components) {
@@ -115,35 +100,19 @@ final class ServerData {
         return controls;
     }
 
-    /**
-     * @param prefs
-     * @param key
-     * @param override
-     * @return
-     */
     private static JTextField newField(final Preferences prefs, final String key, final String override) {
         return new JTextField(null == override ? prefs.get(key, "") : override);
     }
 
-    /**
-     * @return
-     */
     private static JPanel createLabels() {
         return newPanel(new JLabel("Server", SwingConstants.RIGHT), new JLabel("Name", SwingConstants.RIGHT));
     }
 
-    /**
-     *
-     */
     static final class ConnectionData {
 
         final Socket socket;
         final String username;
 
-        /**
-         * @param socket
-         * @param username
-         */
         ConnectionData(final Socket socket, final String username) {
             this.socket = socket;
             this.username = username;

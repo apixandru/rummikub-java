@@ -8,15 +8,8 @@ import com.apixandru.games.rummikub.api.Card;
  */
 interface MoveHelper {
 
-    /**
-     * @return
-     */
     boolean canInteractWithBoard();
 
-    /**
-     * @param card
-     * @return
-     */
     boolean canTakeCardFromBoard(Card card);
 
 }

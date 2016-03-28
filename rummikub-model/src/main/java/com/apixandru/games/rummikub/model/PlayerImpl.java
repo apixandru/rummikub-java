@@ -14,18 +14,11 @@ import java.util.Optional;
  */
 final class PlayerImpl implements Player<Integer> {
 
+    final List<Card> cards = new ArrayList<>();
     private final PlayerListener listener;
     private final String name;
-
     private final Optional<PlayerCallback<Integer>> callback;
 
-    final List<Card> cards = new ArrayList<>();
-
-    /**
-     * @param name
-     * @param listener
-     * @param callback
-     */
     PlayerImpl(final String name, final PlayerListener listener, final PlayerCallback<Integer> callback) {
         this.listener = listener;
         this.name = name;
@@ -52,25 +45,15 @@ final class PlayerImpl implements Player<Integer> {
         this.listener.requestEndTurn(this);
     }
 
-    /**
-     * @param card
-     * @param hint
-     */
     void receiveCard(final Card card, final Integer hint) {
         this.cards.add(card);
         this.callback.ifPresent(callback -> callback.cardReceived(card, hint));
     }
 
-    /**
-     * @param card
-     */
     void receiveCard(final Card card) {
         receiveCard(card, null);
     }
 
-    /**
-     * @param card
-     */
     void removeCard(final Card card) {
         this.cards.remove(card);
     }

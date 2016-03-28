@@ -20,12 +20,9 @@ import static com.apixandru.games.rummikub.api.GameOverReason.PLAYER_QUIT;
  */
 final class RummikubImpl implements Rummikub<Integer> {
 
-    private final UndoManager undoManager = new UndoManager();
-
-    private final Map<PlayerImpl, GameEventListener> gameEventListeners = new LinkedHashMap<>();
-
     final Board board = new Board();
-
+    private final UndoManager undoManager = new UndoManager();
+    private final Map<PlayerImpl, GameEventListener> gameEventListeners = new LinkedHashMap<>();
     private final List<PlayerImpl> players = new ArrayList<>();
 
     private final CardPile cardPile = new CardPile();
@@ -34,9 +31,6 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     PlayerImpl currentPlayer;
 
-    /**
-     *
-     */
     RummikubImpl() {
         this.undoManager.reset(board);
     }
@@ -68,16 +62,10 @@ final class RummikubImpl implements Rummikub<Integer> {
         setNextPlayer();
     }
 
-    /**
-     *
-     */
     private void giveCard() {
         giveCard(this.currentPlayer);
     }
 
-    /**
-     * @param player
-     */
     private void giveCard(final PlayerImpl player) {
         if (!this.cardPile.hasMoreCards()) {
             final List<Card> cardsFromBoard = this.board.removeAllCards();
@@ -93,9 +81,6 @@ final class RummikubImpl implements Rummikub<Integer> {
         player.receiveCard(this.cardPile.nextCard());
     }
 
-    /**
-     *
-     */
     private void setNextPlayer() {
         final int currentPlayerIndex = this.players.indexOf(this.currentPlayer);
         int nextPlayerIndex = currentPlayerIndex + 1;
@@ -106,9 +91,6 @@ final class RummikubImpl implements Rummikub<Integer> {
         signalNewTurn();
     }
 
-    /**
-     *
-     */
     private void signalNewTurn() {
         final String currentPlayerName = this.currentPlayer.getName();
         this.gameEventListeners.forEach(
@@ -116,9 +98,6 @@ final class RummikubImpl implements Rummikub<Integer> {
         );
     }
 
-    /**
-     *
-     */
     private void rollback() {
         undoManager.undo(currentPlayer, board);
     }
@@ -149,19 +128,12 @@ final class RummikubImpl implements Rummikub<Integer> {
         }
     }
 
-    /**
-     * @param player
-     * @param num
-     */
     private void giveCards(final PlayerImpl player, final int num) {
         for (int i = 0; i < num; i++) {
             giveCard(player);
         }
     }
 
-    /**
-     *
-     */
     private class PlayerListenerImpl implements PlayerListener {
 
         @Override
@@ -196,10 +168,6 @@ final class RummikubImpl implements Rummikub<Integer> {
             }
         }
 
-        /**
-         * @param card
-         * @return
-         */
         private boolean canMoveCardOffBoard(final Card card) {
             return !undoManager.wasOnBoard(card);
         }

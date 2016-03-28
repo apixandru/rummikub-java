@@ -14,11 +14,6 @@ final class Util {
     private Util() {
     }
 
-    /**
-     * @param <E>
-     * @param list
-     * @return
-     */
     @SafeVarargs
     static <E> List<List<E>> splitNonEmptyGroups(E... list) {
         List<List<E>> result = new ArrayList<>();
@@ -40,11 +35,6 @@ final class Util {
         return result;
     }
 
-    /**
-     * @param list
-     * @param <E>
-     * @return
-     */
     static <E> List<E> revertedCopy(List<E> list) {
         if (null == list) {
             return Collections.emptyList();
@@ -54,11 +44,6 @@ final class Util {
         return Collections.unmodifiableList(copy);
     }
 
-    /**
-     * @param array
-     * @param <E>
-     * @return
-     */
     static <E> E[][] copyOf(final E[][] array) {
         final E[][] es = Arrays.copyOf(array, array.length);
         for (int i = 0; i < es.length; i++) {

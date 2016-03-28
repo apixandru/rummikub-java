@@ -6,9 +6,6 @@ package com.apixandru.games.rummikub.client;
  */
 public interface ConnectionListener {
 
-    /**
-     *
-     */
     void onConnectionLost();
 
 }

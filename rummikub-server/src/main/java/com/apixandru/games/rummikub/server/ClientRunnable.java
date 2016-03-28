@@ -32,11 +32,6 @@ final class ClientRunnable implements Runnable {
     private final Rummikub<Integer> game;
     private final String playerName;
 
-    /**
-     * @param reader the reader
-     * @param player the current player
-     * @param game   the game
-     */
     ClientRunnable(final PacketReader reader,
                    final Player<Integer> player,
                    final Rummikub<Integer> game) {
