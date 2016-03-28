@@ -17,32 +17,17 @@ import java.util.Map;
  */
 public final class ImplementationDetails {
 
-    /**
-     *
-     */
     private ImplementationDetails() {
     }
 
-    /**
-     * @param game
-     * @return
-     */
     public static Player currentPlayer(final Rummikub game) {
         return ((RummikubImpl) game).currentPlayer;
     }
 
-    /**
-     * @param game
-     * @return
-     */
     public static Card[][] cloneBoard(final Rummikub game) {
         return Util.copyOf(((RummikubImpl) game).board.cards);
     }
 
-    /**
-     * @param player
-     * @return
-     */
     public static List<Card> endTurnUntilValidGroup(final Player player) {
         while (true) {
             final List<Card> group = getGroup(getCards(player));
@@ -53,42 +38,22 @@ public final class ImplementationDetails {
         }
     }
 
-    /**
-     * @param player
-     * @return
-     */
     public static List<Card> getCards(final Player<?> player) {
         return ((PlayerImpl) player).cards;
     }
 
-    /**
-     * @param player
-     * @return
-     */
     public static Card getFirstCard(final Player player) {
         return getCards(player).get(0);
     }
 
-    /**
-     * @param player
-     * @return
-     */
     public static List<Card> cloneCards(final Player player) {
         return new ArrayList<>(getCards(player));
     }
 
-    /**
-     * @param player
-     * @return
-     */
     public static int countCards(final Player player) {
         return getCards(player).size();
     }
 
-    /**
-     * @param cards
-     * @return
-     */
     private static List<Card> getGroup(final Collection<Card> cards) {
         final Map<Rank, Map<Color, Card>> cardsByRank = new HashMap<>();
         for (final Card card : cards) {

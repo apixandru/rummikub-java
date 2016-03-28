@@ -24,19 +24,10 @@ final class TestUtils {
     private TestUtils() {
     }
 
-    /**
-     * @param color
-     * @param rank
-     * @return
-     */
     static Card card(Color color, Rank rank) {
         return new Card(color, rank);
     }
 
-    /**
-     * @param collection
-     * @return
-     */
     static void assertEmpty(Collection<?> collection) {
         assertTrue(collection.isEmpty());
     }

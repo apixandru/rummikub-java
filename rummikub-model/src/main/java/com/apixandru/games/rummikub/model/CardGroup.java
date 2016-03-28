@@ -22,27 +22,18 @@ final class CardGroup {
     }
 
     public boolean isValid() {
-        if (size() < 3) {
-            return false;
-        }
-        return isValidGroup() || isValidRun();
+        return size() >= 3
+                && (isValidGroup() || isValidRun());
     }
 
     private boolean isValidGroup() {
-        if (size() > 4) {
-            return false;
-        }
-        if (!Cards.isDifferentColors(cards)) {
-            return false;
-        }
-        return Cards.isSameRanks(cards);
+        return size() <= 4
+                && Cards.isDifferentColors(cards)
+                && Cards.isSameRanks(cards);
     }
 
     private boolean isValidRun() {
-        if (!Cards.isAllSameColor(cards)) {
-            return false;
-        }
-        return Cards.isAscendingRanks(cards);
+        return Cards.isAllSameColor(cards) && Cards.isAscendingRanks(cards);
     }
 
     private int size() {

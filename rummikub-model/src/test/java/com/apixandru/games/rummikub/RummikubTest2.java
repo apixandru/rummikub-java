@@ -34,9 +34,6 @@ public final class RummikubTest2 {
         this.player = rummikub.addPlayer("Player 1", null);
     }
 
-    /**
-     * @param cards
-     */
     @Utility
     private void placeCardsOnFirstSlots(final List<Card> cards) {
         for (int i = 0; i < cards.size(); i++) {
@@ -44,41 +41,26 @@ public final class RummikubTest2 {
         }
     }
 
-    /**
-     * @return
-     */
     @Utility
     private int countCards() {
         return ImplementationDetails.countCards(this.player);
     }
 
-    /**
-     * @return
-     */
     @Utility
     private Card[][] cardsOnBoard() {
         return ImplementationDetails.cloneBoard(this.rummikub);
     }
 
-    /**
-     * @return
-     */
     @Utility
     private Card getFirstCard() {
         return ImplementationDetails.getFirstCard(this.player);
     }
 
-    /**
-     * @return
-     */
     @Utility
     private List<Card> endTurnUntilValidGroup() {
         return ImplementationDetails.endTurnUntilValidGroup(this.player);
     }
 
-    /**
-     * @param cards
-     */
     private void assertCardsOnBoard(final Card[][] cards) {
         assertTrue(Arrays.deepEquals(cards, cardsOnBoard()));
     }

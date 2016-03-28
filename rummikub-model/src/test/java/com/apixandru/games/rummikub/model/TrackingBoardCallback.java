@@ -26,16 +26,10 @@ public final class TrackingBoardCallback implements BoardCallback {
         this.actions.add(new BoardAction(BoardAction.Action.REMOVED, card, x, y));
     }
 
-    /**
-     * @return
-     */
     public List<BoardAction> getActions() {
         return Collections.unmodifiableList(this.actions);
     }
 
-    /**
-     *
-     */
     public void clear() {
         this.actions.clear();
     }

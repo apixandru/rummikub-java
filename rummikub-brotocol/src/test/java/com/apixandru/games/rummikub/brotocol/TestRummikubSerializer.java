@@ -24,9 +24,6 @@ public final class TestRummikubSerializer {
 
     private final RummikubSerializer rummikubSerializer = new RummikubSerializer();
 
-    /**
-     *
-     */
     @Test
     public void testSerializeDeserialize() throws IOException {
         final PacketPlaceCard original = new PacketPlaceCard();
@@ -40,9 +37,6 @@ public final class TestRummikubSerializer {
         assertEquals(original.y, deserialized.y);
     }
 
-    /**
-     *
-     */
     @Test
     public void testPacketGameOver() throws IOException {
         final PacketGameOver original = new PacketGameOver();
@@ -56,12 +50,6 @@ public final class TestRummikubSerializer {
         assertEquals(original.me, deserialized.me);
     }
 
-    /**
-     * @param packet
-     * @param <P>
-     * @return
-     * @throws IOException
-     */
     @SuppressWarnings("unchecked")
     private <P extends Packet> P transport(final P packet) throws IOException {
         final byte[] bytes;
