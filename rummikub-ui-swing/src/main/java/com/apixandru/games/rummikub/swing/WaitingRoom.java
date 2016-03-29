@@ -1,18 +1,17 @@
 package com.apixandru.games.rummikub.swing;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -20,27 +19,18 @@ import java.awt.BorderLayout;
  */
 public class WaitingRoom extends JPanel {
 
+    private final JButton btnStart = new JButton("Start");
+    private final JToggleButton btnReady = new JToggleButton("Ready");
+
     private WaitingRoom() {
         super(new BorderLayout());
 
         final JList<String> list = new JList<>();
-        list.setVisibleRowCount(5);
-        JScrollPane listScrollPane = new JScrollPane(list);
+        list.setVisibleRowCount(6);
+        list.setFixedCellWidth(150);
 
-        final JButton btnStart = new JButton("Start");
-        final JToggleButton btnReady = new JToggleButton("Ready");
-
-        JPanel buttonPane = new JPanel();
-        buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
-        buttonPane.add(btnReady);
-        buttonPane.add(Box.createHorizontalStrut(5));
-        buttonPane.add(new JSeparator(SwingConstants.VERTICAL));
-        buttonPane.add(Box.createHorizontalStrut(5));
-        buttonPane.add(btnStart);
-        buttonPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-        add(listScrollPane, BorderLayout.CENTER);
-        add(buttonPane, BorderLayout.PAGE_END);
+        add(new JScrollPane(list), BorderLayout.CENTER);
+        add(createButtonPane(), BorderLayout.EAST);
     }
 
     private static void createAndShowGUI() {
@@ -54,6 +44,30 @@ public class WaitingRoom extends JPanel {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(WaitingRoom::createAndShowGUI);
+    }
+
+    private JPanel createButtonPane() {
+        JPanel buttonPane = new JPanel();
+        buttonPane.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        buttonPane.add(btnReady, gbc);
+        gbc.gridy++;
+
+        gbc.weighty = 1;
+        gbc.weightx = 1;
+        buttonPane.add(Box.createVerticalGlue(), gbc);
+        gbc.weighty = 0;
+        gbc.weightx = 0;
+
+        gbc.gridy++;
+        buttonPane.add(btnStart, gbc);
+        buttonPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        return buttonPane;
     }
 
 }
