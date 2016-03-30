@@ -12,7 +12,7 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.CONNECT_CLIENT_READ
 @Header(CONNECT_CLIENT_READY)
 public class PacketReady implements Packet {
 
-    String playerName;
-    boolean ready;
+    public String playerName;
+    public boolean ready;
 
 }
