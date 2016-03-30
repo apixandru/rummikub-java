@@ -5,6 +5,8 @@ import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.PacketReader;
+import com.apixandru.games.rummikub.brotocol.connect.client.PacketJoin;
+import com.apixandru.games.rummikub.brotocol.connect.client.PacketReady;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketPlaceCard;
@@ -16,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Closeable;
 import java.io.EOFException;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +29,11 @@ import java.util.Map;
 final class ClientRunnable implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(ClientRunnable.class);
-    private final Map<Class, PacketHandler> handlers = new HashMap<>();
+
+    private final Map<Class, PacketHandler> waitingRoomHandlers;
+
+    private final Map<Class, PacketHandler> gameHandlers;
+
     private final PacketReader reader;
     private final Player<Integer> player;
     private final Rummikub<Integer> game;
@@ -40,11 +47,24 @@ final class ClientRunnable implements Runnable {
         this.playerName = player.getName();
         this.game = game;
 
-        handlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler());
-        handlers.put(PacketEndTurn.class, new EndTurnHandler());
-        handlers.put(PacketMoveCard.class, new MoveCardHandler());
-        handlers.put(PacketTakeCard.class, new TakeCardHandler());
+        this.gameHandlers = createGameHandlers();
+        this.waitingRoomHandlers = createWaitingRoomHandlers();
+    }
 
+    private Map<Class, PacketHandler> createGameHandlers() {
+        final Map<Class, PacketHandler> gameHandlers = new HashMap<>();
+        gameHandlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler());
+        gameHandlers.put(PacketEndTurn.class, new EndTurnHandler());
+        gameHandlers.put(PacketMoveCard.class, new MoveCardHandler());
+        gameHandlers.put(PacketTakeCard.class, new TakeCardHandler());
+        return Collections.unmodifiableMap(gameHandlers);
+    }
+
+    private Map<Class, PacketHandler> createWaitingRoomHandlers() {
+        final Map<Class, PacketHandler> handlers = new HashMap<>();
+        handlers.put(PacketJoin.class, new JoinHandler());
+        handlers.put(PacketReady.class, new ReadyHandler());
+        return Collections.unmodifiableMap(handlers);
     }
 
     @Override
@@ -53,7 +73,7 @@ final class ClientRunnable implements Runnable {
         try (final Closeable automaticallyCloseMe = this.reader) {
             while (true) {
                 final Packet input = reader.readPacket();
-                final PacketHandler packetHandler = handlers.get(input.getClass());
+                final PacketHandler packetHandler = gameHandlers.get(input.getClass());
                 packetHandler.handle(input);
             }
         } catch (final EOFException e) {
@@ -110,6 +130,25 @@ final class ClientRunnable implements Runnable {
             log.debug("[{}] Received takeCardFromBoard(card={}, x={}, y={}, hint={})", playerName, card, x, y, hint);
             player.takeCardFromBoard(card, x, y, hint);
         }
+    }
+
+    private class JoinHandler implements PacketHandler<PacketJoin> {
+
+        @Override
+        public void handle(final PacketJoin packet) {
+
+        }
+
+    }
+
+
+    private class ReadyHandler implements PacketHandler<PacketReady> {
+
+        @Override
+        public void handle(final PacketReady packet) {
+
+        }
+
     }
 
 }
