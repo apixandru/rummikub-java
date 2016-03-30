@@ -8,11 +8,11 @@ import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.PacketReader;
-import com.apixandru.games.rummikub.brotocol.server.PacketCardPlaced;
-import com.apixandru.games.rummikub.brotocol.server.PacketCardRemoved;
-import com.apixandru.games.rummikub.brotocol.server.PacketGameOver;
-import com.apixandru.games.rummikub.brotocol.server.PacketNewTurn;
-import com.apixandru.games.rummikub.brotocol.server.PacketReceiveCard;
+import com.apixandru.games.rummikub.brotocol.game.server.PacketCardPlaced;
+import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
+import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
+import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
+import com.apixandru.games.rummikub.brotocol.game.server.PacketReceiveCard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

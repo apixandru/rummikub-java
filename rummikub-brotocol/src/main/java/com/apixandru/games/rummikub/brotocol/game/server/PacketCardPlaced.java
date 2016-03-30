@@ -1,20 +1,20 @@
-package com.apixandru.games.rummikub.brotocol.server;
+package com.apixandru.games.rummikub.brotocol.game.server;
 
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.brotocol.Header;
 import com.apixandru.games.rummikub.brotocol.Packet;
 
-import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_RECEIVED_CARD;
+import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_CARD_PLACED;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since January 13, 2016
  */
-@Header(SERVER_RECEIVED_CARD)
-public class PacketReceiveCard implements Packet {
+@Header(SERVER_CARD_PLACED)
+public class PacketCardPlaced implements Packet {
 
     public Card card;
-
-    public Integer hint;
+    public int x;
+    public int y;
 
 }

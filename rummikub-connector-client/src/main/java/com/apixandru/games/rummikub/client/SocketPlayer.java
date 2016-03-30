@@ -3,10 +3,10 @@ package com.apixandru.games.rummikub.client;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.PacketWriter;
-import com.apixandru.games.rummikub.brotocol.client.PacketEndTurn;
-import com.apixandru.games.rummikub.brotocol.client.PacketMoveCard;
-import com.apixandru.games.rummikub.brotocol.client.PacketPlaceCard;
-import com.apixandru.games.rummikub.brotocol.client.PacketTakeCard;
+import com.apixandru.games.rummikub.brotocol.game.client.PacketEndTurn;
+import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
+import com.apixandru.games.rummikub.brotocol.game.client.PacketPlaceCard;
+import com.apixandru.games.rummikub.brotocol.game.client.PacketTakeCard;
 
 import java.util.List;
 

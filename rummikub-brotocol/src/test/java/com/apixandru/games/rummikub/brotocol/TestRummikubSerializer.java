@@ -2,8 +2,8 @@ package com.apixandru.games.rummikub.brotocol;
 
 import com.apixandru.games.rummikub.api.Constants;
 import com.apixandru.games.rummikub.api.GameOverReason;
-import com.apixandru.games.rummikub.brotocol.client.PacketPlaceCard;
-import com.apixandru.games.rummikub.brotocol.server.PacketGameOver;
+import com.apixandru.games.rummikub.brotocol.game.client.PacketPlaceCard;
+import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;

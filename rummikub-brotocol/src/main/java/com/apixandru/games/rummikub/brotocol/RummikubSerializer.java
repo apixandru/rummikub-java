@@ -2,15 +2,15 @@ package com.apixandru.games.rummikub.brotocol;
 
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.GameOverReason;
-import com.apixandru.games.rummikub.brotocol.client.PacketEndTurn;
-import com.apixandru.games.rummikub.brotocol.client.PacketMoveCard;
-import com.apixandru.games.rummikub.brotocol.client.PacketPlaceCard;
-import com.apixandru.games.rummikub.brotocol.client.PacketTakeCard;
-import com.apixandru.games.rummikub.brotocol.server.PacketCardPlaced;
-import com.apixandru.games.rummikub.brotocol.server.PacketCardRemoved;
-import com.apixandru.games.rummikub.brotocol.server.PacketGameOver;
-import com.apixandru.games.rummikub.brotocol.server.PacketNewTurn;
-import com.apixandru.games.rummikub.brotocol.server.PacketReceiveCard;
+import com.apixandru.games.rummikub.brotocol.game.client.PacketEndTurn;
+import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
+import com.apixandru.games.rummikub.brotocol.game.client.PacketPlaceCard;
+import com.apixandru.games.rummikub.brotocol.game.client.PacketTakeCard;
+import com.apixandru.games.rummikub.brotocol.game.server.PacketCardPlaced;
+import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
+import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
+import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
+import com.apixandru.games.rummikub.brotocol.game.server.PacketReceiveCard;
 import com.apixandru.utils.fieldserializer.FieldSerializer;
 import com.apixandru.utils.fieldserializer.FieldSerializerImpl;
 

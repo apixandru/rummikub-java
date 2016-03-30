@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.brotocol.client;
+package com.apixandru.games.rummikub.brotocol.game.client;
 
 import com.apixandru.games.rummikub.brotocol.Header;
 import com.apixandru.games.rummikub.brotocol.Packet;

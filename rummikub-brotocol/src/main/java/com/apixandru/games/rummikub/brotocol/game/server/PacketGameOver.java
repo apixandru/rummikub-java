@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.brotocol.server;
+package com.apixandru.games.rummikub.brotocol.game.server;
 
 import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.games.rummikub.brotocol.Header;
