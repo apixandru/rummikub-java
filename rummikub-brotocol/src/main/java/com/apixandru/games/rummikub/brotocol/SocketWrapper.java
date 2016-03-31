@@ -41,6 +41,19 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
         }
     }
 
+    public boolean readBoolean() throws IOException {
+        return this.in.readBoolean();
+    }
+
+    public void write(final boolean value) {
+        try {
+            this.out.writeBoolean(value);
+            this.out.flush();
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
     @Override
     public void writePacket(final Packet packet) {
         try {
