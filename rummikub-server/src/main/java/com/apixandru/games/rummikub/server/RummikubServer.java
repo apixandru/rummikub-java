@@ -1,10 +1,6 @@
 package com.apixandru.games.rummikub.server;
 
-import com.apixandru.games.rummikub.api.CompoundCallback;
-import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
-import com.apixandru.games.rummikub.model.Rummikub;
-import com.apixandru.games.rummikub.model.RummikubFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,23 +18,10 @@ final class RummikubServer {
     RummikubServer(final ServerSocket serverSocket) throws IOException {
         log.debug("Listening on port {}", serverSocket.getLocalPort());
 
-        final Rummikub<Integer> game = RummikubFactory.newInstance();
-
+        final ConnectionHandler connectionHandler = new ConnectionHandler();
         while (true) {
             log.debug("Waiting for client...");
-            final SocketWrapper wrapper = new SocketWrapper(serverSocket.accept());
-
-            final String playerName = wrapper.readString();
-            log.debug("Accepted {}.", playerName);
-            wrapper.write(true); // accept user
-
-            log.debug("Registering {}...", playerName);
-            final CompoundCallback<Integer> callback = new ClientCallback(playerName, wrapper);
-
-            final Player<Integer> player = game.addPlayer(playerName, callback);
-            log.debug("{} registered.", playerName);
-            final ClientRunnable runnable = new ClientRunnable(wrapper, player, game);
-            new Thread(runnable, playerName).start();
+            connectionHandler.attemptToJoin(new SocketWrapper(serverSocket.accept()));
         }
 
     }
