@@ -5,12 +5,16 @@ import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.games.rummikub.model.Rummikub;
 import com.apixandru.games.rummikub.model.RummikubFactory;
+import com.apixandru.games.rummikub.server.game.GameHandler;
+import com.apixandru.games.rummikub.server.waiting.WaitingHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.apixandru.games.rummikub.server.ServerState.WAITING_ROOM;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -21,8 +25,10 @@ public class ConnectionHandler {
     private static final Logger log = LoggerFactory.getLogger(RummikubServer.class);
 
     private final Rummikub<Integer> game = RummikubFactory.newInstance();
-
     private final Map<String, SocketWrapper> activeConnections = new HashMap<>();
+    private final GameHandler gameHandler = new GameHandler();
+    private final WaitingHandler waitingHandler = new WaitingHandler();
+    private ServerState serverState = WAITING_ROOM;
 
     public synchronized void attemptToJoin(final SocketWrapper wrapper) throws IOException {
         final String playerName = wrapper.readString();
