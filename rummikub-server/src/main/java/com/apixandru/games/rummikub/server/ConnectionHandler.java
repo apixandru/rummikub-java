@@ -26,30 +26,37 @@ public class ConnectionHandler {
 
     public synchronized void attemptToJoin(final SocketWrapper wrapper) throws IOException {
         final String playerName = wrapper.readString();
-        log.info("{} is attempting to join.", playerName);
-        if (accept(wrapper, playerName)) {
-            activeConnections.put(playerName, wrapper);
-            log.info("Accepted {}", playerName);
-
-            log.debug("Registering {}...", playerName);
-            final CompoundCallback<Integer> callback = new ClientCallback(playerName, wrapper);
-
-            final Player<Integer> player = game.addPlayer(playerName, callback);
-            log.debug("{} registered.", playerName);
-            final ClientRunnable runnable = new ClientRunnable(wrapper, player, game);
-            new Thread(runnable, playerName).start();
+        log.debug("{} is attempting to join.", playerName);
+        if (usernameTaken(playerName)) {
+            reject(wrapper, "Username is already taken.");
+            return;
         }
+        accept(wrapper, playerName);
+
+        log.debug("Registering {}...", playerName);
+        final CompoundCallback<Integer> callback = new ClientCallback(playerName, wrapper);
+
+        final Player<Integer> player = game.addPlayer(playerName, callback);
+        log.debug("{} registered.", playerName);
+        final ClientRunnable runnable = new ClientRunnable(wrapper, player, game);
+        new Thread(runnable, playerName).start();
     }
 
-    private boolean accept(final SocketWrapper wrapper, final String playerName) {
-        if (!activeConnections.containsKey(playerName)) {
-            wrapper.write(true);
-            return true;
-        }
-        wrapper.write(false);
-        wrapper.write("Username is already taken.");
-        log.info("Rejected {} because there's already a {}.", playerName, playerName);
-        return false;
+    private boolean usernameTaken(final String playerName) {
+        return activeConnections.containsKey(playerName);
     }
+
+    private void reject(final SocketWrapper socketWrapper, String message) {
+        socketWrapper.write(false);
+        socketWrapper.write(message);
+        log.debug("Rejected.");
+    }
+
+    private void accept(final SocketWrapper wrapper, final String playerName) {
+        wrapper.write(true);
+        activeConnections.put(playerName, wrapper);
+        log.debug("Accepted.");
+    }
+
 
 }
