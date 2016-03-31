@@ -3,7 +3,6 @@ package com.apixandru.games.rummikub.client;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 
 import java.io.IOException;
-import java.net.Socket;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -11,12 +10,11 @@ import java.net.Socket;
  */
 final class RummikubGame {
 
-    static <H> SocketPlayer<H> connect(final RummikubConnector<H> connector, final Socket socket) throws IOException {
-        final SocketWrapper wrapper = new SocketWrapper(socket);
-        sendPlayerName(connector.playerName, wrapper);
-        new Thread(new PlayerCallbackAdapter<>(connector, wrapper), "Callback adapter").start();
+    static <H> SocketPlayer<H> connect(final RummikubConnector<H> connector, final SocketWrapper socketWrapper) throws IOException {
+        sendPlayerName(connector.playerName, socketWrapper);
+        new Thread(new PlayerCallbackAdapter<>(connector, socketWrapper), "Callback adapter").start();
 
-        return new SocketPlayer<>(connector.playerName, wrapper, connector.hints);
+        return new SocketPlayer<>(connector.playerName, socketWrapper, connector.hints);
     }
 
     private static void sendPlayerName(final String playerName, final SocketWrapper wrapper) {

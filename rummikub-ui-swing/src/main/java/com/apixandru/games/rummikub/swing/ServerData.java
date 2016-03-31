@@ -1,5 +1,6 @@
 package com.apixandru.games.rummikub.swing;
 
+import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -110,11 +111,11 @@ final class ServerData {
 
     static final class ConnectionData {
 
-        final Socket socket;
+        final SocketWrapper socket;
         final String username;
 
-        ConnectionData(final Socket socket, final String username) {
-            this.socket = socket;
+        ConnectionData(final Socket socket, final String username) throws IOException {
+            this.socket = new SocketWrapper(socket);
             this.username = username;
         }
 

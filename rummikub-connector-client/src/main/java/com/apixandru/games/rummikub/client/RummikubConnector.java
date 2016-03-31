@@ -4,9 +4,9 @@ import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.PlayerCallback;
+import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.util.List;
 
 /**
@@ -56,8 +56,8 @@ public final class RummikubConnector<E> {
         return this;
     }
 
-    public Player<E> link(final Socket socket) throws IOException {
-        return RummikubGame.connect(this, socket);
+    public Player<E> link(final SocketWrapper socketWrapper) throws IOException {
+        return RummikubGame.connect(this, socketWrapper);
     }
 
 }
