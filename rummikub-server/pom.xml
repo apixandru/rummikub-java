@@ -34,7 +34,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.apixandru.games.rummikub.server.Main</mainClass>
+                            <mainClass>com.apixandru.games.rummikub.server.RummikubServer</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

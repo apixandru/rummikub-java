@@ -9,13 +9,16 @@ import java.net.ServerSocket;
 
 /**
  * @author Alexandru-Constantin Bledea
- * @since January 10, 2016
+ * @since January 04, 2016
  */
-final class RummikubServer {
+class RummikubServer {
 
     private static final Logger log = LoggerFactory.getLogger(RummikubServer.class);
 
-    RummikubServer(final ServerSocket serverSocket) throws IOException {
+    public static void main(String[] args) throws IOException {
+
+        final ServerSocket serverSocket = new ServerSocket(50122);
+
         log.debug("Listening on port {}", serverSocket.getLocalPort());
 
         final ConnectionHandler connectionHandler = new ConnectionHandler();
