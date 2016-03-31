@@ -30,6 +30,7 @@ final class RummikubServer {
 
             final String playerName = wrapper.readString();
             log.debug("Accepted {}.", playerName);
+            wrapper.write(true); // accept user
 
             log.debug("Registering {}...", playerName);
             final CompoundCallback<Integer> callback = new ClientCallback(playerName, wrapper);

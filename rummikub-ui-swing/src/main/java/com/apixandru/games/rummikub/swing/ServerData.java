@@ -75,6 +75,13 @@ final class ServerData {
             }
             try {
                 return new ConnectionData(new Socket(address, 50122), username);
+            } catch (IllegalArgumentException ex) {
+                showDialog = true;
+                log.debug("Could not connect to " + address);
+                JOptionPane.showMessageDialog(null,
+                        ex.getMessage(),
+                        "Cannot connect",
+                        JOptionPane.ERROR_MESSAGE);
             } catch (IOException ex) {
                 showDialog = true;
                 log.debug("Could not connect to " + address);
@@ -116,6 +123,10 @@ final class ServerData {
 
         ConnectionData(final Socket socket, final String username) throws IOException {
             this.socket = new SocketWrapper(socket);
+            this.socket.write(username);
+            if (!this.socket.readBoolean()) {
+                throw new IllegalArgumentException(this.socket.readString());
+            }
             this.username = username;
         }
 
