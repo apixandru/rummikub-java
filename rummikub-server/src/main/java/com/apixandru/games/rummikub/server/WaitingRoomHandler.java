@@ -19,8 +19,7 @@ public class WaitingRoomHandler {
         this.players.put(playerName, false);
     }
 
-    private void setReady(final String playerName, final boolean ready) {
-        this.players.put(playerName, ready);
+    private void setReady(final boolean ready) {
     }
 
     private class JoinHandler implements PacketHandler<PacketJoin> {
@@ -36,7 +35,7 @@ public class WaitingRoomHandler {
 
         @Override
         public void handle(final PacketReady packet) {
-            setReady(packet.playerName, packet.ready);
+            setReady(packet.ready);
         }
 
     }
