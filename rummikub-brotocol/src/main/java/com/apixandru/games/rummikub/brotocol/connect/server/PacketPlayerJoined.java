@@ -12,6 +12,6 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.CONNECT_SERVER_PLAY
 @Header(CONNECT_SERVER_PLAYER_JOINED)
 public class PacketPlayerJoined implements Packet {
 
-    String playerName;
+    public String playerName;
 
 }
