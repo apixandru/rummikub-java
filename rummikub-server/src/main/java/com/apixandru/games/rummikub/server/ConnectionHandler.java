@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.apixandru.games.rummikub.server.ServerState.IN_GAME;
 import static com.apixandru.games.rummikub.server.ServerState.WAITING_ROOM;
 
 /**
@@ -37,6 +38,10 @@ public class ConnectionHandler {
             reject(wrapper, "Username is already taken.");
             return;
         }
+        if (onGoingGame()) {
+            reject(wrapper, "You cannot join because there is an ongoing game.");
+            return;
+        }
         accept(wrapper, playerName);
 
         log.debug("Registering {}...", playerName);
@@ -46,6 +51,10 @@ public class ConnectionHandler {
         log.debug("{} registered.", playerName);
         final ClientRunnable runnable = new ClientRunnable(wrapper, player, game);
         new Thread(runnable, playerName).start();
+    }
+
+    private boolean onGoingGame() {
+        return IN_GAME == serverState;
     }
 
     private boolean usernameTaken(final String playerName) {
