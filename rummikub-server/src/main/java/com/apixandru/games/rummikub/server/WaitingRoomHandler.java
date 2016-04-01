@@ -2,7 +2,6 @@ package com.apixandru.games.rummikub.server;
 
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.connect.client.PacketJoin;
-import com.apixandru.games.rummikub.brotocol.connect.client.PacketReady;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,23 +18,11 @@ public class WaitingRoomHandler {
         this.players.put(playerName, false);
     }
 
-    private void setReady(final boolean ready) {
-    }
-
     private class JoinHandler implements PacketHandler<PacketJoin> {
 
         @Override
         public void handle(final PacketJoin packet) {
             playerJoined(packet.playerName);
-        }
-
-    }
-
-    private class ReadyHandler implements PacketHandler<PacketReady> {
-
-        @Override
-        public void handle(final PacketReady packet) {
-            setReady(packet.ready);
         }
 
     }

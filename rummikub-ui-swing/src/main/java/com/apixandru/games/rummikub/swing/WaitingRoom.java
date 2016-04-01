@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
@@ -20,7 +19,6 @@ import java.awt.GridBagLayout;
 public class WaitingRoom extends JPanel {
 
     private final JButton btnStart = new JButton("Start");
-    private final JToggleButton btnReady = new JToggleButton("Ready");
 
     private WaitingRoom() {
         super(new BorderLayout());
@@ -54,9 +52,6 @@ public class WaitingRoom extends JPanel {
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        buttonPane.add(btnReady, gbc);
-        gbc.gridy++;
 
         gbc.weighty = 1;
         gbc.weightx = 1;

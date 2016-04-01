@@ -6,7 +6,6 @@ import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.PacketReader;
 import com.apixandru.games.rummikub.brotocol.connect.client.PacketJoin;
-import com.apixandru.games.rummikub.brotocol.connect.client.PacketReady;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketPlaceCard;
@@ -63,7 +62,6 @@ final class ClientRunnable implements Runnable {
     private Map<Class, PacketHandler> createWaitingRoomHandlers() {
         final Map<Class, PacketHandler> handlers = new HashMap<>();
         handlers.put(PacketJoin.class, new JoinHandler());
-        handlers.put(PacketReady.class, new ReadyHandler());
         return Collections.unmodifiableMap(handlers);
     }
 
@@ -136,16 +134,6 @@ final class ClientRunnable implements Runnable {
 
         @Override
         public void handle(final PacketJoin packet) {
-
-        }
-
-    }
-
-
-    private class ReadyHandler implements PacketHandler<PacketReady> {
-
-        @Override
-        public void handle(final PacketReady packet) {
 
         }
 
