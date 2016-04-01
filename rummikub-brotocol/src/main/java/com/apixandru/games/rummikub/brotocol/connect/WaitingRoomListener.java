@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.swing;
+package com.apixandru.games.rummikub.brotocol.connect;
 
 /**
  * @author Alexandru-Constantin Bledea
