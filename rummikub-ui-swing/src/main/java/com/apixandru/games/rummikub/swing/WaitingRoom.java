@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -42,17 +41,17 @@ public class WaitingRoom extends JPanel implements WaitingRoomListener {
         add(createButtonPane(), EAST);
     }
 
-    private static void createAndShowGUI() {
+    public static WaitingRoomListener createAndShowGUI() {
         JFrame frame = new JFrame("Waiting room");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        frame.setContentPane(new WaitingRoom());
+        final WaitingRoom contentPane = new WaitingRoom();
+        frame.setContentPane(contentPane);
 
         frame.pack();
         frame.setVisible(true);
-    }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(WaitingRoom::createAndShowGUI);
+        return contentPane;
+
     }
 
     private JPanel createButtonPane() {
