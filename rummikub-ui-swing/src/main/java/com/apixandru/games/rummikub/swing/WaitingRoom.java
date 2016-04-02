@@ -51,6 +51,7 @@ class WaitingRoom extends JPanel implements WaitingRoomListener {
         frame.setContentPane(contentPane);
 
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
         return contentPane;
