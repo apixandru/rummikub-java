@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.swing.waiting;
+package com.apixandru.games.rummikub.client.waiting;
 
 /**
  * @author Alexandru-Constantin Bledea

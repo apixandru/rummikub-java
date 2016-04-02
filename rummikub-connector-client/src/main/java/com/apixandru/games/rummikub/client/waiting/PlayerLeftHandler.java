@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.swing.waiting;
+package com.apixandru.games.rummikub.client.waiting;
 
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
