@@ -3,7 +3,7 @@ package com.apixandru.games.rummikub.server;
 import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
-import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
+import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomModel;
 import com.apixandru.games.rummikub.model.Rummikub;
 import com.apixandru.games.rummikub.model.RummikubFactory;
 import com.apixandru.games.rummikub.server.game.GameHandler;
@@ -27,6 +27,8 @@ public class ConnectionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(RummikubServer.class);
 
+    private final WaitingRoomModel waitingRoomModel = new WaitingRoomModel();
+
     private final Rummikub<Integer> game = RummikubFactory.newInstance();
     private final Map<String, SocketWrapper> activeConnections = new HashMap<>();
     private final GameHandler gameHandler = new GameHandler();
@@ -49,7 +51,7 @@ public class ConnectionHandler {
             return;
         }
         accept(wrapper, playerName);
-//        broadcastAcceptedPlayer(playerName);
+        broadcastAcceptedPlayer(playerName);
         log.debug("Registering {}...", playerName);
         final CompoundCallback<Integer> callback = new ClientCallback(playerName, wrapper);
 
@@ -60,15 +62,16 @@ public class ConnectionHandler {
     }
 
     private void broadcastAcceptedPlayer(final String playerName) {
-
-        final PacketPlayerJoined packetJoined = new PacketPlayerJoined();
-        packetJoined.playerName = playerName;
-
-        activeConnections.entrySet()
-                .stream()
-                .filter(notCurrentPlayer(playerName))
-                .map(Map.Entry::getValue)
-                .forEach(socketWrapper -> socketWrapper.writePacket(packetJoined));
+        waitingRoomModel.playerJoined(playerName);
+//
+//        final PacketPlayerJoined packetJoined = new PacketPlayerJoined();
+//        packetJoined.playerName = playerName;
+//
+//        activeConnections.entrySet()
+//                .stream()
+//                .filter(notCurrentPlayer(playerName))
+//                .map(Map.Entry::getValue)
+//                .forEach(socketWrapper -> socketWrapper.writePacket(packetJoined));
     }
 
     private boolean onGoingGame() {
