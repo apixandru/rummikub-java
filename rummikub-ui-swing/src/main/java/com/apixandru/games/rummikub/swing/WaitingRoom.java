@@ -1,6 +1,7 @@
 package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
+import com.apixandru.games.rummikub.swing.waiting.StartGameListener;
 
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
@@ -24,14 +25,16 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  * @author Alexandru-Constantin Bledea
  * @since March 29, 2016
  */
-public class WaitingRoom extends JPanel implements WaitingRoomListener {
-
-    private final JButton btnStart = new JButton("Start");
+class WaitingRoom extends JPanel implements WaitingRoomListener {
 
     private final DefaultListModel<String> playerListModel = new DefaultListModel<>();
 
-    private WaitingRoom() {
+    private final StartGameListener startGameListener;
+
+    private WaitingRoom(final StartGameListener startGameListener) {
         super(new BorderLayout());
+
+        this.startGameListener = startGameListener;
 
         final JList<String> list = new JList<>(playerListModel);
         list.setVisibleRowCount(6);
@@ -41,10 +44,10 @@ public class WaitingRoom extends JPanel implements WaitingRoomListener {
         add(createButtonPane(), EAST);
     }
 
-    public static WaitingRoomListener createAndShowGUI() {
+    public static WaitingRoomListener createAndShowGUI(final StartGameListener startGameListener) {
         JFrame frame = new JFrame("Waiting room");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        final WaitingRoom contentPane = new WaitingRoom();
+        final WaitingRoom contentPane = new WaitingRoom(startGameListener);
         frame.setContentPane(contentPane);
 
         frame.pack();
@@ -55,6 +58,9 @@ public class WaitingRoom extends JPanel implements WaitingRoomListener {
     }
 
     private JPanel createButtonPane() {
+        final JButton btnStart = new JButton("Start");
+        btnStart.addActionListener(e -> startGameListener.requestStart());
+
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
