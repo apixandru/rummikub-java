@@ -10,4 +10,6 @@ public interface WaitingRoomListener {
 
     void playerLeft(String playerName);
 
+    void startGame();
+
 }

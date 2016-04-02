@@ -85,4 +85,9 @@ public class WaitingRoom extends JPanel implements WaitingRoomListener {
         playerListModel.removeElement(playerName);
     }
 
+    @Override
+    public void startGame() {
+
+    }
+
 }
