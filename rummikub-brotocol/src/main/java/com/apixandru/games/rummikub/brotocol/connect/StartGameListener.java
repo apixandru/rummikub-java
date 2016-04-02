@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.client.waiting;
+package com.apixandru.games.rummikub.brotocol.connect;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -6,6 +6,6 @@ package com.apixandru.games.rummikub.client.waiting;
  */
 public interface StartGameListener {
 
-    void requestStart();
+    void startGame();
 
 }

@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.swing;
 
+import com.apixandru.games.rummikub.brotocol.connect.StartGameListener;
 import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
-import com.apixandru.games.rummikub.client.waiting.StartGameListener;
 
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
@@ -60,7 +60,7 @@ class WaitingRoom extends JPanel implements WaitingRoomListener {
 
     private JPanel createButtonPane() {
         final JButton btnStart = new JButton("Start");
-        btnStart.addActionListener(e -> startGameListener.requestStart());
+        btnStart.addActionListener(e -> startGameListener.startGame());
 
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new GridBagLayout());
