@@ -28,7 +28,7 @@ public final class WaitingRoomModel {
     }
 
     public void startGame() {
-        this.listeners.forEach(WaitingRoomListener::startGame);
+        this.listeners.forEach(StartGameListener::startGame);
     }
 
 }

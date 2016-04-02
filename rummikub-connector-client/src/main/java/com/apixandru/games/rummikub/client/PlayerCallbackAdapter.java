@@ -47,7 +47,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
     private boolean continueReading = true;
 
-    PlayerCallbackAdapter(final RummikubConnector<H> connector,
+    PlayerCallbackAdapter(final ConnectorBuilder<H> connector,
                           final PacketReader reader) {
         this.reader = reader;
 

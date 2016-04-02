@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.client.RummikubConnector;
+import com.apixandru.games.rummikub.client.ConnectorBuilder;
 import com.apixandru.utils.swing.ComponentDragSource;
 
 import javax.swing.Box;
@@ -51,7 +51,7 @@ final class Main {
             final PlayerUi player = new PlayerUi();
 
             final Player<CardSlot> actualPlayer =
-                    RummikubConnector.from(player)
+                    ConnectorBuilder.from(player)
                             .setBoardCallback(callback)
                             .setGameEventListener(callback)
                             .setConnectionListener(callback)

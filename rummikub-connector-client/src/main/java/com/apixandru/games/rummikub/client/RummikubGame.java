@@ -10,7 +10,7 @@ import java.io.IOException;
  */
 final class RummikubGame {
 
-    static <H> SocketPlayer<H> connect(final RummikubConnector<H> connector, final SocketWrapper socketWrapper) throws IOException {
+    static <H> SocketPlayer<H> connect(final ConnectorBuilder<H> connector, final SocketWrapper socketWrapper) throws IOException {
         new Thread(new PlayerCallbackAdapter<>(connector, socketWrapper), "Callback adapter").start();
 
         return new SocketPlayer<>(connector.playerName, socketWrapper, connector.hints);
