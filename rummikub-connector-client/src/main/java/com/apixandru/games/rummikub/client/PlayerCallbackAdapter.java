@@ -1,8 +1,5 @@
 package com.apixandru.games.rummikub.client;
 
-import com.apixandru.games.rummikub.api.BoardCallback;
-import com.apixandru.games.rummikub.api.GameEventListener;
-import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.PacketReader;
@@ -41,9 +38,6 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
-    private final PlayerCallback<H> playerCallback;
-    private final GameEventListener gameEventListener;
-
     private final ConnectionListener connectionListener;
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
@@ -52,17 +46,13 @@ final class PlayerCallbackAdapter<H> implements Runnable {
                           final PacketReader reader) {
         this.reader = reader;
 
-        this.playerCallback = connector.callback;
-        BoardCallback boardCallback = connector.boardCallback;
-        this.gameEventListener = connector.gameEventListener;
-
         this.connectionListener = connector.connectionListener;
 
-        handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardCallback));
-        handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardCallback));
-        handlers.put(PacketNewTurn.class, new NewTurnHandler(singleton(gameEventListener)));
-        handlers.put(PacketGameOver.class, new GameOverHandler(gameEventListener, continueReading));
-        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler<>(playerCallback, connector.hints));
+        handlers.put(PacketCardPlaced.class, new CardPlacedHandler(connector.boardCallback));
+        handlers.put(PacketCardRemoved.class, new CardRemovedHandler(connector.boardCallback));
+        handlers.put(PacketNewTurn.class, new NewTurnHandler(singleton(connector.gameEventListener)));
+        handlers.put(PacketGameOver.class, new GameOverHandler(connector.gameEventListener, continueReading));
+        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler<>(connector.callback, connector.hints));
     }
 
     @Override
