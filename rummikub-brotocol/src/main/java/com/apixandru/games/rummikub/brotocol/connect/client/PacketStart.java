@@ -11,5 +11,4 @@ import static com.apixandru.games.rummikub.brotocol.Brotocol.CONNECT_CLIENT_STAR
  */
 @Header(CONNECT_CLIENT_START)
 public class PacketStart implements Packet {
-
 }

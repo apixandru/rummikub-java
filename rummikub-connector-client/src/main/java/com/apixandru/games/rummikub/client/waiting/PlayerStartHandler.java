@@ -8,11 +8,11 @@ import com.apixandru.games.rummikub.brotocol.connect.client.PacketStart;
  * @author Alexandru-Constantin Bledea
  * @since April 01, 2016
  */
-public class StartGameHandler implements PacketHandler<PacketStart> {
+public class PlayerStartHandler implements PacketHandler<PacketStart> {
 
     private final WaitingRoomListener waitingRoomListener;
 
-    public StartGameHandler(final WaitingRoomListener waitingRoomListener) {
+    public PlayerStartHandler(final WaitingRoomListener waitingRoomListener) {
         this.waitingRoomListener = waitingRoomListener;
     }
 
