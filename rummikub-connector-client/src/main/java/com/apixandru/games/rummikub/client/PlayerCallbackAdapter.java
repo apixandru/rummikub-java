@@ -13,6 +13,7 @@ import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketReceiveCard;
+import com.apixandru.games.rummikub.client.game.CardRemovedHandler;
 import com.apixandru.games.rummikub.client.game.NewTurnHandler;
 import com.apixandru.games.rummikub.client.game.ReceiveCardHandler;
 import org.slf4j.Logger;
@@ -58,7 +59,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         this.connectionListener = connector.connectionListener;
 
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler());
-        handlers.put(PacketCardRemoved.class, new CardRemovedHandler());
+        handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardCallback));
         handlers.put(PacketNewTurn.class, new NewTurnHandler(singleton(gameEventListener)));
         handlers.put(PacketGameOver.class, new GameOverHandler());
         handlers.put(PacketReceiveCard.class, new ReceiveCardHandler<>(playerCallback, connector.hints));
@@ -91,20 +92,6 @@ final class PlayerCallbackAdapter<H> implements Runnable {
             final int y = packet.y;
             log.debug("Received onCardPlacedOnBoard(card={}, x={}, y={})", card, x, y);
             boardCallback.onCardPlacedOnBoard(card, x, y);
-
-        }
-    }
-
-    private class CardRemovedHandler implements PacketHandler<PacketCardRemoved> {
-
-        @Override
-        public void handle(final PacketCardRemoved packet) {
-            final Card card = packet.card;
-            final int x = packet.x;
-            final int y = packet.y;
-            final boolean reset = packet.reset;
-            log.debug("Received onCardRemovedFromBoard(card={}, x={}, y={}, reset={})", card, x, y, reset);
-            boardCallback.onCardRemovedFromBoard(card, x, y, reset);
 
         }
     }
