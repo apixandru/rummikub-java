@@ -2,8 +2,13 @@ package com.apixandru.games.rummikub.server;
 
 import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.Player;
+import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
+import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
 import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomModel;
+import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
+import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
+import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.games.rummikub.model.Rummikub;
 import com.apixandru.games.rummikub.model.RummikubFactory;
 import com.apixandru.games.rummikub.server.game.GameHandler;
@@ -14,7 +19,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Predicate;
 
 import static com.apixandru.games.rummikub.server.ServerState.IN_GAME;
 import static com.apixandru.games.rummikub.server.ServerState.WAITING_ROOM;
@@ -35,8 +39,8 @@ public class ConnectionHandler {
     private final WaitingHandler waitingHandler = new WaitingHandler();
     private ServerState serverState = WAITING_ROOM;
 
-    private static Predicate<Map.Entry<String, SocketWrapper>> notCurrentPlayer(final String playerName) {
-        return entry -> !entry.getKey().equals(playerName);
+    public ConnectionHandler() {
+        waitingRoomModel.addWaitingRoomListener(new ServerWaitingRoomListener());
     }
 
     public synchronized void attemptToJoin(final SocketWrapper wrapper) throws IOException {
@@ -63,15 +67,6 @@ public class ConnectionHandler {
 
     private void broadcastAcceptedPlayer(final String playerName) {
         waitingRoomModel.playerJoined(playerName);
-//
-//        final PacketPlayerJoined packetJoined = new PacketPlayerJoined();
-//        packetJoined.playerName = playerName;
-//
-//        activeConnections.entrySet()
-//                .stream()
-//                .filter(notCurrentPlayer(playerName))
-//                .map(Map.Entry::getValue)
-//                .forEach(socketWrapper -> socketWrapper.writePacket(packetJoined));
     }
 
     private boolean onGoingGame() {
@@ -94,5 +89,40 @@ public class ConnectionHandler {
         log.debug("Accepted.");
     }
 
+    private class ServerWaitingRoomListener implements WaitingRoomListener {
+
+        @Override
+        public void playerJoined(final String playerName) {
+
+            final PacketPlayerJoined packetJoined = new PacketPlayerJoined();
+            packetJoined.playerName = playerName;
+
+            broadcast(packetJoined);
+
+        }
+
+        @Override
+        public void playerLeft(final String playerName) {
+
+            final PacketPlayerLeft packetLeft = new PacketPlayerLeft();
+            packetLeft.playerName = playerName;
+
+            broadcast(packetLeft);
+
+        }
+
+        @Override
+        public void startGame() {
+            broadcast(new PacketPlayerStart());
+        }
+
+        private void broadcast(final Packet packet) {
+            activeConnections.entrySet()
+                    .stream()
+                    .map(Map.Entry::getValue)
+                    .forEach(socketWrapper -> socketWrapper.writePacket(packet));
+        }
+
+    }
 
 }

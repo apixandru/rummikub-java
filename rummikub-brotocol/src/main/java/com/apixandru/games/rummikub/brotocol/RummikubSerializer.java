@@ -2,6 +2,7 @@ package com.apixandru.games.rummikub.brotocol;
 
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.GameOverReason;
+import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketPlaceCard;
@@ -63,6 +64,8 @@ final class RummikubSerializer implements Serializer {
         register(PacketCardPlaced.class);
         register(PacketCardRemoved.class);
         register(PacketReceiveCard.class);
+
+        register(PacketPlayerJoined.class);
     }
 
     private static void writeSafeByte(final int intValue, final DataOutput output) throws IOException {
@@ -90,6 +93,9 @@ final class RummikubSerializer implements Serializer {
     public Packet deserialize(final DataInputStream input) throws IOException {
         final int read = input.readByte();
         final Class<Packet> clasz = packets.get(read);
+        if (null == clasz) {
+            throw new IllegalArgumentException("No handler registered for " + Brotocol.values()[read]);
+        }
         return serializer.readFields(clasz, input);
     }
 
