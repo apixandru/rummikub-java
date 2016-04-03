@@ -13,6 +13,7 @@ import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketReceiveCard;
+import com.apixandru.games.rummikub.client.game.NewTurnHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +25,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.Collections.singleton;
 
 /**
  * @param <H> hint type
@@ -61,7 +64,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler());
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler());
-        handlers.put(PacketNewTurn.class, new NewTurnHandler());
+        handlers.put(PacketNewTurn.class, new NewTurnHandler(singleton(gameEventListener)));
         handlers.put(PacketGameOver.class, new GameOverHandler());
         handlers.put(PacketReceiveCard.class, new ReceiveCardHandler());
     }
@@ -122,17 +125,6 @@ final class PlayerCallbackAdapter<H> implements Runnable {
             gameEventListener.gameOver(player, reason, me);
 
             continueReading = false;
-        }
-    }
-
-    private class NewTurnHandler implements PacketHandler<PacketNewTurn> {
-
-        @Override
-        public void handle(final PacketNewTurn packet) {
-            final boolean myTurn = packet.myTurn;
-            final String playerName = packet.playerName;
-            log.debug("Received newTurn(player={}, myTurn={})", playerName, myTurn);
-            gameEventListener.newTurn(playerName, myTurn);
         }
     }
 
