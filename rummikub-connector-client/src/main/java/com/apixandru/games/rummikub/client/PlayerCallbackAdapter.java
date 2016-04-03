@@ -43,9 +43,9 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
     private final ConnectionListener connectionListener;
 
-    private final List<GameEventListener> gameEventListeners = new CopyOnWriteArrayList<>();
-    private final List<BoardCallback> boardCallbacks = new CopyOnWriteArrayList<>();
-    private final List<PlayerCallback<H>> playerCallbacks = new CopyOnWriteArrayList<>();
+    final List<GameEventListener> gameEventListeners = new CopyOnWriteArrayList<>();
+    final List<BoardCallback> boardCallbacks = new CopyOnWriteArrayList<>();
+    final List<PlayerCallback<H>> playerCallbacks = new CopyOnWriteArrayList<>();
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
@@ -54,10 +54,6 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         this.reader = reader;
 
         this.connectionListener = connector.connectionListener;
-
-        gameEventListeners.add(connector.gameEventListener);
-        boardCallbacks.add(connector.boardCallback);
-        playerCallbacks.add(connector.callback);
 
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardCallbacks));
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardCallbacks));
