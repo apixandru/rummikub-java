@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -19,11 +18,11 @@ public class ReceiveCardHandler<H> implements PacketHandler<PacketReceiveCard> {
 
     private static final Logger log = LoggerFactory.getLogger(ReceiveCardHandler.class);
 
-    private final PlayerCallback<H> playerCallback;
+    private final List<PlayerCallback<H>> playerCallbacks;
     private final List<H> hints;
 
-    public ReceiveCardHandler(final PlayerCallback<H> playerCallback, final Collection<H> hints) {
-        this.playerCallback = playerCallback;
+    public ReceiveCardHandler(final List<PlayerCallback<H>> playerCallbacks, final List<H> hints) {
+        this.playerCallbacks = playerCallbacks;
         this.hints = new ArrayList<>(hints);
     }
 
@@ -31,8 +30,12 @@ public class ReceiveCardHandler<H> implements PacketHandler<PacketReceiveCard> {
     public void handle(final PacketReceiveCard packet) {
         final Card card = packet.card;
         final Integer hintIndex = packet.hint;
+
+        final H hint = null == hintIndex ? null : hints.get(hintIndex);
+
         log.debug("Received cardReceived(card={}, hintIndex={})", card, hintIndex);
-        playerCallback.cardReceived(card, null == hintIndex ? null : hints.get(hintIndex));
+
+        playerCallbacks.forEach(callback -> callback.cardReceived(card, hint));
     }
 
 }
