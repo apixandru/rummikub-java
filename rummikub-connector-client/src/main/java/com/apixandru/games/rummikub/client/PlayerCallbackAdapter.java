@@ -1,7 +1,6 @@
 package com.apixandru.games.rummikub.client;
 
 import com.apixandru.games.rummikub.api.BoardCallback;
-import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.games.rummikub.api.PlayerCallback;
@@ -13,6 +12,7 @@ import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketReceiveCard;
+import com.apixandru.games.rummikub.client.game.CardPlacedHandler;
 import com.apixandru.games.rummikub.client.game.CardRemovedHandler;
 import com.apixandru.games.rummikub.client.game.NewTurnHandler;
 import com.apixandru.games.rummikub.client.game.ReceiveCardHandler;
@@ -41,7 +41,6 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
     private final PlayerCallback<H> playerCallback;
-    private final BoardCallback boardCallback;
     private final GameEventListener gameEventListener;
 
     private final ConnectionListener connectionListener;
@@ -53,12 +52,12 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         this.reader = reader;
 
         this.playerCallback = connector.callback;
-        this.boardCallback = connector.boardCallback;
+        BoardCallback boardCallback = connector.boardCallback;
         this.gameEventListener = connector.gameEventListener;
 
         this.connectionListener = connector.connectionListener;
 
-        handlers.put(PacketCardPlaced.class, new CardPlacedHandler());
+        handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardCallback));
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardCallback));
         handlers.put(PacketNewTurn.class, new NewTurnHandler(singleton(gameEventListener)));
         handlers.put(PacketGameOver.class, new GameOverHandler());
@@ -80,19 +79,6 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         } catch (final IOException e) {
             log.error("Unknown exception", e);
             this.connectionListener.onConnectionLost();
-        }
-    }
-
-    private class CardPlacedHandler implements PacketHandler<PacketCardPlaced> {
-
-        @Override
-        public void handle(final PacketCardPlaced packet) {
-            final Card card = packet.card;
-            final int x = packet.x;
-            final int y = packet.y;
-            log.debug("Received onCardPlacedOnBoard(card={}, x={}, y={})", card, x, y);
-            boardCallback.onCardPlacedOnBoard(card, x, y);
-
         }
     }
 

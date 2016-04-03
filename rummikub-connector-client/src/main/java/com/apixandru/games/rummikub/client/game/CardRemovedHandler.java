@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 public class CardRemovedHandler implements PacketHandler<PacketCardRemoved> {
 
     private static final Logger log = LoggerFactory.getLogger(CardRemovedHandler.class);
+
     private final BoardCallback boardCallback;
 
     public CardRemovedHandler(final BoardCallback boardCallback) {
