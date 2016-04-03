@@ -1,5 +1,6 @@
 package com.apixandru.games.rummikub.client;
 
+import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
@@ -42,6 +43,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private final ConnectionListener connectionListener;
 
     private final List<GameEventListener> gameEventListeners = new CopyOnWriteArrayList<>();
+    private final List<BoardCallback> boardCallbacks = new CopyOnWriteArrayList<>();
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
@@ -52,9 +54,10 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         this.connectionListener = connector.connectionListener;
 
         gameEventListeners.add(connector.gameEventListener);
+        boardCallbacks.add(connector.boardCallback);
 
-        handlers.put(PacketCardPlaced.class, new CardPlacedHandler(connector.boardCallback));
-        handlers.put(PacketCardRemoved.class, new CardRemovedHandler(connector.boardCallback));
+        handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardCallbacks));
+        handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardCallbacks));
         handlers.put(PacketNewTurn.class, new NewTurnHandler(gameEventListeners));
         handlers.put(PacketGameOver.class, new GameOverHandler(gameEventListeners, continueReading));
         handlers.put(PacketReceiveCard.class, new ReceiveCardHandler<>(connector.callback, connector.hints));
