@@ -1,5 +1,6 @@
 package com.apixandru.games.rummikub.client;
 
+import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.PacketReader;
@@ -20,10 +21,10 @@ import java.io.Closeable;
 import java.io.EOFException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import static java.util.Collections.singleton;
 
 /**
  * @param <H> hint type
@@ -40,6 +41,8 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
     private final ConnectionListener connectionListener;
 
+    private final List<GameEventListener> gameEventListeners = new CopyOnWriteArrayList<>();
+
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
     PlayerCallbackAdapter(final ConnectorBuilder<H> connector,
@@ -48,10 +51,12 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
         this.connectionListener = connector.connectionListener;
 
+        gameEventListeners.add(connector.gameEventListener);
+
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler(connector.boardCallback));
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(connector.boardCallback));
-        handlers.put(PacketNewTurn.class, new NewTurnHandler(singleton(connector.gameEventListener)));
-        handlers.put(PacketGameOver.class, new GameOverHandler(connector.gameEventListener, continueReading));
+        handlers.put(PacketNewTurn.class, new NewTurnHandler(gameEventListeners));
+        handlers.put(PacketGameOver.class, new GameOverHandler(gameEventListeners, continueReading));
         handlers.put(PacketReceiveCard.class, new ReceiveCardHandler<>(connector.callback, connector.hints));
     }
 

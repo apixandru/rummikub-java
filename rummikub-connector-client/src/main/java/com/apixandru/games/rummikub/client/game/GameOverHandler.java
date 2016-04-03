@@ -7,6 +7,7 @@ import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -17,11 +18,11 @@ public class GameOverHandler implements PacketHandler<PacketGameOver> {
 
     private static final Logger log = LoggerFactory.getLogger(GameOverHandler.class);
 
-    private final GameEventListener gameEventListener;
+    private final List<GameEventListener> gameEventListeners;
     private final AtomicBoolean continueReading;
 
-    public GameOverHandler(final GameEventListener gameEventListener, final AtomicBoolean continueReading) {
-        this.gameEventListener = gameEventListener;
+    public GameOverHandler(final List<GameEventListener> gameEventListeners, final AtomicBoolean continueReading) {
+        this.gameEventListeners = gameEventListeners;
         this.continueReading = continueReading;
     }
 
@@ -33,9 +34,10 @@ public class GameOverHandler implements PacketHandler<PacketGameOver> {
 
         log.debug("Received gameOver(player={}, reason={}, me={})", player, reason, me);
 
-        gameEventListener.gameOver(player, reason, me);
-
         continueReading.set(false);
+
+        gameEventListeners.forEach(listener -> listener.gameOver(player, reason, me));
+
     }
 
 }
