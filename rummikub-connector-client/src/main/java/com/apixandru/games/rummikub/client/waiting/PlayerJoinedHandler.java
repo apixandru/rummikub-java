@@ -8,11 +8,11 @@ import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
  * @author Alexandru-Constantin Bledea
  * @since April 01, 2016
  */
-final class PlayerJoinedHandler implements PacketHandler<PacketPlayerJoined> {
+public final class PlayerJoinedHandler implements PacketHandler<PacketPlayerJoined> {
 
     private final WaitingRoomListener waitingRoomListener;
 
-    PlayerJoinedHandler(final WaitingRoomListener waitingRoomListener) {
+    public PlayerJoinedHandler(final WaitingRoomListener waitingRoomListener) {
         this.waitingRoomListener = waitingRoomListener;
     }
 

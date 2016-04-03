@@ -8,11 +8,11 @@ import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
  * @author Alexandru-Constantin Bledea
  * @since April 01, 2016
  */
-final class PlayerLeftHandler implements PacketHandler<PacketPlayerLeft> {
+public final class PlayerLeftHandler implements PacketHandler<PacketPlayerLeft> {
 
     private final WaitingRoomListener waitingRoomListener;
 
-    PlayerLeftHandler(final WaitingRoomListener waitingRoomListener) {
+    public PlayerLeftHandler(final WaitingRoomListener waitingRoomListener) {
         this.waitingRoomListener = waitingRoomListener;
     }
 
