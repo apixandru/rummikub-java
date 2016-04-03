@@ -14,16 +14,14 @@ import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketReceiveCard;
 import com.apixandru.games.rummikub.client.game.NewTurnHandler;
+import com.apixandru.games.rummikub.client.game.ReceiveCardHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.io.EOFException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static java.util.Collections.singleton;
@@ -45,7 +43,6 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     private final BoardCallback boardCallback;
     private final GameEventListener gameEventListener;
 
-    private final List<H> hints;
     private final ConnectionListener connectionListener;
 
     private boolean continueReading = true;
@@ -60,13 +57,11 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
         this.connectionListener = connector.connectionListener;
 
-        this.hints = Collections.unmodifiableList(new ArrayList<>(connector.hints));
-
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler());
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler());
         handlers.put(PacketNewTurn.class, new NewTurnHandler(singleton(gameEventListener)));
         handlers.put(PacketGameOver.class, new GameOverHandler());
-        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler());
+        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler<>(playerCallback, connector.hints));
     }
 
     @Override
@@ -125,17 +120,6 @@ final class PlayerCallbackAdapter<H> implements Runnable {
             gameEventListener.gameOver(player, reason, me);
 
             continueReading = false;
-        }
-    }
-
-    private class ReceiveCardHandler implements PacketHandler<PacketReceiveCard> {
-
-        @Override
-        public void handle(final PacketReceiveCard packet) {
-            final Card card = packet.card;
-            final Integer hintIndex = packet.hint;
-            log.debug("Received cardReceived(card={}, hintIndex={})", card, hintIndex);
-            playerCallback.cardReceived(card, null == hintIndex ? null : hints.get(hintIndex));
         }
     }
 
