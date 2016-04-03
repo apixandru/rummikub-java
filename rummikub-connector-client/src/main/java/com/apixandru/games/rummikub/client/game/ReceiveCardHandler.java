@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @author Alexandru-Constantin Bledea
+ * @since April 03, 2016
+ */
 public class ReceiveCardHandler<H> implements PacketHandler<PacketReceiveCard> {
 
     private static final Logger log = LoggerFactory.getLogger(ReceiveCardHandler.class);

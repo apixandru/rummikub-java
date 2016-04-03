@@ -7,6 +7,10 @@ import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author Alexandru-Constantin Bledea
+ * @since April 03, 2016
+ */
 public class CardRemovedHandler implements PacketHandler<PacketCardRemoved> {
 
     private static final Logger log = LoggerFactory.getLogger(CardRemovedHandler.class);

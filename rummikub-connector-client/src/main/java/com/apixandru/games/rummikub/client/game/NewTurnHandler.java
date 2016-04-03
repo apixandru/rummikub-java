@@ -8,6 +8,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 
+/**
+ * @author Alexandru-Constantin Bledea
+ * @since April 03, 2016
+ */
 public class NewTurnHandler implements PacketHandler<PacketNewTurn> {
 
     private static final Logger log = LoggerFactory.getLogger(NewTurnHandler.class);
