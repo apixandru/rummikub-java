@@ -6,6 +6,7 @@ import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.PacketReader;
+import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
@@ -45,6 +46,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
     final List<BoardCallback> boardCallbacks = new CopyOnWriteArrayList<>();
     final List<PlayerCallback<H>> playerCallbacks = new CopyOnWriteArrayList<>();
     final List<ConnectionListener> connectionListeners = new CopyOnWriteArrayList<>();
+    final List<WaitingRoomListener> waitingRoomListeners = new CopyOnWriteArrayList<>();
 
     private final Logger log = LoggerFactory.getLogger(PlayerCallbackAdapter.class);
 
@@ -56,9 +58,9 @@ final class PlayerCallbackAdapter<H> implements Runnable {
                           final PacketReader reader) {
         this.reader = reader;
 
-        handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(null));
-        handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(null));
-        handlers.put(PacketPlayerStart.class, new PlayerStartHandler(null));
+        handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListeners));
+        handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListeners));
+        handlers.put(PacketPlayerStart.class, new PlayerStartHandler(waitingRoomListeners));
 
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardCallbacks));
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardCallbacks));

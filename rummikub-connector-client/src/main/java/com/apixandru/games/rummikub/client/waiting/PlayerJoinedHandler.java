@@ -4,21 +4,23 @@ import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
 
+import java.util.List;
+
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 01, 2016
  */
 public final class PlayerJoinedHandler implements PacketHandler<PacketPlayerJoined> {
 
-    private final WaitingRoomListener waitingRoomListener;
+    private final List<WaitingRoomListener> waitingRoomListeners;
 
-    public PlayerJoinedHandler(final WaitingRoomListener waitingRoomListener) {
-        this.waitingRoomListener = waitingRoomListener;
+    public PlayerJoinedHandler(final List<WaitingRoomListener> waitingRoomListeners) {
+        this.waitingRoomListeners = waitingRoomListeners;
     }
 
     @Override
     public void handle(final PacketPlayerJoined packet) {
-        waitingRoomListener.playerJoined(packet.playerName);
+        waitingRoomListeners.forEach(listener -> listener.playerJoined(packet.playerName));
     }
 
 }
