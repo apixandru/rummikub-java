@@ -35,25 +35,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 final class PlayerCallbackAdapter<H> implements Runnable {
 
-    private final Logger log = LoggerFactory.getLogger(PlayerCallbackAdapter.class);
-
-    private final PacketReader reader;
-
-    private final Map<Class, PacketHandler> handlers = new HashMap<>();
-
-    private final ConnectionListener connectionListener;
-
     final List<GameEventListener> gameEventListeners = new CopyOnWriteArrayList<>();
     final List<BoardCallback> boardCallbacks = new CopyOnWriteArrayList<>();
     final List<PlayerCallback<H>> playerCallbacks = new CopyOnWriteArrayList<>();
+    final List<ConnectionListener> connectionListeners = new CopyOnWriteArrayList<>();
 
+    private final Logger log = LoggerFactory.getLogger(PlayerCallbackAdapter.class);
+
+    private final PacketReader reader;
+    private final Map<Class, PacketHandler> handlers = new HashMap<>();
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
     PlayerCallbackAdapter(final ConnectorBuilder<H> connector,
                           final PacketReader reader) {
         this.reader = reader;
-
-        this.connectionListener = connector.connectionListener;
 
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardCallbacks));
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardCallbacks));
@@ -73,10 +68,10 @@ final class PlayerCallbackAdapter<H> implements Runnable {
             }
         } catch (final EOFException e) {
             log.debug("Server was shutdown?", e);
-            this.connectionListener.onConnectionLost();
+            connectionListeners.forEach(ConnectionListener::onConnectionLost);
         } catch (final IOException e) {
             log.error("Unknown exception", e);
-            this.connectionListener.onConnectionLost();
+            connectionListeners.forEach(ConnectionListener::onConnectionLost);
         }
     }
 

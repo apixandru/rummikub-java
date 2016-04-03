@@ -16,6 +16,7 @@ final class RummikubGame {
         adapter.gameEventListeners.add(connector.gameEventListener);
         adapter.boardCallbacks.add(connector.boardCallback);
         adapter.playerCallbacks.add(connector.callback);
+        adapter.connectionListeners.add(connector.connectionListener);
 
         new Thread(adapter, "Callback adapter").start();
 
