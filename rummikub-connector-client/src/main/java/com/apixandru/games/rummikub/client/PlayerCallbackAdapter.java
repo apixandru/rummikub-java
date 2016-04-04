@@ -5,7 +5,7 @@ import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
-import com.apixandru.games.rummikub.brotocol.PacketReader;
+import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
@@ -44,19 +44,19 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(PlayerCallbackAdapter.class);
 
+    final SocketWrapper socketWrapper;
+
     private final List<BoardCallback> boardCallbacks = new CopyOnWriteArrayList<>();
     private final List<WaitingRoomListener> waitingRoomListeners = new CopyOnWriteArrayList<>();
     private final List<ConnectionListener> connectionListeners = new CopyOnWriteArrayList<>();
     private final List<PlayerCallback<H>> playerCallbacks = new CopyOnWriteArrayList<>();
     private final List<GameEventListener> gameEventListeners = new CopyOnWriteArrayList<>();
-
-    private final PacketReader reader;
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
-    public PlayerCallbackAdapter(final List<H> hints, final PacketReader reader) {
-        this.reader = reader;
+    public PlayerCallbackAdapter(final List<H> hints, final SocketWrapper socketWrapper) {
+        this.socketWrapper = socketWrapper;
 
         handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListeners));
         handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListeners));
@@ -72,9 +72,9 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
     @Override
     @SuppressWarnings("unchecked")
     public void run() {
-        try (final Closeable closeMe = this.reader) {
+        try (final Closeable closeMe = this.socketWrapper) {
             while (continueReading.get()) {
-                final Packet input = reader.readPacket();
+                final Packet input = socketWrapper.readPacket();
                 final PacketHandler packetHandler = handlers.get(input.getClass());
                 packetHandler.handle(input);
             }

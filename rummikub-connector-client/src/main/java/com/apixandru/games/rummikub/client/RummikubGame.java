@@ -1,7 +1,5 @@
 package com.apixandru.games.rummikub.client;
 
-import com.apixandru.games.rummikub.brotocol.SocketWrapper;
-
 import java.io.IOException;
 
 /**
@@ -10,9 +8,7 @@ import java.io.IOException;
  */
 final class RummikubGame {
 
-    static <H> SocketPlayer<H> connect(final ConnectorBuilder<H> connector, final SocketWrapper socketWrapper) throws IOException {
-        final PlayerCallbackAdapter<H> adapter = new PlayerCallbackAdapter<>(connector.hints, socketWrapper);
-
+    static <H> SocketPlayer<H> connect(final ConnectorBuilder<H> connector, final PlayerCallbackAdapter<H> adapter) throws IOException {
         adapter.addGameEventListener(connector.gameEventListener);
         adapter.addBoardCallback(connector.boardCallback);
         adapter.addPlayerCallback(connector.callback);
@@ -20,7 +16,7 @@ final class RummikubGame {
 
         new Thread(adapter, "Callback adapter").start();
 
-        return new SocketPlayer<>(connector.playerName, socketWrapper, connector.hints);
+        return new SocketPlayer<>(connector.playerName, adapter.socketWrapper, connector.hints);
     }
 
 }

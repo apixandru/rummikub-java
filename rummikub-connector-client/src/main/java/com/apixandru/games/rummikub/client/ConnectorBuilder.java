@@ -56,8 +56,8 @@ public final class ConnectorBuilder<E> {
         return this;
     }
 
-    public Player<E> link(final SocketWrapper socketWrapper) throws IOException {
-        return RummikubGame.connect(this, socketWrapper);
+    public Player<E> link(final PlayerCallbackAdapter<E> adapter) throws IOException {
+        return RummikubGame.connect(this, adapter);
     }
 
 }
