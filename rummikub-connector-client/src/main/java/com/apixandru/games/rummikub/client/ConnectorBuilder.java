@@ -1,10 +1,7 @@
 package com.apixandru.games.rummikub.client;
 
-import com.apixandru.games.rummikub.api.BoardCallback;
-import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.PlayerCallback;
-import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,11 +13,8 @@ import java.util.List;
 public final class ConnectorBuilder<E> {
 
     final PlayerCallback<E> callback;
-    BoardCallback boardCallback;
-    GameEventListener gameEventListener;
 
     List<E> hints;
-    ConnectionListener connectionListener;
     String playerName;
 
     private ConnectorBuilder(final PlayerCallback<E> callback) {
@@ -31,11 +25,6 @@ public final class ConnectorBuilder<E> {
         return new ConnectorBuilder<>(callback);
     }
 
-    public ConnectorBuilder<E> setConnectionListener(final ConnectionListener connectionListener) {
-        this.connectionListener = connectionListener;
-        return this;
-    }
-
     public ConnectorBuilder<E> setHints(final List<E> hints) {
         this.hints = hints;
         return this;
@@ -43,16 +32,6 @@ public final class ConnectorBuilder<E> {
 
     public ConnectorBuilder<E> setPlayerName(final String name) {
         this.playerName = name;
-        return this;
-    }
-
-    public ConnectorBuilder<E> setBoardCallback(final BoardCallback boardCallback) {
-        this.boardCallback = boardCallback;
-        return this;
-    }
-
-    public ConnectorBuilder<E> setGameEventListener(final GameEventListener gameEventListener) {
-        this.gameEventListener = gameEventListener;
         return this;
     }
 

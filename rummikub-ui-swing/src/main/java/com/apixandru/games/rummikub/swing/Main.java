@@ -38,10 +38,10 @@ final class Main {
         }
         final PlayerUi player = new PlayerUi();
         final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), connectionData.socket);
-        WaitingRoom.createAndShowGUI(() -> run(connectionData, player));
+        WaitingRoom.createAndShowGUI(() -> run(connectionData, player, adapter));
     }
 
-    private static void run(ServerData.ConnectionData connectionData, PlayerUi player) {
+    private static void run(ServerData.ConnectionData connectionData, PlayerUi player, final PlayerCallbackAdapter<CardSlot> adapter) {
         try {
 
             final JFrame frame = new JFrame();
@@ -50,15 +50,15 @@ final class Main {
             final JButton btnEndTurn = new JButton("End Turn");
             final GameListener callback = new GameListener(frame, board, btnEndTurn);
 
+            adapter.addGameEventListener(callback);
+            adapter.addConnectionListener(callback);
+            adapter.addBoardCallback(callback);
 
             final Player<CardSlot> actualPlayer =
                     ConnectorBuilder.from(player)
-                            .setBoardCallback(callback)
-                            .setGameEventListener(callback)
-                            .setConnectionListener(callback)
                             .setHints(player.getAllSlots())
                             .setPlayerName(connectionData.username)
-                            .link(connectionData.socket);
+                            .link(adapter);
 
             final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);
             comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
