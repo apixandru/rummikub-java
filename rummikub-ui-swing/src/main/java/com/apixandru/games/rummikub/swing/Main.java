@@ -53,10 +53,10 @@ final class Main {
             adapter.addGameEventListener(callback);
             adapter.addConnectionListener(callback);
             adapter.addBoardCallback(callback);
+            adapter.addPlayerCallback(player);
 
             final Player<CardSlot> actualPlayer =
-                    ConnectorBuilder.from(player)
-                            .setHints(player.getAllSlots())
+                    ConnectorBuilder.from(player.getAllSlots())
                             .setPlayerName(connectionData.username)
                             .link(adapter);
 

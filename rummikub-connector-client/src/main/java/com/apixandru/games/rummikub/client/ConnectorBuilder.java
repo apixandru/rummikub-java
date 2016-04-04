@@ -1,7 +1,6 @@
 package com.apixandru.games.rummikub.client;
 
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.api.PlayerCallback;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,22 +11,15 @@ import java.util.List;
  */
 public final class ConnectorBuilder<E> {
 
-    final PlayerCallback<E> callback;
-
-    List<E> hints;
+    final List<E> hints;
     String playerName;
 
-    private ConnectorBuilder(final PlayerCallback<E> callback) {
-        this.callback = callback;
-    }
-
-    public static <H> ConnectorBuilder<H> from(final PlayerCallback<H> callback) {
-        return new ConnectorBuilder<>(callback);
-    }
-
-    public ConnectorBuilder<E> setHints(final List<E> hints) {
+    private ConnectorBuilder(final List<E> hints) {
         this.hints = hints;
-        return this;
+    }
+
+    public static <H> ConnectorBuilder<H> from(final List<H> hints) {
+        return new ConnectorBuilder<>(hints);
     }
 
     public ConnectorBuilder<E> setPlayerName(final String name) {
