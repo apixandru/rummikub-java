@@ -2,6 +2,7 @@ package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.client.ConnectorBuilder;
+import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.utils.swing.ComponentDragSource;
 
 import javax.swing.Box;
@@ -35,11 +36,12 @@ final class Main {
         if (null == connectionData) {
             return;
         }
-
-        WaitingRoom.createAndShowGUI(() -> run(connectionData));
+        final PlayerUi player = new PlayerUi();
+        final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), connectionData.socket);
+        WaitingRoom.createAndShowGUI(() -> run(connectionData, player));
     }
 
-    private static void run(ServerData.ConnectionData connectionData) {
+    private static void run(ServerData.ConnectionData connectionData, PlayerUi player) {
         try {
 
             final JFrame frame = new JFrame();
@@ -48,7 +50,6 @@ final class Main {
             final JButton btnEndTurn = new JButton("End Turn");
             final GameListener callback = new GameListener(frame, board, btnEndTurn);
 
-            final PlayerUi player = new PlayerUi();
 
             final Player<CardSlot> actualPlayer =
                     ConnectorBuilder.from(player)

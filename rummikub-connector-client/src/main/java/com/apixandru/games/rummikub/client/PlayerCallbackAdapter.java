@@ -40,7 +40,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-final class PlayerCallbackAdapter<H> implements Runnable {
+public final class PlayerCallbackAdapter<H> implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(PlayerCallbackAdapter.class);
 
@@ -55,7 +55,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
-    PlayerCallbackAdapter(final List<H> hints, final PacketReader reader) {
+    public PlayerCallbackAdapter(final List<H> hints, final PacketReader reader) {
         this.reader = reader;
 
         handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListeners));
