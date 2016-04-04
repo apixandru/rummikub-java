@@ -2,7 +2,6 @@ package com.apixandru.games.rummikub.client;
 
 import com.apixandru.games.rummikub.api.Player;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public final class ConnectorBuilder<E> {
         return this;
     }
 
-    public Player<E> link(final PlayerCallbackAdapter<E> adapter) throws IOException {
+    public Player<E> link(final PlayerCallbackAdapter<E> adapter) {
         return RummikubGame.connect(this, adapter);
     }
 

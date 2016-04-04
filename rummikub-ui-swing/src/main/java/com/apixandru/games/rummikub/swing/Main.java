@@ -42,53 +42,48 @@ final class Main {
     }
 
     private static void run(ServerData.ConnectionData connectionData, PlayerUi player, final PlayerCallbackAdapter<CardSlot> adapter) {
-        try {
+        final JFrame frame = new JFrame();
+        final JGridPanel board = RummikubUi.newBoard();
 
-            final JFrame frame = new JFrame();
-            final JGridPanel board = RummikubUi.newBoard();
+        final JButton btnEndTurn = new JButton("End Turn");
+        final GameListener callback = new GameListener(frame, board, btnEndTurn);
 
-            final JButton btnEndTurn = new JButton("End Turn");
-            final GameListener callback = new GameListener(frame, board, btnEndTurn);
+        adapter.addGameEventListener(callback);
+        adapter.addConnectionListener(callback);
+        adapter.addBoardCallback(callback);
+        adapter.addPlayerCallback(player);
 
-            adapter.addGameEventListener(callback);
-            adapter.addConnectionListener(callback);
-            adapter.addBoardCallback(callback);
-            adapter.addPlayerCallback(player);
+        final Player<CardSlot> actualPlayer =
+                ConnectorBuilder.from(player.getAllSlots())
+                        .setPlayerName(connectionData.username)
+                        .link(adapter);
 
-            final Player<CardSlot> actualPlayer =
-                    ConnectorBuilder.from(player.getAllSlots())
-                            .setPlayerName(connectionData.username)
-                            .link(adapter);
+        final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);
+        comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
 
-            final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);
-            comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
+        final JLayeredPane layeredPane = new JLayeredPane() {
+            @Override
+            public String toString() {
+                return "the drag layer";
+            }
+        };
+        layeredPane.add(board, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(player, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(comp);
 
-            final JLayeredPane layeredPane = new JLayeredPane() {
-                @Override
-                public String toString() {
-                    return "the drag layer";
-                }
-            };
-            layeredPane.add(board, JLayeredPane.DEFAULT_LAYER);
-            layeredPane.add(player, JLayeredPane.DEFAULT_LAYER);
-            layeredPane.add(comp);
+        final ComponentDragSource<CardUi> dragSource = new ComponentDragSource<>(player, board);
+        final CardDndListener listener = new CardDndListener(dragSource, board, actualPlayer, callback);
 
-            final ComponentDragSource<CardUi> dragSource = new ComponentDragSource<>(player, board);
-            final CardDndListener listener = new CardDndListener(dragSource, board, actualPlayer, callback);
+        layeredPane.addMouseListener(listener);
+        layeredPane.addMouseMotionListener(listener);
 
-            layeredPane.addMouseListener(listener);
-            layeredPane.addMouseMotionListener(listener);
+        layeredPane.setPreferredSize(computeSize(layeredPane));
 
-            layeredPane.setPreferredSize(computeSize(layeredPane));
-
-            frame.setContentPane(layeredPane);
-            frame.pack();
-            frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        } catch (IOException ex) {
-            throw new IllegalStateException(ex);
-        }
+        frame.setContentPane(layeredPane);
+        frame.pack();
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     private static JPanel createMiddlePanel(final JButton btnEndTurn, final Player<CardSlot> actualPlayer) {
