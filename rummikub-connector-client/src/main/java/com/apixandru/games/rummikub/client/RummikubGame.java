@@ -13,10 +13,10 @@ final class RummikubGame {
     static <H> SocketPlayer<H> connect(final ConnectorBuilder<H> connector, final SocketWrapper socketWrapper) throws IOException {
         final PlayerCallbackAdapter<H> adapter = new PlayerCallbackAdapter<>(connector, socketWrapper);
 
-        adapter.gameEventListeners.add(connector.gameEventListener);
-        adapter.boardCallbacks.add(connector.boardCallback);
-        adapter.playerCallbacks.add(connector.callback);
-        adapter.connectionListeners.add(connector.connectionListener);
+        adapter.addGameEventListener(connector.gameEventListener);
+        adapter.addBoardCallback(connector.boardCallback);
+        adapter.addPlayerCallback(connector.callback);
+        adapter.addConnectionListener(connector.connectionListener);
 
         new Thread(adapter, "Callback adapter").start();
 

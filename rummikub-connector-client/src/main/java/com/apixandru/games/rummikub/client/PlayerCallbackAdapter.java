@@ -42,16 +42,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 final class PlayerCallbackAdapter<H> implements Runnable {
 
-    final List<GameEventListener> gameEventListeners = new CopyOnWriteArrayList<>();
-    final List<BoardCallback> boardCallbacks = new CopyOnWriteArrayList<>();
-    final List<PlayerCallback<H>> playerCallbacks = new CopyOnWriteArrayList<>();
-    final List<ConnectionListener> connectionListeners = new CopyOnWriteArrayList<>();
-    final List<WaitingRoomListener> waitingRoomListeners = new CopyOnWriteArrayList<>();
+    private static final Logger log = LoggerFactory.getLogger(PlayerCallbackAdapter.class);
 
-    private final Logger log = LoggerFactory.getLogger(PlayerCallbackAdapter.class);
+    private final List<BoardCallback> boardCallbacks = new CopyOnWriteArrayList<>();
+    private final List<WaitingRoomListener> waitingRoomListeners = new CopyOnWriteArrayList<>();
+    private final List<ConnectionListener> connectionListeners = new CopyOnWriteArrayList<>();
+    private final List<PlayerCallback<H>> playerCallbacks = new CopyOnWriteArrayList<>();
+    private final List<GameEventListener> gameEventListeners = new CopyOnWriteArrayList<>();
 
     private final PacketReader reader;
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
+
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
     PlayerCallbackAdapter(final ConnectorBuilder<H> connector,
@@ -85,6 +86,26 @@ final class PlayerCallbackAdapter<H> implements Runnable {
             log.error("Unknown exception", e);
             connectionListeners.forEach(ConnectionListener::onConnectionLost);
         }
+    }
+
+    public void addGameEventListener(final GameEventListener gameEventListener) {
+        this.gameEventListeners.add(gameEventListener);
+    }
+
+    public void addPlayerCallback(final PlayerCallback<H> playerCallback) {
+        this.playerCallbacks.add(playerCallback);
+    }
+
+    public void addConnectionListener(final ConnectionListener connectionListener) {
+        this.connectionListeners.add(connectionListener);
+    }
+
+    public void addBoardCallback(final BoardCallback boardCallback) {
+        this.boardCallbacks.add(boardCallback);
+    }
+
+    public void addWaitingRoomListener(final WaitingRoomListener waitingRoomListener) {
+        this.waitingRoomListeners.add(waitingRoomListener);
     }
 
 }
