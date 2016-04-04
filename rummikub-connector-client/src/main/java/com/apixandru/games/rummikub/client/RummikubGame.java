@@ -11,7 +11,7 @@ import java.io.IOException;
 final class RummikubGame {
 
     static <H> SocketPlayer<H> connect(final ConnectorBuilder<H> connector, final SocketWrapper socketWrapper) throws IOException {
-        final PlayerCallbackAdapter<H> adapter = new PlayerCallbackAdapter<>(connector, socketWrapper);
+        final PlayerCallbackAdapter<H> adapter = new PlayerCallbackAdapter<>(connector.hints, socketWrapper);
 
         adapter.addGameEventListener(connector.gameEventListener);
         adapter.addBoardCallback(connector.boardCallback);

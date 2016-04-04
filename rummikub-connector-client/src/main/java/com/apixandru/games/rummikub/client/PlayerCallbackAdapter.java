@@ -55,8 +55,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
-    PlayerCallbackAdapter(final ConnectorBuilder<H> connector,
-                          final PacketReader reader) {
+    PlayerCallbackAdapter(final List<H> hints, final PacketReader reader) {
         this.reader = reader;
 
         handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListeners));
@@ -67,7 +66,7 @@ final class PlayerCallbackAdapter<H> implements Runnable {
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardCallbacks));
         handlers.put(PacketNewTurn.class, new NewTurnHandler(gameEventListeners));
         handlers.put(PacketGameOver.class, new GameOverHandler(gameEventListeners, continueReading));
-        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler<>(playerCallbacks, connector.hints));
+        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler<>(playerCallbacks, hints));
     }
 
     @Override
