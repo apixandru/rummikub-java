@@ -10,6 +10,7 @@ import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketTakeCard;
 import com.apixandru.games.rummikub.model.Rummikub;
+import com.apixandru.games.rummikub.server.game.EndTurnHandler;
 import com.apixandru.games.rummikub.server.game.TakeCardHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +54,7 @@ final class ClientRunnable implements Runnable {
     private Map<Class, PacketHandler> createGameHandlers() {
         final Map<Class, PacketHandler> gameHandlers = new HashMap<>();
         gameHandlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler());
-        gameHandlers.put(PacketEndTurn.class, new EndTurnHandler());
+        gameHandlers.put(PacketEndTurn.class, new EndTurnHandler(player, playerName));
         gameHandlers.put(PacketMoveCard.class, new MoveCardHandler());
         gameHandlers.put(PacketTakeCard.class, new TakeCardHandler(player, playerName));
         return Collections.unmodifiableMap(gameHandlers);
@@ -90,15 +91,6 @@ final class ClientRunnable implements Runnable {
             final int y = packet.y;
             log.debug("[{}] Received placeCardOnBoard(card={}, x={}, y={})", playerName, card, x, y);
             player.placeCardOnBoard(card, x, y);
-        }
-    }
-
-    private class EndTurnHandler implements PacketHandler<PacketEndTurn> {
-
-        @Override
-        public void handle(final PacketEndTurn packet) {
-            log.debug("[{}] Received endTurn()", playerName);
-            player.endTurn();
         }
     }
 

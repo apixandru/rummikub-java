@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 public class TakeCardHandler implements PacketHandler<PacketTakeCard> {
 
     private static final Logger log = LoggerFactory.getLogger(TakeCardHandler.class);
+
     private final Player<Integer> player;
     private final String playerName;
 
