@@ -40,11 +40,11 @@ final class Main {
         final PlayerUi player = new PlayerUi();
         final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), connectionData.socket);
 
-        final WaitingRoomListener waitingRoom = WaitingRoom.createAndShowGUI(() -> run(connectionData, player, adapter));
+        final WaitingRoomListener waitingRoom = WaitingRoom.createAndShowGUI(() -> run(connectionData.username, player, adapter));
         adapter.addWaitingRoomListener(waitingRoom);
     }
 
-    private static void run(ServerData.ConnectionData connectionData, PlayerUi player, final PlayerCallbackAdapter<CardSlot> adapter) {
+    private static void run(String username, PlayerUi player, final PlayerCallbackAdapter<CardSlot> adapter) {
         final JFrame frame = new JFrame();
         final JGridPanel board = RummikubUi.newBoard();
 
@@ -58,7 +58,7 @@ final class Main {
 
         final Player<CardSlot> actualPlayer =
                 ConnectorBuilder.from(player.getAllSlots())
-                        .setPlayerName(connectionData.username)
+                        .setPlayerName(username)
                         .link(adapter);
 
         final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);
