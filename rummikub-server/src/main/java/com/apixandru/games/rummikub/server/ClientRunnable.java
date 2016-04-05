@@ -10,6 +10,7 @@ import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketTakeCard;
 import com.apixandru.games.rummikub.model.Rummikub;
+import com.apixandru.games.rummikub.server.game.TakeCardHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +55,7 @@ final class ClientRunnable implements Runnable {
         gameHandlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler());
         gameHandlers.put(PacketEndTurn.class, new EndTurnHandler());
         gameHandlers.put(PacketMoveCard.class, new MoveCardHandler());
-        gameHandlers.put(PacketTakeCard.class, new TakeCardHandler());
+        gameHandlers.put(PacketTakeCard.class, new TakeCardHandler(player, playerName));
         return Collections.unmodifiableMap(gameHandlers);
     }
 
@@ -112,19 +113,6 @@ final class ClientRunnable implements Runnable {
             final int toY = packet.toY;
             log.debug("[{}] Received moveCardOnBoard(card={}, fromX={}, fromY={}, toX={}, toY={})", playerName, card, fromX, fromY, toX, toY);
             player.moveCardOnBoard(card, fromX, fromY, toX, toY);
-        }
-    }
-
-    private class TakeCardHandler implements PacketHandler<PacketTakeCard> {
-
-        @Override
-        public void handle(final PacketTakeCard packet) {
-            final Card card = packet.card;
-            final int x = packet.x;
-            final int y = packet.y;
-            final int hint = packet.hint;
-            log.debug("[{}] Received takeCardFromBoard(card={}, x={}, y={}, hint={})", playerName, card, x, y, hint);
-            player.takeCardFromBoard(card, x, y, hint);
         }
     }
 
