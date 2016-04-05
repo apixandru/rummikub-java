@@ -38,14 +38,12 @@ final class ClientRunnable implements Runnable {
     private final PacketReader reader;
     private final Player<Integer> player;
     private final Rummikub<Integer> game;
-    private final String playerName;
 
     ClientRunnable(final PacketReader reader,
                    final Player<Integer> player,
                    final Rummikub<Integer> game) {
         this.reader = reader;
         this.player = player;
-        this.playerName = player.getName();
         this.game = game;
 
         this.gameHandlers = createGameHandlers();
@@ -76,7 +74,7 @@ final class ClientRunnable implements Runnable {
                 packetHandler.handle(input);
             }
         } catch (final EOFException e) {
-            log.debug("{} quit the game", playerName);
+            log.debug("{} quit the game", player.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
