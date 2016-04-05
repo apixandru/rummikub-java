@@ -15,16 +15,14 @@ public class EndTurnHandler implements PacketHandler<PacketEndTurn> {
     private static final Logger log = LoggerFactory.getLogger(EndTurnHandler.class);
 
     private final Player<Integer> player;
-    private final String playerName;
 
-    public EndTurnHandler(final Player<Integer> player, final String playerName) {
+    public EndTurnHandler(final Player<Integer> player) {
         this.player = player;
-        this.playerName = playerName;
     }
 
     @Override
     public void handle(final PacketEndTurn packet) {
-        log.debug("[{}] Received endTurn()", playerName);
+        log.debug("[{}] Received endTurn()", player.getName());
         player.endTurn();
     }
 

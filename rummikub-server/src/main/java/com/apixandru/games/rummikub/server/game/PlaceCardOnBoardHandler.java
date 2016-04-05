@@ -16,11 +16,9 @@ public class PlaceCardOnBoardHandler implements PacketHandler<PacketPlaceCard> {
     private static final Logger log = LoggerFactory.getLogger(EndTurnHandler.class);
 
     private final Player<Integer> player;
-    private final String playerName;
 
-    public PlaceCardOnBoardHandler(final Player<Integer> player, final String playerName) {
+    public PlaceCardOnBoardHandler(final Player<Integer> player) {
         this.player = player;
-        this.playerName = playerName;
     }
 
     @Override
@@ -28,7 +26,7 @@ public class PlaceCardOnBoardHandler implements PacketHandler<PacketPlaceCard> {
         final Card card = packet.card;
         final int x = packet.x;
         final int y = packet.y;
-        log.debug("[{}] Received placeCardOnBoard(card={}, x={}, y={})", playerName, card, x, y);
+        log.debug("[{}] Received placeCardOnBoard(card={}, x={}, y={})", player.getName(), card, x, y);
         player.placeCardOnBoard(card, x, y);
     }
 

@@ -16,11 +16,9 @@ public class MoveCardHandler implements PacketHandler<PacketMoveCard> {
     private static final Logger log = LoggerFactory.getLogger(MoveCardHandler.class);
 
     private final Player<Integer> player;
-    private final String playerName;
 
-    public MoveCardHandler(final Player<Integer> player, final String playerName) {
+    public MoveCardHandler(final Player<Integer> player) {
         this.player = player;
-        this.playerName = playerName;
     }
 
     @Override
@@ -30,7 +28,7 @@ public class MoveCardHandler implements PacketHandler<PacketMoveCard> {
         final int fromY = packet.fromY;
         final int toX = packet.toX;
         final int toY = packet.toY;
-        log.debug("[{}] Received moveCardOnBoard(card={}, fromX={}, fromY={}, toX={}, toY={})", playerName, card, fromX, fromY, toX, toY);
+        log.debug("[{}] Received moveCardOnBoard(card={}, fromX={}, fromY={}, toX={}, toY={})", player.getName(), card, fromX, fromY, toX, toY);
         player.moveCardOnBoard(card, fromX, fromY, toX, toY);
     }
 

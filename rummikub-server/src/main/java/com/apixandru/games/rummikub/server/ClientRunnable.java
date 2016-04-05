@@ -54,10 +54,10 @@ final class ClientRunnable implements Runnable {
 
     private Map<Class, PacketHandler> createGameHandlers() {
         final Map<Class, PacketHandler> gameHandlers = new HashMap<>();
-        gameHandlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler(player, playerName));
-        gameHandlers.put(PacketEndTurn.class, new EndTurnHandler(player, playerName));
-        gameHandlers.put(PacketMoveCard.class, new MoveCardHandler(player, playerName));
-        gameHandlers.put(PacketTakeCard.class, new TakeCardHandler(player, playerName));
+        gameHandlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler(player));
+        gameHandlers.put(PacketEndTurn.class, new EndTurnHandler(player));
+        gameHandlers.put(PacketMoveCard.class, new MoveCardHandler(player));
+        gameHandlers.put(PacketTakeCard.class, new TakeCardHandler(player));
         return Collections.unmodifiableMap(gameHandlers);
     }
 
