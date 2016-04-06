@@ -1,6 +1,5 @@
 package com.apixandru.games.rummikub.server;
 
-import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.PacketReader;
@@ -36,14 +35,14 @@ final class ClientRunnable implements Runnable {
     private final Map<Class, PacketHandler> gameHandlers;
 
     private final PacketReader reader;
-    private final Player<Integer> player;
+    private final PlayerProvider<Integer> playerProvider;
     private final Rummikub<Integer> game;
 
     ClientRunnable(final PacketReader reader,
-                   final Player<Integer> player,
+                   final PlayerProvider<Integer> playerProvider,
                    final Rummikub<Integer> game) {
         this.reader = reader;
-        this.player = player;
+        this.playerProvider = playerProvider;
         this.game = game;
 
         this.gameHandlers = createGameHandlers();
@@ -52,10 +51,10 @@ final class ClientRunnable implements Runnable {
 
     private Map<Class, PacketHandler> createGameHandlers() {
         final Map<Class, PacketHandler> gameHandlers = new HashMap<>();
-        gameHandlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler(player));
-        gameHandlers.put(PacketEndTurn.class, new EndTurnHandler(player));
-        gameHandlers.put(PacketMoveCard.class, new MoveCardHandler(player));
-        gameHandlers.put(PacketTakeCard.class, new TakeCardHandler(player));
+        gameHandlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler(playerProvider.getPlayer()));
+        gameHandlers.put(PacketEndTurn.class, new EndTurnHandler(playerProvider.getPlayer()));
+        gameHandlers.put(PacketMoveCard.class, new MoveCardHandler(playerProvider.getPlayer()));
+        gameHandlers.put(PacketTakeCard.class, new TakeCardHandler(playerProvider.getPlayer()));
         return Collections.unmodifiableMap(gameHandlers);
     }
 
@@ -74,11 +73,11 @@ final class ClientRunnable implements Runnable {
                 packetHandler.handle(input);
             }
         } catch (final EOFException e) {
-            log.debug("{} quit the game", player.getName());
+            log.debug("{} quit the game", playerProvider.getPlayer().getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.game.removePlayer(this.player);
+        this.game.removePlayer(this.playerProvider.getPlayer());
     }
 
 }
