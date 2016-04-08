@@ -11,8 +11,6 @@ import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.games.rummikub.model.Rummikub;
 import com.apixandru.games.rummikub.model.RummikubFactory;
-import com.apixandru.games.rummikub.server.game.GameHandler;
-import com.apixandru.games.rummikub.server.waiting.WaitingHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +33,6 @@ public class ConnectionHandler {
 
     private final Rummikub<Integer> game = RummikubFactory.newInstance();
     private final Map<String, SocketWrapper> activeConnections = new HashMap<>();
-    private final GameHandler gameHandler = new GameHandler();
-    private final WaitingHandler waitingHandler = new WaitingHandler();
     private ServerState serverState = WAITING_ROOM;
 
     public ConnectionHandler() {
