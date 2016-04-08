@@ -30,9 +30,7 @@ final class ClientRunnable implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(ClientRunnable.class);
 
-    private final Map<Class, PacketHandler> waitingRoomHandlers;
-
-    private final Map<Class, PacketHandler> gameHandlers;
+    private final Map<Class, PacketHandler> handlers;
 
     private final PacketReader reader;
     private final PlayerProvider<Integer> playerProvider;
@@ -45,11 +43,10 @@ final class ClientRunnable implements Runnable {
         this.playerProvider = playerProvider;
         this.game = game;
 
-        this.gameHandlers = createGameHandlers();
-        this.waitingRoomHandlers = createWaitingRoomHandlers();
+        this.handlers = createHandlers();
     }
 
-    private Map<Class, PacketHandler> createGameHandlers() {
+    private Map<Class, PacketHandler> createHandlers() {
         final Map<Class, PacketHandler> gameHandlers = new HashMap<>();
         gameHandlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler(playerProvider));
         gameHandlers.put(PacketEndTurn.class, new EndTurnHandler(playerProvider));
@@ -58,24 +55,19 @@ final class ClientRunnable implements Runnable {
         return Collections.unmodifiableMap(gameHandlers);
     }
 
-    private Map<Class, PacketHandler> createWaitingRoomHandlers() {
-        final Map<Class, PacketHandler> handlers = new HashMap<>();
-        return Collections.unmodifiableMap(handlers);
-    }
-
     @Override
     @SuppressWarnings("unchecked")
     public void run() {
         try (final Closeable automaticallyCloseMe = this.reader) {
             while (true) {
                 final Packet input = reader.readPacket();
-                final PacketHandler packetHandler = gameHandlers.get(input.getClass());
+                final PacketHandler packetHandler = handlers.get(input.getClass());
                 packetHandler.handle(input);
             }
         } catch (final EOFException e) {
             log.debug("{} quit the game", playerProvider.getPlayer().getName());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Failed to read packet", e);
         }
         this.game.removePlayer(this.playerProvider.getPlayer());
     }
