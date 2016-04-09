@@ -6,7 +6,6 @@ import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
-import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketCardPlaced;
@@ -21,6 +20,7 @@ import com.apixandru.games.rummikub.client.game.NewTurnHandler;
 import com.apixandru.games.rummikub.client.game.ReceiveCardHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerJoinedHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerLeftHandler;
+import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

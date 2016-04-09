@@ -1,9 +1,9 @@
 package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
 import com.apixandru.games.rummikub.client.ConnectorBuilder;
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
+import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import com.apixandru.utils.swing.ComponentDragSource;
 
 import javax.swing.Box;

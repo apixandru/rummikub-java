@@ -1,8 +1,8 @@
-package com.apixandru.games.rummikub.brotocol.connect;
+package com.apixandru.rummikub.waiting;
 
 /**
  * @author Alexandru-Constantin Bledea
- * @since April 01, 2016
+ * @since April 09, 2016
  */
 public interface WaitingRoomListener {
 

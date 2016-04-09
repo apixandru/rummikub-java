@@ -1,9 +1,9 @@
 package com.apixandru.games.rummikub.client;
 
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
-import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
 import com.apixandru.games.rummikub.client.waiting.StartGameListenerImpl;
 import com.apixandru.rummikub.waiting.StartGameListener;
+import com.apixandru.rummikub.waiting.WaitingRoomListener;
 
 import java.util.ArrayList;
 import java.util.List;

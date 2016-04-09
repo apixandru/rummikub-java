@@ -4,12 +4,12 @@ import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
-import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
 import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomModel;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
 import com.apixandru.games.rummikub.model.Rummikub;
 import com.apixandru.games.rummikub.model.RummikubFactory;
+import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
