@@ -1,5 +1,7 @@
 package com.apixandru.games.rummikub.brotocol.connect;
 
+import com.apixandru.rummikub.waiting.StartGameListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
