@@ -8,7 +8,6 @@ import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
 import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomModel;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
-import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.games.rummikub.model.Rummikub;
 import com.apixandru.games.rummikub.model.RummikubFactory;
 import org.slf4j.Logger;
@@ -105,11 +104,6 @@ public class ConnectionHandler {
 
             broadcast(packetLeft);
 
-        }
-
-        @Override
-        public void startGame() {
-            broadcast(new PacketPlayerStart());
         }
 
         private void broadcast(final Packet packet) {

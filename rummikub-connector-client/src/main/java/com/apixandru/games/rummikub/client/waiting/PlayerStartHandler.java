@@ -1,8 +1,8 @@
 package com.apixandru.games.rummikub.client.waiting;
 
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
-import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
 import com.apixandru.games.rummikub.brotocol.connect.client.PacketStart;
+import com.apixandru.rummikub.waiting.StartGameListener;
 
 import java.util.List;
 
@@ -12,15 +12,15 @@ import java.util.List;
  */
 public class PlayerStartHandler implements PacketHandler<PacketStart> {
 
-    private final List<WaitingRoomListener> waitingRoomListeners;
+    private final List<StartGameListener> waitingRoomListeners;
 
-    public PlayerStartHandler(final List<WaitingRoomListener> waitingRoomListeners) {
+    public PlayerStartHandler(final List<StartGameListener> waitingRoomListeners) {
         this.waitingRoomListeners = waitingRoomListeners;
     }
 
     @Override
     public void handle(final PacketStart packet) {
-        this.waitingRoomListeners.forEach(WaitingRoomListener::startGame);
+        this.waitingRoomListeners.forEach(StartGameListener::startGame);
     }
 
 }

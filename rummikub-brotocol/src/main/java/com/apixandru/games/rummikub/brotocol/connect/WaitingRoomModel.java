@@ -1,7 +1,5 @@
 package com.apixandru.games.rummikub.brotocol.connect;
 
-import com.apixandru.rummikub.waiting.StartGameListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +25,6 @@ public final class WaitingRoomModel {
 
     public void playerLeft(final String playerName) {
         this.listeners.forEach(listener -> listener.playerLeft(playerName));
-    }
-
-    public void startGame() {
-        this.listeners.forEach(StartGameListener::startGame);
     }
 
 }

@@ -9,7 +9,6 @@ import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomListener;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
-import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketCardPlaced;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
@@ -22,7 +21,6 @@ import com.apixandru.games.rummikub.client.game.NewTurnHandler;
 import com.apixandru.games.rummikub.client.game.ReceiveCardHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerJoinedHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerLeftHandler;
-import com.apixandru.games.rummikub.client.waiting.PlayerStartHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +58,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
 
         handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListeners));
         handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListeners));
-        handlers.put(PacketPlayerStart.class, new PlayerStartHandler(waitingRoomListeners));
+//        handlers.put(PacketPlayerStart.class, new PlayerStartHandler(waitingRoomListeners));
 
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardCallbacks));
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardCallbacks));
