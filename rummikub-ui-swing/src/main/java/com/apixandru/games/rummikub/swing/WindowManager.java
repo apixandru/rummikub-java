@@ -1,6 +1,7 @@
 package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
+import com.apixandru.games.rummikub.client.RummikubConnector;
 import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.game.GameConfigurer;
 import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
@@ -17,18 +18,12 @@ import static com.apixandru.games.rummikub.swing.GameFrame.run;
 class WindowManager implements StateChangeListener<CardSlot> {
 
     private final String username;
-    private final PlayerUi player;
-    private PlayerCallbackAdapter<CardSlot> adapter;
 
     private Optional<JFrame> waitingRoomFrame;
+    private RummikubConnector<CardSlot> connector;
 
-    WindowManager(final String username, final PlayerUi player) {
+    WindowManager(final String username) {
         this.username = username;
-        this.player = player;
-    }
-
-    void setAdapter(final PlayerCallbackAdapter<CardSlot> adapter) {
-        this.adapter = adapter;
     }
 
     @Override
@@ -41,7 +36,15 @@ class WindowManager implements StateChangeListener<CardSlot> {
     @Override
     public void enteredGame(final GameConfigurer<CardSlot> configurer) {
         waitingRoomFrame.ifPresent(JFrame::dispose);
+
+        final PlayerUi player = new PlayerUi();
+        final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), connector);
+
         run(username, player, adapter);
+    }
+
+    void setConnector(final RummikubConnector<CardSlot> connector) {
+        this.connector = connector;
     }
 
 }

@@ -1,6 +1,5 @@
 package com.apixandru.games.rummikub.swing;
 
-import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.games.rummikub.client.RummikubConnector;
 
 /**
@@ -14,15 +13,9 @@ final class Main {
         if (null == connectionData) {
             return;
         }
-        final PlayerUi player = new PlayerUi();
-        final WindowManager windowManager = new WindowManager(connectionData.username, player);
-
+        final WindowManager windowManager = new WindowManager(connectionData.username);
         final RummikubConnector<CardSlot> rummikubConnector = new RummikubConnector<>(connectionData.socket, windowManager);
-        final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), rummikubConnector);
-
-        // fix this!
-        windowManager.setAdapter(adapter);
-
+        windowManager.setConnector(rummikubConnector);
         rummikubConnector.connect();
 
     }
