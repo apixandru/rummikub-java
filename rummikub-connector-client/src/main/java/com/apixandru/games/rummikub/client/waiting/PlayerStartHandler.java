@@ -3,6 +3,7 @@ package com.apixandru.games.rummikub.client.waiting;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.connect.client.PacketStart;
 import com.apixandru.rummikub.StateChangeListener;
+import com.apixandru.rummikub.game.GameConfigurerAdapter;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -18,7 +19,7 @@ public class PlayerStartHandler<H> implements PacketHandler<PacketStart> {
 
     @Override
     public void handle(final PacketStart packet) {
-        waitingRoomListeners.enteredGame(null);
+        waitingRoomListeners.enteredGame(new GameConfigurerAdapter<H>());
     }
 
 }

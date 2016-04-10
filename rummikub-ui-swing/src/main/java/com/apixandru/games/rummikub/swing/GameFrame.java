@@ -3,6 +3,7 @@ package com.apixandru.games.rummikub.swing;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.client.ConnectorBuilder;
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
+import com.apixandru.rummikub.game.GameConfigurer;
 import com.apixandru.utils.swing.ComponentDragSource;
 
 import javax.swing.Box;
@@ -30,7 +31,7 @@ class GameFrame {
 
     private static final int BOARD_WIDTH = NUM_COLS * TILE_WIDTH;
 
-    static void run(String username, PlayerUi player, final PlayerCallbackAdapter<CardSlot> adapter) {
+    static void run(String username, PlayerUi player, final PlayerCallbackAdapter<CardSlot> adapter, final GameConfigurer<CardSlot> configurer) {
         final JFrame frame = new JFrame();
         final JGridPanel board = RummikubUi.newBoard();
 

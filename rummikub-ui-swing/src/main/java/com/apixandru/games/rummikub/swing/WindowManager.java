@@ -40,7 +40,7 @@ class WindowManager implements StateChangeListener<CardSlot> {
         final PlayerUi player = new PlayerUi();
         final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), connector);
 
-        run(username, player, adapter);
+        run(username, player, adapter, configurer);
     }
 
     void setConnector(final RummikubConnector<CardSlot> connector) {
