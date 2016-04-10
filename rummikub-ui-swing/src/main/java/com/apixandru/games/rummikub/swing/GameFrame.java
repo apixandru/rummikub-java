@@ -26,10 +26,9 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-public class GameFrame {
+class GameFrame {
 
     private static final int BOARD_WIDTH = NUM_COLS * TILE_WIDTH;
-
 
     static void run(String username, PlayerUi player, final PlayerCallbackAdapter<CardSlot> adapter) {
         final JFrame frame = new JFrame();

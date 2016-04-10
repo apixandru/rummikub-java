@@ -2,9 +2,6 @@ package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.games.rummikub.client.RummikubConnector;
-import com.apixandru.rummikub.waiting.StartGameListener;
-import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
-import com.apixandru.rummikub.waiting.WaitingRoomListener;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -26,17 +23,7 @@ final class Main {
         // fix this!
         windowManager.setAdapter(adapter);
 
-        windowManager.enteredWaitingRoom(new WaitingRoomConfigurator() {
-            @Override
-            public void registerListener(final WaitingRoomListener listener) {
-                adapter.addWaitingRoomListener(listener);
-            }
-
-            @Override
-            public StartGameListener newStartGameListener() {
-                return () -> windowManager.enteredGame(null);
-            }
-        });
+        rummikubConnector.connect();
 
     }
 
