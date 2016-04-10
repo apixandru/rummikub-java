@@ -21,7 +21,7 @@ final class Main {
         final WindowManager windowManager = new WindowManager(connectionData.username, player);
 
         final RummikubConnector<CardSlot> rummikubConnector = new RummikubConnector<>(connectionData.socket, windowManager);
-        final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), rummikubConnector, windowManager);
+        final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), rummikubConnector);
 
         // fix this!
         windowManager.setAdapter(adapter);

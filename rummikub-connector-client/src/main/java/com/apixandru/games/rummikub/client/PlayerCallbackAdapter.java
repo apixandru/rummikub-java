@@ -22,7 +22,6 @@ import com.apixandru.games.rummikub.client.game.ReceiveCardHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerJoinedHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerLeftHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerStartHandler;
-import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,12 +56,12 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
-    public PlayerCallbackAdapter(final List<H> hints, final RummikubConnector<H> connector, final StateChangeListener<H> stateChangeListener) {
+    public PlayerCallbackAdapter(final List<H> hints, final RummikubConnector<H> connector) {
         this.socketWrapper = connector.socketWrapper;
 
         handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListeners));
         handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListeners));
-        handlers.put(PacketPlayerStart.class, new PlayerStartHandler<>(stateChangeListener));
+        handlers.put(PacketPlayerStart.class, new PlayerStartHandler<>(connector.stateChangeListener));
 
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardCallbacks));
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardCallbacks));

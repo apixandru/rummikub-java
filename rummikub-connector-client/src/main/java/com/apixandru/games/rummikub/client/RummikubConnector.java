@@ -16,7 +16,7 @@ import java.util.List;
 public final class RummikubConnector<H> {
 
     final SocketWrapper socketWrapper;
-    private final StateChangeListener<H> stateChangeListener;
+    final StateChangeListener<H> stateChangeListener;
 
     private final List<WaitingRoomListener> waitingRoomListeners = new ArrayList<>();
 
