@@ -17,9 +17,12 @@ final class Main {
             return;
         }
         final PlayerUi player = new PlayerUi();
-        final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), connectionData.socket);
+        final WindowManager windowManager = new WindowManager(connectionData.username, player);
 
-        final WindowManager windowManager = new WindowManager(connectionData.username, player, adapter);
+        final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), connectionData.socket, windowManager);
+
+        // fix this!
+        windowManager.setAdapter(adapter);
 
         windowManager.enteredWaitingRoom(new WaitingRoomConfigurator() {
             @Override

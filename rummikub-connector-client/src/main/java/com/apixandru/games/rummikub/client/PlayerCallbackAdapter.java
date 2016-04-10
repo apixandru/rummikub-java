@@ -8,6 +8,7 @@ import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
+import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketCardPlaced;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
@@ -20,6 +21,8 @@ import com.apixandru.games.rummikub.client.game.NewTurnHandler;
 import com.apixandru.games.rummikub.client.game.ReceiveCardHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerJoinedHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerLeftHandler;
+import com.apixandru.games.rummikub.client.waiting.PlayerStartHandler;
+import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,16 +52,17 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
     private final List<ConnectionListener> connectionListeners = new CopyOnWriteArrayList<>();
     private final List<PlayerCallback<H>> playerCallbacks = new CopyOnWriteArrayList<>();
     private final List<GameEventListener> gameEventListeners = new CopyOnWriteArrayList<>();
+
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
-    public PlayerCallbackAdapter(final List<H> hints, final SocketWrapper socketWrapper) {
+    public PlayerCallbackAdapter(final List<H> hints, final SocketWrapper socketWrapper, final StateChangeListener<H> stateChangeListener) {
         this.socketWrapper = socketWrapper;
 
         handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListeners));
         handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListeners));
-//        handlers.put(PacketPlayerStart.class, new PlayerStartHandler(waitingRoomListeners));
+        handlers.put(PacketPlayerStart.class, new PlayerStartHandler<>(stateChangeListener));
 
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardCallbacks));
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardCallbacks));

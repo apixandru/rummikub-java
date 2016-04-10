@@ -18,13 +18,16 @@ class WindowManager implements StateChangeListener<CardSlot> {
 
     private final String username;
     private final PlayerUi player;
-    private final PlayerCallbackAdapter<CardSlot> adapter;
+    private PlayerCallbackAdapter<CardSlot> adapter;
 
     private Optional<JFrame> waitingRoomFrame;
 
-    WindowManager(final String username, final PlayerUi player, final PlayerCallbackAdapter<CardSlot> adapter) {
+    WindowManager(final String username, final PlayerUi player) {
         this.username = username;
         this.player = player;
+    }
+
+    void setAdapter(final PlayerCallbackAdapter<CardSlot> adapter) {
         this.adapter = adapter;
     }
 
