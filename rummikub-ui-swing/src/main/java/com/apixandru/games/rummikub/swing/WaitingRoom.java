@@ -44,12 +44,6 @@ class WaitingRoom extends JPanel implements WaitingRoomListener {
         add(createButtonPane(), EAST);
     }
 
-    static WaitingRoomListener createAndShowGUI(final StartGameListener startGameListener) {
-        final WaitingRoom contentPane = new WaitingRoom(startGameListener);
-        createAndShowGui(contentPane);
-        return contentPane;
-    }
-
     static JFrame createAndShowGui(final WaitingRoom waitingRoom) {
         JFrame frame = new JFrame("Waiting room");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);

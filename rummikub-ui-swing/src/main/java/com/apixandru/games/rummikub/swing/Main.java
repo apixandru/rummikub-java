@@ -3,6 +3,8 @@ package com.apixandru.games.rummikub.swing;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.client.ConnectorBuilder;
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
+import com.apixandru.rummikub.waiting.StartGameListener;
+import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import com.apixandru.utils.swing.ComponentDragSource;
 
@@ -40,8 +42,20 @@ final class Main {
         final PlayerUi player = new PlayerUi();
         final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), connectionData.socket);
 
-        final WaitingRoomListener waitingRoom = WaitingRoom.createAndShowGUI(() -> run(connectionData.username, player, adapter));
-        adapter.addWaitingRoomListener(waitingRoom);
+        final WindowManager windowManager = new WindowManager();
+
+        windowManager.enteredWaitingRoom(new WaitingRoomConfigurator() {
+            @Override
+            public void registerListener(final WaitingRoomListener listener) {
+                adapter.addWaitingRoomListener(listener);
+            }
+
+            @Override
+            public StartGameListener newStartGameListener() {
+                return () -> run(connectionData.username, player, adapter);
+            }
+        });
+
     }
 
     private static void run(String username, PlayerUi player, final PlayerCallbackAdapter<CardSlot> adapter) {
