@@ -1,6 +1,7 @@
 package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
+import com.apixandru.games.rummikub.client.RummikubConnector;
 import com.apixandru.rummikub.waiting.StartGameListener;
 import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
@@ -19,7 +20,8 @@ final class Main {
         final PlayerUi player = new PlayerUi();
         final WindowManager windowManager = new WindowManager(connectionData.username, player);
 
-        final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), connectionData.socket, windowManager);
+        final RummikubConnector<CardSlot> rummikubConnector = new RummikubConnector<>(connectionData.socket, windowManager);
+        final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), rummikubConnector, windowManager);
 
         // fix this!
         windowManager.setAdapter(adapter);
