@@ -8,6 +8,6 @@ import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
  */
 public interface StateChangeListener<H> {
 
-    void enteredWaitingRoom(WaitingRoomConfigurator supplier);
+    void enteredWaitingRoom(WaitingRoomConfigurator configurator);
 
 }

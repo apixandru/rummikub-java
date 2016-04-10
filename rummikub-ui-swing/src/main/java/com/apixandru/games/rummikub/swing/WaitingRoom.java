@@ -31,7 +31,7 @@ class WaitingRoom extends JPanel implements WaitingRoomListener {
 
     private final StartGameListener startGameListener;
 
-    private WaitingRoom(final StartGameListener startGameListener) {
+    WaitingRoom(final StartGameListener startGameListener) {
         super(new BorderLayout());
 
         this.startGameListener = startGameListener;
@@ -44,18 +44,22 @@ class WaitingRoom extends JPanel implements WaitingRoomListener {
         add(createButtonPane(), EAST);
     }
 
-    public static WaitingRoomListener createAndShowGUI(final StartGameListener startGameListener) {
+    static WaitingRoomListener createAndShowGUI(final StartGameListener startGameListener) {
+        final WaitingRoom contentPane = new WaitingRoom(startGameListener);
+        createAndShowGui(contentPane);
+        return contentPane;
+    }
+
+    static JFrame createAndShowGui(final WaitingRoom waitingRoom) {
         JFrame frame = new JFrame("Waiting room");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        final WaitingRoom contentPane = new WaitingRoom(startGameListener);
-        frame.setContentPane(contentPane);
+        frame.setContentPane(waitingRoom);
 
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        return contentPane;
-
+        return frame;
     }
 
     private JPanel createButtonPane() {
