@@ -5,8 +5,6 @@ import com.apixandru.rummikub.waiting.StartGameListener;
 import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 
-import static com.apixandru.games.rummikub.swing.GameFrame.run;
-
 /**
  * @author Alexandru-Constantin Bledea
  * @since Oct 15, 2015
@@ -21,7 +19,7 @@ final class Main {
         final PlayerUi player = new PlayerUi();
         final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), connectionData.socket);
 
-        final WindowManager windowManager = new WindowManager();
+        final WindowManager windowManager = new WindowManager(connectionData.username, player, adapter);
 
         windowManager.enteredWaitingRoom(new WaitingRoomConfigurator() {
             @Override
@@ -31,7 +29,7 @@ final class Main {
 
             @Override
             public StartGameListener newStartGameListener() {
-                return () -> run(connectionData.username, player, adapter);
+                return () -> windowManager.enteredGame(null);
             }
         });
 
