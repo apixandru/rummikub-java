@@ -55,7 +55,7 @@ final class RummikubImpl implements Rummikub<Integer> {
         if (currentPlayer.cards.isEmpty()) {
             final String playerName = currentPlayer.getName();
             this.gameEventListeners.forEach(
-                    (player, listener) -> listener.gameOver(playerName, GAME_WON, player == this.currentPlayer)
+                    (player, listener) -> listener.gameOver(playerName, GAME_WON)
             );
             return;
         }
@@ -72,7 +72,7 @@ final class RummikubImpl implements Rummikub<Integer> {
             if (cardsFromBoard.isEmpty()) {
                 String playerName = player.getName();
                 this.gameEventListeners.forEach(
-                        (player1, listener) -> listener.gameOver(playerName, NO_MORE_CARDS, player1 == this.currentPlayer)
+                        (player1, listener) -> listener.gameOver(playerName, NO_MORE_CARDS)
                 );
                 return;
             }
@@ -123,7 +123,7 @@ final class RummikubImpl implements Rummikub<Integer> {
             this.gameEventListeners.remove(player);
             final String playerName = player.getName();
             this.gameEventListeners.forEach(
-                    (player1, listener) -> listener.gameOver(playerName, PLAYER_QUIT, false)
+                    (player1, listener) -> listener.gameOver(playerName, PLAYER_QUIT)
             );
         }
     }

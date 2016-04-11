@@ -30,13 +30,12 @@ public class GameOverHandler implements PacketHandler<PacketGameOver> {
     public void handle(final PacketGameOver packet) {
         final String player = packet.player;
         final GameOverReason reason = packet.reason;
-        final boolean me = packet.me;
 
-        log.debug("Received gameOver(player={}, reason={}, me={})", player, reason, me);
+        log.debug("Received gameOver(player={}, reason={})", player, reason);
 
         continueReading.set(false);
 
-        gameEventListeners.forEach(listener -> listener.gameOver(player, reason, me));
+        gameEventListeners.forEach(listener -> listener.gameOver(player, reason));
 
     }
 

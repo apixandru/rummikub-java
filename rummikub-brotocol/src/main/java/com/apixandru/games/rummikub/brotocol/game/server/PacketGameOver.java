@@ -17,6 +17,4 @@ public class PacketGameOver implements Packet {
 
     public GameOverReason reason;
 
-    public boolean me;
-
 }

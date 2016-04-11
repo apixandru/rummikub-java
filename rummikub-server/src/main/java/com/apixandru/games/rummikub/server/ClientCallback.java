@@ -69,12 +69,11 @@ final class ClientCallback implements CompoundCallback<Integer> {
     }
 
     @Override
-    public void gameOver(final String player, final GameOverReason reason, final boolean me) {
-        log.debug("[{}] Sending gameOver(player={}, reason={}, me={})", playerName, player, reason, me);
+    public void gameOver(final String player, final GameOverReason reason) {
+        log.debug("[{}] Sending gameOver(player={}, reason={})", playerName, player, reason);
         final PacketGameOver packet = new PacketGameOver();
         packet.player = player;
         packet.reason = reason;
-        packet.me = me;
         packetWriter.writePacket(packet);
     }
 

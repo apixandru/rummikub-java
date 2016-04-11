@@ -42,12 +42,10 @@ public final class TestRummikubSerializer {
         final PacketGameOver original = new PacketGameOver();
         original.player = "Shaggy";
         original.reason = GameOverReason.GAME_WON;
-        original.me = true;
 
         final PacketGameOver deserialized = transport(original);
         assertEquals(original.player, deserialized.player);
         assertEquals(original.reason, deserialized.reason);
-        assertEquals(original.me, deserialized.me);
     }
 
     @SuppressWarnings("unchecked")

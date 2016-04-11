@@ -69,7 +69,7 @@ final class GameListener implements BoardCallback, GameEventListener, MoveHelper
     }
 
     @Override
-    public void gameOver(final String player, final GameOverReason reason, final boolean me) {
+    public void gameOver(final String player, final GameOverReason reason) {
         String message;
         int icon;
         switch (reason) {
@@ -78,13 +78,8 @@ final class GameListener implements BoardCallback, GameEventListener, MoveHelper
                 icon = JOptionPane.ERROR_MESSAGE;
                 break;
             case GAME_WON:
-                if (me) {
-                    message = "You won!";
-                    icon = JOptionPane.INFORMATION_MESSAGE;
-                } else {
-                    message = player + " won.";
-                    icon = JOptionPane.INFORMATION_MESSAGE;
-                }
+                message = player + " won.";
+                icon = JOptionPane.INFORMATION_MESSAGE;
                 break;
             case NO_MORE_CARDS:
                 message = "No more cards left!";
