@@ -1,5 +1,6 @@
 package com.apixandru.games.rummikub.model;
 
+import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.GameEventListener;
@@ -54,9 +55,8 @@ final class RummikubImpl implements Rummikub<Integer> {
     private void gameOverOrSetNextPlayer() {
         if (currentPlayer.cards.isEmpty()) {
             final String playerName = currentPlayer.getName();
-            this.gameEventListeners.forEach(
-                    (player, listener) -> listener.gameOver(playerName, GAME_WON)
-            );
+            this.gameEventListeners.values()
+                    .forEach(listener -> listener.gameOver(playerName, GAME_WON));
             return;
         }
         setNextPlayer();
@@ -71,9 +71,8 @@ final class RummikubImpl implements Rummikub<Integer> {
             final List<Card> cardsFromBoard = this.board.removeAllCards();
             if (cardsFromBoard.isEmpty()) {
                 String playerName = player.getName();
-                this.gameEventListeners.forEach(
-                        (player1, listener) -> listener.gameOver(playerName, NO_MORE_CARDS)
-                );
+                this.gameEventListeners.values()
+                        .forEach(listener -> listener.gameOver(playerName, NO_MORE_CARDS));
                 return;
             }
             this.cardPile.setCards(cardsFromBoard);
@@ -105,7 +104,7 @@ final class RummikubImpl implements Rummikub<Integer> {
     @Override
     public Player<Integer> addPlayer(final String name, final CompoundCallback<Integer> callback) {
         final PlayerImpl player = new PlayerImpl(name, listener, callback);
-        this.board.addBoardListener(callback);
+        addBoardCallback(callback);
         if (null != callback) {
             this.gameEventListeners.put(player, callback);
         }
@@ -118,13 +117,17 @@ final class RummikubImpl implements Rummikub<Integer> {
     }
 
     @Override
+    public void addBoardCallback(final BoardCallback boardCallback) {
+        this.board.addBoardListener(boardCallback);
+    }
+
+    @Override
     public void removePlayer(final Player<Integer> player) {
         if (this.players.remove(player)) {
             this.gameEventListeners.remove(player);
             final String playerName = player.getName();
-            this.gameEventListeners.forEach(
-                    (player1, listener) -> listener.gameOver(playerName, PLAYER_QUIT)
-            );
+            this.gameEventListeners.values()
+                    .forEach(listener -> listener.gameOver(playerName, PLAYER_QUIT));
         }
     }
 
