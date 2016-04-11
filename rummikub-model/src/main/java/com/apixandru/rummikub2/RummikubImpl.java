@@ -13,10 +13,20 @@ public class RummikubImpl<H> implements Rummikub<H> {
 
     private Map<String, StateChangeListener<H>> players = new HashMap<>();
 
+    private static boolean isEmpty(final String string) {
+        return null == string || string.isEmpty();
+    }
+
     @Override
     public void register(final String playerName, final StateChangeListener<H> listener) throws RummikubException {
+        if (null == listener) {
+            throw new RummikubException("Listener is missing.");
+        }
+        if (isEmpty(playerName)) {
+            throw new RummikubException("Name is missing.");
+        }
         if (players.containsKey(playerName)) {
-            throw new RummikubException("Name already taken!");
+            throw new RummikubException("Name already taken.");
         }
         players.put(playerName, listener);
     }
