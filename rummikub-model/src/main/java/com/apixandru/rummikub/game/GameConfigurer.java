@@ -13,10 +13,8 @@ public interface GameConfigurer<H> {
 
     void addGameEventListener(GameEventListener gameEventListener);
 
-    void addPlayerCallback(PlayerCallback<H> playerCallback);
-
     void addBoardCallback(BoardCallback boardCallback);
 
-    Player<H> newPlayer();
+    Player<H> newPlayer(PlayerCallback<H> playerCallback);
 
 }

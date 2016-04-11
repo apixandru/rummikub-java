@@ -17,17 +17,12 @@ public class GameConfigurerAdapter<H> implements GameConfigurer<H> {
     }
 
     @Override
-    public void addPlayerCallback(final PlayerCallback<H> playerCallback) {
-
-    }
-
-    @Override
     public void addBoardCallback(final BoardCallback boardCallback) {
 
     }
 
     @Override
-    public Player<H> newPlayer() {
+    public Player<H> newPlayer(final PlayerCallback<H> playerCallback) {
         return null;
     }
 
