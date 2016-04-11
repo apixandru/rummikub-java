@@ -38,10 +38,16 @@ class GameFrame {
         final JButton btnEndTurn = new JButton("End Turn");
         final GameListener callback = new GameListener(frame, board, btnEndTurn);
 
+        configurer.addGameEventListener(callback);
         adapter.addGameEventListener(callback);
-        adapter.addConnectionListener(callback);
-        adapter.addBoardCallback(callback);
+
+        configurer.addPlayerCallback(player);
         adapter.addPlayerCallback(player);
+
+        configurer.addBoardCallback(callback);
+        adapter.addBoardCallback(callback);
+
+        adapter.addConnectionListener(callback);
 
         final Player<CardSlot> actualPlayer =
                 ConnectorBuilder.from(player.getAllSlots())
