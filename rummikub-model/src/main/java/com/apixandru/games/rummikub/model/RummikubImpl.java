@@ -2,7 +2,6 @@ package com.apixandru.games.rummikub.model;
 
 import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.PlayerCallback;
@@ -97,13 +96,6 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     private void rollback() {
         undoManager.undo(currentPlayer, board);
-    }
-
-    @Override
-    public Player<Integer> addPlayer(final String name, final CompoundCallback<Integer> callback) {
-        addBoardCallback(callback);
-        addGameEventListener(callback);
-        return addPlayer(name, (PlayerCallback<Integer>) callback);
     }
 
     @Override

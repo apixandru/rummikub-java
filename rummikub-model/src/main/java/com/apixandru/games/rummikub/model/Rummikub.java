@@ -1,7 +1,6 @@
 package com.apixandru.games.rummikub.model;
 
 import com.apixandru.games.rummikub.api.BoardCallback;
-import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.PlayerCallback;
@@ -11,8 +10,6 @@ import com.apixandru.games.rummikub.api.PlayerCallback;
  * @since December 25, 2015
  */
 public interface Rummikub<H> {
-
-    Player<H> addPlayer(String name, CompoundCallback<H> callback);
 
     Player<H> addPlayer(String name, PlayerCallback<H> callback);
 
