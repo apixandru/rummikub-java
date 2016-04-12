@@ -23,12 +23,19 @@ class RummikubImpl implements Rummikub<Integer>, GameEventListener, StartGameLis
 
     private final List<WaitingRoomListener> waitingRoomListeners = new ArrayList<>();
 
+    private State state = State.WAITING;
+
     private static boolean isEmpty(final String string) {
         return null == string || string.isEmpty();
     }
 
     @Override
     public void register(final String playerName, final StateChangeListener<Integer> listener) throws RummikubException {
+        validateCanJoin(playerName, listener);
+        addPlayer(playerName, listener);
+    }
+
+    private void validateCanJoin(final String playerName, final StateChangeListener<Integer> listener) {
         if (null == listener) {
             throw new RummikubException("Listener is missing.");
         }
@@ -38,7 +45,9 @@ class RummikubImpl implements Rummikub<Integer>, GameEventListener, StartGameLis
         if (players.containsKey(playerName)) {
             throw new RummikubException("Name already taken.");
         }
-        addPlayer(playerName, listener);
+        if (State.WAITING != state) {
+            throw new RummikubException("There is an ongoing game, try later.");
+        }
     }
 
     private void addPlayer(final String playerName, final StateChangeListener<Integer> listener) {
@@ -54,6 +63,7 @@ class RummikubImpl implements Rummikub<Integer>, GameEventListener, StartGameLis
     private void goToWaitingRoom() {
         players.values()
                 .forEach(listener -> listener.enteredWaitingRoom(this));
+        state = State.WAITING;
     }
 
     @Override
@@ -72,6 +82,7 @@ class RummikubImpl implements Rummikub<Integer>, GameEventListener, StartGameLis
         gameConfigurer.addGameEventListener(this);
         players.values()
                 .forEach(listener -> listener.enteredGame(gameConfigurer));
+        state = State.PLAYING;
     }
 
     @Override
@@ -82,6 +93,10 @@ class RummikubImpl implements Rummikub<Integer>, GameEventListener, StartGameLis
     @Override
     public StartGameListener newStartGameListener() {
         return this;
+    }
+
+    private enum State {
+        WAITING, PLAYING
     }
 
 }
