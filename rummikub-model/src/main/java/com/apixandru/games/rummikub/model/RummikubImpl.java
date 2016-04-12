@@ -121,6 +121,11 @@ final class RummikubImpl implements Rummikub<Integer> {
     }
 
     @Override
+    public void removeBoardCallback(final BoardCallback boardCallback) {
+        this.board.removeBoardListener(boardCallback);
+    }
+
+    @Override
     public void removePlayer(final Player<Integer> player) {
         if (this.players.remove(player)) {
             this.gameEventListeners.remove(player);

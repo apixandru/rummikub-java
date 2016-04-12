@@ -1,5 +1,6 @@
 package com.apixandru.games.rummikub.server;
 
+import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.PacketReader;
@@ -40,15 +41,18 @@ final class ClientRunnable implements Runnable {
     private final Rummikub<Integer> game;
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
+    private final CompoundCallback<Integer> callback;
 
     ClientRunnable(final PacketReader reader,
                    final PlayerProvider<Integer> playerProvider,
-                   final Rummikub<Integer> game) {
+                   final Rummikub<Integer> game,
+                   final CompoundCallback<Integer> callback) {
         this.reader = reader;
         this.playerProvider = playerProvider;
         this.game = game;
 
         this.handlers = createHandlers();
+        this.callback = callback;
     }
 
     private Map<Class, PacketHandler> createHandlers() {
@@ -75,6 +79,7 @@ final class ClientRunnable implements Runnable {
         } catch (IOException e) {
             log.error("Failed to read packet", e);
         }
+        this.game.removeBoardCallback(callback);
         this.game.removePlayer(this.playerProvider.getPlayer());
     }
 

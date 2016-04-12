@@ -29,7 +29,7 @@ final class Board {
         this.cards = new Card[NUM_ROWS][NUM_COLS];
     }
 
-    private boolean inBounds(final int x, final int y) {
+    private static boolean inBounds(final int x, final int y) {
         return y < NUM_ROWS && x < NUM_COLS;
     }
 
@@ -102,6 +102,10 @@ final class Board {
         if (null != boardCallback) {
             this.boardCallbacks.add(boardCallback);
         }
+    }
+
+    void removeBoardListener(final BoardCallback boardCallback) {
+        this.boardCallbacks.remove(boardCallback);
     }
 
 }

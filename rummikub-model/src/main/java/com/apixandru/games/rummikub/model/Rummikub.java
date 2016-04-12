@@ -12,8 +12,11 @@ public interface Rummikub<H> {
 
     Player<H> addPlayer(String name, CompoundCallback<H> callback);
 
+    void removePlayer(Player<H> player);
+
     void addBoardCallback(BoardCallback boardCallback);
 
-    void removePlayer(Player<H> player);
+    void removeBoardCallback(BoardCallback boardCallback);
+
 
 }

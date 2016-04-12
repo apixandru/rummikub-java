@@ -56,7 +56,7 @@ public class ConnectionHandler {
 
         final Player<Integer> player = game.addPlayer(playerName, callback);
         log.debug("{} registered.", playerName);
-        final ClientRunnable runnable = new ClientRunnable(wrapper, new SimplePlayerProvider(player), game);
+        final ClientRunnable runnable = new ClientRunnable(wrapper, new SimplePlayerProvider(player), game, callback);
         new Thread(runnable, playerName).start();
     }
 
@@ -72,7 +72,7 @@ public class ConnectionHandler {
         return activeConnections.containsKey(playerName);
     }
 
-    private void reject(final SocketWrapper socketWrapper, String message) {
+    private static void reject(final SocketWrapper socketWrapper, String message) {
         socketWrapper.write(false);
         socketWrapper.write(message);
         log.debug("Rejected.");
