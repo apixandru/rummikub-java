@@ -8,9 +8,8 @@ public interface GameEventListener {
 
     /**
      * @param player the player
-     * @param myTurn indicates if it's my turn
      */
-    void newTurn(String player, boolean myTurn);
+    void newTurn(String player);
 
     /**
      * @param player the player that triggered the event

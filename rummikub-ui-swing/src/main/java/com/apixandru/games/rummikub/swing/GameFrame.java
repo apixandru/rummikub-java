@@ -36,7 +36,7 @@ class GameFrame {
         final JGridPanel board = RummikubUi.newBoard();
 
         final JButton btnEndTurn = new JButton("End Turn");
-        final GameListener callback = new GameListener(frame, board, btnEndTurn);
+        final GameListener callback = new GameListener(frame, board, btnEndTurn, username);
 
         configurer.addGameEventListener(callback);
         adapter.addGameEventListener(callback);

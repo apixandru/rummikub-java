@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -27,12 +28,14 @@ final class GameListener implements BoardCallback, GameEventListener, MoveHelper
 
     private final AtomicBoolean myTurn = new AtomicBoolean();
     private final JFrame frame;
+    private final String playerName;
 
-    GameListener(final JFrame frame, final JGridPanel board, final JButton btnEndTurn) {
+    GameListener(final JFrame frame, final JGridPanel board, final JButton btnEndTurn, final String playerName) {
         this.frame = frame;
         this.board = board;
         this.btnEndTurn = btnEndTurn;
-        newTurn(null, false); // TODO something else to distinguish?
+        this.playerName = playerName;
+        newTurn(null); // TODO something else to distinguish?
     }
 
     @Override
@@ -51,7 +54,8 @@ final class GameListener implements BoardCallback, GameEventListener, MoveHelper
     }
 
     @Override
-    public void newTurn(final String player, final boolean myTurn) {
+    public void newTurn(final String player) {
+        boolean myTurn = Objects.equals(player, playerName);
         this.btnEndTurn.setEnabled(myTurn);
         this.myTurn.set(myTurn);
         this.cardsLockedOnBoard.addAll(this.cardsJustPlacedOnBoard);

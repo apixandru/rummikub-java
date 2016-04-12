@@ -24,10 +24,9 @@ public class NewTurnHandler implements PacketHandler<PacketNewTurn> {
 
     @Override
     public void handle(final PacketNewTurn packet) {
-        final boolean myTurn = packet.myTurn;
         final String playerName = packet.playerName;
-        log.debug("Received newTurn(player={}, myTurn={})", playerName, myTurn);
-        gameEventListeners.forEach(listener -> listener.newTurn(playerName, myTurn));
+        log.debug("Received newTurn(player={})", playerName);
+        gameEventListeners.forEach(listener -> listener.newTurn(playerName));
     }
 
 }
