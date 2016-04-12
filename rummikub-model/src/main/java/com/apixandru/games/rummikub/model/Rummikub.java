@@ -2,6 +2,7 @@ package com.apixandru.games.rummikub.model;
 
 import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.CompoundCallback;
+import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
 
 /**
@@ -18,5 +19,8 @@ public interface Rummikub<H> {
 
     void removeBoardCallback(BoardCallback boardCallback);
 
+    void addGameEventListener(GameEventListener gameEventListener);
+
+    void removeGameEventListener(GameEventListener gameEventListener);
 
 }
