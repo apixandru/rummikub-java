@@ -14,8 +14,11 @@ import java.util.stream.Stream;
  */
 class PlayerUi extends JGridPanel implements PlayerCallback<CardSlot> {
 
-    PlayerUi() {
+    private final String username;
+
+    PlayerUi(final String username) {
         super(3, 7);
+        this.username = username;
     }
 
     private CardSlot orFirstFreeSlot(final CardSlot slot) {
@@ -40,6 +43,11 @@ class PlayerUi extends JGridPanel implements PlayerCallback<CardSlot> {
     @Override
     public void cardReceived(final Card card, final CardSlot hint) {
         UiUtil.placeCard(card, orFirstFreeSlot(hint));
+    }
+
+    @Override
+    public String getPlayerName() {
+        return username;
     }
 
 }

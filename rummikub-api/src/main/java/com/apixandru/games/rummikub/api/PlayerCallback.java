@@ -7,6 +7,8 @@ package com.apixandru.games.rummikub.api;
  */
 public interface PlayerCallback<H> {
 
+    String getPlayerName();
+
     void cardReceived(Card card, H hint);
 
 }

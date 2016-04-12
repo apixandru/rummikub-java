@@ -37,7 +37,7 @@ class WindowManager implements StateChangeListener<CardSlot> {
     public void enteredGame(final GameConfigurer<CardSlot> configurer) {
         waitingRoomFrame.ifPresent(JFrame::dispose);
 
-        final PlayerUi player = new PlayerUi();
+        final PlayerUi player = new PlayerUi(username);
         final PlayerCallbackAdapter<CardSlot> adapter = new PlayerCallbackAdapter<>(player.getAllSlots(), connector);
 
         run(username, player, adapter, configurer);

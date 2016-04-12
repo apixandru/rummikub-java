@@ -32,6 +32,11 @@ final class ClientCallback implements PlayerCallback<Integer>, GameEventListener
     }
 
     @Override
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    @Override
     public void cardReceived(final Card card, final Integer hint) {
         log.debug("[{}] Sending cardReceived(card={}, hint={})", playerName, card, hint);
         final PacketReceiveCard packet = new PacketReceiveCard();
