@@ -20,7 +20,7 @@ public class TestRummikubImpl {
     @Before
     public void setup() {
         listener = mock(StateChangeListener.class);
-        rummikub = new RummikubImpl<>();
+        rummikub = new RummikubImpl();
     }
 
     @Test
