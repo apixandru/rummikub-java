@@ -1,8 +1,10 @@
 package com.apixandru.games.rummikub.server;
 
+import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.CompoundCallback;
+import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.GameOverReason;
+import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.PacketWriter;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketCardPlaced;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
@@ -16,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * @author Alexandru-Constantin Bledea
  * @since January 05, 2016
  */
-final class ClientCallback implements CompoundCallback<Integer> {
+final class ClientCallback implements PlayerCallback<Integer>, GameEventListener, BoardCallback {
 
     private static final Logger log = LoggerFactory.getLogger(ClientCallback.class);
 

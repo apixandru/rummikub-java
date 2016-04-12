@@ -1,6 +1,5 @@
 package com.apixandru.games.rummikub.server;
 
-import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.PacketReader;
@@ -41,12 +40,12 @@ final class ClientRunnable implements Runnable {
     private final Rummikub<Integer> game;
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
-    private final CompoundCallback<Integer> callback;
+    private final ClientCallback callback;
 
     ClientRunnable(final PacketReader reader,
                    final PlayerProvider<Integer> playerProvider,
                    final Rummikub<Integer> game,
-                   final CompoundCallback<Integer> callback) {
+                   final ClientCallback callback) {
         this.reader = reader;
         this.playerProvider = playerProvider;
         this.game = game;

@@ -5,6 +5,7 @@ import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
+import com.apixandru.games.rummikub.api.PlayerCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,11 +101,14 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     @Override
     public Player<Integer> addPlayer(final String name, final CompoundCallback<Integer> callback) {
-        final PlayerImpl player = new PlayerImpl(name, listener, callback);
         addBoardCallback(callback);
-        if (null != callback) {
-            this.gameEventListeners.add(callback);
-        }
+        addGameEventListener(callback);
+        return addPlayer(name, (PlayerCallback<Integer>) callback);
+    }
+
+    @Override
+    public Player<Integer> addPlayer(final String name, final PlayerCallback<Integer> callback) {
+        final PlayerImpl player = new PlayerImpl(name, listener, callback);
         this.players.add(player);
         if (null == this.currentPlayer) {
             setNextPlayer();
@@ -125,7 +129,9 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     @Override
     public void addGameEventListener(final GameEventListener gameEventListener) {
-
+        if (null != gameEventListener) {
+            this.gameEventListeners.add(gameEventListener);
+        }
     }
 
     @Override
@@ -137,9 +143,8 @@ final class RummikubImpl implements Rummikub<Integer> {
     @Override
     public void removePlayer(final Player<Integer> player) {
         if (this.players.remove(player)) {
-            final String playerName = player.getName();
             this.gameEventListeners
-                    .forEach(listener -> listener.gameOver(playerName, PLAYER_QUIT));
+                    .forEach(listener -> listener.gameOver(player.getName(), PLAYER_QUIT));
         }
     }
 

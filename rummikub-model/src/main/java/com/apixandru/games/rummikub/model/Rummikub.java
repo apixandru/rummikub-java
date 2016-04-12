@@ -4,6 +4,7 @@ import com.apixandru.games.rummikub.api.BoardCallback;
 import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
+import com.apixandru.games.rummikub.api.PlayerCallback;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -12,6 +13,8 @@ import com.apixandru.games.rummikub.api.Player;
 public interface Rummikub<H> {
 
     Player<H> addPlayer(String name, CompoundCallback<H> callback);
+
+    Player<H> addPlayer(String name, PlayerCallback<H> callback);
 
     void removePlayer(Player<H> player);
 

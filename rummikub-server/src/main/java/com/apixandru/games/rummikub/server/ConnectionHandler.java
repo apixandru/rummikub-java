@@ -1,6 +1,5 @@
 package com.apixandru.games.rummikub.server;
 
-import com.apixandru.games.rummikub.api.CompoundCallback;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
@@ -38,6 +37,12 @@ public class ConnectionHandler {
         waitingRoomModel.addWaitingRoomListener(new ServerWaitingRoomListener());
     }
 
+    private static void reject(final SocketWrapper socketWrapper, String message) {
+        socketWrapper.write(false);
+        socketWrapper.write(message);
+        log.debug("Rejected.");
+    }
+
     public synchronized void attemptToJoin(final SocketWrapper wrapper) throws IOException {
         final String playerName = wrapper.readString();
         log.debug("{} is attempting to join.", playerName);
@@ -52,8 +57,10 @@ public class ConnectionHandler {
         accept(wrapper, playerName);
         broadcastAcceptedPlayer(playerName);
         log.debug("Registering {}...", playerName);
-        final CompoundCallback<Integer> callback = new ClientCallback(playerName, wrapper);
+        final ClientCallback callback = new ClientCallback(playerName, wrapper);
 
+        game.addBoardCallback(callback);
+        game.addGameEventListener(callback);
         final Player<Integer> player = game.addPlayer(playerName, callback);
         log.debug("{} registered.", playerName);
         final ClientRunnable runnable = new ClientRunnable(wrapper, new SimplePlayerProvider(player), game, callback);
@@ -70,12 +77,6 @@ public class ConnectionHandler {
 
     private boolean usernameTaken(final String playerName) {
         return activeConnections.containsKey(playerName);
-    }
-
-    private static void reject(final SocketWrapper socketWrapper, String message) {
-        socketWrapper.write(false);
-        socketWrapper.write(message);
-        log.debug("Rejected.");
     }
 
     private void accept(final SocketWrapper wrapper, final String playerName) {
