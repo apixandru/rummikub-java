@@ -17,7 +17,7 @@ import java.util.Map;
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-class RummikubImpl implements Rummikub<Integer>, GameEventListener, StartGameListener, WaitingRoomConfigurator {
+public class RummikubImpl implements Rummikub<Integer>, GameEventListener, StartGameListener, WaitingRoomConfigurator {
 
     private final Map<String, StateChangeListener<Integer>> players = new HashMap<>();
 
