@@ -49,4 +49,10 @@ public class TestRummikubImpl {
         rummikub.register("Dan", listener);
     }
 
+    @Test(expected = RummikubException.class)
+    public void testJoinWhileInGame() {
+        rummikub.register("Dan", new EagerToStartGameListener<>());
+        rummikub.register("The Man", listener);
+    }
+
 }

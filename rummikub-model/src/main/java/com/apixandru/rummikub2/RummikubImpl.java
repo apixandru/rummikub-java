@@ -53,6 +53,7 @@ public class RummikubImpl implements Rummikub<Integer>, GameEventListener, Start
     private void addPlayer(final String playerName, final StateChangeListener<Integer> listener) {
         players.put(playerName, listener);
         broadcastPlayerJoined(playerName);
+        listener.enteredWaitingRoom(this);
     }
 
     private void broadcastPlayerJoined(final String playerName) {
