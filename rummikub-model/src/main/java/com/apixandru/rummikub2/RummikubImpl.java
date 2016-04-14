@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.apixandru.rummikub2.RummikubException.Reason.ONGOING_GAME;
+
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
@@ -46,7 +48,7 @@ public class RummikubImpl implements Rummikub<Integer>, GameEventListener, Start
             throw new RummikubException("Name already taken.");
         }
         if (State.WAITING != state) {
-            throw new RummikubException("There is an ongoing game, try later.");
+            throw new RummikubException(ONGOING_GAME, "There is an ongoing game, try later.");
         }
     }
 
