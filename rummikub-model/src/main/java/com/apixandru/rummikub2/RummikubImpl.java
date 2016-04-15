@@ -48,7 +48,7 @@ public class RummikubImpl implements Rummikub<Integer>, GameEventListener, Start
             throw new RummikubException("Name already taken.");
         }
         if (State.WAITING != state) {
-            throw new RummikubException(ONGOING_GAME, "There is an ongoing game, try later.");
+            throw new RummikubException(ONGOING_GAME);
         }
     }
 
