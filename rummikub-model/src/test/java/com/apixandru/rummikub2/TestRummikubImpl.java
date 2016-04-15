@@ -7,6 +7,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static com.apixandru.rummikub2.RummikubException.Reason.NAME_TAKEN;
+import static com.apixandru.rummikub2.RummikubException.Reason.NO_LISTENER;
+import static com.apixandru.rummikub2.RummikubException.Reason.NO_NAME;
 import static com.apixandru.rummikub2.RummikubException.Reason.ONGOING_GAME;
 import static org.mockito.Mockito.mock;
 
@@ -35,23 +38,31 @@ public class TestRummikubImpl {
         rummikub.register("Dan", listener);
     }
 
-    @Test(expected = RummikubException.class)
+    @Test
     public void testNullName() {
+        expectExceptionToBeThrownWithReason(NO_NAME);
+
         rummikub.register(null, listener);
     }
 
-    @Test(expected = RummikubException.class)
+    @Test
     public void testEmptyName() {
+        expectExceptionToBeThrownWithReason(NO_NAME);
+
         rummikub.register("", listener);
     }
 
-    @Test(expected = RummikubException.class)
+    @Test
     public void testNoListener() {
+        expectExceptionToBeThrownWithReason(NO_LISTENER);
+
         rummikub.register("Dan", null);
     }
 
-    @Test(expected = RummikubException.class)
+    @Test
     public void testRejectSameName() {
+        expectExceptionToBeThrownWithReason(NAME_TAKEN);
+
         rummikub.register("Dan", listener);
         rummikub.register("Dan", listener);
     }

@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.apixandru.rummikub2.RummikubException.Reason.NAME_TAKEN;
+import static com.apixandru.rummikub2.RummikubException.Reason.NO_LISTENER;
+import static com.apixandru.rummikub2.RummikubException.Reason.NO_NAME;
 import static com.apixandru.rummikub2.RummikubException.Reason.ONGOING_GAME;
 
 /**
@@ -39,13 +42,13 @@ public class RummikubImpl implements Rummikub<Integer>, GameEventListener, Start
 
     private void validateCanJoin(final String playerName, final StateChangeListener<Integer> listener) {
         if (null == listener) {
-            throw new RummikubException("Listener is missing.");
+            throw new RummikubException(NO_LISTENER);
         }
         if (isEmpty(playerName)) {
-            throw new RummikubException("Name is missing.");
+            throw new RummikubException(NO_NAME);
         }
         if (players.containsKey(playerName)) {
-            throw new RummikubException("Name already taken.");
+            throw new RummikubException(NAME_TAKEN);
         }
         if (State.WAITING != state) {
             throw new RummikubException(ONGOING_GAME);

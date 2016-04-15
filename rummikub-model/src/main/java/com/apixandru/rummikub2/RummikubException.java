@@ -8,11 +8,6 @@ public class RummikubException extends RuntimeException {
 
     private final Reason reason;
 
-    RummikubException(final String message) {
-        super(message);
-        this.reason = null;
-    }
-
     RummikubException(final Reason reason) {
         super(reason.message);
         this.reason = reason;
@@ -23,7 +18,10 @@ public class RummikubException extends RuntimeException {
     }
 
     enum Reason {
-        ONGOING_GAME("There is an ongoing game, try later.");
+        ONGOING_GAME("There is an ongoing game, try later."),
+        NAME_TAKEN("Name already taken."),
+        NO_NAME("Name is missing."),
+        NO_LISTENER("Listener is missing.");
 
         private final String message;
 
