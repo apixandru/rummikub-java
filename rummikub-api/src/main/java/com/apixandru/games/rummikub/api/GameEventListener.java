@@ -13,7 +13,7 @@ public interface GameEventListener {
 
     /**
      * @param player the player that triggered the event
-     * @param reason why is the game oveer
+     * @param reason why is the game over
      */
     void gameOver(String player, GameOverReason reason);
 

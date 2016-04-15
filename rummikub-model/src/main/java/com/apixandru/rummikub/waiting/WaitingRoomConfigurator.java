@@ -8,6 +8,6 @@ public interface WaitingRoomConfigurator {
 
     void registerListener(WaitingRoomListener listener);
 
-    StartGameListener newStartGameListener();
+    StartGameListener getStartGameListener();
 
 }

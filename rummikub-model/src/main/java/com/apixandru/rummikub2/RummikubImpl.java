@@ -97,7 +97,7 @@ public class RummikubImpl implements Rummikub<Integer>, GameEventListener, Start
     }
 
     @Override
-    public StartGameListener newStartGameListener() {
+    public StartGameListener getStartGameListener() {
         return this;
     }
 

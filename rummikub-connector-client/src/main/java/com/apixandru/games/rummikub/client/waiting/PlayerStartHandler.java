@@ -19,7 +19,7 @@ public class PlayerStartHandler<H> implements PacketHandler<PacketStart> {
 
     @Override
     public void handle(final PacketStart packet) {
-        waitingRoomListeners.enteredGame(new GameConfigurerAdapter<H>());
+        waitingRoomListeners.enteredGame(new GameConfigurerAdapter<>());
     }
 
 }

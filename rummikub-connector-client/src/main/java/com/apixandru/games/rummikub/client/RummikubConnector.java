@@ -29,8 +29,8 @@ public final class RummikubConnector<H> {
             }
 
             @Override
-            public StartGameListener newStartGameListener() {
-                return () -> stateChangeListener.enteredGame(new GameConfigurerAdapter<H>());
+            public StartGameListener getStartGameListener() {
+                return () -> stateChangeListener.enteredGame(new GameConfigurerAdapter<>());
             }
         });
     }

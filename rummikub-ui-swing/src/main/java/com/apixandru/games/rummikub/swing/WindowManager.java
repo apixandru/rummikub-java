@@ -28,7 +28,7 @@ class WindowManager implements StateChangeListener<CardSlot> {
 
     @Override
     public void enteredWaitingRoom(final WaitingRoomConfigurator configurator) {
-        final WaitingRoom waitingRoom = new WaitingRoom(configurator.newStartGameListener());
+        final WaitingRoom waitingRoom = new WaitingRoom(configurator.getStartGameListener());
         configurator.registerListener(waitingRoom);
         waitingRoomFrame = Optional.of(WaitingRoom.createAndShowGui(waitingRoom));
     }
