@@ -4,6 +4,7 @@ import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.game.GameConfigurer;
 import com.apixandru.rummikub.server.game.ServerBoardListener;
+import com.apixandru.rummikub.server.game.ServerGameEventListener;
 import com.apixandru.rummikub.server.waiting.ServerWaitingRoomListener;
 import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
 
@@ -29,6 +30,7 @@ public class ServerStateChangeListener implements StateChangeListener<Integer> {
     @Override
     public void enteredGame(final GameConfigurer<Integer> configurer) {
         configurer.addBoardCallback(new ServerBoardListener(playerName, socketWrapper));
+        configurer.addGameEventListener(new ServerGameEventListener(playerName, socketWrapper));
     }
 
 }
