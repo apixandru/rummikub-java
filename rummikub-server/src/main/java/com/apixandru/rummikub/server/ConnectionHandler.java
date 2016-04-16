@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.server;
+package com.apixandru.rummikub.server;
 
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub2.Rummikub;
@@ -13,9 +13,9 @@ import java.io.IOException;
  * @author Alexandru-Constantin Bledea
  * @since April 13, 2016
  */
-class ConnectionHandler2 {
+public class ConnectionHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(ConnectionHandler2.class);
+    private static final Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
 
     private final Rummikub<Integer> rummikub = new RummikubImpl();
 
