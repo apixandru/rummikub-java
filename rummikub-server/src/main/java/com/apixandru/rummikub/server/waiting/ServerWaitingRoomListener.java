@@ -11,24 +11,24 @@ import com.apixandru.rummikub.waiting.WaitingRoomListener;
  */
 public class ServerWaitingRoomListener implements WaitingRoomListener {
 
-    private final PacketWriter socketWrapper;
+    private final PacketWriter packetWriter;
 
-    public ServerWaitingRoomListener(final PacketWriter socketWrapper) {
-        this.socketWrapper = socketWrapper;
+    public ServerWaitingRoomListener(final PacketWriter packetWriter) {
+        this.packetWriter = packetWriter;
     }
 
     @Override
     public void playerJoined(final String playerName) {
         final PacketPlayerJoined packet = new PacketPlayerJoined();
         packet.playerName = playerName;
-        socketWrapper.writePacket(packet);
+        packetWriter.writePacket(packet);
     }
 
     @Override
     public void playerLeft(final String playerName) {
         final PacketPlayerLeft packet = new PacketPlayerLeft();
         packet.playerName = playerName;
-        socketWrapper.writePacket(packet);
+        packetWriter.writePacket(packet);
     }
 
 }
