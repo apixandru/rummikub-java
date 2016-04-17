@@ -1,6 +1,6 @@
 package com.apixandru.rummikub2.game;
 
-import com.apixandru.games.rummikub.api.BoardCallback;
+import com.apixandru.games.rummikub.api.BoardListener;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.PlayerCallback;
@@ -22,8 +22,8 @@ public class GameConfigurerImpl implements GameConfigurer<Integer> {
     }
 
     @Override
-    public void addBoardCallback(final BoardCallback boardCallback) {
-        rummikubGame.addBoardCallback(boardCallback);
+    public void addBoardCallback(final BoardListener boardListener) {
+        rummikubGame.addBoardCallback(boardListener);
     }
 
     @Override

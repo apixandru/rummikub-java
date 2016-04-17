@@ -1,6 +1,6 @@
 package com.apixandru.games.rummikub.client.game;
 
-import com.apixandru.games.rummikub.api.BoardCallback;
+import com.apixandru.games.rummikub.api.BoardListener;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
@@ -17,10 +17,10 @@ public class CardRemovedHandler implements PacketHandler<PacketCardRemoved> {
 
     private static final Logger log = LoggerFactory.getLogger(CardRemovedHandler.class);
 
-    private final List<BoardCallback> boardCallbacks;
+    private final List<BoardListener> boardListeners;
 
-    public CardRemovedHandler(final List<BoardCallback> boardCallbacks) {
-        this.boardCallbacks = boardCallbacks;
+    public CardRemovedHandler(final List<BoardListener> boardListeners) {
+        this.boardListeners = boardListeners;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class CardRemovedHandler implements PacketHandler<PacketCardRemoved> {
 
         log.debug("Received onCardRemovedFromBoard(card={}, x={}, y={}, reset={})", card, x, y, reset);
 
-        boardCallbacks.forEach(callback -> callback.onCardRemovedFromBoard(card, x, y, reset));
+        boardListeners.forEach(callback -> callback.onCardRemovedFromBoard(card, x, y, reset));
     }
 
 }

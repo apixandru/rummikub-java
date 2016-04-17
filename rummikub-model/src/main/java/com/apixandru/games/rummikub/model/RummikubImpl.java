@@ -1,6 +1,6 @@
 package com.apixandru.games.rummikub.model;
 
-import com.apixandru.games.rummikub.api.BoardCallback;
+import com.apixandru.games.rummikub.api.BoardListener;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
@@ -110,13 +110,13 @@ final class RummikubImpl implements Rummikub<Integer> {
     }
 
     @Override
-    public void addBoardCallback(final BoardCallback boardCallback) {
-        this.board.addBoardListener(boardCallback);
+    public void addBoardCallback(final BoardListener boardListener) {
+        this.board.addBoardListener(boardListener);
     }
 
     @Override
-    public void removeBoardCallback(final BoardCallback boardCallback) {
-        this.board.removeBoardListener(boardCallback);
+    public void removeBoardCallback(final BoardListener boardListener) {
+        this.board.removeBoardListener(boardListener);
     }
 
     @Override

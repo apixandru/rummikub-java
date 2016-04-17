@@ -1,6 +1,6 @@
 package com.apixandru.games.rummikub.client;
 
-import com.apixandru.games.rummikub.api.BoardCallback;
+import com.apixandru.games.rummikub.api.BoardListener;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.Packet;
@@ -46,7 +46,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
 
     final SocketWrapper socketWrapper;
 
-    private final List<BoardCallback> boardCallbacks = new CopyOnWriteArrayList<>();
+    private final List<BoardListener> boardListeners = new CopyOnWriteArrayList<>();
     private final List<WaitingRoomListener> waitingRoomListeners = new CopyOnWriteArrayList<>();
     private final List<ConnectionListener> connectionListeners = new CopyOnWriteArrayList<>();
     private final List<PlayerCallback<H>> playerCallbacks = new CopyOnWriteArrayList<>();
@@ -63,8 +63,8 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
         handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListeners));
         handlers.put(PacketPlayerStart.class, new PlayerStartHandler<>(connector.stateChangeListener));
 
-        handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardCallbacks));
-        handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardCallbacks));
+        handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardListeners));
+        handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardListeners));
         handlers.put(PacketNewTurn.class, new NewTurnHandler(gameEventListeners));
         handlers.put(PacketGameOver.class, new GameOverHandler(gameEventListeners, continueReading));
         handlers.put(PacketReceiveCard.class, new ReceiveCardHandler<>(playerCallbacks, hints));
@@ -100,8 +100,8 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
         this.connectionListeners.add(connectionListener);
     }
 
-    public void addBoardCallback(final BoardCallback boardCallback) {
-        this.boardCallbacks.add(boardCallback);
+    public void addBoardCallback(final BoardListener boardListener) {
+        this.boardListeners.add(boardListener);
     }
 
     public void addWaitingRoomListener(final WaitingRoomListener waitingRoomListener) {

@@ -13,9 +13,9 @@ import static org.junit.Assert.assertEquals;
  * @author Alexandru-Constantin Bledea
  * @since January 03, 2016
  */
-public final class BoardCallbackTest {
+public final class BoardListenerTest {
 
-    private final TrackingBoardCallback callback = new TrackingBoardCallback();
+    private final TrackingBoardListener callback = new TrackingBoardListener();
 
     private Board board;
 

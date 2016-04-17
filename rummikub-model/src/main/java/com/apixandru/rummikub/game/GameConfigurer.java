@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.game;
 
-import com.apixandru.games.rummikub.api.BoardCallback;
+import com.apixandru.games.rummikub.api.BoardListener;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.api.PlayerCallback;
@@ -13,7 +13,7 @@ public interface GameConfigurer<H> {
 
     void addGameEventListener(GameEventListener gameEventListener);
 
-    void addBoardCallback(BoardCallback boardCallback);
+    void addBoardCallback(BoardListener boardListener);
 
     Player<H> newPlayer(PlayerCallback<H> playerCallback);
 

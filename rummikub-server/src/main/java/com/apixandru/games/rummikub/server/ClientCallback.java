@@ -1,6 +1,6 @@
 package com.apixandru.games.rummikub.server;
 
-import com.apixandru.games.rummikub.api.BoardCallback;
+import com.apixandru.games.rummikub.api.BoardListener;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.GameOverReason;
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * @author Alexandru-Constantin Bledea
  * @since January 05, 2016
  */
-final class ClientCallback implements PlayerCallback<Integer>, GameEventListener, BoardCallback {
+final class ClientCallback implements PlayerCallback<Integer>, GameEventListener, BoardListener {
 
     private static final Logger log = LoggerFactory.getLogger(ClientCallback.class);
 

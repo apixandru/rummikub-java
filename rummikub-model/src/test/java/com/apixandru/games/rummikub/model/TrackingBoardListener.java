@@ -1,6 +1,6 @@
 package com.apixandru.games.rummikub.model;
 
-import com.apixandru.games.rummikub.api.BoardCallback;
+import com.apixandru.games.rummikub.api.BoardListener;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.model.support.BoardAction;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since January 03, 2016
  */
-public final class TrackingBoardCallback implements BoardCallback {
+public final class TrackingBoardListener implements BoardListener {
 
     private final List<BoardAction> actions = new ArrayList<>();
 

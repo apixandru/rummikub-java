@@ -1,6 +1,6 @@
 package com.apixandru.games.rummikub.swing;
 
-import com.apixandru.games.rummikub.api.BoardCallback;
+import com.apixandru.games.rummikub.api.BoardListener;
 import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.GameOverReason;
@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-final class GameListener implements BoardCallback, GameEventListener, MoveHelper, ConnectionListener {
+final class GameListener implements BoardListener, GameEventListener, MoveHelper, ConnectionListener {
 
     private final List<Card> cardsLockedOnBoard = new ArrayList<>();
     private final List<Card> cardsJustPlacedOnBoard = new ArrayList<>();

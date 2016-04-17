@@ -1,6 +1,6 @@
 package com.apixandru.games.rummikub.model;
 
-import com.apixandru.games.rummikub.api.BoardCallback;
+import com.apixandru.games.rummikub.api.BoardListener;
 import com.apixandru.games.rummikub.api.Card;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ final class Board {
 
     final Card[][] cards;
 
-    private final List<BoardCallback> boardCallbacks = new ArrayList<>();
+    private final List<BoardListener> boardListeners = new ArrayList<>();
 
     Board() {
         this.cards = new Card[NUM_ROWS][NUM_COLS];
@@ -46,7 +46,7 @@ final class Board {
             return false;
         }
         cards[y][x] = card;
-        for (final BoardCallback callback : boardCallbacks) {
+        for (final BoardListener callback : boardListeners) {
             callback.onCardPlacedOnBoard(card, x, y);
         }
         return true;
@@ -54,8 +54,8 @@ final class Board {
 
     private Card removeCard(final int x, final int y, final boolean unlock) {
         final Card card = cards[y][x];
-        for (final BoardCallback boardCallback : boardCallbacks) {
-            boardCallback.onCardRemovedFromBoard(card, x, y, unlock);
+        for (final BoardListener boardListener : boardListeners) {
+            boardListener.onCardRemovedFromBoard(card, x, y, unlock);
         }
         cards[y][x] = null;
         return card;
@@ -98,14 +98,14 @@ final class Board {
         return cards;
     }
 
-    void addBoardListener(final BoardCallback boardCallback) {
-        if (null != boardCallback) {
-            this.boardCallbacks.add(boardCallback);
+    void addBoardListener(final BoardListener boardListener) {
+        if (null != boardListener) {
+            this.boardListeners.add(boardListener);
         }
     }
 
-    void removeBoardListener(final BoardCallback boardCallback) {
-        this.boardCallbacks.remove(boardCallback);
+    void removeBoardListener(final BoardListener boardListener) {
+        this.boardListeners.remove(boardListener);
     }
 
 }
