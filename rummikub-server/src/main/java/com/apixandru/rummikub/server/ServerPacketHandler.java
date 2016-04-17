@@ -57,4 +57,9 @@ public class ServerPacketHandler implements PacketHandler<Packet> {
         playerProvider.set(player);
     }
 
+    void reset() {
+        setStartGameListenerProvider(null);
+        setPlayer(null);
+    }
+
 }

@@ -13,13 +13,13 @@ import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
  * @author Alexandru-Constantin Bledea
  * @since April 13, 2016
  */
-public class ServerStateChangeListener implements StateChangeListener<Integer> {
+class ServerStateChangeListener implements StateChangeListener<Integer> {
 
     private final SocketWrapper socketWrapper;
     private final String playerName;
     private final ServerPacketHandler serverPacketHandler;
 
-    public ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper) {
+    ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper) {
         this.playerName = playerName;
         this.socketWrapper = socketWrapper;
 
@@ -28,14 +28,19 @@ public class ServerStateChangeListener implements StateChangeListener<Integer> {
 
     @Override
     public void enteredWaitingRoom(final WaitingRoomConfigurator configurator) {
+        serverPacketHandler.reset();
+
         configurator.registerListener(new ServerWaitingRoomListener(socketWrapper));
+        serverPacketHandler.setStartGameListenerProvider(configurator.getStartGameListener());
     }
 
     @Override
     public void enteredGame(final GameConfigurer<Integer> configurer) {
+        serverPacketHandler.reset();
+
         configurer.addBoardCallback(new ServerBoardListener(playerName, socketWrapper));
         configurer.addGameEventListener(new ServerGameEventListener(playerName, socketWrapper));
-        configurer.newPlayer(new ServerPlayerCallback(playerName, socketWrapper));
+        serverPacketHandler.setPlayer(configurer.newPlayer(new ServerPlayerCallback(playerName, socketWrapper)));
     }
 
 }
