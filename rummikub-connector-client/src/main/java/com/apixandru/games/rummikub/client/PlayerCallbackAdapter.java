@@ -49,7 +49,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
 
     private final Reference<BoardListener> boardListeners = new Reference<>();
     private final List<WaitingRoomListener> waitingRoomListeners = new CopyOnWriteArrayList<>();
-    private final List<ConnectionListener> connectionListeners = new CopyOnWriteArrayList<>();
+    private final Reference<ConnectionListener> connectionListeners = new Reference<>();
     private final List<PlayerCallback<H>> playerCallbacks = new CopyOnWriteArrayList<>();
     private final List<GameEventListener> gameEventListeners = new CopyOnWriteArrayList<>();
 
@@ -82,10 +82,10 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
             }
         } catch (final EOFException e) {
             log.debug("Server was shutdown?", e);
-            connectionListeners.forEach(ConnectionListener::onConnectionLost);
+            connectionListeners.get().onConnectionLost();
         } catch (final IOException e) {
             log.error("Unknown exception", e);
-            connectionListeners.forEach(ConnectionListener::onConnectionLost);
+            connectionListeners.get().onConnectionLost();
         }
     }
 
@@ -98,7 +98,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
     }
 
     public void addConnectionListener(final ConnectionListener connectionListener) {
-        this.connectionListeners.add(connectionListener);
+        this.connectionListeners.set(connectionListener);
     }
 
     public void addBoardListener(final BoardListener boardListener) {
