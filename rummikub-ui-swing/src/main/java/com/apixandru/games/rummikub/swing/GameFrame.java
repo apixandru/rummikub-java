@@ -39,14 +39,14 @@ class GameFrame {
         final GameListener callback = new GameListener(frame, board, btnEndTurn, username);
 
         configurer.addGameEventListener(callback);
-        adapter.addGameEventListener(callback);
+        adapter.setGameEventListener(callback);
 
-        adapter.addPlayerCallback(player);
+        adapter.setPlayerCallback(player);
 
         configurer.addBoardListener(callback);
-        adapter.addBoardListener(callback);
+        adapter.setBoardListener(callback);
 
-        adapter.addConnectionListener(callback);
+        adapter.setConnectionListener(callback);
 
         final Player<CardSlot> actualPlayer =
                 ConnectorBuilder.from(player.getAllSlots())

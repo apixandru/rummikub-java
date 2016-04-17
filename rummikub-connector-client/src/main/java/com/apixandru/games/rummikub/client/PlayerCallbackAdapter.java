@@ -6,8 +6,6 @@ import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
-import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
-import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketCardPlaced;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
@@ -20,10 +18,7 @@ import com.apixandru.games.rummikub.client.game.CardRemovedHandler;
 import com.apixandru.games.rummikub.client.game.GameOverHandler;
 import com.apixandru.games.rummikub.client.game.NewTurnHandler;
 import com.apixandru.games.rummikub.client.game.ReceiveCardHandler;
-import com.apixandru.games.rummikub.client.waiting.PlayerJoinedHandler;
-import com.apixandru.games.rummikub.client.waiting.PlayerLeftHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerStartHandler;
-import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,11 +41,10 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
 
     final SocketWrapper socketWrapper;
 
-    private final Reference<BoardListener> boardListeners = new Reference<>();
-    private final Reference<WaitingRoomListener> waitingRoomListeners = new Reference<>();
-    private final Reference<ConnectionListener> connectionListeners = new Reference<>();
-    private final Reference<PlayerCallback<H>> playerCallbacks = new Reference<>();
-    private final Reference<GameEventListener> gameEventListeners = new Reference<>();
+    private final Reference<BoardListener> boardListener = new Reference<>();
+    private final Reference<ConnectionListener> connectionListener = new Reference<>();
+    private final Reference<PlayerCallback<H>> playerCallback = new Reference<>();
+    private final Reference<GameEventListener> gameEventListener = new Reference<>();
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
@@ -59,15 +53,13 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
     public PlayerCallbackAdapter(final List<H> hints, final RummikubConnector<H> connector) {
         this.socketWrapper = connector.socketWrapper;
 
-        handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListeners));
-        handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListeners));
         handlers.put(PacketPlayerStart.class, new PlayerStartHandler<>(connector.stateChangeListener));
 
-        handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardListeners));
-        handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardListeners));
-        handlers.put(PacketNewTurn.class, new NewTurnHandler(gameEventListeners));
-        handlers.put(PacketGameOver.class, new GameOverHandler(gameEventListeners, continueReading));
-        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler<>(playerCallbacks, hints));
+        handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardListener));
+        handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardListener));
+        handlers.put(PacketNewTurn.class, new NewTurnHandler(gameEventListener));
+        handlers.put(PacketGameOver.class, new GameOverHandler(gameEventListener, continueReading));
+        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler<>(playerCallback, hints));
     }
 
     @Override
@@ -81,31 +73,27 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
             }
         } catch (final EOFException e) {
             log.debug("Server was shutdown?", e);
-            connectionListeners.get().onConnectionLost();
+            connectionListener.get().onConnectionLost();
         } catch (final IOException e) {
             log.error("Unknown exception", e);
-            connectionListeners.get().onConnectionLost();
+            connectionListener.get().onConnectionLost();
         }
     }
 
-    public void addGameEventListener(final GameEventListener gameEventListener) {
-        this.gameEventListeners.set(gameEventListener);
+    public void setGameEventListener(final GameEventListener gameEventListener) {
+        this.gameEventListener.set(gameEventListener);
     }
 
-    public void addPlayerCallback(final PlayerCallback<H> playerCallback) {
-        this.playerCallbacks.set(playerCallback);
+    public void setPlayerCallback(final PlayerCallback<H> playerCallback) {
+        this.playerCallback.set(playerCallback);
     }
 
-    public void addConnectionListener(final ConnectionListener connectionListener) {
-        this.connectionListeners.set(connectionListener);
+    public void setConnectionListener(final ConnectionListener connectionListener) {
+        this.connectionListener.set(connectionListener);
     }
 
-    public void addBoardListener(final BoardListener boardListener) {
-        this.boardListeners.set(boardListener);
-    }
-
-    public void addWaitingRoomListener(final WaitingRoomListener waitingRoomListener) {
-        this.waitingRoomListeners.set(waitingRoomListener);
+    public void setBoardListener(final BoardListener boardListener) {
+        this.boardListener.set(boardListener);
     }
 
 }
