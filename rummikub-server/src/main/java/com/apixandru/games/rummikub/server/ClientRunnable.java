@@ -1,5 +1,6 @@
 package com.apixandru.games.rummikub.server;
 
+import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.PacketReader;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Supplier;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -36,7 +38,7 @@ final class ClientRunnable implements Runnable {
     private final Map<Class, PacketHandler> handlers;
 
     private final PacketReader reader;
-    private final PlayerProvider<Integer> playerProvider;
+    private final Supplier<Player<Integer>> playerProvider;
     private final Rummikub<Integer> game;
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);

@@ -4,9 +4,10 @@ import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
-import com.apixandru.games.rummikub.server.PlayerProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.function.Supplier;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -16,9 +17,9 @@ public class MoveCardHandler implements PacketHandler<PacketMoveCard> {
 
     private static final Logger log = LoggerFactory.getLogger(MoveCardHandler.class);
 
-    private final PlayerProvider<Integer> playerProvider;
+    private final Supplier<Player<Integer>> playerProvider;
 
-    public MoveCardHandler(final PlayerProvider<Integer> playerProvider) {
+    public MoveCardHandler(final Supplier<Player<Integer>> playerProvider) {
         this.playerProvider = playerProvider;
     }
 

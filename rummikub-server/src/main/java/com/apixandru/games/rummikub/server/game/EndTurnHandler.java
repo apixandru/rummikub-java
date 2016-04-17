@@ -3,9 +3,10 @@ package com.apixandru.games.rummikub.server.game;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketEndTurn;
-import com.apixandru.games.rummikub.server.PlayerProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.function.Supplier;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -15,9 +16,9 @@ public class EndTurnHandler implements PacketHandler<PacketEndTurn> {
 
     private static final Logger log = LoggerFactory.getLogger(EndTurnHandler.class);
 
-    private final PlayerProvider<Integer> playerProvider;
+    private final Supplier<Player<Integer>> playerProvider;
 
-    public EndTurnHandler(final PlayerProvider<Integer> playerProvider) {
+    public EndTurnHandler(final Supplier<Player<Integer>> playerProvider) {
         this.playerProvider = playerProvider;
     }
 
