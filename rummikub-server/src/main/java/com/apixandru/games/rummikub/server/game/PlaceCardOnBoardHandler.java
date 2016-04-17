@@ -28,7 +28,7 @@ public class PlaceCardOnBoardHandler implements PacketHandler<PacketPlaceCard> {
         final int x = packet.x;
         final int y = packet.y;
 
-        final Player<Integer> player = playerProvider.getPlayer();
+        final Player<Integer> player = playerProvider.get();
 
         log.debug("[{}] Received placeCardOnBoard(card={}, x={}, y={})", player.getName(), card, x, y);
         player.placeCardOnBoard(card, x, y);

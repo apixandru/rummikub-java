@@ -23,7 +23,7 @@ public class EndTurnHandler implements PacketHandler<PacketEndTurn> {
 
     @Override
     public void handle(final PacketEndTurn packet) {
-        final Player<Integer> player = playerProvider.getPlayer();
+        final Player<Integer> player = playerProvider.get();
 
         log.debug("[{}] Received endTurn()", player.getName());
         player.endTurn();

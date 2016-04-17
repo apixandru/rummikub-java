@@ -74,13 +74,13 @@ final class ClientRunnable implements Runnable {
                 packetHandler.handle(input);
             }
         } catch (final EOFException e) {
-            log.debug("{} quit the game", playerProvider.getPlayer().getName());
+            log.debug("{} quit the game", playerProvider.get().getName());
         } catch (IOException e) {
             log.error("Failed to read packet", e);
         }
         this.game.removeBoardCallback(callback);
         this.game.removeGameEventListener(callback);
-        this.game.removePlayer(this.playerProvider.getPlayer());
+        this.game.removePlayer(this.playerProvider.get());
     }
 
 }

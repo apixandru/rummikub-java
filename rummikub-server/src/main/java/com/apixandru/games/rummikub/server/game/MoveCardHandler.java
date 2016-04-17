@@ -29,7 +29,7 @@ public class MoveCardHandler implements PacketHandler<PacketMoveCard> {
         final int fromY = packet.fromY;
         final int toX = packet.toX;
         final int toY = packet.toY;
-        Player<Integer> player = playerProvider.getPlayer();
+        Player<Integer> player = playerProvider.get();
         log.debug("[{}] Received moveCardOnBoard(card={}, fromX={}, fromY={}, toX={}, toY={})", player.getName(), card, fromX, fromY, toX, toY);
         player.moveCardOnBoard(card, fromX, fromY, toX, toY);
     }

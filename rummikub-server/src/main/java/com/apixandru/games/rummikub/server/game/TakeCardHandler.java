@@ -29,7 +29,7 @@ public class TakeCardHandler implements PacketHandler<PacketTakeCard> {
         final int y = packet.y;
         final int hint = packet.hint;
 
-        final Player<Integer> player = playerProvider.getPlayer();
+        final Player<Integer> player = playerProvider.get();
 
         log.debug("[{}] Received takeCardFromBoard(card={}, x={}, y={}, hint={})", player.getName(), card, x, y, hint);
         player.takeCardFromBoard(card, x, y, hint);

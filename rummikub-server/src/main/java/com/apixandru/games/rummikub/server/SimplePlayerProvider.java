@@ -15,7 +15,7 @@ public class SimplePlayerProvider implements PlayerProvider<Integer> {
     }
 
     @Override
-    public Player<Integer> getPlayer() {
+    public Player<Integer> get() {
         return player;
     }
 }
