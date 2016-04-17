@@ -6,7 +6,7 @@ import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
+import java.util.function.Supplier;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -16,9 +16,9 @@ public class NewTurnHandler implements PacketHandler<PacketNewTurn> {
 
     private static final Logger log = LoggerFactory.getLogger(NewTurnHandler.class);
 
-    private final Collection<GameEventListener> gameEventListeners;
+    private final Supplier<GameEventListener> gameEventListeners;
 
-    public NewTurnHandler(final Collection<GameEventListener> gameEventListeners) {
+    public NewTurnHandler(final Supplier<GameEventListener> gameEventListeners) {
         this.gameEventListeners = gameEventListeners;
     }
 
@@ -26,7 +26,7 @@ public class NewTurnHandler implements PacketHandler<PacketNewTurn> {
     public void handle(final PacketNewTurn packet) {
         final String playerName = packet.playerName;
         log.debug("Received newTurn(player={})", playerName);
-        gameEventListeners.forEach(listener -> listener.newTurn(playerName));
+        gameEventListeners.get().newTurn(playerName);
     }
 
 }

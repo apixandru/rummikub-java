@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -48,10 +47,10 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
     final SocketWrapper socketWrapper;
 
     private final Reference<BoardListener> boardListeners = new Reference<>();
-    private final List<WaitingRoomListener> waitingRoomListeners = new CopyOnWriteArrayList<>();
+    private final Reference<WaitingRoomListener> waitingRoomListeners = new Reference<>();
     private final Reference<ConnectionListener> connectionListeners = new Reference<>();
     private final Reference<PlayerCallback<H>> playerCallbacks = new Reference<>();
-    private final List<GameEventListener> gameEventListeners = new CopyOnWriteArrayList<>();
+    private final Reference<GameEventListener> gameEventListeners = new Reference<>();
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
@@ -90,7 +89,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
     }
 
     public void addGameEventListener(final GameEventListener gameEventListener) {
-        this.gameEventListeners.add(gameEventListener);
+        this.gameEventListeners.set(gameEventListener);
     }
 
     public void addPlayerCallback(final PlayerCallback<H> playerCallback) {
@@ -106,7 +105,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
     }
 
     public void addWaitingRoomListener(final WaitingRoomListener waitingRoomListener) {
-        this.waitingRoomListeners.add(waitingRoomListener);
+        this.waitingRoomListeners.set(waitingRoomListener);
     }
 
 }

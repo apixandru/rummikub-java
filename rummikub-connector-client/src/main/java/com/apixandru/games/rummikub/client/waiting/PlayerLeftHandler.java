@@ -4,7 +4,7 @@ import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 
-import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -12,15 +12,15 @@ import java.util.List;
  */
 public final class PlayerLeftHandler implements PacketHandler<PacketPlayerLeft> {
 
-    private final List<WaitingRoomListener> waitingRoomListeners;
+    private final Supplier<WaitingRoomListener> waitingRoomListeners;
 
-    public PlayerLeftHandler(final List<WaitingRoomListener> waitingRoomListeners) {
+    public PlayerLeftHandler(final Supplier<WaitingRoomListener> waitingRoomListeners) {
         this.waitingRoomListeners = waitingRoomListeners;
     }
 
     @Override
     public void handle(final PacketPlayerLeft packet) {
-        waitingRoomListeners.forEach(listener -> listener.playerLeft(packet.playerName));
+        waitingRoomListeners.get().playerLeft(packet.playerName);
     }
 
 }
