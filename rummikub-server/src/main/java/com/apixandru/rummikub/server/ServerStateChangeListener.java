@@ -1,5 +1,6 @@
 package com.apixandru.rummikub.server;
 
+import com.apixandru.games.rummikub.brotocol.SocketPacketProcessor;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.game.GameConfigurer;
@@ -18,14 +19,14 @@ class ServerStateChangeListener implements StateChangeListener<Integer>, Runnabl
     private final SocketWrapper socketWrapper;
     private final String playerName;
     private final ServerPacketHandler serverPacketHandler;
-    private final ServerInputParser serverInputParser;
+    private final SocketPacketProcessor socketPacketProcessor;
 
     ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper) {
         this.playerName = playerName;
         this.socketWrapper = socketWrapper;
 
         this.serverPacketHandler = new ServerPacketHandler();
-        this.serverInputParser = new ServerInputParser(this.socketWrapper, this.serverPacketHandler);
+        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this.serverPacketHandler);
     }
 
     @Override
@@ -47,7 +48,7 @@ class ServerStateChangeListener implements StateChangeListener<Integer>, Runnabl
 
     @Override
     public void run() {
-        this.serverInputParser.run();
+        this.socketPacketProcessor.run();
     }
 
 }

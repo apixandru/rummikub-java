@@ -1,6 +1,5 @@
-package com.apixandru.rummikub.server;
+package com.apixandru.games.rummikub.brotocol;
 
-import com.apixandru.games.rummikub.brotocol.PacketReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,15 +9,15 @@ import java.io.IOException;
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-class ServerInputParser implements Runnable {
+public class SocketPacketProcessor implements Runnable {
 
-    private static final Logger log = LoggerFactory.getLogger(ServerInputParser.class);
+    private static final Logger log = LoggerFactory.getLogger(SocketPacketProcessor.class);
 
     private final PacketReader reader;
 
-    private final ServerPacketHandler packetHandler;
+    private final PacketHandler<Packet> packetHandler;
 
-    ServerInputParser(final PacketReader reader, final ServerPacketHandler packetHandler) {
+    public SocketPacketProcessor(final PacketReader reader, final PacketHandler<Packet> packetHandler) {
         this.reader = reader;
         this.packetHandler = packetHandler;
     }
