@@ -20,7 +20,7 @@ public final class PlayerJoinedHandler implements PacketHandler<PacketPlayerJoin
 
     @Override
     public void handle(final PacketPlayerJoined packet) {
-        waitingRoomListeners.get().playerJoined(packet.playerName);
+//        waitingRoomListeners.get().playerJoined(packet.playerName);
     }
 
 }
