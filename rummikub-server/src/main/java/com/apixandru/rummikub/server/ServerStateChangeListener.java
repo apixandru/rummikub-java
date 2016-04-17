@@ -31,7 +31,7 @@ class ServerStateChangeListener implements StateChangeListener<Integer> {
         serverPacketHandler.reset();
 
         configurator.registerListener(new ServerWaitingRoomListener(socketWrapper));
-        serverPacketHandler.setStartGameListenerProvider(configurator.getStartGameListener());
+        serverPacketHandler.setStartGameListenerProvider(configurator);
     }
 
     @Override

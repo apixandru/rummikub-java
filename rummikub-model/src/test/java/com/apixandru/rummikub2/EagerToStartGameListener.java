@@ -12,7 +12,7 @@ public class EagerToStartGameListener<H> implements StateChangeListener<H> {
 
     @Override
     public void enteredWaitingRoom(final WaitingRoomConfigurator configurator) {
-        configurator.getStartGameListener().startGame();
+        configurator.startGame();
     }
 
     @Override
