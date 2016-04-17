@@ -14,6 +14,7 @@ import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketReceiveCard;
+import com.apixandru.games.rummikub.brotocol.util.Reference;
 import com.apixandru.games.rummikub.client.game.CardPlacedHandler;
 import com.apixandru.games.rummikub.client.game.CardRemovedHandler;
 import com.apixandru.games.rummikub.client.game.GameOverHandler;
@@ -46,7 +47,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
 
     final SocketWrapper socketWrapper;
 
-    private final List<BoardListener> boardListeners = new CopyOnWriteArrayList<>();
+    private final Reference<BoardListener> boardListeners = new Reference<>();
     private final List<WaitingRoomListener> waitingRoomListeners = new CopyOnWriteArrayList<>();
     private final List<ConnectionListener> connectionListeners = new CopyOnWriteArrayList<>();
     private final List<PlayerCallback<H>> playerCallbacks = new CopyOnWriteArrayList<>();
@@ -101,7 +102,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
     }
 
     public void addBoardListener(final BoardListener boardListener) {
-        this.boardListeners.add(boardListener);
+        this.boardListeners.set(boardListener);
     }
 
     public void addWaitingRoomListener(final WaitingRoomListener waitingRoomListener) {

@@ -7,7 +7,7 @@ import com.apixandru.games.rummikub.brotocol.game.server.PacketCardPlaced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -16,10 +16,10 @@ import java.util.List;
 public class CardPlacedHandler implements PacketHandler<PacketCardPlaced> {
 
     private static final Logger log = LoggerFactory.getLogger(CardPlacedHandler.class);
-    private final List<BoardListener> boardListeners;
+    private final Supplier<BoardListener> boardListener;
 
-    public CardPlacedHandler(final List<BoardListener> boardListeners) {
-        this.boardListeners = boardListeners;
+    public CardPlacedHandler(final Supplier<BoardListener> boardListener) {
+        this.boardListener = boardListener;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class CardPlacedHandler implements PacketHandler<PacketCardPlaced> {
 
         log.debug("Received onCardPlacedOnBoard(card={}, x={}, y={})", card, x, y);
 
-        boardListeners.forEach(listener -> listener.onCardPlacedOnBoard(card, x, y));
+        boardListener.get().onCardPlacedOnBoard(card, x, y);
     }
 
 }
