@@ -1,14 +1,9 @@
 package com.apixandru.games.rummikub.server;
 
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
-import com.apixandru.games.rummikub.brotocol.connect.WaitingRoomModel;
-import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
-import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
 import com.apixandru.games.rummikub.model.Rummikub;
 import com.apixandru.games.rummikub.model.RummikubFactory;
-import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,15 +22,9 @@ public class ConnectionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(RummikubServer.class);
 
-    private final WaitingRoomModel waitingRoomModel = new WaitingRoomModel();
-
     private final Rummikub<Integer> game = RummikubFactory.newInstance();
     private final Map<String, SocketWrapper> activeConnections = new HashMap<>();
     private ServerState serverState = WAITING_ROOM;
-
-    public ConnectionHandler() {
-        waitingRoomModel.addWaitingRoomListener(new ServerWaitingRoomListener());
-    }
 
     private static void reject(final SocketWrapper socketWrapper, String message) {
         socketWrapper.write(false);
@@ -55,7 +44,6 @@ public class ConnectionHandler {
             return;
         }
         accept(wrapper, playerName);
-        broadcastAcceptedPlayer(playerName);
         log.debug("Registering {}...", playerName);
         final ClientCallback callback = new ClientCallback(playerName, wrapper);
 
@@ -65,10 +53,6 @@ public class ConnectionHandler {
         log.debug("{} registered.", playerName);
         final ClientRunnable runnable = new ClientRunnable(wrapper, new SimplePlayerProvider(player), game, callback);
         new Thread(runnable, playerName).start();
-    }
-
-    private void broadcastAcceptedPlayer(final String playerName) {
-        waitingRoomModel.playerJoined(playerName);
     }
 
     private boolean onGoingGame() {
@@ -83,37 +67,6 @@ public class ConnectionHandler {
         wrapper.write(true);
         activeConnections.put(playerName, wrapper);
         log.debug("Accepted.");
-    }
-
-    private class ServerWaitingRoomListener implements WaitingRoomListener {
-
-        @Override
-        public void playerJoined(final String playerName) {
-
-            final PacketPlayerJoined packetJoined = new PacketPlayerJoined();
-            packetJoined.playerName = playerName;
-
-            broadcast(packetJoined);
-
-        }
-
-        @Override
-        public void playerLeft(final String playerName) {
-
-            final PacketPlayerLeft packetLeft = new PacketPlayerLeft();
-            packetLeft.playerName = playerName;
-
-            broadcast(packetLeft);
-
-        }
-
-        private void broadcast(final Packet packet) {
-            activeConnections.entrySet()
-                    .stream()
-                    .map(Map.Entry::getValue)
-                    .forEach(socketWrapper -> socketWrapper.writePacket(packet));
-        }
-
     }
 
 }
