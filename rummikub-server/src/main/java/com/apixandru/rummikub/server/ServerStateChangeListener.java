@@ -38,7 +38,7 @@ class ServerStateChangeListener implements StateChangeListener<Integer> {
     public void enteredGame(final GameConfigurer<Integer> configurer) {
         serverPacketHandler.reset();
 
-        configurer.addBoardCallback(new ServerBoardListener(playerName, socketWrapper));
+        configurer.addBoardListener(new ServerBoardListener(playerName, socketWrapper));
         configurer.addGameEventListener(new ServerGameEventListener(playerName, socketWrapper));
         serverPacketHandler.setPlayer(configurer.newPlayer(new ServerPlayerCallback(playerName, socketWrapper)));
     }

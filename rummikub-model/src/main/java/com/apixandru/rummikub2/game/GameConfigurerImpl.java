@@ -22,8 +22,8 @@ public class GameConfigurerImpl implements GameConfigurer<Integer> {
     }
 
     @Override
-    public void addBoardCallback(final BoardListener boardListener) {
-        rummikubGame.addBoardCallback(boardListener);
+    public void addBoardListener(final BoardListener boardListener) {
+        rummikubGame.addBoardListener(boardListener);
     }
 
     @Override

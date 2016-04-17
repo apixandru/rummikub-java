@@ -17,7 +17,7 @@ public class GameConfigurerAdapter<H> implements GameConfigurer<H> {
     }
 
     @Override
-    public void addBoardCallback(final BoardListener boardListener) {
+    public void addBoardListener(final BoardListener boardListener) {
 
     }
 

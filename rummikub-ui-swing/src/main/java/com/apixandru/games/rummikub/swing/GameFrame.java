@@ -43,8 +43,8 @@ class GameFrame {
 
         adapter.addPlayerCallback(player);
 
-        configurer.addBoardCallback(callback);
-        adapter.addBoardCallback(callback);
+        configurer.addBoardListener(callback);
+        adapter.addBoardListener(callback);
 
         adapter.addConnectionListener(callback);
 

@@ -46,8 +46,8 @@ final class Board {
             return false;
         }
         cards[y][x] = card;
-        for (final BoardListener callback : boardListeners) {
-            callback.onCardPlacedOnBoard(card, x, y);
+        for (final BoardListener boardListener : boardListeners) {
+            boardListener.onCardPlacedOnBoard(card, x, y);
         }
         return true;
     }

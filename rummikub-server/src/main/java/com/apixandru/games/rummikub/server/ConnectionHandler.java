@@ -59,7 +59,7 @@ public class ConnectionHandler {
         log.debug("Registering {}...", playerName);
         final ClientCallback callback = new ClientCallback(playerName, wrapper);
 
-        game.addBoardCallback(callback);
+        game.addBoardListener(callback);
         game.addGameEventListener(callback);
         final Player<Integer> player = game.addPlayer(playerName, callback);
         log.debug("{} registered.", playerName);

@@ -80,7 +80,7 @@ final class ClientRunnable implements Runnable {
         } catch (IOException e) {
             log.error("Failed to read packet", e);
         }
-        this.game.removeBoardCallback(callback);
+        this.game.removeBoardListener(callback);
         this.game.removeGameEventListener(callback);
         this.game.removePlayer(this.playerProvider.get());
     }

@@ -110,12 +110,12 @@ final class RummikubImpl implements Rummikub<Integer> {
     }
 
     @Override
-    public void addBoardCallback(final BoardListener boardListener) {
+    public void addBoardListener(final BoardListener boardListener) {
         this.board.addBoardListener(boardListener);
     }
 
     @Override
-    public void removeBoardCallback(final BoardListener boardListener) {
+    public void removeBoardListener(final BoardListener boardListener) {
         this.board.removeBoardListener(boardListener);
     }
 

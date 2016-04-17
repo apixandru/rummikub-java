@@ -100,7 +100,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
         this.connectionListeners.add(connectionListener);
     }
 
-    public void addBoardCallback(final BoardListener boardListener) {
+    public void addBoardListener(final BoardListener boardListener) {
         this.boardListeners.add(boardListener);
     }
 
