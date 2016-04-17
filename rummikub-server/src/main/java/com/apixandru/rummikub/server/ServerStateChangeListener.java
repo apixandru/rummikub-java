@@ -17,10 +17,13 @@ public class ServerStateChangeListener implements StateChangeListener<Integer> {
 
     private final SocketWrapper socketWrapper;
     private final String playerName;
+    private final ServerPacketHandler serverPacketHandler;
 
     public ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper) {
         this.playerName = playerName;
         this.socketWrapper = socketWrapper;
+
+        this.serverPacketHandler = new ServerPacketHandler();
     }
 
     @Override

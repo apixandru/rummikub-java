@@ -18,7 +18,6 @@ import com.apixandru.rummikub.waiting.StartGameListener;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -28,15 +27,10 @@ public class ServerPacketHandler implements PacketHandler<Packet> {
 
     private final Map<Class, PacketHandler> handlers;
 
-    private final Reference<StartGameListener> startGameListener = new Reference<>();
-    private final Supplier<Player<Integer>> playerProvider;
+    private final Reference<StartGameListener> startGameListenerProvider = new Reference<>();
+    private final Reference<Player<Integer>> playerProvider = new Reference<>();
 
-    public ServerPacketHandler(final Supplier<Player<Integer>> playerProvider) {
-        this.playerProvider = playerProvider;
-        this.handlers = createHandlers();
-    }
-
-    private Map<Class, PacketHandler> createHandlers() {
+    public ServerPacketHandler() {
         final Map<Class, PacketHandler> handlers = new HashMap<>();
 
         handlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler(playerProvider));
@@ -44,9 +38,9 @@ public class ServerPacketHandler implements PacketHandler<Packet> {
         handlers.put(PacketMoveCard.class, new MoveCardHandler(playerProvider));
         handlers.put(PacketTakeCard.class, new TakeCardHandler(playerProvider));
 
-        handlers.put(PacketStart.class, new StartHandler(startGameListener));
+        handlers.put(PacketStart.class, new StartHandler(startGameListenerProvider));
 
-        return Collections.unmodifiableMap(handlers);
+        this.handlers = Collections.unmodifiableMap(handlers);
     }
 
     @SuppressWarnings("unchecked")
@@ -55,8 +49,12 @@ public class ServerPacketHandler implements PacketHandler<Packet> {
         handlers.get(packet.getClass()).handle(packet);
     }
 
-    public void setStartGameListener(final StartGameListener startGameListener) {
-        this.startGameListener.set(startGameListener);
+    public void setStartGameListenerProvider(final StartGameListener startGameListener) {
+        startGameListenerProvider.set(startGameListener);
+    }
+
+    public void setPlayer(final Player<Integer> player) {
+        playerProvider.set(player);
     }
 
 }

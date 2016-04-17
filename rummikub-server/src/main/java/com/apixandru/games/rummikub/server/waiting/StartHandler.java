@@ -11,15 +11,15 @@ import com.apixandru.rummikub.waiting.StartGameListener;
  */
 public class StartHandler implements PacketHandler<PacketStart> {
 
-    private final Reference<StartGameListener> startGameListener;
+    private final Reference<StartGameListener> startGameListenerProvider;
 
-    public StartHandler(Reference<StartGameListener> startGameListener) {
-        this.startGameListener = startGameListener;
+    public StartHandler(Reference<StartGameListener> startGameListenerProvider) {
+        this.startGameListenerProvider = startGameListenerProvider;
     }
 
     @Override
     public void handle(PacketStart packet) {
-        startGameListener.get().startGame();
+        startGameListenerProvider.get().startGame();
     }
 
 }
