@@ -15,15 +15,15 @@ import static org.junit.Assert.assertEquals;
  */
 public final class BoardListenerTest {
 
-    private final TrackingBoardListener callback = new TrackingBoardListener();
+    private final TrackingBoardListener listener = new TrackingBoardListener();
 
     private Board board;
 
     @Before
     public void setup() {
-        callback.clear();
+        listener.clear();
         board = new Board();
-        this.board.addBoardListener(callback);
+        this.board.addBoardListener(listener);
         board.placeCard(TestUtils.BLACK_ONE_1, 0, 6);
     }
 
@@ -34,7 +34,7 @@ public final class BoardListenerTest {
     public void testFirePlaceCardSame() {
         board.placeCard(TestUtils.BLACK_ONE_1, 0, 6);
 
-        final List<BoardAction> actions = callback.getActions();
+        final List<BoardAction> actions = listener.getActions();
         assertEquals(2, actions.size());
 
         for (int i = 0; i < 2; i++) {
@@ -53,11 +53,11 @@ public final class BoardListenerTest {
      */
     @Test
     public void testShouldntFireIfSlotTaken() {
-        callback.clear();
+        listener.clear();
 
         board.placeCard(TestUtils.BLACK_ONE_2, 0, 6);
 
-        TestUtils.assertEmpty(callback.getActions());
+        TestUtils.assertEmpty(listener.getActions());
     }
 
     /**
@@ -65,7 +65,7 @@ public final class BoardListenerTest {
      */
     @Test
     public void testFireOnPlaceCard() {
-        final List<BoardAction> actions = callback.getActions();
+        final List<BoardAction> actions = listener.getActions();
         assertEquals(1, actions.size());
         final BoardAction boardAction = actions.get(0);
 
@@ -81,11 +81,11 @@ public final class BoardListenerTest {
      */
     @Test
     public void testRemoveCardFromBoard() {
-        callback.clear();
+        listener.clear();
 
         board.removeCard(0, 6);
 
-        final List<BoardAction> actions = callback.getActions();
+        final List<BoardAction> actions = listener.getActions();
         assertEquals(1, actions.size());
         final BoardAction boardAction = actions.get(0);
 
@@ -97,11 +97,11 @@ public final class BoardListenerTest {
 
     @Test
     public void testMoveCardOnBoard() {
-        callback.clear();
+        listener.clear();
 
         board.moveCard(0, 6, 1, 5);
 
-        final List<BoardAction> actions = callback.getActions();
+        final List<BoardAction> actions = listener.getActions();
         assertEquals(2, actions.size());
 
         final BoardAction actionRemove = actions.get(0);

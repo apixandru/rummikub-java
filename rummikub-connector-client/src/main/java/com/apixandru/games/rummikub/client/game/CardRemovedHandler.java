@@ -32,7 +32,7 @@ public class CardRemovedHandler implements PacketHandler<PacketCardRemoved> {
 
         log.debug("Received onCardRemovedFromBoard(card={}, x={}, y={}, reset={})", card, x, y, reset);
 
-        boardListeners.forEach(callback -> callback.onCardRemovedFromBoard(card, x, y, reset));
+        boardListeners.forEach(listener -> listener.onCardRemovedFromBoard(card, x, y, reset));
     }
 
 }

@@ -30,7 +30,7 @@ public class CardPlacedHandler implements PacketHandler<PacketCardPlaced> {
 
         log.debug("Received onCardPlacedOnBoard(card={}, x={}, y={})", card, x, y);
 
-        boardListeners.forEach(callback -> callback.onCardPlacedOnBoard(card, x, y));
+        boardListeners.forEach(listener -> listener.onCardPlacedOnBoard(card, x, y));
     }
 
 }
