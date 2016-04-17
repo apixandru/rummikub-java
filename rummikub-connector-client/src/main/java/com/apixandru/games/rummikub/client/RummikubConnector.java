@@ -3,7 +3,7 @@ package com.apixandru.games.rummikub.client;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.game.GameConfigurerAdapter;
-import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
+import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 
 /**
@@ -21,7 +21,7 @@ public final class RummikubConnector<H> {
     }
 
     public void connect() {
-        stateChangeListener.enteredWaitingRoom(new WaitingRoomConfigurator() {
+        stateChangeListener.enteredWaitingRoom(new WaitingRoomConfigurer() {
             @Override
             public void registerListener(final WaitingRoomListener listener) {
 

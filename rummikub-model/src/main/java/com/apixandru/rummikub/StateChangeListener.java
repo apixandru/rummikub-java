@@ -1,7 +1,7 @@
 package com.apixandru.rummikub;
 
 import com.apixandru.rummikub.game.GameConfigurer;
-import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
+import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -9,7 +9,7 @@ import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
  */
 public interface StateChangeListener<H> {
 
-    void enteredWaitingRoom(WaitingRoomConfigurator configurator);
+    void enteredWaitingRoom(WaitingRoomConfigurer configurer);
 
     void enteredGame(GameConfigurer<H> configurer);
 

@@ -7,7 +7,7 @@ import com.apixandru.rummikub.server.game.ServerBoardListener;
 import com.apixandru.rummikub.server.game.ServerGameEventListener;
 import com.apixandru.rummikub.server.game.ServerPlayerCallback;
 import com.apixandru.rummikub.server.waiting.ServerWaitingRoomListener;
-import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
+import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -27,11 +27,11 @@ class ServerStateChangeListener implements StateChangeListener<Integer> {
     }
 
     @Override
-    public void enteredWaitingRoom(final WaitingRoomConfigurator configurator) {
+    public void enteredWaitingRoom(final WaitingRoomConfigurer configurer) {
         serverPacketHandler.reset();
 
-        configurator.registerListener(new ServerWaitingRoomListener(socketWrapper));
-        serverPacketHandler.setStartGameListenerProvider(configurator);
+        configurer.registerListener(new ServerWaitingRoomListener(socketWrapper));
+        serverPacketHandler.setStartGameListenerProvider(configurer);
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.games.rummikub.client.RummikubConnector;
 import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.game.GameConfigurer;
-import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
+import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
 
 import javax.swing.JFrame;
 import java.util.Optional;
@@ -27,9 +27,9 @@ class WindowManager implements StateChangeListener<CardSlot> {
     }
 
     @Override
-    public void enteredWaitingRoom(final WaitingRoomConfigurator configurator) {
-        final WaitingRoom waitingRoom = new WaitingRoom(configurator);
-        configurator.registerListener(waitingRoom);
+    public void enteredWaitingRoom(final WaitingRoomConfigurer configurer) {
+        final WaitingRoom waitingRoom = new WaitingRoom(configurer);
+        configurer.registerListener(waitingRoom);
         waitingRoomFrame = Optional.of(WaitingRoom.createAndShowGui(waitingRoom));
     }
 

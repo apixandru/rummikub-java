@@ -3,7 +3,7 @@ package com.apixandru.rummikub2;
 import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.rummikub.StateChangeListener;
-import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
+import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import com.apixandru.rummikub2.game.GameConfigurerImpl;
 
@@ -21,7 +21,7 @@ import static com.apixandru.rummikub2.RummikubException.Reason.ONGOING_GAME;
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-public class RummikubImpl implements Rummikub<Integer>, GameEventListener, WaitingRoomConfigurator {
+public class RummikubImpl implements Rummikub<Integer>, GameEventListener, WaitingRoomConfigurer {
 
     private final Map<String, StateChangeListener<Integer>> players = new HashMap<>();
 

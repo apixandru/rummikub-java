@@ -2,17 +2,17 @@ package com.apixandru.rummikub2;
 
 import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.game.GameConfigurer;
-import com.apixandru.rummikub.waiting.WaitingRoomConfigurator;
+import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 14, 2016
  */
-public class EagerToStartGameListener<H> implements StateChangeListener<H> {
+class EagerToStartGameListener<H> implements StateChangeListener<H> {
 
     @Override
-    public void enteredWaitingRoom(final WaitingRoomConfigurator configurator) {
-        configurator.startGame();
+    public void enteredWaitingRoom(final WaitingRoomConfigurer configurer) {
+        configurer.startGame();
     }
 
     @Override
