@@ -50,7 +50,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
     private final Reference<BoardListener> boardListeners = new Reference<>();
     private final List<WaitingRoomListener> waitingRoomListeners = new CopyOnWriteArrayList<>();
     private final Reference<ConnectionListener> connectionListeners = new Reference<>();
-    private final List<PlayerCallback<H>> playerCallbacks = new CopyOnWriteArrayList<>();
+    private final Reference<PlayerCallback<H>> playerCallbacks = new Reference<>();
     private final List<GameEventListener> gameEventListeners = new CopyOnWriteArrayList<>();
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
@@ -94,7 +94,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
     }
 
     public void addPlayerCallback(final PlayerCallback<H> playerCallback) {
-        this.playerCallbacks.add(playerCallback);
+        this.playerCallbacks.set(playerCallback);
     }
 
     public void addConnectionListener(final ConnectionListener connectionListener) {
