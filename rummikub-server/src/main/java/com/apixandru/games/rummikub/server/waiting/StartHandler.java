@@ -2,6 +2,7 @@ package com.apixandru.games.rummikub.server.waiting;
 
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.connect.client.PacketStart;
+import com.apixandru.rummikub.server.Reference;
 import com.apixandru.rummikub.waiting.StartGameListener;
 
 /**
@@ -10,15 +11,15 @@ import com.apixandru.rummikub.waiting.StartGameListener;
  */
 public class StartHandler implements PacketHandler<PacketStart> {
 
-    private final StartGameListener startGameListener;
+    private final Reference<StartGameListener> startGameListener;
 
-    public StartHandler(StartGameListener startGameListener) {
+    public StartHandler(Reference<StartGameListener> startGameListener) {
         this.startGameListener = startGameListener;
     }
 
     @Override
     public void handle(PacketStart packet) {
-        startGameListener.startGame();
+        startGameListener.get().startGame();
     }
 
 }

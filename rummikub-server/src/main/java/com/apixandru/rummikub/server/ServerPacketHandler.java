@@ -28,11 +28,10 @@ public class ServerPacketHandler implements PacketHandler<Packet> {
 
     private final Map<Class, PacketHandler> handlers;
 
-    private final StartGameListener startGameListener;
+    private final Reference<StartGameListener> startGameListener = new Reference<>();
     private final Supplier<Player<Integer>> playerProvider;
 
-    public ServerPacketHandler(final StartGameListener startGameListener, final Supplier<Player<Integer>> playerProvider) {
-        this.startGameListener = startGameListener;
+    public ServerPacketHandler(final Supplier<Player<Integer>> playerProvider) {
         this.playerProvider = playerProvider;
         this.handlers = createHandlers();
     }
@@ -52,8 +51,12 @@ public class ServerPacketHandler implements PacketHandler<Packet> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void handle(Packet packet) {
+    public void handle(final Packet packet) {
         handlers.get(packet.getClass()).handle(packet);
+    }
+
+    public void setStartGameListener(final StartGameListener startGameListener) {
+        this.startGameListener.set(startGameListener);
     }
 
 }
