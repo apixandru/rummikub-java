@@ -2,11 +2,13 @@ package com.apixandru.games.rummikub.server;
 
 import com.apixandru.games.rummikub.api.Player;
 
+import java.util.function.Supplier;
+
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 06, 2016
  */
-public class SimplePlayerProvider implements PlayerProvider<Integer> {
+public class SimplePlayerProvider implements Supplier<Player<Integer>> {
 
     private final Player<Integer> player;
 

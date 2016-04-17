@@ -1,5 +1,6 @@
 package com.apixandru.rummikub.server;
 
+import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.connect.client.PacketStart;
@@ -7,7 +8,6 @@ import com.apixandru.games.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketTakeCard;
-import com.apixandru.games.rummikub.server.PlayerProvider;
 import com.apixandru.games.rummikub.server.game.EndTurnHandler;
 import com.apixandru.games.rummikub.server.game.MoveCardHandler;
 import com.apixandru.games.rummikub.server.game.PlaceCardOnBoardHandler;
@@ -18,6 +18,7 @@ import com.apixandru.rummikub.waiting.StartGameListener;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -28,9 +29,9 @@ public class ServerPacketHandler implements PacketHandler<Packet> {
     private final Map<Class, PacketHandler> handlers;
 
     private final StartGameListener startGameListener;
-    private final PlayerProvider<Integer> playerProvider;
+    private final Supplier<Player<Integer>> playerProvider;
 
-    public ServerPacketHandler(final StartGameListener startGameListener, final PlayerProvider<Integer> playerProvider) {
+    public ServerPacketHandler(final StartGameListener startGameListener, final Supplier<Player<Integer>> playerProvider) {
         this.startGameListener = startGameListener;
         this.playerProvider = playerProvider;
         this.handlers = createHandlers();

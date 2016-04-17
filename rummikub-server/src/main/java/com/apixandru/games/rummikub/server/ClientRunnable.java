@@ -45,7 +45,7 @@ final class ClientRunnable implements Runnable {
     private final ClientCallback callback;
 
     ClientRunnable(final PacketReader reader,
-                   final PlayerProvider<Integer> playerProvider,
+                   final Supplier<Player<Integer>> playerProvider,
                    final Rummikub<Integer> game,
                    final ClientCallback callback) {
         this.reader = reader;
