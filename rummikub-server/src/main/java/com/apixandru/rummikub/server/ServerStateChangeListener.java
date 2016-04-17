@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.games.rummikub.brotocol.SocketPacketProcessor;
+import com.apixandru.games.rummikub.brotocol.util.SocketPacketProcessor;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.game.GameConfigurer;

@@ -1,5 +1,8 @@
-package com.apixandru.games.rummikub.brotocol;
+package com.apixandru.games.rummikub.brotocol.util;
 
+import com.apixandru.games.rummikub.brotocol.Packet;
+import com.apixandru.games.rummikub.brotocol.PacketHandler;
+import com.apixandru.games.rummikub.brotocol.PacketReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

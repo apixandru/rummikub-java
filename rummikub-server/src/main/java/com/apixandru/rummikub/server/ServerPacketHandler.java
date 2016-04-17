@@ -3,6 +3,7 @@ package com.apixandru.rummikub.server;
 import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
+import com.apixandru.games.rummikub.brotocol.util.Reference;
 import com.apixandru.games.rummikub.brotocol.connect.client.PacketStart;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
@@ -23,14 +24,14 @@ import java.util.Map;
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-public class ServerPacketHandler implements PacketHandler<Packet> {
+class ServerPacketHandler implements PacketHandler<Packet> {
 
     private final Map<Class, PacketHandler> handlers;
 
     private final Reference<StartGameListener> startGameListenerProvider = new Reference<>();
     private final Reference<Player<Integer>> playerProvider = new Reference<>();
 
-    public ServerPacketHandler() {
+    ServerPacketHandler() {
         final Map<Class, PacketHandler> handlers = new HashMap<>();
 
         handlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler(playerProvider));
@@ -49,11 +50,11 @@ public class ServerPacketHandler implements PacketHandler<Packet> {
         handlers.get(packet.getClass()).handle(packet);
     }
 
-    public void setStartGameListenerProvider(final StartGameListener startGameListener) {
+    void setStartGameListenerProvider(final StartGameListener startGameListener) {
         startGameListenerProvider.set(startGameListener);
     }
 
-    public void setPlayer(final Player<Integer> player) {
+    void setPlayer(final Player<Integer> player) {
         playerProvider.set(player);
     }
 

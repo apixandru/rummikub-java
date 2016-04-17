@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.server;
+package com.apixandru.games.rummikub.brotocol.util;
 
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
