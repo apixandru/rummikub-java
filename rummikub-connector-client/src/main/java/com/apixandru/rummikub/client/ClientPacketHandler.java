@@ -13,7 +13,6 @@ import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketReceiveCard;
 import com.apixandru.games.rummikub.brotocol.util.Reference;
-import com.apixandru.games.rummikub.client.ConnectionListener;
 import com.apixandru.games.rummikub.client.game.CardPlacedHandler;
 import com.apixandru.games.rummikub.client.game.CardRemovedHandler;
 import com.apixandru.games.rummikub.client.game.GameOverHandler;
@@ -41,7 +40,6 @@ public class ClientPacketHandler<H> implements PacketHandler<Packet> {
 
     private final Reference<BoardListener> boardListener = new Reference<>();
     private final Reference<WaitingRoomListener> waitingRoomListener = new Reference<>();
-    private final Reference<ConnectionListener> connectionListener = new Reference<>();
     private final Reference<PlayerCallback<H>> playerCallback = new Reference<>();
     private final Reference<GameEventListener> gameEventListener = new Reference<>();
     private final List<H> hints = new ArrayList<>();
@@ -66,6 +64,22 @@ public class ClientPacketHandler<H> implements PacketHandler<Packet> {
     @Override
     public void handle(final Packet packet) {
         handlers.get(packet.getClass()).handle(packet);
+    }
+
+    public void setGameEventListener(final GameEventListener gameEventListener) {
+        this.gameEventListener.set(gameEventListener);
+    }
+
+    public void setBoardListener(final BoardListener boardListener) {
+        this.boardListener.set(boardListener);
+    }
+
+    public void setPlayerCallback(final PlayerCallback<H> playerCallback) {
+        this.playerCallback.set(playerCallback);
+    }
+
+    public void setWaitingRoomListener(final WaitingRoomListener waitingRoomListener) {
+        this.waitingRoomListener.set(waitingRoomListener);
     }
 
 }
