@@ -14,7 +14,7 @@ final class Main {
             return;
         }
         final WindowManager windowManager = new WindowManager(connectionData.username);
-        final RummikubConnector<CardSlot> rummikubConnector = new RummikubConnector<>(connectionData.socket, windowManager);
+        final RummikubConnector rummikubConnector = new RummikubConnector(connectionData.socket, windowManager);
         windowManager.setConnector(rummikubConnector);
         rummikubConnector.connect();
 

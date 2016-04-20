@@ -20,7 +20,7 @@ class WindowManager implements StateChangeListener {
     private final String username;
 
     private Optional<JFrame> waitingRoomFrame;
-    private RummikubConnector<CardSlot> connector;
+    private RummikubConnector connector;
 
     WindowManager(final String username) {
         this.username = username;
@@ -43,7 +43,7 @@ class WindowManager implements StateChangeListener {
         run(username, player, adapter, configurer);
     }
 
-    void setConnector(final RummikubConnector<CardSlot> connector) {
+    void setConnector(final RummikubConnector connector) {
         this.connector = connector;
     }
 

@@ -50,7 +50,7 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
-    public PlayerCallbackAdapter(final List<H> hints, final RummikubConnector<H> connector) {
+    public PlayerCallbackAdapter(final List<H> hints, final RummikubConnector connector) {
         this.socketWrapper = connector.socketWrapper;
 
         handlers.put(PacketPlayerStart.class, new PlayerStartHandler<>(connector.stateChangeListener));

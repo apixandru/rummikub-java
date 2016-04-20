@@ -10,7 +10,7 @@ import com.apixandru.rummikub.waiting.WaitingRoomListener;
  * @author Alexandru-Constantin Bledea
  * @since April 02, 2016
  */
-public final class RummikubConnector<H> {
+public final class RummikubConnector {
 
     final SocketWrapper socketWrapper;
     final StateChangeListener stateChangeListener;
