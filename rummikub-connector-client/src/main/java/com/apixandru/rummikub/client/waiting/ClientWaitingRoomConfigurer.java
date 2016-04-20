@@ -2,7 +2,7 @@ package com.apixandru.rummikub.client.waiting;
 
 import com.apixandru.games.rummikub.brotocol.PacketWriter;
 import com.apixandru.games.rummikub.brotocol.connect.client.PacketStart;
-import com.apixandru.games.rummikub.brotocol.util.Reference;
+import com.apixandru.rummikub.client.ClientPacketHandler;
 import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 
@@ -13,16 +13,16 @@ import com.apixandru.rummikub.waiting.WaitingRoomListener;
 public class ClientWaitingRoomConfigurer implements WaitingRoomConfigurer {
 
     private final PacketWriter packetWriter;
-    private final Reference<WaitingRoomListener> listenerReference;
+    private final ClientPacketHandler packetHandler;
 
-    public ClientWaitingRoomConfigurer(final PacketWriter packetWriter, final Reference<WaitingRoomListener> listenerReference) {
+    public ClientWaitingRoomConfigurer(final PacketWriter packetWriter, final ClientPacketHandler packetHandler) {
         this.packetWriter = packetWriter;
-        this.listenerReference = listenerReference;
+        this.packetHandler = packetHandler;
     }
 
     @Override
     public void registerListener(final WaitingRoomListener listener) {
-        listenerReference.set(listener);
+        packetHandler.setWaitingRoomListener(listener);
     }
 
     @Override
