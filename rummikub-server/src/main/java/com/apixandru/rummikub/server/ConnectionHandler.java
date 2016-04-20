@@ -29,11 +29,15 @@ public class ConnectionHandler {
         final String playerName = wrapper.readString();
         log.debug("{} is attempting to join.", playerName);
         try {
-            rummikub.register(playerName, new ServerStateChangeListener(playerName, wrapper));
+            accept(wrapper, playerName);
         } catch (final RummikubException ex) {
             reject(wrapper, ex);
         }
-        log.debug("{} registered.", playerName);
     }
 
+    private void accept(final SocketWrapper wrapper, final String playerName) {
+        rummikub.register(playerName, new ServerStateChangeListener(playerName, wrapper));
+        wrapper.write(true);
+        log.debug("Accepted.");
+    }
 }
