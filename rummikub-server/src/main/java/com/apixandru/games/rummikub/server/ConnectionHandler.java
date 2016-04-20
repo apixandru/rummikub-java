@@ -51,7 +51,7 @@ public class ConnectionHandler {
         game.addGameEventListener(callback);
         final Player<Integer> player = game.addPlayer(playerName, callback);
         log.debug("{} registered.", playerName);
-        final ClientRunnable runnable = new ClientRunnable(wrapper, new SimplePlayerProvider(player), game, callback);
+        final ClientRunnable runnable = new ClientRunnable(wrapper, () -> player, game, callback);
         new Thread(runnable, playerName).start();
     }
 
