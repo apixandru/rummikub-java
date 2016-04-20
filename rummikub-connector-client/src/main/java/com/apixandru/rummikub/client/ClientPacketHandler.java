@@ -34,15 +34,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-public class ClientPacketHandler<H> implements PacketHandler<Packet> {
+public class ClientPacketHandler implements PacketHandler<Packet> {
 
     private static final Logger log = LoggerFactory.getLogger(ClientPacketHandler.class);
 
     private final Reference<BoardListener> boardListener = new Reference<>();
     private final Reference<WaitingRoomListener> waitingRoomListener = new Reference<>();
-    private final Reference<PlayerCallback<H>> playerCallback = new Reference<>();
+    private final Reference<PlayerCallback<Integer>> playerCallback = new Reference<>();
     private final Reference<GameEventListener> gameEventListener = new Reference<>();
-    private final List<H> hints = new ArrayList<>();
+    private final List<Integer> hints = new ArrayList<>();
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
@@ -74,7 +74,7 @@ public class ClientPacketHandler<H> implements PacketHandler<Packet> {
         this.boardListener.set(boardListener);
     }
 
-    public void setPlayerCallback(final PlayerCallback<H> playerCallback) {
+    public void setPlayerCallback(final PlayerCallback<Integer> playerCallback) {
         this.playerCallback.set(playerCallback);
     }
 

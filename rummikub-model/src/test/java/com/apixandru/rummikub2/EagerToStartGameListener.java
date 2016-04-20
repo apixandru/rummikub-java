@@ -8,7 +8,7 @@ import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
  * @author Alexandru-Constantin Bledea
  * @since April 14, 2016
  */
-class EagerToStartGameListener<H> implements StateChangeListener<H> {
+class EagerToStartGameListener implements StateChangeListener {
 
     @Override
     public void enteredWaitingRoom(final WaitingRoomConfigurer configurer) {
@@ -16,7 +16,7 @@ class EagerToStartGameListener<H> implements StateChangeListener<H> {
     }
 
     @Override
-    public void enteredGame(final GameConfigurer<H> configurer) {
+    public void enteredGame(final GameConfigurer configurer) {
 
     }
 

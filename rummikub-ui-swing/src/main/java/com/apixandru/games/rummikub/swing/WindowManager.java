@@ -15,7 +15,7 @@ import static com.apixandru.games.rummikub.swing.GameFrame.run;
  * @author Alexandru-Constantin Bledea
  * @since April 09, 2016
  */
-class WindowManager implements StateChangeListener<CardSlot> {
+class WindowManager implements StateChangeListener {
 
     private final String username;
 
@@ -34,7 +34,7 @@ class WindowManager implements StateChangeListener<CardSlot> {
     }
 
     @Override
-    public void enteredGame(final GameConfigurer<CardSlot> configurer) {
+    public void enteredGame(final GameConfigurer configurer) {
         waitingRoomFrame.ifPresent(JFrame::dispose);
 
         final PlayerUi player = new PlayerUi(username);

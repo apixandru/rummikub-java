@@ -22,9 +22,9 @@ public class TestRummikubImpl {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    private StateChangeListener<Integer> listener;
+    private StateChangeListener listener;
 
-    private Rummikub<Integer> rummikub;
+    private Rummikub rummikub;
 
     @SuppressWarnings("unchecked")
     @Before
@@ -71,7 +71,7 @@ public class TestRummikubImpl {
     public void testJoinWhileInGame() {
         expectExceptionToBeThrownWithReason(ONGOING_GAME);
 
-        rummikub.register("Dan", new EagerToStartGameListener<>());
+        rummikub.register("Dan", new EagerToStartGameListener());
         rummikub.register("The Man", listener);
     }
 

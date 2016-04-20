@@ -11,15 +11,15 @@ import com.apixandru.rummikub.game.GameConfigurerAdapter;
  */
 public class PlayerStartHandler<H> implements PacketHandler<PacketStart> {
 
-    private final StateChangeListener<H> waitingRoomListeners;
+    private final StateChangeListener waitingRoomListeners;
 
-    public PlayerStartHandler(final StateChangeListener<H> stateChangeListener) {
+    public PlayerStartHandler(final StateChangeListener stateChangeListener) {
         this.waitingRoomListeners = stateChangeListener;
     }
 
     @Override
     public void handle(final PacketStart packet) {
-        waitingRoomListeners.enteredGame(new GameConfigurerAdapter<>());
+        waitingRoomListeners.enteredGame(new GameConfigurerAdapter());
     }
 
 }

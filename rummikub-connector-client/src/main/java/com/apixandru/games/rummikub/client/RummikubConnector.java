@@ -13,9 +13,9 @@ import com.apixandru.rummikub.waiting.WaitingRoomListener;
 public final class RummikubConnector<H> {
 
     final SocketWrapper socketWrapper;
-    final StateChangeListener<H> stateChangeListener;
+    final StateChangeListener stateChangeListener;
 
-    public RummikubConnector(final SocketWrapper socketWrapper, final StateChangeListener<H> stateChangeListener) {
+    public RummikubConnector(final SocketWrapper socketWrapper, final StateChangeListener stateChangeListener) {
         this.socketWrapper = socketWrapper;
         this.stateChangeListener = stateChangeListener;
     }
@@ -29,7 +29,7 @@ public final class RummikubConnector<H> {
 
             @Override
             public void startGame() {
-                stateChangeListener.enteredGame(new GameConfigurerAdapter<>());
+                stateChangeListener.enteredGame(new GameConfigurerAdapter());
             }
 
         });

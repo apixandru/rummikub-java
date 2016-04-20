@@ -9,7 +9,7 @@ import com.apixandru.games.rummikub.api.PlayerCallback;
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-public class GameConfigurerAdapter<H> implements GameConfigurer<H> {
+public class GameConfigurerAdapter implements GameConfigurer {
 
     @Override
     public void addGameEventListener(final GameEventListener gameEventListener) {
@@ -22,7 +22,7 @@ public class GameConfigurerAdapter<H> implements GameConfigurer<H> {
     }
 
     @Override
-    public Player<H> newPlayer(final PlayerCallback<H> playerCallback) {
+    public Player<Integer> newPlayer(final PlayerCallback<Integer> playerCallback) {
         return null;
     }
 

@@ -21,9 +21,9 @@ import static com.apixandru.rummikub2.RummikubException.Reason.ONGOING_GAME;
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-public class RummikubImpl implements Rummikub<Integer>, GameEventListener, WaitingRoomConfigurer {
+public class RummikubImpl implements Rummikub, GameEventListener, WaitingRoomConfigurer {
 
-    private final Map<String, StateChangeListener<Integer>> players = new HashMap<>();
+    private final Map<String, StateChangeListener> players = new HashMap<>();
 
     private final List<WaitingRoomListener> waitingRoomListeners = new ArrayList<>();
 
@@ -34,12 +34,12 @@ public class RummikubImpl implements Rummikub<Integer>, GameEventListener, Waiti
     }
 
     @Override
-    public void register(final String playerName, final StateChangeListener<Integer> listener) throws RummikubException {
+    public void register(final String playerName, final StateChangeListener listener) throws RummikubException {
         validateCanJoin(playerName, listener);
         addPlayer(playerName, listener);
     }
 
-    private void validateCanJoin(final String playerName, final StateChangeListener<Integer> listener) {
+    private void validateCanJoin(final String playerName, final StateChangeListener listener) {
         if (null == listener) {
             throw new RummikubException(NO_LISTENER);
         }
@@ -54,7 +54,7 @@ public class RummikubImpl implements Rummikub<Integer>, GameEventListener, Waiti
         }
     }
 
-    private void addPlayer(final String playerName, final StateChangeListener<Integer> listener) {
+    private void addPlayer(final String playerName, final StateChangeListener listener) {
         players.put(playerName, listener);
         broadcastPlayerJoined(playerName);
         listener.enteredWaitingRoom(this);

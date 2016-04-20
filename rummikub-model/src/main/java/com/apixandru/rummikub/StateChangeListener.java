@@ -7,10 +7,10 @@ import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
  * @author Alexandru-Constantin Bledea
  * @since April 09, 2016
  */
-public interface StateChangeListener<H> {
+public interface StateChangeListener {
 
     void enteredWaitingRoom(WaitingRoomConfigurer configurer);
 
-    void enteredGame(GameConfigurer<H> configurer);
+    void enteredGame(GameConfigurer configurer);
 
 }

@@ -12,7 +12,7 @@ import com.apixandru.rummikub.game.GameConfigurer;
  * @author Alexandru-Constantin Bledea
  * @since April 11, 2016
  */
-public class GameConfigurerImpl implements GameConfigurer<Integer> {
+public class GameConfigurerImpl implements GameConfigurer {
 
     private final Rummikub<Integer> rummikubGame = RummikubFactory.newInstance();
 

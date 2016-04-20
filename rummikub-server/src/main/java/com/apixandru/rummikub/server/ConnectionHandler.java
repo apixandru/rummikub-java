@@ -17,7 +17,7 @@ public class ConnectionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
 
-    private final Rummikub<Integer> rummikub = new RummikubImpl();
+    private final Rummikub rummikub = new RummikubImpl();
 
     private static void reject(final SocketWrapper socketWrapper, final RummikubException exception) {
         socketWrapper.write(false);

@@ -9,12 +9,12 @@ import com.apixandru.games.rummikub.api.PlayerCallback;
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-public interface GameConfigurer<H> {
+public interface GameConfigurer {
 
     void addGameEventListener(GameEventListener gameEventListener);
 
     void addBoardListener(BoardListener boardListener);
 
-    Player<H> newPlayer(PlayerCallback<H> playerCallback);
+    Player<Integer> newPlayer(PlayerCallback<Integer> playerCallback);
 
 }

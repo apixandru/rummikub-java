@@ -14,7 +14,7 @@ import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
  * @author Alexandru-Constantin Bledea
  * @since April 13, 2016
  */
-class ServerStateChangeListener implements StateChangeListener<Integer>, Runnable {
+class ServerStateChangeListener implements StateChangeListener, Runnable {
 
     private final SocketWrapper socketWrapper;
     private final String playerName;
@@ -38,7 +38,7 @@ class ServerStateChangeListener implements StateChangeListener<Integer>, Runnabl
     }
 
     @Override
-    public void enteredGame(final GameConfigurer<Integer> configurer) {
+    public void enteredGame(final GameConfigurer configurer) {
         serverPacketHandler.reset();
 
         configurer.addBoardListener(new ServerBoardListener(playerName, socketWrapper));
