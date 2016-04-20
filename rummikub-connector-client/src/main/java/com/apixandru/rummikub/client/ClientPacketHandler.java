@@ -17,16 +17,14 @@ import com.apixandru.games.rummikub.client.game.CardPlacedHandler;
 import com.apixandru.games.rummikub.client.game.CardRemovedHandler;
 import com.apixandru.games.rummikub.client.game.GameOverHandler;
 import com.apixandru.games.rummikub.client.game.NewTurnHandler;
-import com.apixandru.games.rummikub.client.game.ReceiveCardHandler;
+import com.apixandru.games.rummikub.client.game.ReceiveCardHandler2;
 import com.apixandru.games.rummikub.client.waiting.PlayerJoinedHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerLeftHandler;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -42,7 +40,6 @@ public class ClientPacketHandler implements PacketHandler<Packet> {
     private final Reference<WaitingRoomListener> waitingRoomListener = new Reference<>();
     private final Reference<PlayerCallback<Integer>> playerCallback = new Reference<>();
     private final Reference<GameEventListener> gameEventListener = new Reference<>();
-    private final List<Integer> hints = new ArrayList<>();
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
@@ -57,7 +54,7 @@ public class ClientPacketHandler implements PacketHandler<Packet> {
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardListener));
         handlers.put(PacketNewTurn.class, new NewTurnHandler(gameEventListener));
         handlers.put(PacketGameOver.class, new GameOverHandler(gameEventListener, continueReading));
-        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler<>(playerCallback, hints));
+        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler2(playerCallback));
     }
 
     @SuppressWarnings("unchecked")
