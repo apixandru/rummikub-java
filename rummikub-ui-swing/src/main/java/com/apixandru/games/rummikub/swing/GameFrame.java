@@ -1,6 +1,7 @@
 package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Player;
+import com.apixandru.games.rummikub.brotocol.Brotocols;
 import com.apixandru.games.rummikub.client.ConnectorBuilder;
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.rummikub.game.GameConfigurer;
@@ -16,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.util.List;
 
 import static com.apixandru.games.rummikub.api.Constants.NUM_COLS;
 import static com.apixandru.games.rummikub.swing.UiConstants.TILE_HEIGHT;
@@ -38,20 +40,9 @@ class GameFrame {
         final JButton btnEndTurn = new JButton("End Turn");
         final GameListener callback = new GameListener(frame, board, btnEndTurn, username);
 
-        configurer.addGameEventListener(callback);
-        adapter.setGameEventListener(callback);
-
-        adapter.setPlayerCallback(new CardSlotPlayerCallback(player, player.getAllSlots()));
-
-        configurer.addBoardListener(callback);
-        adapter.setBoardListener(callback);
-
-        adapter.setConnectionListener(callback);
-
-        final Player<CardSlot> actualPlayer =
-                ConnectorBuilder.from(player.getAllSlots())
-                        .setPlayerName(username)
-                        .link(adapter);
+        final Player<CardSlot> actualPlayer = Brotocols.USE_NEW_IMPLEMENTATION ?
+                getNewPlayer(player, configurer, callback) :
+                getOldPlayer(username, player, adapter, callback);
 
         final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
@@ -79,6 +70,25 @@ class GameFrame {
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    private static Player<CardSlot> getNewPlayer(PlayerUi player, GameConfigurer configurer, GameListener callback) {
+        final List<CardSlot> allSlots = player.getAllSlots();
+
+        configurer.addGameEventListener(callback);
+        configurer.addBoardListener(callback);
+
+        return new CardSlotPlayer(configurer.newPlayer(new CardSlotPlayerCallback(player, allSlots)), allSlots);
+    }
+
+    private static Player<CardSlot> getOldPlayer(String username, PlayerUi player, PlayerCallbackAdapter adapter, GameListener callback) {
+        adapter.setGameEventListener(callback);
+        adapter.setPlayerCallback(new CardSlotPlayerCallback(player, player.getAllSlots()));
+        adapter.setBoardListener(callback);
+        adapter.setConnectionListener(callback);
+        return ConnectorBuilder.from(player.getAllSlots())
+                .setPlayerName(username)
+                .link(adapter);
     }
 
     private static JPanel createMiddlePanel(final JButton btnEndTurn, final Player<CardSlot> actualPlayer) {
