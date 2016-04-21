@@ -15,9 +15,9 @@ public class ClientWaitingRoomConfigurer implements WaitingRoomConfigurer {
     private final PacketWriter packetWriter;
     private final ClientPacketHandler packetHandler;
 
-    public ClientWaitingRoomConfigurer(final PacketWriter packetWriter, final ClientPacketHandler packetHandler) {
-        this.packetWriter = packetWriter;
+    public ClientWaitingRoomConfigurer(final ClientPacketHandler packetHandler, final PacketWriter packetWriter) {
         this.packetHandler = packetHandler;
+        this.packetWriter = packetWriter;
     }
 
     @Override
