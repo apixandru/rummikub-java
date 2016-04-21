@@ -4,6 +4,7 @@ import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.games.rummikub.brotocol.connect.client.PacketStart;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
+import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketPlaceCard;
@@ -68,6 +69,7 @@ final class RummikubSerializer implements Serializer {
 
         register(PacketPlayerJoined.class);
         register(PacketStart.class);
+        register(PacketPlayerStart.class);
     }
 
     private static void writeSafeByte(final int intValue, final DataOutput output) throws IOException {

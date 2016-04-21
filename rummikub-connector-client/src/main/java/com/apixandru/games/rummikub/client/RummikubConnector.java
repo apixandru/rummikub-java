@@ -39,7 +39,8 @@ public final class RummikubConnector {
     }
 
     private void newConnect() {
-        packetHandler.setStartGameListener(() -> stateChangeListener.enteredGame(new ClientGameConfigurer(packetHandler, this.socketWrapper)));
+//        packetHandler.setStartGameListener(() -> stateChangeListener.enteredGame(new ClientGameConfigurer(packetHandler, this.socketWrapper)));
+        packetHandler.setStartGameListener(() -> stateChangeListener.enteredGame(new GameConfigurerAdapter()));
         ClientWaitingRoomConfigurer waitingRoomConfigurer = new ClientWaitingRoomConfigurer(packetHandler, socketWrapper);
         stateChangeListener.enteredWaitingRoom(waitingRoomConfigurer);
         new Thread(socketPacketProcessor).start();

@@ -7,6 +7,7 @@ import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
+import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketCardPlaced;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
@@ -20,6 +21,7 @@ import com.apixandru.games.rummikub.client.game.NewTurnHandler;
 import com.apixandru.games.rummikub.client.game.ReceiveCardHandler2;
 import com.apixandru.games.rummikub.client.waiting.PlayerJoinedHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerLeftHandler;
+import com.apixandru.games.rummikub.client.waiting.PlayerStartHandler;
 import com.apixandru.rummikub.waiting.StartGameListener;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import org.slf4j.Logger;
@@ -51,6 +53,7 @@ public class ClientPacketHandler implements PacketHandler<Packet> {
 
         handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListener));
         handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListener));
+        handlers.put(PacketPlayerStart.class, new PlayerStartHandler<>(startGameListener));
 
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardListener));
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardListener));

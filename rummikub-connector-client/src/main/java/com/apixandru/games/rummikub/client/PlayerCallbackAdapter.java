@@ -53,8 +53,6 @@ public final class PlayerCallbackAdapter<H> implements Runnable {
     public PlayerCallbackAdapter(final List<H> hints, final RummikubConnector connector) {
         this.socketWrapper = connector.socketWrapper;
 
-        handlers.put(PacketPlayerStart.class, new PlayerStartHandler<>(connector.stateChangeListener));
-
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardListener));
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardListener));
         handlers.put(PacketNewTurn.class, new NewTurnHandler(gameEventListener));
