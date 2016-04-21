@@ -1,5 +1,6 @@
 package com.apixandru.rummikub.server;
 
+import com.apixandru.Joiner;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub2.Rummikub;
 import com.apixandru.rummikub2.RummikubException;
@@ -13,7 +14,7 @@ import java.io.IOException;
  * @author Alexandru-Constantin Bledea
  * @since April 13, 2016
  */
-public class ConnectionHandler {
+public class ConnectionHandler implements Joiner {
 
     private static final Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
 
@@ -25,6 +26,7 @@ public class ConnectionHandler {
         log.debug("Rejected.", exception);
     }
 
+    @Override
     public synchronized void attemptToJoin(final SocketWrapper wrapper) throws IOException {
         final String playerName = wrapper.readString();
         log.debug("{} is attempting to join.", playerName);
