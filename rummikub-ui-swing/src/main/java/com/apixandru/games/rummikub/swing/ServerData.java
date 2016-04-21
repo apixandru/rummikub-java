@@ -40,7 +40,7 @@ final class ServerData {
     private ServerData() {
     }
 
-    public static ConnectionData getConnectionData() {
+    static ConnectionData getConnectionData() {
         final Preferences prefs = Preferences.userNodeForPackage(ServerData.class);
 
         String address = System.getProperty("rk.address");

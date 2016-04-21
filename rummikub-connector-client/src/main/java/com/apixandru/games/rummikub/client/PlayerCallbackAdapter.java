@@ -24,7 +24,6 @@ import java.io.Closeable;
 import java.io.EOFException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -47,7 +46,7 @@ public final class PlayerCallbackAdapter implements Runnable {
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
-    public PlayerCallbackAdapter(final List<?> hints, final RummikubConnector connector) {
+    public PlayerCallbackAdapter(final RummikubConnector connector) {
         this.socketWrapper = connector.socketWrapper;
 
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardListener));

@@ -9,12 +9,12 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since Apr 21, 2016
  */
-public class CardSlotPlayerCallback implements PlayerCallback<Integer> {
+class CardSlotPlayerCallback implements PlayerCallback<Integer> {
 
     private final PlayerCallback<CardSlot> cardSlotPlayerCallback;
     private final List<CardSlot> cardSlots;
 
-    public CardSlotPlayerCallback(final PlayerCallback<CardSlot> cardSlotPlayerCallback, final List<CardSlot> cardSlots) {
+    CardSlotPlayerCallback(final PlayerCallback<CardSlot> cardSlotPlayerCallback, final List<CardSlot> cardSlots) {
         this.cardSlotPlayerCallback = cardSlotPlayerCallback;
         this.cardSlots = cardSlots;
     }

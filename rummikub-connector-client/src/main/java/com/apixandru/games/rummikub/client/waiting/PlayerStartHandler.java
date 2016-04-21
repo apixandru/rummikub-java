@@ -9,7 +9,7 @@ import com.apixandru.rummikub.waiting.StartGameListener;
  * @author Alexandru-Constantin Bledea
  * @since April 01, 2016
  */
-public class PlayerStartHandler<H> implements PacketHandler<PacketPlayerStart> {
+public class PlayerStartHandler implements PacketHandler<PacketPlayerStart> {
 
     private final Reference<StartGameListener> stateChangeListener;
 

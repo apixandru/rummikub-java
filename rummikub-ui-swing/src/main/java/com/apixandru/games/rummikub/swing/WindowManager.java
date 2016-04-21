@@ -38,7 +38,7 @@ class WindowManager implements StateChangeListener {
         waitingRoomFrame.ifPresent(JFrame::dispose);
 
         final PlayerUi player = new PlayerUi(username);
-        final PlayerCallbackAdapter adapter = new PlayerCallbackAdapter(player.getAllSlots(), connector);
+        final PlayerCallbackAdapter adapter = new PlayerCallbackAdapter(connector);
 
         run(username, player, adapter, configurer);
     }

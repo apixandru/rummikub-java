@@ -53,7 +53,7 @@ public class ClientPacketHandler implements PacketHandler<Packet> {
 
         handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListener));
         handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListener));
-        handlers.put(PacketPlayerStart.class, new PlayerStartHandler<>(startGameListener));
+        handlers.put(PacketPlayerStart.class, new PlayerStartHandler(startGameListener));
 
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardListener));
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardListener));
