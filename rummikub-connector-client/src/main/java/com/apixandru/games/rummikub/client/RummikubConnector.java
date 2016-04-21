@@ -4,6 +4,7 @@ import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.games.rummikub.brotocol.util.SocketPacketProcessor;
 import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.client.ClientPacketHandler;
+import com.apixandru.rummikub.client.game.ClientGameConfigurer;
 import com.apixandru.rummikub.client.waiting.ClientWaitingRoomConfigurer;
 import com.apixandru.rummikub.game.GameConfigurerAdapter;
 import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
@@ -38,8 +39,7 @@ public final class RummikubConnector {
     }
 
     private void newConnect() {
-//        packetHandler.setStartGameListener(() -> stateChangeListener.enteredGame(new ClientGameConfigurer(packetHandler, this.socketWrapper)));
-        packetHandler.setStartGameListener(() -> stateChangeListener.enteredGame(new GameConfigurerAdapter()));
+        packetHandler.setStartGameListener(() -> stateChangeListener.enteredGame(new ClientGameConfigurer(packetHandler, this.socketWrapper)));
         ClientWaitingRoomConfigurer waitingRoomConfigurer = new ClientWaitingRoomConfigurer(packetHandler, socketWrapper);
         stateChangeListener.enteredWaitingRoom(waitingRoomConfigurer);
         new Thread(socketPacketProcessor).start();
