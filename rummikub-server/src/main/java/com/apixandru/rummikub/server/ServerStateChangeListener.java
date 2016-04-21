@@ -1,6 +1,7 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
+import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.games.rummikub.brotocol.util.SocketPacketProcessor;
 import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.game.GameConfigurer;
@@ -40,7 +41,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable {
     @Override
     public void enteredGame(final GameConfigurer configurer) {
         serverPacketHandler.reset();
-
+        socketWrapper.writePacket(new PacketPlayerStart());
         configurer.addBoardListener(new ServerBoardListener(playerName, socketWrapper));
         configurer.addGameEventListener(new ServerGameEventListener(playerName, socketWrapper));
         serverPacketHandler.setPlayer(configurer.newPlayer(new ServerPlayerCallback(playerName, socketWrapper)));

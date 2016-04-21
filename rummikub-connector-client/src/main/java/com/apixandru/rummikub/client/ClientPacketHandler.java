@@ -20,6 +20,7 @@ import com.apixandru.games.rummikub.client.game.NewTurnHandler;
 import com.apixandru.games.rummikub.client.game.ReceiveCardHandler2;
 import com.apixandru.games.rummikub.client.waiting.PlayerJoinedHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerLeftHandler;
+import com.apixandru.rummikub.waiting.StartGameListener;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,7 @@ public class ClientPacketHandler implements PacketHandler<Packet> {
     private final Reference<WaitingRoomListener> waitingRoomListener = new Reference<>();
     private final Reference<PlayerCallback<Integer>> playerCallback = new Reference<>();
     private final Reference<GameEventListener> gameEventListener = new Reference<>();
+    private final Reference<StartGameListener> startGameListener = new Reference<>();
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
@@ -77,6 +79,10 @@ public class ClientPacketHandler implements PacketHandler<Packet> {
 
     public void setWaitingRoomListener(final WaitingRoomListener waitingRoomListener) {
         this.waitingRoomListener.set(waitingRoomListener);
+    }
+
+    public void setStartGameListener(StartGameListener startGameListener) {
+        this.startGameListener.set(startGameListener);
     }
 
 }
