@@ -18,7 +18,7 @@ import com.apixandru.games.rummikub.client.game.CardPlacedHandler;
 import com.apixandru.games.rummikub.client.game.CardRemovedHandler;
 import com.apixandru.games.rummikub.client.game.GameOverHandler;
 import com.apixandru.games.rummikub.client.game.NewTurnHandler;
-import com.apixandru.games.rummikub.client.game.ReceiveCardHandler2;
+import com.apixandru.games.rummikub.client.game.ReceiveCardHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerJoinedHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerLeftHandler;
 import com.apixandru.games.rummikub.client.waiting.PlayerStartHandler;
@@ -59,7 +59,7 @@ public class ClientPacketHandler implements PacketHandler<Packet> {
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardListener));
         handlers.put(PacketNewTurn.class, new NewTurnHandler(gameEventListener));
         handlers.put(PacketGameOver.class, new GameOverHandler(gameEventListener, continueReading));
-        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler2(playerCallback));
+        handlers.put(PacketReceiveCard.class, new ReceiveCardHandler(playerCallback));
     }
 
     @SuppressWarnings("unchecked")

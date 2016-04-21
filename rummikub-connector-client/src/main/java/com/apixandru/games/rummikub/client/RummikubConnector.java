@@ -4,7 +4,6 @@ import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.games.rummikub.brotocol.util.SocketPacketProcessor;
 import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.client.ClientPacketHandler;
-import com.apixandru.rummikub.client.game.ClientGameConfigurer;
 import com.apixandru.rummikub.client.waiting.ClientWaitingRoomConfigurer;
 import com.apixandru.rummikub.game.GameConfigurerAdapter;
 import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;

@@ -31,7 +31,7 @@ class GameFrame {
 
     private static final int BOARD_WIDTH = NUM_COLS * TILE_WIDTH;
 
-    static void run(String username, PlayerUi player, final PlayerCallbackAdapter<CardSlot> adapter, final GameConfigurer configurer) {
+    static void run(String username, PlayerUi player, final PlayerCallbackAdapter adapter, final GameConfigurer configurer) {
         final JFrame frame = new JFrame();
         final JGridPanel board = RummikubUi.newBoard();
 
@@ -41,7 +41,7 @@ class GameFrame {
         configurer.addGameEventListener(callback);
         adapter.setGameEventListener(callback);
 
-        adapter.setPlayerCallback(player);
+        adapter.setPlayerCallback(new CardSlotPlayerCallback(player, player.getAllSlots()));
 
         configurer.addBoardListener(callback);
         adapter.setBoardListener(callback);

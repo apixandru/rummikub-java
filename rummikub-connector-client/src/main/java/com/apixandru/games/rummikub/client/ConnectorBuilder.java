@@ -26,7 +26,7 @@ public final class ConnectorBuilder<E> {
         return this;
     }
 
-    public Player<E> link(final PlayerCallbackAdapter<E> adapter) {
+    public Player<E> link(final PlayerCallbackAdapter adapter) {
         return RummikubGame.connect(this, adapter);
     }
 
