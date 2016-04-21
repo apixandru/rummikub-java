@@ -15,6 +15,8 @@ public interface Rummikub<H> {
 
     void removePlayer(Player<H> player);
 
+    void removePlayer(String playerName);
+
     void addBoardListener(BoardListener boardListener);
 
     void removeBoardListener(BoardListener boardListener);

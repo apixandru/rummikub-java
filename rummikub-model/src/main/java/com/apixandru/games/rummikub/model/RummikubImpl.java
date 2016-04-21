@@ -140,6 +140,16 @@ final class RummikubImpl implements Rummikub<Integer> {
         }
     }
 
+    @Override
+    public void removePlayer(String playerName) {
+        PlayerImpl actualPlayer = players.stream()
+                .filter(player -> player.getName().equals(playerName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Expecting to have a player named " + playerName));
+
+        removePlayer(actualPlayer);
+    }
+
     private void giveCards(final PlayerImpl player, final int num) {
         for (int i = 0; i < num; i++) {
             giveCard(player);
