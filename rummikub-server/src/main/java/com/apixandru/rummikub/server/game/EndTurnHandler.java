@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.server.game;
+package com.apixandru.rummikub.server.game;
 
 import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.brotocol.PacketHandler;

@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.server.waiting;
+package com.apixandru.rummikub.server.waiting;
 
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.connect.client.PacketLeave;

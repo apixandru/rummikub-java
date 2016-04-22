@@ -1,10 +1,5 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.games.rummikub.server.game.EndTurnHandler;
-import com.apixandru.games.rummikub.server.game.MoveCardHandler;
-import com.apixandru.games.rummikub.server.game.PlaceCardOnBoardHandler;
-import com.apixandru.games.rummikub.server.game.TakeCardHandler;
-import com.apixandru.games.rummikub.server.waiting.StartHandler;
 import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol.PacketHandler;
@@ -15,6 +10,11 @@ import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
 import com.apixandru.rummikub.brotocol.util.Reference;
 import com.apixandru.rummikub.model.waiting.StartGameListener;
+import com.apixandru.rummikub.server.game.EndTurnHandler;
+import com.apixandru.rummikub.server.game.MoveCardHandler;
+import com.apixandru.rummikub.server.game.PlaceCardOnBoardHandler;
+import com.apixandru.rummikub.server.game.TakeCardHandler;
+import com.apixandru.rummikub.server.waiting.StartHandler;
 
 import java.util.Collections;
 import java.util.HashMap;
