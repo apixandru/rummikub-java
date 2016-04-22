@@ -1,10 +1,10 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.games.rummikub.client.ConnectionListener;
 import com.apixandru.rummikub.api.BoardListener;
 import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.GameOverReason;
+import com.apixandru.rummikub.client.ConnectionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

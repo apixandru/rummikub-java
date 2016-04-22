@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.client.game;
+package com.apixandru.rummikub.client.game;
 
 import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.api.PlayerCallback;

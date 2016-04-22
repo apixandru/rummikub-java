@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.client;
+package com.apixandru.rummikub.client;
 
 /**
  * @author Alexandru-Constantin Bledea

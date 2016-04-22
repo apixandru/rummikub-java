@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.rummikub.api.Player;
+import com.apixandru.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.rummikub.model.game.GameConfigurer;
 import com.apixandru.utils.swing.ComponentDragSource;
 

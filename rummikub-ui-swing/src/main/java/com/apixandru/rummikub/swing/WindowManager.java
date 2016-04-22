@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
-import com.apixandru.games.rummikub.client.RummikubConnector;
+import com.apixandru.rummikub.client.PlayerCallbackAdapter;
+import com.apixandru.rummikub.client.RummikubConnector;
 import com.apixandru.rummikub.model.StateChangeListener;
 import com.apixandru.rummikub.model.game.GameConfigurer;
 import com.apixandru.rummikub.model.waiting.WaitingRoomConfigurer;
