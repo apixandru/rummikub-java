@@ -3,20 +3,18 @@ package com.apixandru.rummikub.swing;
 import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.api.Player;
 
-import java.util.List;
-
 /**
  * @author Alexandru-Constantin Bledea
  * @since Apr 21, 2016
  */
-public class CardSlotPlayer implements Player<CardSlot> {
+class CardSlotPlayer implements Player<CardSlot> {
 
+    private final CardSlotIndexConverter converter;
     private final Player<Integer> player;
-    private final List<CardSlot> cardSlots;
 
-    public CardSlotPlayer(final Player<Integer> player, final List<CardSlot> cardSlots) {
+    CardSlotPlayer(final Player<Integer> player, final CardSlotIndexConverter converter) {
         this.player = player;
-        this.cardSlots = cardSlots;
+        this.converter = converter;
     }
 
     @Override
@@ -36,7 +34,7 @@ public class CardSlotPlayer implements Player<CardSlot> {
 
     @Override
     public void takeCardFromBoard(final Card card, final int x, final int y, final CardSlot hint) {
-        player.takeCardFromBoard(card, x, y, cardSlots.indexOf(hint));
+        player.takeCardFromBoard(card, x, y, converter.getIndex(hint));
     }
 
     @Override

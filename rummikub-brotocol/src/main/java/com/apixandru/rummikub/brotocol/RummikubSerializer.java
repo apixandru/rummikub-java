@@ -17,6 +17,7 @@ import com.apixandru.rummikub.brotocol.game.server.PacketReceiveCard;
 import com.apixandru.utils.fieldserializer.FieldSerializer;
 import com.apixandru.utils.fieldserializer.FieldSerializerImpl;
 
+import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
@@ -39,17 +40,14 @@ final class RummikubSerializer implements Serializer {
     {
         final FieldSerializerImpl serializer = new FieldSerializerImpl();
 
-        serializer.register(Integer.class, (i, output) -> output.writeInt(i == null ? -1 : i));
-        serializer.register(Integer.class, input -> {
-            final int i = input.readInt();
-            return -1 == i ? null : i;
-        });
+        serializer.register(Integer.class, RummikubSerializer::writePositiveIntegerAsByte);
+        serializer.register(Integer.class, RummikubSerializer::readInteger);
 
         serializer.register(Card.class, (card, output) -> writeSafeByte(CARDS.indexOf(card), output));
         serializer.register(Card.class, input -> CARDS.get(input.readByte()));
 
         serializer.register(int.class, RummikubSerializer::writeSafeByte);
-        serializer.register(int.class, dataInput -> (int) dataInput.readByte());
+        serializer.register(int.class, RummikubSerializer::readByte);
 
         serializer.register(GameOverReason.class, (reason, output) -> writeSafeByte(reason.ordinal(), output));
         serializer.register(GameOverReason.class, input -> GameOverReason.values()[input.readByte()]);
@@ -72,12 +70,33 @@ final class RummikubSerializer implements Serializer {
         register(PacketPlayerStart.class);
     }
 
+    private static Integer readInteger(final DataInput input) throws IOException {
+        final int i = readByte(input);
+        return -1 == i ? null : i;
+    }
+
+    private static void writePositiveIntegerAsByte(final Integer integer, final DataOutput output) throws IOException {
+        int value;
+        if (null == integer) {
+            value = -1;
+        } else if (integer < 0) {
+            throw new IllegalArgumentException();
+        } else {
+            value = integer;
+        }
+        writeSafeByte(value, output);
+    }
+
     private static void writeSafeByte(final int intValue, final DataOutput output) throws IOException {
         final byte byteValue = (byte) intValue;
         if (byteValue != intValue) {
             throw new IllegalArgumentException();
         }
         output.writeByte(byteValue);
+    }
+
+    private static int readByte(final DataInput input) throws IOException {
+        return input.readByte();
     }
 
     private void register(final Class<? extends Packet> packetClass) {

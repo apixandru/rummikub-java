@@ -15,7 +15,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.util.List;
 
 import static com.apixandru.rummikub.api.Constants.NUM_COLS;
 import static java.lang.Math.max;
@@ -67,12 +66,12 @@ class GameFrame {
     }
 
     private static Player<CardSlot> getNewPlayer(PlayerUi player, GameConfigurer configurer, GameListener callback) {
-        final List<CardSlot> allSlots = player.getAllSlots();
+        final CardSlotIndexConverter converter = new CardSlotIndexConverter(player.getAllSlots());
 
         configurer.addGameEventListener(callback);
         configurer.addBoardListener(callback);
 
-        return new CardSlotPlayer(configurer.newPlayer(new CardSlotPlayerCallback(player, allSlots)), allSlots);
+        return new CardSlotPlayer(configurer.newPlayer(new CardSlotPlayerCallback(player, converter)), converter);
     }
 
     private static JPanel createMiddlePanel(final JButton btnEndTurn, final Player<CardSlot> actualPlayer) {
