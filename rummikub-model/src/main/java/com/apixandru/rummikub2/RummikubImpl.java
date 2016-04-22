@@ -27,6 +27,8 @@ public class RummikubImpl implements Rummikub, GameEventListener, WaitingRoomCon
 
     private final List<WaitingRoomListener> waitingRoomListeners = new ArrayList<>();
 
+    private GameConfigurerImpl gameConfigurer;
+
     private State state = State.WAITING;
 
     private static boolean isEmpty(final String string) {
@@ -83,7 +85,7 @@ public class RummikubImpl implements Rummikub, GameEventListener, WaitingRoomCon
 
     @Override
     public void startGame() {
-        final GameConfigurerImpl gameConfigurer = new GameConfigurerImpl();
+        gameConfigurer = new GameConfigurerImpl();
         gameConfigurer.addGameEventListener(this);
         players.values()
                 .forEach(listener -> listener.enteredGame(gameConfigurer));
@@ -93,6 +95,10 @@ public class RummikubImpl implements Rummikub, GameEventListener, WaitingRoomCon
     @Override
     public void registerListener(final WaitingRoomListener listener) {
         waitingRoomListeners.add(listener);
+    }
+
+    public void unregister(final String playerName) {
+        gameConfigurer.removePlayer(playerName);
     }
 
     private enum State {

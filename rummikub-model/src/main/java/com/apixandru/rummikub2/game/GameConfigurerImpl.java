@@ -31,4 +31,8 @@ public class GameConfigurerImpl implements GameConfigurer {
         return rummikubGame.addPlayer(playerCallback.getPlayerName(), playerCallback);
     }
 
+    public void removePlayer(String playerName) {
+        rummikubGame.removePlayer(playerName);
+    }
+
 }
