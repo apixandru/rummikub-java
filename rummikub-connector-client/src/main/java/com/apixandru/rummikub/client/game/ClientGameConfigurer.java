@@ -6,7 +6,7 @@ import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.api.PlayerCallback;
 import com.apixandru.rummikub.client.ClientPacketHandler;
-import com.apixandru.rummikub.game.GameConfigurer;
+import com.apixandru.rummikub.model.game.GameConfigurer;
 
 /**
  * @author Alexandru-Constantin Bledea

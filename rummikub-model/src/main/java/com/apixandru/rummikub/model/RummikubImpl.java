@@ -1,21 +1,20 @@
-package com.apixandru.rummikub2;
+package com.apixandru.rummikub.model;
 
-import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.GameOverReason;
-import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
-import com.apixandru.rummikub.waiting.WaitingRoomListener;
-import com.apixandru.rummikub2.game.GameConfigurerImpl;
+import com.apixandru.rummikub.model.game.GameConfigurerImpl;
+import com.apixandru.rummikub.model.waiting.WaitingRoomConfigurer;
+import com.apixandru.rummikub.model.waiting.WaitingRoomListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.apixandru.rummikub2.RummikubException.Reason.NAME_TAKEN;
-import static com.apixandru.rummikub2.RummikubException.Reason.NO_LISTENER;
-import static com.apixandru.rummikub2.RummikubException.Reason.NO_NAME;
-import static com.apixandru.rummikub2.RummikubException.Reason.ONGOING_GAME;
+import static com.apixandru.rummikub.model.RummikubException.Reason.NAME_TAKEN;
+import static com.apixandru.rummikub.model.RummikubException.Reason.NO_LISTENER;
+import static com.apixandru.rummikub.model.RummikubException.Reason.NO_NAME;
+import static com.apixandru.rummikub.model.RummikubException.Reason.ONGOING_GAME;
 
 /**
  * @author Alexandru-Constantin Bledea

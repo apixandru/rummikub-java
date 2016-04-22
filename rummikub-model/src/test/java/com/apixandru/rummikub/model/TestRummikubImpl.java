@@ -1,16 +1,15 @@
-package com.apixandru.rummikub2;
+package com.apixandru.rummikub.model;
 
-import com.apixandru.rummikub.StateChangeListener;
-import com.apixandru.rummikub2.RummikubException.Reason;
+import com.apixandru.rummikub.model.RummikubException.Reason;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static com.apixandru.rummikub2.RummikubException.Reason.NAME_TAKEN;
-import static com.apixandru.rummikub2.RummikubException.Reason.NO_LISTENER;
-import static com.apixandru.rummikub2.RummikubException.Reason.NO_NAME;
-import static com.apixandru.rummikub2.RummikubException.Reason.ONGOING_GAME;
+import static com.apixandru.rummikub.model.RummikubException.Reason.NAME_TAKEN;
+import static com.apixandru.rummikub.model.RummikubException.Reason.NO_LISTENER;
+import static com.apixandru.rummikub.model.RummikubException.Reason.NO_NAME;
+import static com.apixandru.rummikub.model.RummikubException.Reason.ONGOING_GAME;
 import static org.mockito.Mockito.mock;
 
 /**

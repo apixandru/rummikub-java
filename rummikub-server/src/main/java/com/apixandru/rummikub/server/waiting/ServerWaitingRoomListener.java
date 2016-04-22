@@ -3,7 +3,7 @@ package com.apixandru.rummikub.server.waiting;
 import com.apixandru.games.rummikub.brotocol.PacketWriter;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerLeft;
-import com.apixandru.rummikub.waiting.WaitingRoomListener;
+import com.apixandru.rummikub.model.waiting.WaitingRoomListener;
 
 /**
  * @author Alexandru-Constantin Bledea

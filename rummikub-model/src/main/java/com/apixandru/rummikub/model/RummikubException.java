@@ -1,4 +1,4 @@
-package com.apixandru.rummikub2;
+package com.apixandru.rummikub.model;
 
 /**
  * @author Alexandru-Constantin Bledea

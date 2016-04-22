@@ -1,6 +1,4 @@
-package com.apixandru.rummikub2;
-
-import com.apixandru.rummikub.StateChangeListener;
+package com.apixandru.rummikub.model;
 
 /**
  * @author Alexandru-Constantin Bledea

@@ -14,7 +14,7 @@ import com.apixandru.games.rummikub.server.game.PlaceCardOnBoardHandler;
 import com.apixandru.games.rummikub.server.game.TakeCardHandler;
 import com.apixandru.games.rummikub.server.waiting.StartHandler;
 import com.apixandru.rummikub.api.Player;
-import com.apixandru.rummikub.waiting.StartGameListener;
+import com.apixandru.rummikub.model.waiting.StartGameListener;
 
 import java.util.Collections;
 import java.util.HashMap;

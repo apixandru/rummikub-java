@@ -4,13 +4,13 @@ import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.games.rummikub.brotocol.util.ConnectionListener;
 import com.apixandru.games.rummikub.brotocol.util.SocketPacketProcessor;
-import com.apixandru.rummikub.StateChangeListener;
-import com.apixandru.rummikub.game.GameConfigurer;
+import com.apixandru.rummikub.model.StateChangeListener;
+import com.apixandru.rummikub.model.game.GameConfigurer;
+import com.apixandru.rummikub.model.waiting.WaitingRoomConfigurer;
 import com.apixandru.rummikub.server.game.ServerBoardListener;
 import com.apixandru.rummikub.server.game.ServerGameEventListener;
 import com.apixandru.rummikub.server.game.ServerPlayerCallback;
 import com.apixandru.rummikub.server.waiting.ServerWaitingRoomListener;
-import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
 
 /**
  * @author Alexandru-Constantin Bledea

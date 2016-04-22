@@ -2,9 +2,9 @@ package com.apixandru.rummikub.swing;
 
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.games.rummikub.client.RummikubConnector;
-import com.apixandru.rummikub.StateChangeListener;
-import com.apixandru.rummikub.game.GameConfigurer;
-import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
+import com.apixandru.rummikub.model.StateChangeListener;
+import com.apixandru.rummikub.model.game.GameConfigurer;
+import com.apixandru.rummikub.model.waiting.WaitingRoomConfigurer;
 
 import javax.swing.JFrame;
 import java.util.Optional;

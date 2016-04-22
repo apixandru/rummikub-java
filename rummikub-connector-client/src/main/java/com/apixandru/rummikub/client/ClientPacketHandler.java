@@ -22,8 +22,8 @@ import com.apixandru.games.rummikub.client.waiting.PlayerStartHandler;
 import com.apixandru.rummikub.api.BoardListener;
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.PlayerCallback;
-import com.apixandru.rummikub.waiting.StartGameListener;
-import com.apixandru.rummikub.waiting.WaitingRoomListener;
+import com.apixandru.rummikub.model.waiting.StartGameListener;
+import com.apixandru.rummikub.model.waiting.WaitingRoomListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
