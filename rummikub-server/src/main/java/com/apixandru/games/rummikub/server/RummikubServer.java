@@ -1,6 +1,5 @@
 package com.apixandru.games.rummikub.server;
 
-import com.apixandru.Joiner;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.server.ConnectionHandler;
 import org.slf4j.Logger;
@@ -8,8 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-
-import static com.apixandru.games.rummikub.brotocol.Brotocols.USE_NEW_IMPLEMENTATION;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -25,7 +22,7 @@ class RummikubServer {
 
         log.debug("Listening on port {}", serverSocket.getLocalPort());
 
-        final Joiner joiner = USE_NEW_IMPLEMENTATION ? new ConnectionHandler() : new OldConnectionHandler();
+        final ConnectionHandler joiner = new ConnectionHandler();
         while (true) {
             log.debug("Waiting for client...");
             joiner.attemptToJoin(new SocketWrapper(serverSocket.accept()));

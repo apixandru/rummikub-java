@@ -1,7 +1,6 @@
 package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.brotocol.Brotocols;
 import com.apixandru.games.rummikub.client.ConnectorBuilder;
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.rummikub.game.GameConfigurer;
@@ -40,9 +39,7 @@ class GameFrame {
         final JButton btnEndTurn = new JButton("End Turn");
         final GameListener callback = new GameListener(frame, board, btnEndTurn, username);
 
-        final Player<CardSlot> actualPlayer = Brotocols.USE_NEW_IMPLEMENTATION ?
-                getNewPlayer(player, configurer, callback) :
-                getOldPlayer(username, player, adapter, callback);
+        final Player<CardSlot> actualPlayer = getNewPlayer(player, configurer, callback);
 
         final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);
         comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);

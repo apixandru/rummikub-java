@@ -10,8 +10,6 @@ import com.apixandru.rummikub.game.GameConfigurerAdapter;
 import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 
-import static com.apixandru.games.rummikub.brotocol.Brotocols.USE_NEW_IMPLEMENTATION;
-
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 02, 2016
@@ -31,11 +29,7 @@ public final class RummikubConnector {
     }
 
     public void connect() {
-        if (USE_NEW_IMPLEMENTATION) {
-            newConnect();
-        } else {
-            oldConnect();
-        }
+        newConnect();
     }
 
     private void newConnect() {
