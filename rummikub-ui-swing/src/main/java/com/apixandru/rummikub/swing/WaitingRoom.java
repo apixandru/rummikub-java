@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.swing;
+package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.waiting.StartGameListener;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;

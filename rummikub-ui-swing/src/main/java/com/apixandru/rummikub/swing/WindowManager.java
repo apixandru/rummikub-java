@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.swing;
+package com.apixandru.rummikub.swing;
 
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.games.rummikub.client.RummikubConnector;
@@ -9,7 +9,7 @@ import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
 import javax.swing.JFrame;
 import java.util.Optional;
 
-import static com.apixandru.games.rummikub.swing.GameFrame.run;
+import static com.apixandru.rummikub.swing.GameFrame.run;
 
 /**
  * @author Alexandru-Constantin Bledea

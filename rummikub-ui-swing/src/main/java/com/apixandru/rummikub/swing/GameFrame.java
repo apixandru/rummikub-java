@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.swing;
+package com.apixandru.rummikub.swing;
 
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.rummikub.api.Player;
@@ -17,8 +17,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.util.List;
 
-import static com.apixandru.games.rummikub.swing.UiConstants.TILE_HEIGHT;
-import static com.apixandru.games.rummikub.swing.UiConstants.TILE_WIDTH;
 import static com.apixandru.rummikub.api.Constants.NUM_COLS;
 import static java.lang.Math.max;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -29,7 +27,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  */
 class GameFrame {
 
-    private static final int BOARD_WIDTH = NUM_COLS * TILE_WIDTH;
+    private static final int BOARD_WIDTH = NUM_COLS * UiConstants.TILE_WIDTH;
 
     static void run(String username, PlayerUi player, final PlayerCallbackAdapter adapter, final GameConfigurer configurer) {
         final JFrame frame = new JFrame();
@@ -41,7 +39,7 @@ class GameFrame {
         final Player<CardSlot> actualPlayer = getNewPlayer(player, configurer, callback);
 
         final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);
-        comp.setBounds(0, 7 * TILE_HEIGHT, BOARD_WIDTH, 60);
+        comp.setBounds(0, 7 * UiConstants.TILE_HEIGHT, BOARD_WIDTH, 60);
 
         final JLayeredPane layeredPane = new JLayeredPane() {
             @Override

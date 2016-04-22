@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.swing;
+package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.api.PlayerCallback;

@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.swing;
+package com.apixandru.rummikub.swing;
 
 import static com.apixandru.rummikub.api.Constants.NUM_ROWS;
 

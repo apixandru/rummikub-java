@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.swing;
+package com.apixandru.rummikub.swing;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;

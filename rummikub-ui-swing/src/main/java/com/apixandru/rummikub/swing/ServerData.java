@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.swing;
+package com.apixandru.rummikub.swing;
 
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
 import org.slf4j.Logger;

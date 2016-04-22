@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.apixandru.games.rummikub.swing;
+package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.Card;
 import com.apixandru.utils.swing.SwingUtil;
@@ -9,7 +9,7 @@ import com.apixandru.utils.swing.SwingUtil;
 import java.awt.Color;
 import java.awt.Font;
 
-import static com.apixandru.games.rummikub.swing.UiConstants.FONT_SCALE;
+import static com.apixandru.rummikub.swing.UiConstants.FONT_SCALE;
 
 /**
  * @author apixandru
