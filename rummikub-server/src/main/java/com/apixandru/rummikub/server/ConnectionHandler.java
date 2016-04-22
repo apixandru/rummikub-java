@@ -2,7 +2,7 @@ package com.apixandru.rummikub.server;
 
 import com.apixandru.Joiner;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
-import com.apixandru.rummikub2.Rummikub;
+import com.apixandru.games.rummikub.brotocol.util.ConnectionListener;
 import com.apixandru.rummikub2.RummikubException;
 import com.apixandru.rummikub2.RummikubImpl;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ public class ConnectionHandler implements Joiner {
 
     private static final Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
 
-    private final Rummikub rummikub = new RummikubImpl();
+    private final RummikubImpl rummikub = new RummikubImpl();
 
     private static void reject(final SocketWrapper socketWrapper, final RummikubException exception) {
         socketWrapper.write(false);
@@ -38,7 +38,8 @@ public class ConnectionHandler implements Joiner {
     }
 
     private void accept(final SocketWrapper wrapper, final String playerName) {
-        ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, wrapper);
+        ConnectionListener connectionListener = () -> rummikub.unregister(playerName);
+        ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, wrapper, connectionListener);
         rummikub.register(playerName, stateChangeListener);
         wrapper.write(true);
         log.debug("Accepted.");
