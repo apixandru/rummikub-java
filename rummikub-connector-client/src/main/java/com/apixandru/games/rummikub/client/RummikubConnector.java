@@ -6,9 +6,6 @@ import com.apixandru.rummikub.StateChangeListener;
 import com.apixandru.rummikub.client.ClientPacketHandler;
 import com.apixandru.rummikub.client.game.ClientGameConfigurer;
 import com.apixandru.rummikub.client.waiting.ClientWaitingRoomConfigurer;
-import com.apixandru.rummikub.game.GameConfigurerAdapter;
-import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
-import com.apixandru.rummikub.waiting.WaitingRoomListener;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -37,19 +34,6 @@ public final class RummikubConnector {
         ClientWaitingRoomConfigurer waitingRoomConfigurer = new ClientWaitingRoomConfigurer(packetHandler, socketWrapper);
         stateChangeListener.enteredWaitingRoom(waitingRoomConfigurer);
         new Thread(socketPacketProcessor).start();
-    }
-
-    private void oldConnect() {
-        stateChangeListener.enteredWaitingRoom(new WaitingRoomConfigurer() {
-            @Override
-            public void registerListener(final WaitingRoomListener listener) {
-            }
-
-            @Override
-            public void startGame() {
-                stateChangeListener.enteredGame(new GameConfigurerAdapter());
-            }
-        });
     }
 
 }

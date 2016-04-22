@@ -1,7 +1,6 @@
 package com.apixandru.games.rummikub.swing;
 
 import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.client.ConnectorBuilder;
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.rummikub.game.GameConfigurer;
 import com.apixandru.utils.swing.ComponentDragSource;
@@ -76,16 +75,6 @@ class GameFrame {
         configurer.addBoardListener(callback);
 
         return new CardSlotPlayer(configurer.newPlayer(new CardSlotPlayerCallback(player, allSlots)), allSlots);
-    }
-
-    private static Player<CardSlot> getOldPlayer(String username, PlayerUi player, PlayerCallbackAdapter adapter, GameListener callback) {
-        adapter.setGameEventListener(callback);
-        adapter.setPlayerCallback(new CardSlotPlayerCallback(player, player.getAllSlots()));
-        adapter.setBoardListener(callback);
-        adapter.setConnectionListener(callback);
-        return ConnectorBuilder.from(player.getAllSlots())
-                .setPlayerName(username)
-                .link(adapter);
     }
 
     private static JPanel createMiddlePanel(final JButton btnEndTurn, final Player<CardSlot> actualPlayer) {

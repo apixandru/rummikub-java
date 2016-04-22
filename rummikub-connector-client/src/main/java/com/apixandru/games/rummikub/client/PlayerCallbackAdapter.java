@@ -74,20 +74,4 @@ public final class PlayerCallbackAdapter implements Runnable {
         }
     }
 
-    public void setGameEventListener(final GameEventListener gameEventListener) {
-        this.gameEventListener.set(gameEventListener);
-    }
-
-    public void setPlayerCallback(final PlayerCallback<Integer> playerCallback) {
-        this.playerCallback.set(playerCallback);
-    }
-
-    public void setConnectionListener(final ConnectionListener connectionListener) {
-        this.connectionListener.set(connectionListener);
-    }
-
-    public void setBoardListener(final BoardListener boardListener) {
-        this.boardListener.set(boardListener);
-    }
-
 }
