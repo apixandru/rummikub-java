@@ -7,7 +7,7 @@
 
     <parent>
         <artifactId>rummikub</artifactId>
-        <groupId>com.apixandru.games.rummikub</groupId>
+        <groupId>com.apixandru.rummikub</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
