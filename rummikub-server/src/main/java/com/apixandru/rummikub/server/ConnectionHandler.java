@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.games.rummikub.brotocol.SocketWrapper;
-import com.apixandru.games.rummikub.brotocol.util.ConnectionListener;
+import com.apixandru.rummikub.brotocol.SocketWrapper;
+import com.apixandru.rummikub.brotocol.util.ConnectionListener;
 import com.apixandru.rummikub.model.RummikubException;
 import com.apixandru.rummikub.model.RummikubImpl;
 import org.slf4j.Logger;

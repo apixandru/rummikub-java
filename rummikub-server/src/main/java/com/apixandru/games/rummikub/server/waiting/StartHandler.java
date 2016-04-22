@@ -1,8 +1,8 @@
 package com.apixandru.games.rummikub.server.waiting;
 
-import com.apixandru.games.rummikub.brotocol.PacketHandler;
-import com.apixandru.games.rummikub.brotocol.connect.client.PacketStart;
-import com.apixandru.games.rummikub.brotocol.util.Reference;
+import com.apixandru.rummikub.brotocol.PacketHandler;
+import com.apixandru.rummikub.brotocol.connect.client.PacketStart;
+import com.apixandru.rummikub.brotocol.util.Reference;
 import com.apixandru.rummikub.model.waiting.StartGameListener;
 
 /**

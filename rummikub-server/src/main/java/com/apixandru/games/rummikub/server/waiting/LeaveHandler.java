@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.server.waiting;
 
-import com.apixandru.games.rummikub.brotocol.PacketHandler;
-import com.apixandru.games.rummikub.brotocol.connect.client.PacketLeave;
+import com.apixandru.rummikub.brotocol.PacketHandler;
+import com.apixandru.rummikub.brotocol.connect.client.PacketLeave;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

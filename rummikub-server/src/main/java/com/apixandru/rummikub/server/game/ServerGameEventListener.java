@@ -1,10 +1,10 @@
 package com.apixandru.rummikub.server.game;
 
-import com.apixandru.games.rummikub.brotocol.PacketWriter;
-import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
-import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.GameOverReason;
+import com.apixandru.rummikub.brotocol.PacketWriter;
+import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;
+import com.apixandru.rummikub.brotocol.game.server.PacketNewTurn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.client.waiting;
 
-import com.apixandru.games.rummikub.brotocol.PacketWriter;
-import com.apixandru.games.rummikub.brotocol.connect.client.PacketStart;
+import com.apixandru.rummikub.brotocol.PacketWriter;
+import com.apixandru.rummikub.brotocol.connect.client.PacketStart;
 import com.apixandru.rummikub.client.ClientPacketHandler;
 import com.apixandru.rummikub.model.waiting.WaitingRoomConfigurer;
 import com.apixandru.rummikub.model.waiting.WaitingRoomListener;

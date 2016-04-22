@@ -1,12 +1,12 @@
 package com.apixandru.rummikub.client.game;
 
-import com.apixandru.games.rummikub.brotocol.PacketWriter;
-import com.apixandru.games.rummikub.brotocol.game.client.PacketEndTurn;
-import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
-import com.apixandru.games.rummikub.brotocol.game.client.PacketPlaceCard;
-import com.apixandru.games.rummikub.brotocol.game.client.PacketTakeCard;
 import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.api.Player;
+import com.apixandru.rummikub.brotocol.PacketWriter;
+import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
+import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
+import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
+import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
 
 /**
  * @author Alexandru-Constantin Bledea

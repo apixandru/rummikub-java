@@ -1,9 +1,9 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.games.rummikub.brotocol.SocketWrapper;
-import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
-import com.apixandru.games.rummikub.brotocol.util.ConnectionListener;
-import com.apixandru.games.rummikub.brotocol.util.SocketPacketProcessor;
+import com.apixandru.rummikub.brotocol.SocketWrapper;
+import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
+import com.apixandru.rummikub.brotocol.util.ConnectionListener;
+import com.apixandru.rummikub.brotocol.util.SocketPacketProcessor;
 import com.apixandru.rummikub.model.StateChangeListener;
 import com.apixandru.rummikub.model.game.GameConfigurer;
 import com.apixandru.rummikub.model.waiting.WaitingRoomConfigurer;

@@ -1,14 +1,5 @@
 package com.apixandru.games.rummikub.client;
 
-import com.apixandru.games.rummikub.brotocol.Packet;
-import com.apixandru.games.rummikub.brotocol.PacketHandler;
-import com.apixandru.games.rummikub.brotocol.SocketWrapper;
-import com.apixandru.games.rummikub.brotocol.game.server.PacketCardPlaced;
-import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
-import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
-import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
-import com.apixandru.games.rummikub.brotocol.game.server.PacketReceiveCard;
-import com.apixandru.games.rummikub.brotocol.util.Reference;
 import com.apixandru.games.rummikub.client.game.CardPlacedHandler;
 import com.apixandru.games.rummikub.client.game.CardRemovedHandler;
 import com.apixandru.games.rummikub.client.game.GameOverHandler;
@@ -17,6 +8,15 @@ import com.apixandru.games.rummikub.client.game.ReceiveCardHandler;
 import com.apixandru.rummikub.api.BoardListener;
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.PlayerCallback;
+import com.apixandru.rummikub.brotocol.Packet;
+import com.apixandru.rummikub.brotocol.PacketHandler;
+import com.apixandru.rummikub.brotocol.SocketWrapper;
+import com.apixandru.rummikub.brotocol.game.server.PacketCardPlaced;
+import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;
+import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;
+import com.apixandru.rummikub.brotocol.game.server.PacketNewTurn;
+import com.apixandru.rummikub.brotocol.game.server.PacketReceiveCard;
+import com.apixandru.rummikub.brotocol.util.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

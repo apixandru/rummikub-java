@@ -1,9 +1,9 @@
 package com.apixandru.games.rummikub.client.game;
 
-import com.apixandru.games.rummikub.brotocol.PacketHandler;
-import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.GameOverReason;
+import com.apixandru.rummikub.brotocol.PacketHandler;
+import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

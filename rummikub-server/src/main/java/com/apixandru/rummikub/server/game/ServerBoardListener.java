@@ -1,10 +1,10 @@
 package com.apixandru.rummikub.server.game;
 
-import com.apixandru.games.rummikub.brotocol.PacketWriter;
-import com.apixandru.games.rummikub.brotocol.game.server.PacketCardPlaced;
-import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.rummikub.api.BoardListener;
 import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.brotocol.PacketWriter;
+import com.apixandru.rummikub.brotocol.game.server.PacketCardPlaced;
+import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
