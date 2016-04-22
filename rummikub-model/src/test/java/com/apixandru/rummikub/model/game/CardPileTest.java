@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.apixandru.games.rummikub.model;
+package com.apixandru.rummikub.model.game;
 
 import com.apixandru.rummikub.api.Constants;
 import org.junit.Test;

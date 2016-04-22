@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub;
+package com.apixandru.rummikub.model;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

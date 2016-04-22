@@ -1,19 +1,19 @@
-package com.apixandru.games.rummikub;
+package com.apixandru.rummikub.model;
 
-import com.apixandru.games.rummikub.model.ImplementationDetails;
-import com.apixandru.games.rummikub.model.Rummikub;
-import com.apixandru.games.rummikub.model.RummikubFactory;
 import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.api.Player;
+import com.apixandru.rummikub.model.game.ImplementationDetails;
+import com.apixandru.rummikub.model.game.Rummikub;
+import com.apixandru.rummikub.model.game.RummikubFactory;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.apixandru.games.rummikub.model.ImplementationDetails.cloneCards;
-import static com.apixandru.games.rummikub.model.ImplementationDetails.currentPlayer;
-import static com.apixandru.games.rummikub.model.ImplementationDetails.getCards;
+import static com.apixandru.rummikub.model.game.ImplementationDetails.cloneCards;
+import static com.apixandru.rummikub.model.game.ImplementationDetails.currentPlayer;
+import static com.apixandru.rummikub.model.game.ImplementationDetails.getCards;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-public final class RummikubTest2 {
+public final class RummikubTest {
 
     private Rummikub<Integer> rummikub;
     private Player<Integer> player;

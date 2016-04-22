@@ -1,7 +1,5 @@
 package com.apixandru.rummikub.model.game;
 
-import com.apixandru.games.rummikub.model.Rummikub;
-import com.apixandru.games.rummikub.model.RummikubFactory;
 import com.apixandru.rummikub.api.BoardListener;
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.Player;
