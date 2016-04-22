@@ -1,17 +1,17 @@
 package com.apixandru.games.rummikub.model;
 
-import com.apixandru.games.rummikub.api.BoardListener;
-import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.GameEventListener;
-import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.api.PlayerCallback;
+import com.apixandru.rummikub.api.BoardListener;
+import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.api.GameEventListener;
+import com.apixandru.rummikub.api.Player;
+import com.apixandru.rummikub.api.PlayerCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.apixandru.games.rummikub.api.GameOverReason.GAME_WON;
-import static com.apixandru.games.rummikub.api.GameOverReason.NO_MORE_CARDS;
-import static com.apixandru.games.rummikub.api.GameOverReason.PLAYER_QUIT;
+import static com.apixandru.rummikub.api.GameOverReason.GAME_WON;
+import static com.apixandru.rummikub.api.GameOverReason.NO_MORE_CARDS;
+import static com.apixandru.rummikub.api.GameOverReason.PLAYER_QUIT;
 
 /**
  * @author Alexandru-Constantin Bledea

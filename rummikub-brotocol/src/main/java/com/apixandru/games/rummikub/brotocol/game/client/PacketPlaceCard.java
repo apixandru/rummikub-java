@@ -1,8 +1,8 @@
 package com.apixandru.games.rummikub.brotocol.game.client;
 
-import com.apixandru.games.rummikub.api.Card;
 import com.apixandru.games.rummikub.brotocol.Header;
 import com.apixandru.games.rummikub.brotocol.Packet;
+import com.apixandru.rummikub.api.Card;
 
 import static com.apixandru.games.rummikub.brotocol.Brotocol.CLIENT_PLACE_CARD;
 

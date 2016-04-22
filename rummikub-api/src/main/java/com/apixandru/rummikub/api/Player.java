@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.api;
+package com.apixandru.rummikub.api;
 
 /**
  * @param <H> the hint type

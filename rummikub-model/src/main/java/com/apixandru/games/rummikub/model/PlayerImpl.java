@@ -1,8 +1,8 @@
 package com.apixandru.games.rummikub.model;
 
-import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.Player;
-import com.apixandru.games.rummikub.api.PlayerCallback;
+import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.api.Player;
+import com.apixandru.rummikub.api.PlayerCallback;
 
 import java.util.ArrayList;
 import java.util.List;

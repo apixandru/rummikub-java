@@ -3,7 +3,7 @@
  */
 package com.apixandru.games.rummikub.swing;
 
-import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.rummikub.api.Card;
 import com.apixandru.utils.swing.SwingUtil;
 
 import java.awt.Color;
@@ -19,7 +19,7 @@ final class UiUtil {
 
     static final Font CARD_FONT = new Font(null, Font.BOLD, (int) (32 * FONT_SCALE));
 
-    static Color getColor(final com.apixandru.games.rummikub.api.Color color) {
+    static Color getColor(final com.apixandru.rummikub.api.Color color) {
         if (null == color) {
             return Color.BLACK;
         }

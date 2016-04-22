@@ -1,7 +1,5 @@
 package com.apixandru.games.rummikub.brotocol;
 
-import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.games.rummikub.brotocol.connect.client.PacketStart;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.games.rummikub.brotocol.connect.server.PacketPlayerStart;
@@ -14,6 +12,8 @@ import com.apixandru.games.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketReceiveCard;
+import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.api.GameOverReason;
 import com.apixandru.utils.fieldserializer.FieldSerializer;
 import com.apixandru.utils.fieldserializer.FieldSerializerImpl;
 
@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.apixandru.games.rummikub.api.Constants.CARDS;
+import static com.apixandru.rummikub.api.Constants.CARDS;
 
 /**
  * @author Alexandru-Constantin Bledea

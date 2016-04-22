@@ -1,8 +1,5 @@
 package com.apixandru.games.rummikub.client;
 
-import com.apixandru.games.rummikub.api.BoardListener;
-import com.apixandru.games.rummikub.api.GameEventListener;
-import com.apixandru.games.rummikub.api.PlayerCallback;
 import com.apixandru.games.rummikub.brotocol.Packet;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.SocketWrapper;
@@ -17,6 +14,9 @@ import com.apixandru.games.rummikub.client.game.CardRemovedHandler;
 import com.apixandru.games.rummikub.client.game.GameOverHandler;
 import com.apixandru.games.rummikub.client.game.NewTurnHandler;
 import com.apixandru.games.rummikub.client.game.ReceiveCardHandler;
+import com.apixandru.rummikub.api.BoardListener;
+import com.apixandru.rummikub.api.GameEventListener;
+import com.apixandru.rummikub.api.PlayerCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

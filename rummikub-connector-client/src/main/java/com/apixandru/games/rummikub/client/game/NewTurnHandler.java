@@ -1,8 +1,8 @@
 package com.apixandru.games.rummikub.client.game;
 
-import com.apixandru.games.rummikub.api.GameEventListener;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.game.server.PacketNewTurn;
+import com.apixandru.rummikub.api.GameEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

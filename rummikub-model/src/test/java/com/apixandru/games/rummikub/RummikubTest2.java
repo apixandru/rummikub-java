@@ -1,10 +1,10 @@
 package com.apixandru.games.rummikub;
 
-import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.model.ImplementationDetails;
 import com.apixandru.games.rummikub.model.Rummikub;
 import com.apixandru.games.rummikub.model.RummikubFactory;
+import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.api.Player;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -3,7 +3,7 @@
  */
 package com.apixandru.games.rummikub.model;
 
-import com.apixandru.games.rummikub.api.Constants;
+import com.apixandru.rummikub.api.Constants;
 import org.junit.Test;
 
 import java.util.NoSuchElementException;

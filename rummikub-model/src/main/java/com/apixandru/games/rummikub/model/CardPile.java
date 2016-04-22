@@ -3,8 +3,8 @@
  */
 package com.apixandru.games.rummikub.model;
 
-import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.Constants;
+import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.api.Constants;
 
 import java.util.Collection;
 import java.util.Collections;

@@ -1,8 +1,8 @@
 package com.apixandru.rummikub2;
 
-import com.apixandru.games.rummikub.api.GameEventListener;
-import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.rummikub.StateChangeListener;
+import com.apixandru.rummikub.api.GameEventListener;
+import com.apixandru.rummikub.api.GameOverReason;
 import com.apixandru.rummikub.waiting.WaitingRoomConfigurer;
 import com.apixandru.rummikub.waiting.WaitingRoomListener;
 import com.apixandru.rummikub2.game.GameConfigurerImpl;

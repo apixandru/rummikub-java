@@ -1,4 +1,4 @@
-package com.apixandru.games.rummikub.api;
+package com.apixandru.rummikub.api;
 
 import java.util.ArrayList;
 import java.util.Collections;

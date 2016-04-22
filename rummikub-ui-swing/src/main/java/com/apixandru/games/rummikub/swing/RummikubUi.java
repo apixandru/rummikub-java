@@ -1,6 +1,6 @@
 package com.apixandru.games.rummikub.swing;
 
-import static com.apixandru.games.rummikub.api.Constants.NUM_ROWS;
+import static com.apixandru.rummikub.api.Constants.NUM_ROWS;
 
 /**
  * @author Alexandru-Constantin Bledea

@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.swing;
 
-import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.PlayerCallback;
+import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.api.PlayerCallback;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.model;
 
-import com.apixandru.games.rummikub.api.BoardListener;
-import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.rummikub.api.BoardListener;
+import com.apixandru.rummikub.api.Card;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,8 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.apixandru.games.rummikub.api.Constants.NUM_COLS;
-import static com.apixandru.games.rummikub.api.Constants.NUM_ROWS;
+import static com.apixandru.rummikub.api.Constants.NUM_COLS;
+import static com.apixandru.rummikub.api.Constants.NUM_ROWS;
 
 /**
  * @author Alexandru-Constantin Bledea

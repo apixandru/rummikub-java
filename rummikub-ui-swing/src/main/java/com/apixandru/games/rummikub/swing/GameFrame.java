@@ -1,7 +1,7 @@
 package com.apixandru.games.rummikub.swing;
 
-import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.client.PlayerCallbackAdapter;
+import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.game.GameConfigurer;
 import com.apixandru.utils.swing.ComponentDragSource;
 
@@ -17,9 +17,9 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.util.List;
 
-import static com.apixandru.games.rummikub.api.Constants.NUM_COLS;
 import static com.apixandru.games.rummikub.swing.UiConstants.TILE_HEIGHT;
 import static com.apixandru.games.rummikub.swing.UiConstants.TILE_WIDTH;
+import static com.apixandru.rummikub.api.Constants.NUM_COLS;
 import static java.lang.Math.max;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 

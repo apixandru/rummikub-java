@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.apixandru.games.rummikub.api;
+package com.apixandru.rummikub.api;
 
 /**
  * @author Alexandru-Constantin Bledea

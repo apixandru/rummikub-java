@@ -3,7 +3,7 @@
  */
 package com.apixandru.games.rummikub.swing;
 
-import com.apixandru.games.rummikub.api.Card;
+import com.apixandru.rummikub.api.Card;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;

@@ -1,8 +1,8 @@
 package com.apixandru.games.rummikub.brotocol.game.server;
 
-import com.apixandru.games.rummikub.api.GameOverReason;
 import com.apixandru.games.rummikub.brotocol.Header;
 import com.apixandru.games.rummikub.brotocol.Packet;
+import com.apixandru.rummikub.api.GameOverReason;
 
 import static com.apixandru.games.rummikub.brotocol.Brotocol.SERVER_GAME_OVER;
 

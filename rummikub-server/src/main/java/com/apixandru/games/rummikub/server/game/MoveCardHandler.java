@@ -1,9 +1,9 @@
 package com.apixandru.games.rummikub.server.game;
 
-import com.apixandru.games.rummikub.api.Card;
-import com.apixandru.games.rummikub.api.Player;
 import com.apixandru.games.rummikub.brotocol.PacketHandler;
 import com.apixandru.games.rummikub.brotocol.game.client.PacketMoveCard;
+import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.api.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
