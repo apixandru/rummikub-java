@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author Alexandru-Constantin Bledea
  * @since April 13, 2016
  */
-public class ConnectionHandler {
+class ConnectionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
 
@@ -25,7 +25,7 @@ public class ConnectionHandler {
         log.debug("Rejected.", exception);
     }
 
-    public synchronized void attemptToJoin(final SocketWrapper wrapper) throws IOException {
+    synchronized void attemptToJoin(final SocketWrapper wrapper) throws IOException {
         final String playerName = wrapper.readString();
         log.debug("{} is attempting to join.", playerName);
         try {
@@ -43,4 +43,5 @@ public class ConnectionHandler {
         log.debug("Accepted.");
         new Thread(stateChangeListener).start();
     }
+
 }

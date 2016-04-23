@@ -12,8 +12,8 @@ import com.apixandru.rummikub.model.StateChangeListener;
  */
 public final class RummikubConnector {
 
-    final SocketWrapper socketWrapper;
-    final StateChangeListener stateChangeListener;
+    private final SocketWrapper socketWrapper;
+    private final StateChangeListener stateChangeListener;
     private final ClientPacketHandler packetHandler = new ClientPacketHandler();
     private final SocketPacketProcessor socketPacketProcessor;
 
@@ -25,10 +25,6 @@ public final class RummikubConnector {
     }
 
     public void connect() {
-        newConnect();
-    }
-
-    private void newConnect() {
         packetHandler.setStartGameListener(() -> stateChangeListener.enteredGame(new ClientGameConfigurer(packetHandler, this.socketWrapper)));
         ClientWaitingRoomConfigurer waitingRoomConfigurer = new ClientWaitingRoomConfigurer(packetHandler, socketWrapper);
         stateChangeListener.enteredWaitingRoom(waitingRoomConfigurer);

@@ -19,7 +19,7 @@ import static org.mockito.Mockito.mock;
 public class TestRummikubImpl {
 
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public final ExpectedException expectedException = ExpectedException.none();
 
     private StateChangeListener listener;
 
