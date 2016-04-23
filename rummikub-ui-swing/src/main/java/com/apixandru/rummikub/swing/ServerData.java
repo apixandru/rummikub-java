@@ -53,17 +53,8 @@ final class ServerData {
 
         while (true) {
             if (showDialog) {
-                final int option = JOptionPane.showOptionDialog(
-                        null,
-                        createLoginPanel(tfUsername, tfAddress),
-                        "Connection Data",
-                        OK_CANCEL_OPTION,
-                        QUESTION_MESSAGE,
-                        null,
-                        OPTIONS,
-                        OPT_CONNECT);
 
-                if (CHOICE_CONNECT != option) {
+                if (!choseConnect(tfUsername, tfAddress)) {
                     return null;
                 }
 
@@ -75,22 +66,31 @@ final class ServerData {
             }
             try {
                 return new ConnectionData(new Socket(address, 50122), username);
-            } catch (IllegalArgumentException ex) {
+            } catch (IllegalArgumentException | IOException ex) {
                 showDialog = true;
-                log.debug("Could not connect to " + address);
-                JOptionPane.showMessageDialog(null,
-                        ex.getMessage(),
-                        "Cannot connect",
-                        JOptionPane.ERROR_MESSAGE);
-            } catch (IOException ex) {
-                showDialog = true;
-                log.debug("Could not connect to " + address);
-                JOptionPane.showMessageDialog(null,
-                        "Cannot connect to " + address + "!",
-                        "Cannot connect",
-                        JOptionPane.ERROR_MESSAGE);
+                showError(ex.getMessage(), address);
             }
         }
+    }
+
+    private static void showError(final String message, final String address) {
+        log.debug("Could not connect to " + address);
+        JOptionPane.showMessageDialog(null,
+                message,
+                "Cannot connect",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    private static boolean choseConnect(final JTextField username, final JTextField address) {
+        return CHOICE_CONNECT == JOptionPane.showOptionDialog(
+                null,
+                createLoginPanel(username, address),
+                "Connection Data",
+                OK_CANCEL_OPTION,
+                QUESTION_MESSAGE,
+                null,
+                OPTIONS,
+                OPT_CONNECT);
     }
 
     private static JPanel createLoginPanel(final JTextField username, final JTextField address) {
