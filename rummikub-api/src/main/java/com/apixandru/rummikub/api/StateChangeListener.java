@@ -1,7 +1,4 @@
-package com.apixandru.rummikub.model;
-
-import com.apixandru.rummikub.model.game.GameConfigurer;
-import com.apixandru.rummikub.model.waiting.WaitingRoomConfigurer;
+package com.apixandru.rummikub.api;
 
 /**
  * @author Alexandru-Constantin Bledea

@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.rummikub.model.waiting.StartGameListener;
-import com.apixandru.rummikub.model.waiting.WaitingRoomListener;
+import com.apixandru.rummikub.api.StartGameListener;
+import com.apixandru.rummikub.api.WaitingRoomListener;
 
 import javax.swing.Box;
 import javax.swing.DefaultListModel;

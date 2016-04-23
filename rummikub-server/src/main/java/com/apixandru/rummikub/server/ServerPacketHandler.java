@@ -1,6 +1,7 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.Player;
+import com.apixandru.rummikub.api.StartGameListener;
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.connect.client.PacketStart;
@@ -9,7 +10,6 @@ import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
 import com.apixandru.rummikub.brotocol.util.Reference;
-import com.apixandru.rummikub.model.waiting.StartGameListener;
 import com.apixandru.rummikub.server.game.EndTurnHandler;
 import com.apixandru.rummikub.server.game.MoveCardHandler;
 import com.apixandru.rummikub.server.game.PlaceCardOnBoardHandler;

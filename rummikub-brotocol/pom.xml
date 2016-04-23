@@ -19,10 +19,6 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>rummikub-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>rummikub-model</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.apixandru.utils</groupId>

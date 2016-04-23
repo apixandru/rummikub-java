@@ -1,9 +1,4 @@
-package com.apixandru.rummikub.model.game;
-
-import com.apixandru.rummikub.api.BoardListener;
-import com.apixandru.rummikub.api.GameEventListener;
-import com.apixandru.rummikub.api.Player;
-import com.apixandru.rummikub.api.PlayerCallback;
+package com.apixandru.rummikub.api;
 
 /**
  * @author Alexandru-Constantin Bledea

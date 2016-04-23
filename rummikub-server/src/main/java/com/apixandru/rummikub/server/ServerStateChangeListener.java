@@ -1,12 +1,12 @@
 package com.apixandru.rummikub.server;
 
+import com.apixandru.rummikub.api.GameConfigurer;
+import com.apixandru.rummikub.api.StateChangeListener;
+import com.apixandru.rummikub.api.WaitingRoomConfigurer;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
 import com.apixandru.rummikub.brotocol.util.SocketPacketProcessor;
-import com.apixandru.rummikub.model.StateChangeListener;
-import com.apixandru.rummikub.model.game.GameConfigurer;
-import com.apixandru.rummikub.model.waiting.WaitingRoomConfigurer;
 import com.apixandru.rummikub.server.game.ServerBoardListener;
 import com.apixandru.rummikub.server.game.ServerGameEventListener;
 import com.apixandru.rummikub.server.game.ServerPlayerCallback;

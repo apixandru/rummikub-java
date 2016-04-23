@@ -1,7 +1,8 @@
 package com.apixandru.rummikub.model;
 
-import com.apixandru.rummikub.model.game.GameConfigurer;
-import com.apixandru.rummikub.model.waiting.WaitingRoomConfigurer;
+import com.apixandru.rummikub.api.GameConfigurer;
+import com.apixandru.rummikub.api.StateChangeListener;
+import com.apixandru.rummikub.api.WaitingRoomConfigurer;
 
 /**
  * @author Alexandru-Constantin Bledea

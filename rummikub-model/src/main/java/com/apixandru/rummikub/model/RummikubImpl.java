@@ -2,9 +2,10 @@ package com.apixandru.rummikub.model;
 
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.GameOverReason;
+import com.apixandru.rummikub.api.StateChangeListener;
+import com.apixandru.rummikub.api.WaitingRoomConfigurer;
+import com.apixandru.rummikub.api.WaitingRoomListener;
 import com.apixandru.rummikub.model.game.GameConfigurerImpl;
-import com.apixandru.rummikub.model.waiting.WaitingRoomConfigurer;
-import com.apixandru.rummikub.model.waiting.WaitingRoomListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,8 +1,8 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.rummikub.model.StateChangeListener;
-import com.apixandru.rummikub.model.game.GameConfigurer;
-import com.apixandru.rummikub.model.waiting.WaitingRoomConfigurer;
+import com.apixandru.rummikub.api.GameConfigurer;
+import com.apixandru.rummikub.api.StateChangeListener;
+import com.apixandru.rummikub.api.WaitingRoomConfigurer;
 
 import javax.swing.JFrame;
 import java.util.Optional;

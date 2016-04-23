@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.model.waiting;
+package com.apixandru.rummikub.api;
 
 /**
  * @author Alexandru-Constantin Bledea

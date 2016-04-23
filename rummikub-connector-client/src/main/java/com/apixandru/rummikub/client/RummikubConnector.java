@@ -1,10 +1,10 @@
 package com.apixandru.rummikub.client;
 
+import com.apixandru.rummikub.api.StateChangeListener;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.util.SocketPacketProcessor;
 import com.apixandru.rummikub.client.game.ClientGameConfigurer;
 import com.apixandru.rummikub.client.waiting.ClientWaitingRoomConfigurer;
-import com.apixandru.rummikub.model.StateChangeListener;
 
 /**
  * @author Alexandru-Constantin Bledea

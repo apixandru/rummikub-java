@@ -1,9 +1,9 @@
 package com.apixandru.rummikub.server.waiting;
 
+import com.apixandru.rummikub.api.WaitingRoomListener;
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
-import com.apixandru.rummikub.model.waiting.WaitingRoomListener;
 
 /**
  * @author Alexandru-Constantin Bledea
