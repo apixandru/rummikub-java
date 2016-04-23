@@ -6,6 +6,6 @@ package com.apixandru.rummikub.brotocol.util;
  */
 public interface ConnectionListener {
 
-    void connectionLost();
+    void onConnectionLost();
 
 }

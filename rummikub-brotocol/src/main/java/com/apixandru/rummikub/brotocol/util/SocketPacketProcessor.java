@@ -34,7 +34,7 @@ public class SocketPacketProcessor implements Runnable {
                 packetHandler.handle(reader.readPacket());
             } catch (IOException e) {
                 log.error("Failed to handle packet", e);
-                connectionListenerReference.get().connectionLost();
+                connectionListenerReference.get().onConnectionLost();
                 break;
             }
         }

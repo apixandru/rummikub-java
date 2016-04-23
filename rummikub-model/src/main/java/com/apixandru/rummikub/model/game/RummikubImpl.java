@@ -132,8 +132,7 @@ final class RummikubImpl implements Rummikub<Integer> {
                 .remove(gameEventListener);
     }
 
-    @Override
-    public void removePlayer(final Player<Integer> player) {
+    private void removePlayer(final PlayerImpl player) {
         if (this.players.remove(player)) {
             this.gameEventListeners
                     .forEach(listener -> listener.gameOver(player.getName(), PLAYER_QUIT));
