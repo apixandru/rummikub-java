@@ -1,7 +1,6 @@
 package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.Player;
-import com.apixandru.rummikub.client.PlayerCallbackAdapter;
 import com.apixandru.rummikub.model.game.GameConfigurer;
 import com.apixandru.utils.swing.ComponentDragSource;
 
@@ -28,13 +27,14 @@ class GameFrame {
 
     private static final int BOARD_WIDTH = NUM_COLS * UiConstants.TILE_WIDTH;
 
-    static void run(String username, PlayerUi player, final PlayerCallbackAdapter adapter, final GameConfigurer configurer) {
+    static void run(String username, final GameConfigurer configurer) {
         final JFrame frame = new JFrame();
         final JGridPanel board = RummikubUi.newBoard();
 
         final JButton btnEndTurn = new JButton("End Turn");
         final GameListener callback = new GameListener(frame, board, btnEndTurn, username);
 
+        final PlayerUi player = new PlayerUi(username);
         final Player<CardSlot> actualPlayer = getNewPlayer(player, configurer, callback);
 
         final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);

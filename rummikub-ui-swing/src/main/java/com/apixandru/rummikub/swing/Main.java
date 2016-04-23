@@ -15,7 +15,6 @@ final class Main {
         }
         final WindowManager windowManager = new WindowManager(connectionData.username);
         final RummikubConnector rummikubConnector = new RummikubConnector(connectionData.socket, windowManager);
-        windowManager.setConnector(rummikubConnector);
         rummikubConnector.connect();
 
     }
