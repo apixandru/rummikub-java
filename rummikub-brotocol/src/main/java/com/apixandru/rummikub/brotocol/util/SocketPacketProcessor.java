@@ -20,11 +20,14 @@ public class SocketPacketProcessor implements Runnable {
 
     private final PacketHandler<Packet> packetHandler;
 
-    private final Reference<ConnectionListener> connectionListenerReference = new Reference<>();
+    private final ConnectionListener connectionListener;
 
-    public SocketPacketProcessor(final PacketReader reader, final PacketHandler<Packet> packetHandler) {
+    public SocketPacketProcessor(final PacketReader reader,
+                                 final PacketHandler<Packet> packetHandler,
+                                 final ConnectionListener connectionListener) {
         this.reader = reader;
         this.packetHandler = packetHandler;
+        this.connectionListener = connectionListener;
     }
 
     @Override
@@ -34,14 +37,10 @@ public class SocketPacketProcessor implements Runnable {
                 packetHandler.handle(reader.readPacket());
             } catch (IOException e) {
                 log.error("Failed to handle packet", e);
-                connectionListenerReference.get().onConnectionLost();
+                connectionListener.onConnectionLost();
                 break;
             }
         }
-    }
-
-    public void setConnectionListenerReference(final ConnectionListener connectionListenerReference) {
-        this.connectionListenerReference.set(connectionListenerReference);
     }
 
 }

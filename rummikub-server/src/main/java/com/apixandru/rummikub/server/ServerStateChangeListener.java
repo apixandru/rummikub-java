@@ -28,8 +28,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable {
         this.socketWrapper = socketWrapper;
 
         this.serverPacketHandler = new ServerPacketHandler();
-        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this.serverPacketHandler);
-        this.socketPacketProcessor.setConnectionListenerReference(connectionListener);
+        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this.serverPacketHandler, connectionListener);
     }
 
     @Override

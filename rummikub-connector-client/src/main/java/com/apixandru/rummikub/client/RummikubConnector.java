@@ -2,6 +2,7 @@ package com.apixandru.rummikub.client;
 
 import com.apixandru.rummikub.api.StateChangeListener;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
+import com.apixandru.rummikub.brotocol.util.ConnectionListener;
 import com.apixandru.rummikub.brotocol.util.SocketPacketProcessor;
 import com.apixandru.rummikub.client.game.ClientGameConfigurer;
 import com.apixandru.rummikub.client.waiting.ClientWaitingRoomConfigurer;
@@ -21,7 +22,10 @@ public final class RummikubConnector {
         this.socketWrapper = socketWrapper;
         this.stateChangeListener = stateChangeListener;
 
-        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this.packetHandler);
+        ConnectionListener connectionListener = () -> {
+        };
+
+        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this.packetHandler, connectionListener);
     }
 
     public void connect() {
