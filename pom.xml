@@ -111,7 +111,7 @@
         -->
         <repository>
             <id>apixandru-snapshots</id>
-            <url>http://maven.vampirefox.com</url>
+            <url>http://maven.apixandru.com</url>
         </repository>
 
     </repositories>
