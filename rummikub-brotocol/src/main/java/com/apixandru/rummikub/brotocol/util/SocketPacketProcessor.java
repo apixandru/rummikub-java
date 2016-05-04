@@ -1,7 +1,6 @@
 package com.apixandru.rummikub.brotocol.util;
 
-import com.apixandru.rummikub.brotocol.Packet;
-import com.apixandru.rummikub.brotocol.PacketHandler;
+import com.apixandru.rummikub.brotocol.ConnectorPacketHandler;
 import com.apixandru.rummikub.brotocol.PacketReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +17,12 @@ public class SocketPacketProcessor implements Runnable {
 
     private final PacketReader reader;
 
-    private final PacketHandler<Packet> packetHandler;
+    private final ConnectorPacketHandler packetHandler;
 
     private final ConnectionListener connectionListener;
 
     public SocketPacketProcessor(final PacketReader reader,
-                                 final PacketHandler<Packet> packetHandler,
+                                 final ConnectorPacketHandler packetHandler,
                                  final ConnectionListener connectionListener) {
         this.reader = reader;
         this.packetHandler = packetHandler;
@@ -32,15 +31,15 @@ public class SocketPacketProcessor implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (packetHandler.isReady()) {
             try {
                 packetHandler.handle(reader.readPacket());
             } catch (IOException e) {
                 log.error("Failed to handle packet", e);
-                connectionListener.onConnectionLost();
                 break;
             }
         }
+        connectionListener.onConnectionLost();
     }
 
 }

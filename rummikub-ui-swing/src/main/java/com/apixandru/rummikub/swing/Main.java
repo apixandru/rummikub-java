@@ -1,5 +1,6 @@
 package com.apixandru.rummikub.swing;
 
+import com.apixandru.rummikub.brotocol.connect.client.PacketLeave;
 import com.apixandru.rummikub.client.RummikubConnector;
 
 /**
@@ -13,6 +14,9 @@ final class Main {
         if (null == connectionData) {
             return;
         }
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> connectionData.socket.writePacket(new PacketLeave())));
+
         final WindowManager windowManager = new WindowManager(connectionData.username);
         final RummikubConnector rummikubConnector = new RummikubConnector(connectionData.socket, windowManager);
         rummikubConnector.connect();

@@ -5,6 +5,7 @@ import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.PlayerCallback;
 import com.apixandru.rummikub.api.StartGameListener;
 import com.apixandru.rummikub.api.WaitingRoomListener;
+import com.apixandru.rummikub.brotocol.ConnectorPacketHandler;
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerJoined;
@@ -35,7 +36,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-public class ClientPacketHandler implements PacketHandler<Packet> {
+public class ClientPacketHandler implements ConnectorPacketHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ClientPacketHandler.class);
 
@@ -88,4 +89,8 @@ public class ClientPacketHandler implements PacketHandler<Packet> {
         this.startGameListener.set(startGameListener);
     }
 
+    @Override
+    public boolean isReady() {
+        return true;
+    }
 }

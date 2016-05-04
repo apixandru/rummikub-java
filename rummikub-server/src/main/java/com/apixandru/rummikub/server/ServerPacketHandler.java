@@ -2,8 +2,10 @@ package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.api.StartGameListener;
+import com.apixandru.rummikub.brotocol.ConnectorPacketHandler;
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol.PacketHandler;
+import com.apixandru.rummikub.brotocol.connect.client.PacketLeave;
 import com.apixandru.rummikub.brotocol.connect.client.PacketStart;
 import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
@@ -13,18 +15,22 @@ import com.apixandru.rummikub.brotocol.util.Reference;
 import com.apixandru.rummikub.server.game.EndTurnHandler;
 import com.apixandru.rummikub.server.game.MoveCardHandler;
 import com.apixandru.rummikub.server.game.PlaceCardOnBoardHandler;
+import com.apixandru.rummikub.server.game.PlayerLeftHandler;
 import com.apixandru.rummikub.server.game.TakeCardHandler;
 import com.apixandru.rummikub.server.waiting.StartHandler;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-class ServerPacketHandler implements PacketHandler<Packet> {
+class ServerPacketHandler implements ConnectorPacketHandler {
+
+    private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
     private final Map<Class, PacketHandler> handlers;
 
@@ -38,6 +44,8 @@ class ServerPacketHandler implements PacketHandler<Packet> {
         handlers.put(PacketEndTurn.class, new EndTurnHandler(playerProvider));
         handlers.put(PacketMoveCard.class, new MoveCardHandler(playerProvider));
         handlers.put(PacketTakeCard.class, new TakeCardHandler(playerProvider));
+
+        handlers.put(PacketLeave.class,  new PlayerLeftHandler(playerProvider, continueReading));
 
         handlers.put(PacketStart.class, new StartHandler(startGameListenerProvider));
 
@@ -61,6 +69,11 @@ class ServerPacketHandler implements PacketHandler<Packet> {
     void reset() {
         setStartGameListenerProvider(null);
         setPlayer(null);
+    }
+
+    @Override
+    public boolean isReady() {
+        return continueReading.get();
     }
 
 }
