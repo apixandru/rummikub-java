@@ -7,7 +7,6 @@ jdk: oraclejdk8
 env:
   global:
     - LOCAL_REPO=/home/${USER}/.m2/repository
-    - FTP_SITE=ftp://maven.vampirefox.com
 
 branches:
   only: master
