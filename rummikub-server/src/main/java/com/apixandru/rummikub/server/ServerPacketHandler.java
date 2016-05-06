@@ -45,7 +45,7 @@ class ServerPacketHandler implements ConnectorPacketHandler {
         handlers.put(PacketMoveCard.class, new MoveCardHandler(playerProvider));
         handlers.put(PacketTakeCard.class, new TakeCardHandler(playerProvider));
 
-        handlers.put(PacketLeave.class,  new PlayerLeftHandler(playerProvider, continueReading));
+        handlers.put(PacketLeave.class, new PlayerLeftHandler(continueReading));
 
         handlers.put(PacketStart.class, new StartHandler(startGameListenerProvider));
 

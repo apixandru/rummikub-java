@@ -32,7 +32,7 @@ public class ServerPlayerCallback implements PlayerCallback<Integer> {
 
     @Override
     public void cardReceived(final Card card, final Integer hint) {
-        log.debug("[{}] Sending cardReceived(card={}, hint={})", playerName, card, hint);
+        log.debug("Sending cardReceived(card={}, hint={})", card, hint);
         final PacketReceiveCard packet = new PacketReceiveCard();
         packet.card = card;
         packet.hint = hint;

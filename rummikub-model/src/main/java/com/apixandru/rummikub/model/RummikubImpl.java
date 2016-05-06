@@ -97,6 +97,11 @@ public class RummikubImpl implements Rummikub, GameEventListener, WaitingRoomCon
         waitingRoomListeners.add(listener);
     }
 
+    @Override
+    public void unregisterListener(WaitingRoomListener listener) {
+        waitingRoomListeners.remove(listener);
+    }
+
     public void unregister(final String playerName) {
         gameConfigurer.removePlayer(playerName);
     }

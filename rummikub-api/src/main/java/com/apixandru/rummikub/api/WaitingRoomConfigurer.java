@@ -8,4 +8,6 @@ public interface WaitingRoomConfigurer extends StartGameListener {
 
     void registerListener(WaitingRoomListener listener);
 
+    void unregisterListener(WaitingRoomListener listener);
+
 }

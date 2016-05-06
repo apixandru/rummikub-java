@@ -28,14 +28,29 @@ public class ClientGameConfigurer implements GameConfigurer {
     }
 
     @Override
+    public void removeGameEventListener(GameEventListener gameEventListener) {
+        clientPacketHandler.setGameEventListener(null);
+    }
+
+    @Override
     public void addBoardListener(final BoardListener boardListener) {
         clientPacketHandler.setBoardListener(boardListener);
+    }
+
+    @Override
+    public void removeBoardListener(BoardListener boardListener) {
+        clientPacketHandler.setBoardListener(null);
     }
 
     @Override
     public Player<Integer> newPlayer(final PlayerCallback<Integer> playerCallback) {
         clientPacketHandler.setPlayerCallback(playerCallback);
         return new SocketPlayer(playerCallback.getPlayerName(), packetWriter);
+    }
+
+    @Override
+    public void removePlayer(Player<Integer> player) {
+        clientPacketHandler.setPlayerCallback(null);
     }
 
 }

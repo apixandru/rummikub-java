@@ -26,6 +26,11 @@ public class ClientWaitingRoomConfigurer implements WaitingRoomConfigurer {
     }
 
     @Override
+    public void unregisterListener(WaitingRoomListener listener) {
+        packetHandler.setWaitingRoomListener(null);
+    }
+
+    @Override
     public void startGame() {
         packetWriter.writePacket(new PacketStart());
     }
