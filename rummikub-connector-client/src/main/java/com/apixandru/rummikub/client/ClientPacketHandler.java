@@ -91,6 +91,6 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
 
     @Override
     public boolean isReady() {
-        return true;
+        return continueReading.get();
     }
 }
