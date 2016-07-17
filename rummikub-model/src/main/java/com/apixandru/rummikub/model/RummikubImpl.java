@@ -103,6 +103,7 @@ public class RummikubImpl implements Rummikub, GameEventListener, WaitingRoomCon
     }
 
     public void unregister(final String playerName) {
+        players.remove(playerName); // TODO synchronize deez!
         gameConfigurer.removePlayer(playerName);
     }
 

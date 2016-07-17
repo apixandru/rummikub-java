@@ -1,6 +1,7 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.brotocol.SocketWrapper;
+import com.apixandru.rummikub.brotocol.util.ConnectionListener;
 import com.apixandru.rummikub.model.RummikubException;
 import com.apixandru.rummikub.model.RummikubImpl;
 import org.slf4j.Logger;
@@ -35,7 +36,8 @@ class ConnectionHandler {
     }
 
     private void accept(final SocketWrapper wrapper, final String playerName) {
-        ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, wrapper, null);
+        ConnectionListener connectionListener = () -> rummikub.unregister(playerName);
+        ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, wrapper, connectionListener);
         rummikub.register(playerName, stateChangeListener);
         wrapper.write(true);
         log.debug("Accepted.");
