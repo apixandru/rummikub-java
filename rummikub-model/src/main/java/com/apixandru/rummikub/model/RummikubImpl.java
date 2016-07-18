@@ -67,6 +67,11 @@ public class RummikubImpl implements Rummikub, GameEventListener, WaitingRoomCon
                 .forEach(waitingRoomListener -> waitingRoomListener.playerJoined(playerName));
     }
 
+    private void broadcastPlayerLeft(final String playerName) {
+        waitingRoomListeners
+                .forEach(waitingRoomListener -> waitingRoomListener.playerLeft(playerName));
+    }
+
     private void goToWaitingRoom() {
         players.values()
                 .forEach(listener -> listener.enteredWaitingRoom(this));
@@ -104,7 +109,11 @@ public class RummikubImpl implements Rummikub, GameEventListener, WaitingRoomCon
 
     public void unregister(final String playerName) {
         players.remove(playerName); // TODO synchronize deez!
-        gameConfigurer.removePlayer(playerName);
+        if (state == State.WAITING) {
+            broadcastPlayerLeft(playerName);
+        } else {
+            gameConfigurer.removePlayer(playerName);
+        }
     }
 
     private enum State {
