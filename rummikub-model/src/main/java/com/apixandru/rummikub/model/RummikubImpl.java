@@ -21,7 +21,7 @@ import static com.apixandru.rummikub.model.RummikubException.Reason.ONGOING_GAME
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-public class RummikubImpl implements Rummikub, GameEventListener, WaitingRoomConfigurer {
+public class RummikubImpl implements GameEventListener, WaitingRoomConfigurer {
 
     private final Map<String, StateChangeListener> players = new HashMap<>();
 
@@ -35,7 +35,6 @@ public class RummikubImpl implements Rummikub, GameEventListener, WaitingRoomCon
         return null == string || string.isEmpty();
     }
 
-    @Override
     public void register(final String playerName, final StateChangeListener listener) throws RummikubException {
         validateCanJoin(playerName, listener);
         addPlayer(playerName, listener);

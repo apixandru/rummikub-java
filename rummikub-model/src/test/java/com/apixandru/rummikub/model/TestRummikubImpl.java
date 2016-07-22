@@ -24,7 +24,7 @@ public class TestRummikubImpl {
 
     private StateChangeListener listener;
 
-    private Rummikub rummikub;
+    private RummikubImpl rummikub;
 
     @SuppressWarnings("unchecked")
     @Before
