@@ -35,12 +35,13 @@ public class RummikubImpl implements GameEventListener, WaitingRoomConfigurer {
         return null == string || string.isEmpty();
     }
 
+    @Deprecated
     public void register(final String playerName, final StateChangeListener listener) throws RummikubException {
         validateCanJoin(playerName, listener);
         addPlayer(playerName, listener);
     }
 
-    private void validateCanJoin(final String playerName, final StateChangeListener listener) {
+    public void validateCanJoin(final String playerName, final StateChangeListener listener) {
         if (null == listener) {
             throw new RummikubException(NO_LISTENER);
         }
@@ -55,10 +56,10 @@ public class RummikubImpl implements GameEventListener, WaitingRoomConfigurer {
         }
     }
 
-    private void addPlayer(final String playerName, final StateChangeListener listener) {
+    public void addPlayer(final String playerName, final StateChangeListener listener) {
         players.put(playerName, listener);
-        broadcastPlayerJoined(playerName);
         listener.enteredWaitingRoom(this);
+        broadcastPlayerJoined(playerName);
     }
 
     private void broadcastPlayerJoined(final String playerName) {

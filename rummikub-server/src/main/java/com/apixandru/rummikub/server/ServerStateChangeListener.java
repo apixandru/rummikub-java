@@ -15,6 +15,9 @@ import com.apixandru.rummikub.server.waiting.ServerWaitingRoomListener;
 
 import java.util.Optional;
 
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
+
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 13, 2016
@@ -26,7 +29,8 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     private final ServerPacketHandler serverPacketHandler;
     private final SocketPacketProcessor socketPacketProcessor;
 
-    private Optional<TrackingGameConfigurer> trackingGameConfigurer = Optional.empty();
+    private Optional<TrackingGameConfigurer> trackingGameConfigurer = empty();
+    private Optional<ServerWaitingRoomListener> serverWaitingRoomListener = empty();
 
     ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper, final ConnectionListener connectionListener) {
         this.playerName = playerName;
@@ -41,7 +45,9 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
 
 //        trackingGameConfigurer.ifPresent(TrackingGameConfigurer::cleanup);
         serverPacketHandler.reset();
-        configurer.registerListener(new ServerWaitingRoomListener(socketWrapper));
+        ServerWaitingRoomListener serverWaitingRoomListener = new ServerWaitingRoomListener(socketWrapper);
+        this.serverWaitingRoomListener = of(serverWaitingRoomListener);
+        configurer.registerListener(serverWaitingRoomListener);
         serverPacketHandler.setStartGameListenerProvider(configurer);
     }
 
