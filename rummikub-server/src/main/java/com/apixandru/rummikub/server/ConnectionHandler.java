@@ -19,18 +19,18 @@ class ConnectionHandler {
 
     private final RummikubImpl rummikub = new RummikubImpl();
 
-    private static void reject(final SocketWrapper socketWrapper, final RummikubException exception) {
+    private static void reject(final SocketWrapper socketWrapper, final Exception exception) {
         socketWrapper.write(false);
         socketWrapper.write(exception.getMessage());
         log.debug("Rejected.", exception);
     }
 
-    synchronized void attemptToJoin(final SocketWrapper wrapper) throws IOException {
-        final String playerName = wrapper.readString();
-        log.debug("{} is attempting to join.", playerName);
+    synchronized void attemptToJoin(final SocketWrapper wrapper) {
         try {
+            final String playerName = wrapper.readString();
+            log.debug("{} is attempting to join.", playerName);
             accept(wrapper, playerName);
-        } catch (final RummikubException ex) {
+        } catch (final RummikubException | IOException ex) {
             reject(wrapper, ex);
         }
     }
