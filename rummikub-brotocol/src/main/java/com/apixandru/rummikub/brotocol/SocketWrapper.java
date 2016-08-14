@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.brotocol;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+import com.apixandru.rummikub.brotocol2.SocketConnection;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -15,17 +15,14 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
 
     private final Serializer serializer = new RummikubSerializer();
 
-    private final Socket socket;
     private final DataInputStream in;
     private final DataOutputStream out;
+    private final SocketConnection connection;
 
     public SocketWrapper(final Socket socket) throws IOException {
-        this.socket = socket;
-
-        this.out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        this.out.flush(); // send out the stream header
-
-        this.in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        this.connection = new SocketConnection(socket);
+        this.out = connection.getDataOutputStream();
+        this.in = connection.getDataInputStream();
     }
 
     public String readString() throws IOException {
@@ -74,8 +71,7 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
 
     @Override
     public void close() throws IOException {
-        this.in.close();
-        this.socket.close();
+        this.connection.close();
     }
 
 }
