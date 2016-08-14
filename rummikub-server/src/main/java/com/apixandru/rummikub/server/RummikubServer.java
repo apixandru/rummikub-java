@@ -11,22 +11,40 @@ import java.net.ServerSocket;
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-class RummikubServer {
+class RummikubServer implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(RummikubServer.class);
+
+    private final ServerSocket serverSocket;
+
+    RummikubServer(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
+        log.debug("Listening on port {}", serverSocket.getLocalPort());
+    }
 
     public static void main(String[] args) throws IOException {
 
         final ServerSocket serverSocket = new ServerSocket(50122);
 
-        log.debug("Listening on port {}", serverSocket.getLocalPort());
+        RummikubServer rummikubServer = new RummikubServer(serverSocket);
+        new Thread(rummikubServer).start();
+    }
 
+    @Override
+    public void run() {
         final ConnectionHandler joiner = new ConnectionHandler();
         while (true) {
             log.debug("Waiting for client...");
-            joiner.attemptToJoin(new SocketWrapper(serverSocket.accept()));
+            joiner.attemptToJoin(newConnection());
         }
 
     }
 
+    private SocketWrapper newConnection() {
+        try {
+            return new SocketWrapper(serverSocket.accept());
+        } catch (IOException e) {
+            throw new IllegalStateException(e.getMessage(), e);
+        }
+    }
 }
