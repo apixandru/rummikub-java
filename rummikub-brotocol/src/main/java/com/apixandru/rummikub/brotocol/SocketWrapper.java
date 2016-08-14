@@ -1,11 +1,10 @@
 package com.apixandru.rummikub.brotocol;
 
-import com.apixandru.rummikub.brotocol2.SocketConnection;
+import com.apixandru.rummikub.brotocol2.Connection;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -17,10 +16,10 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
 
     private final DataInputStream in;
     private final DataOutputStream out;
-    private final SocketConnection connection;
+    private final Connection connection;
 
-    public SocketWrapper(final Socket socket) throws IOException {
-        this.connection = new SocketConnection(socket);
+    public SocketWrapper(final Connection connection) {
+        this.connection = connection;
         this.out = connection.getDataOutputStream();
         this.in = connection.getDataInputStream();
     }

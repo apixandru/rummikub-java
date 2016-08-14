@@ -1,11 +1,13 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.brotocol.SocketWrapper;
+import com.apixandru.rummikub.brotocol2.SocketConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -42,7 +44,8 @@ class RummikubServer implements Runnable {
 
     private SocketWrapper newConnection() {
         try {
-            return new SocketWrapper(serverSocket.accept());
+            Socket accept = serverSocket.accept();
+            return new SocketWrapper(new SocketConnection(accept));
         } catch (IOException e) {
             throw new IllegalStateException(e.getMessage(), e);
         }
