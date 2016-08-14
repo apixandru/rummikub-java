@@ -1,13 +1,13 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.brotocol.SocketWrapper;
-import com.apixandru.rummikub.brotocol2.SocketConnection;
+import com.apixandru.rummikub.brotocol2.Connector;
+import com.apixandru.rummikub.brotocol2.ServerSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -17,10 +17,10 @@ class RummikubServer implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(RummikubServer.class);
 
-    private final ServerSocket serverSocket;
+    private final Connector connector;
 
     RummikubServer(ServerSocket serverSocket) {
-        this.serverSocket = serverSocket;
+        this.connector = new ServerSocketConnector(serverSocket);
         log.debug("Listening on port {}", serverSocket.getLocalPort());
     }
 
@@ -44,8 +44,7 @@ class RummikubServer implements Runnable {
 
     private SocketWrapper newConnection() {
         try {
-            Socket accept = serverSocket.accept();
-            return new SocketWrapper(new SocketConnection(accept));
+            return new SocketWrapper(connector.acceptConnection());
         } catch (IOException e) {
             throw new IllegalStateException(e.getMessage(), e);
         }
