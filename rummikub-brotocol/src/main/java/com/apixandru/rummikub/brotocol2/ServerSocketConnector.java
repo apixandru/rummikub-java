@@ -20,4 +20,9 @@ public class ServerSocketConnector implements Connector {
         return new SocketConnection(serverSocket.accept());
     }
 
+    @Override
+    public int getPort() {
+        return serverSocket.getLocalPort();
+    }
+
 }

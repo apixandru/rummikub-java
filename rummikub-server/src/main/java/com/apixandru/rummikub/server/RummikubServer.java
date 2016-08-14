@@ -19,16 +19,16 @@ class RummikubServer implements Runnable {
 
     private final Connector connector;
 
-    RummikubServer(ServerSocket serverSocket) {
-        this.connector = new ServerSocketConnector(serverSocket);
-        log.debug("Listening on port {}", serverSocket.getLocalPort());
+    RummikubServer(Connector connector) {
+        this.connector = connector;
+        log.debug("Listening on port {}", connector.getPort());
     }
 
     public static void main(String[] args) throws IOException {
 
         final ServerSocket serverSocket = new ServerSocket(50122);
-
-        RummikubServer rummikubServer = new RummikubServer(serverSocket);
+        ServerSocketConnector connector = new ServerSocketConnector(serverSocket);
+        RummikubServer rummikubServer = new RummikubServer(connector);
         new Thread(rummikubServer).start();
     }
 

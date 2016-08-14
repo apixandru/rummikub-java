@@ -10,4 +10,6 @@ public interface Connector {
 
     Connection acceptConnection() throws IOException;
 
+    int getPort();
+
 }
