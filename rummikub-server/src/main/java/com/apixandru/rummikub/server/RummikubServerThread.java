@@ -6,30 +6,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-class RummikubServer implements Runnable {
+class RummikubServerThread extends Thread {
 
-    private static final Logger log = LoggerFactory.getLogger(RummikubServer.class);
+    private static final Logger log = LoggerFactory.getLogger(RummikubServerThread.class);
 
     private final Connector connector;
 
-    RummikubServer(Connector connector) {
+    private final AtomicBoolean continueListening = new AtomicBoolean(true);
+
+    RummikubServerThread(Connector connector) {
+        setName("Server");
         this.connector = connector;
-        log.debug("Listening on port {}", connector.getPort());
     }
 
     @Override
     public void run() {
         final ConnectionHandler joiner = new ConnectionHandler();
-        while (true) {
+        log.debug("Listening on port {}", connector.getPort());
+        while (continueListening.get()) {
             log.debug("Waiting for client...");
             joiner.attemptToJoin(newConnection());
         }
-
     }
 
     private SocketWrapper newConnection() {
@@ -39,4 +42,10 @@ class RummikubServer implements Runnable {
             throw new IllegalStateException(e.getMessage(), e);
         }
     }
+
+    public void stopListening() {
+        continueListening.set(false);
+        interrupt();
+    }
+
 }

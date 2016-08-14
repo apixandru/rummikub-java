@@ -22,7 +22,7 @@ public class Main {
         int port = getPort(args);
         ServerSocket serverSocket = new ServerSocket(port);
         Connector connector = new ServerSocketConnector(serverSocket);
-        new RummikubServer(connector).run();
+        new RummikubServerThread(connector).start();
     }
 
     static int getPort(String... args) {
@@ -32,7 +32,7 @@ public class Main {
                 return port;
             }
         }
-        log.info("No port found, defaulting to {}", DEFAULT_PORT);
+        log.debug("No port found, defaulting to {}", DEFAULT_PORT);
         return DEFAULT_PORT;
     }
 

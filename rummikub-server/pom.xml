@@ -44,7 +44,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.apixandru.rummikub.server.RummikubServer</mainClass>
+                            <mainClass>com.apixandru.rummikub.server.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
