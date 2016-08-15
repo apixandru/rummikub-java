@@ -45,7 +45,7 @@ public class Main {
                 return intValue;
             }
         } catch (NumberFormatException ex) {
-            log.warn("Cannot parse {}", string, ex);
+            log.warn("Cannot parse {}: {}", string, ex.getMessage());
         }
         return null;
     }

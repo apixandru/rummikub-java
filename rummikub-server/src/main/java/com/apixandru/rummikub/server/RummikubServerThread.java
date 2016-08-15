@@ -34,14 +34,15 @@ class RummikubServerThread extends Thread {
 
     @Override
     public void run() {
-        final ConnectionHandler joiner = new ConnectionHandler();
+        final ConnectionHandler connectionHandler = new ConnectionHandler();
         log.debug("Listening on port {}", connector.getPort());
         while (continueListening.get()) {
             if (acceptedConnection.get()) {
                 log.debug("Waiting for client...");
             }
-            newConnection().ifPresent(joiner::attemptToJoin);
+            newConnection().ifPresent(connectionHandler::attemptToJoin);
         }
+        connectionHandler.disconnectAll();
     }
 
     private Optional<SocketWrapper> newConnection() {
@@ -58,7 +59,7 @@ class RummikubServerThread extends Thread {
         }
     }
 
-    public void stopListening() {
+    public void shutdown() {
         log.debug("Stop requested");
         continueListening.set(false);
         interrupt();

@@ -45,4 +45,8 @@ class ConnectionHandler {
         new Thread(stateChangeListener, playerName).start();
     }
 
+    public void disconnectAll() {
+
+    }
+
 }

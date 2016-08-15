@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -24,9 +23,7 @@ public class RummikubServerThreadTest {
 
         MILLISECONDS.sleep(100);
 
-        thread.stopListening();
-
-        SECONDS.sleep(1);
+        thread.shutdown();
 
         thread.join();
     }
