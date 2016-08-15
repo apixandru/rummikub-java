@@ -2,6 +2,8 @@ package com.apixandru.rummikub.brotocol2;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.SocketException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -13,6 +15,10 @@ public class ServerSocketConnector implements Connector {
 
     public ServerSocketConnector(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
+    }
+
+    public void setSocketTimeout(long duration, TimeUnit timeUnit) throws SocketException {
+        this.serverSocket.setSoTimeout((int) timeUnit.toMillis(duration));
     }
 
     @Override

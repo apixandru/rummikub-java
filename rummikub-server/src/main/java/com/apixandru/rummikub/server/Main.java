@@ -1,12 +1,13 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.brotocol2.Connector;
 import com.apixandru.rummikub.brotocol2.ServerSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -21,7 +22,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         int port = getPort(args);
         ServerSocket serverSocket = new ServerSocket(port);
-        Connector connector = new ServerSocketConnector(serverSocket);
+        ServerSocketConnector connector = new ServerSocketConnector(serverSocket);
+        connector.setSocketTimeout(5, SECONDS);
         new RummikubServerThread(connector).start();
     }
 
