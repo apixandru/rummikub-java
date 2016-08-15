@@ -16,6 +16,7 @@
         <module>rummikub-connector-client</module>
         <module>rummikub-server</module>
         <module>rummikub-api</module>
+        <module>mock-socket</module>
     </modules>
 
     <properties>
@@ -108,6 +109,12 @@
                 <groupId>com.apixandru.utils</groupId>
                 <artifactId>swing</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.apixandru.rummikub</groupId>
+                <artifactId>mock-socket</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
