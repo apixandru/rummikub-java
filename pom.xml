@@ -17,6 +17,7 @@
         <module>rummikub-server</module>
         <module>rummikub-api</module>
         <module>mock-socket</module>
+        <module>rummikub-connection</module>
     </modules>
 
     <properties>
@@ -93,6 +94,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>rummikub-brotocol</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>rummikub-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

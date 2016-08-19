@@ -29,7 +29,7 @@ import java.util.Map;
  * @author Alexandru-Constantin Bledea
  * @since 1/13/16
  */
-final class RummikubSerializer implements Serializer {
+public final class RummikubSerializer implements Serializer {
 
     private final Map<Integer, Class> packets = new HashMap<>();
 
