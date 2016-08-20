@@ -69,8 +69,12 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
     }
 
     @Override
-    public void close() throws IOException {
-        this.connection.close();
+    public void close() {
+        try {
+            this.connection.close();
+        } catch (IOException e) {
+            throw new IllegalStateException("Cannot close"); // handle dis
+        }
     }
 
 }
