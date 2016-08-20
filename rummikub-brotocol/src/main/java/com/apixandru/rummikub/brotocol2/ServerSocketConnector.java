@@ -13,8 +13,12 @@ public class ServerSocketConnector implements Connector {
 
     private final ServerSocket serverSocket;
 
-    public ServerSocketConnector(ServerSocket serverSocket) {
-        this.serverSocket = serverSocket;
+    public ServerSocketConnector(int port) throws IOException {
+        this.serverSocket = new ServerSocket(port);
+    }
+
+    public static ServerSocketConnector randomPortServerSocketConnector() throws IOException {
+        return new ServerSocketConnector(0);
     }
 
     public void setSocketTimeout(long duration, TimeUnit timeUnit) throws SocketException {

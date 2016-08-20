@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -21,8 +20,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         int port = getPort(args);
-        ServerSocket serverSocket = new ServerSocket(port);
-        ServerSocketConnector connector = new ServerSocketConnector(serverSocket);
+        ServerSocketConnector connector = new ServerSocketConnector(port);
         connector.setSocketTimeout(5, SECONDS);
         new RummikubServerThread(connector).start();
     }

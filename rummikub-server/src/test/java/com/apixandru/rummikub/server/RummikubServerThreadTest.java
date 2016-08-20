@@ -4,7 +4,6 @@ import com.apixandru.rummikub.brotocol2.ServerSocketConnector;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
@@ -16,7 +15,7 @@ public class RummikubServerThreadTest {
 
     @Test(timeout = 5000)
     public void testStop() throws IOException, InterruptedException {
-        ServerSocketConnector connector = new ServerSocketConnector(new ServerSocket(0));
+        ServerSocketConnector connector = ServerSocketConnector.randomPortServerSocketConnector();
         connector.setSocketTimeout(500, MILLISECONDS);
         RummikubServerThread thread = new RummikubServerThread(connector);
         thread.start();
