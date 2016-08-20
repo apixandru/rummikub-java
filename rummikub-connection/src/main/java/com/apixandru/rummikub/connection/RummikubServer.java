@@ -4,72 +4,72 @@ import com.apixandru.rummikub.connection.packet.ServerShutdownBroadcast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.Closeable;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import static com.apixandru.rummikub.connection.util.Util.closeQuietly;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since Aug 16, 2016
  */
-public class RummikubServer implements Runnable, Closeable {
+public class RummikubServer implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(RummikubServer.class);
 
-    private final ServerSocket serverSocket;
+    private final PacketConnector packetConnector;
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
-    private final List<RummikubConnection> clients = new ArrayList<>();
+    private final List<PacketConnection> clients = new ArrayList<>();
 
-    public RummikubServer(ServerSocket serverSocket) {
-        this.serverSocket = serverSocket;
+    public RummikubServer(PacketConnector packetConnector) {
+        this.packetConnector = packetConnector;
+    }
+
+    private static void disconnectClient(PacketConnection connection) {
+        log.debug("Disconnecting client...");
+        connection.writePacket(new ServerShutdownBroadcast());
+        closeQuietly(connection);
     }
 
     @Override
     public void run() {
+        log.debug("Server started. Waiting for connections on port {}", packetConnector.getPort());
         while (continueReading.get()) {
-            RummikubConnection socket = tryAccept();
-            if (null != socket) {
-                clients.add(socket);
+            PacketConnection connection = tryAccept();
+            if (null != connection) {
+                accept(connection);
             }
         }
         disconnectClients();
+    }
+
+    private void accept(PacketConnection connection) {
+        clients.add(connection);
+        log.debug("Accepted connection");
     }
 
     private void disconnectClients() {
         clients.forEach(RummikubServer::disconnectClient);
     }
 
-    private static void disconnectClient(RummikubConnection connection) {
-        connection.writePacket(new ServerShutdownBroadcast());
+    private PacketConnection tryAccept() {
+        log.debug("Trying to connect...");
         try {
-            connection.close();
+            return packetConnector.acceptConnection();
         } catch (IOException e) {
-            throw new IllegalStateException(e); // ignore this?
+            log.error("Failed to connect", e);
+            return null;
         }
     }
 
-    private RummikubConnection tryAccept() {
-        while (continueReading.get()) {
-            try {
-                return new RummikubConnection(serverSocket.accept());
-            } catch (SocketTimeoutException timeoutException) {
-                // give the server a chance to exit
-            } catch (IOException e) {
-                log.error("Failed to connect", e);
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public void close() throws IOException {
+    public void shutdown() {
+        log.debug("Shutdown requested.");
         continueReading.set(false);
+        packetConnector.stopAccepting();
     }
 
 }

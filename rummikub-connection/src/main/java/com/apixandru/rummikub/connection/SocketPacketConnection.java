@@ -1,8 +1,6 @@
 package com.apixandru.rummikub.connection;
 
 import com.apixandru.rummikub.brotocol.Packet;
-import com.apixandru.rummikub.brotocol.PacketReader;
-import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.RummikubSerializer;
 import com.apixandru.rummikub.brotocol.Serializer;
 
@@ -13,48 +11,49 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import static com.apixandru.rummikub.connection.util.Util.closeQuietly;
+
 /**
  * @author Alexandru-Constantin Bledea
- * @since Aug 18, 2016
+ * @since Aug 19, 2016
  */
-public class RummikubConnection implements PacketReader, PacketWriter {
+public class SocketPacketConnection implements PacketConnection {
 
     private final Serializer serializer = new RummikubSerializer();
 
     private final Socket socket;
-    private final DataInputStream in;
     private final DataOutputStream out;
+    private final DataInputStream in;
 
-    public RummikubConnection(Socket socket) throws IOException {
+    public SocketPacketConnection(Socket socket) throws IOException {
         this.socket = socket;
+
         this.out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        this.out.flush(); // inform consumer that we're a data stream
+        this.out.flush();
 
         this.in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-    }
 
+    }
 
     @Override
     public void writePacket(Packet packet) {
-        synchronized (out) {
-            try {
+        try {
+            synchronized (out) {
                 serializer.serialize(packet, out);
-            } catch (IOException e) {
-                throw new IllegalStateException(e);
             }
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to send packet", e);
         }
     }
 
     @Override
     public Packet readPacket() throws IOException {
-        return serializer.deserialize(in);
+        return serializer.deserialize(this.in);
     }
 
     @Override
-    public void close() throws IOException {
-        this.in.close();
-        this.out.close();
-        this.socket.close();
+    public void close() {
+        closeQuietly(in, out, socket);
     }
 
 }
