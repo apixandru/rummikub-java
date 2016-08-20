@@ -7,9 +7,10 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static java.util.stream.Collectors.joining;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -26,6 +27,10 @@ public final class TestUtils {
         Thread thread = new Thread(runnable);
         thread.start();
         return thread;
+    }
+
+    public static void awaitCompletion1Second(Thread thread) {
+        awaitCompletion(thread, 1, SECONDS);
     }
 
     public static void awaitCompletion(Thread thread, int time, TimeUnit timeUnit) {
@@ -46,11 +51,8 @@ public final class TestUtils {
     }
 
     public static <P extends Packet> P safeCast(Packet packet, Class<P> clasz) {
-        if (clasz.isInstance(packet)) {
-            return clasz.cast(packet);
-        }
-        fail("Expecting " + clasz.getName() + " but got " + packet.getClass().getName());
-        throw new IllegalStateException("We cannot get here!");
+        assertEquals("Wrong class", clasz, packet.getClass());
+        return clasz.cast(packet);
     }
 
     public static String getClassNames(List<?> objects) {

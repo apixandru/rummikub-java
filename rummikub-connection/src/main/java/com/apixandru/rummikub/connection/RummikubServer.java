@@ -49,6 +49,10 @@ public class RummikubServer implements Runnable {
         this.maximumConnections = maximumConnections;
     }
 
+    public int getAvailableNumberOfConnections() {
+        return maximumConnections - clients.size();
+    }
+
     @Override
     public void run() {
         log.debug("Server started. Waiting for connections on port {}", packetConnector.getPort());
@@ -62,7 +66,7 @@ public class RummikubServer implements Runnable {
         if (null == connection) {
             return;
         }
-        if (maximumConnections > clients.size()) {
+        if (getAvailableNumberOfConnections() > 0) {
             accept(connection);
         } else {
             reject(connection);

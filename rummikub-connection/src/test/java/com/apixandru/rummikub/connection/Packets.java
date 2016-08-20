@@ -8,6 +8,7 @@ import com.apixandru.rummikub.connection.packet.ServerShutdownBroadcast;
 import static com.apixandru.rummikub.connection.TestUtils.safeCast;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -18,13 +19,9 @@ public final class Packets {
     private Packets() {
     }
 
-    public static boolean assertAcceptedConnection(Packet packet) {
+    public static void assertAcceptedConnection(Packet packet) {
         ConnectionResponse connectionResponse = safeCast(packet, ConnectionResponse.class);
-        return connectionResponse.accepted;
-    }
-
-    public static void assertShutdownSent(Packet packet) {
-        safeCast(packet, ServerShutdownBroadcast.class);
+        assertTrue("Expected connection to be accepted", connectionResponse.accepted);
     }
 
     public static void assertAcceptedThenShutdown(MockPacketConnection... connections) {

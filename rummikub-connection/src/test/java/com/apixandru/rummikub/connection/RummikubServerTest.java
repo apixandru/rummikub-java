@@ -1,16 +1,16 @@
 package com.apixandru.rummikub.connection;
 
+import com.apixandru.rummikub.connection.packet.client.ExitRequest;
 import org.junit.Test;
 
 import static com.apixandru.rummikub.connection.Packets.assertAcceptedThenShutdown;
 import static com.apixandru.rummikub.connection.Packets.assertConnectionRejected;
-import static com.apixandru.rummikub.connection.TestUtils.awaitCompletion;
+import static com.apixandru.rummikub.connection.TestUtils.awaitCompletion1Second;
 import static com.apixandru.rummikub.connection.TestUtils.launchThread;
 import static com.apixandru.rummikub.connection.TestUtils.safeSleep;
 import static com.apixandru.rummikub.connection.packet.ReasonCode.REACHED_MAXIMUM_NUMBER_OF_CONNECTIONS;
 import static java.util.Arrays.stream;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -26,8 +26,32 @@ public class RummikubServerTest {
         return packetConnector;
     }
 
-    private static void awaitCompletion1Second(Thread thread) {
-        awaitCompletion(thread, 1, SECONDS);
+    @Test(timeout = 5000L)
+    public void testNumberOfConnections() {
+        MockPacketConnector connector = new MockPacketConnector();
+
+        RummikubServer server = new RummikubServer(connector);
+        server.setMaximumConnections(1);
+
+        Thread thread = launchThread(server);
+
+        assertThat(server.getAvailableNumberOfConnections())
+                .isEqualTo(1);
+
+        MockPacketConnection packetConnection = new MockPacketConnection();
+        connector.assumeConnection(packetConnection);
+
+        safeSleep(100, MILLISECONDS);
+
+        assertThat(server.getAvailableNumberOfConnections())
+                .isEqualTo(0);
+
+        packetConnection.assumeIncomingPacket(new ExitRequest());
+//
+//        assertThat(server.getAvailableNumberOfConnections())
+//                .isEqualTo(1);
+
+
     }
 
     @Test(timeout = 5000L)
