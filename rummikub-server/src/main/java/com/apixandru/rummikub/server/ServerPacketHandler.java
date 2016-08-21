@@ -12,6 +12,7 @@ import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
 import com.apixandru.rummikub.brotocol.util.Reference;
+import com.apixandru.rummikub.brotocol2.ConnectionListener;
 import com.apixandru.rummikub.server.game.EndTurnHandler;
 import com.apixandru.rummikub.server.game.MoveCardHandler;
 import com.apixandru.rummikub.server.game.PlaceCardOnBoardHandler;
@@ -74,6 +75,24 @@ class ServerPacketHandler implements ConnectorPacketHandler {
     @Override
     public boolean isReady() {
         return continueReading.get();
+    }
+
+    @Override
+    @Deprecated
+    public void addConnectionListener(ConnectionListener connectionListener) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
+    public void connectionLost() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
+    public void connectionCloseRequest() {
+        throw new UnsupportedOperationException();
     }
 
 }

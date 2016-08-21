@@ -2,7 +2,6 @@ package com.apixandru.rummikub.connection;
 
 import com.apixandru.rummikub.brotocol.Packet;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -26,12 +25,12 @@ public class MockPacketConnection implements PacketConnection {
     private final Queue<Packet> inputPackets = new ConcurrentLinkedDeque<>();
 
     @Override
-    public void writePacket(Packet packet) {
-        packets.add(packet);
+    public boolean trySendPacket(Packet packet) {
+        return packets.add(packet);
     }
 
     @Override
-    public Packet readPacket() throws IOException {
+    public Packet readPacket() {
         return inputPackets.poll();
     }
 

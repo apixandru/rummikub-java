@@ -7,11 +7,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.apixandru.rummikub.connection.packet.ReasonCode.REACHED_MAXIMUM_NUMBER_OF_CONNECTIONS;
-import static com.apixandru.rummikub.connection.util.Util.closeQuietly;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -35,14 +35,16 @@ public class RummikubServer implements Runnable {
 
     private static void disconnectClient(PacketConnection connection) {
         log.debug("Disconnecting client...");
-        connection.writePacket(new ServerShutdownBroadcast());
-        closeQuietly(connection);
+        if (connection.trySendPacket(new ServerShutdownBroadcast())) {
+            connection.close();
+        }
     }
 
     private static void reject(PacketConnection connection) {
-        connection.writePacket(new ConnectionResponse(false, REACHED_MAXIMUM_NUMBER_OF_CONNECTIONS));
-        connection.close();
         log.debug("Rejected connection");
+        if (connection.trySendPacket(new ConnectionResponse(false, REACHED_MAXIMUM_NUMBER_OF_CONNECTIONS))) {
+            connection.close();
+        }
     }
 
     public void setMaximumConnections(int maximumConnections) {
@@ -53,20 +55,24 @@ public class RummikubServer implements Runnable {
         return maximumConnections - clients.size();
     }
 
+    public boolean hasAvailableConnection() {
+        return getAvailableNumberOfConnections() > 0;
+    }
+
     @Override
     public void run() {
         log.debug("Server started. Waiting for connections on port {}", packetConnector.getPort());
         while (continueReading.get()) {
-            handle(tryAccept());
+            PacketConnection connection = tryAccept();
+            if (null != connection) {
+                handle(connection);
+            }
         }
         disconnectClients();
     }
 
     private void handle(PacketConnection connection) {
-        if (null == connection) {
-            return;
-        }
-        if (getAvailableNumberOfConnections() > 0) {
+        if (hasAvailableConnection()) {
             accept(connection);
         } else {
             reject(connection);
@@ -75,13 +81,19 @@ public class RummikubServer implements Runnable {
     }
 
     private void accept(PacketConnection connection) {
-        clients.add(connection);
-        connection.writePacket(new ConnectionResponse(true, null));
-        log.debug("Accepted connection");
+        if (connection.trySendPacket(new ConnectionResponse(true, null))) {
+            clients.add(connection);
+            log.debug("Accepted connection");
+        }
     }
 
     private void disconnectClients() {
-        clients.forEach(RummikubServer::disconnectClient);
+        Iterator<PacketConnection> it = clients.iterator();
+        while (it.hasNext()) {
+            PacketConnection client = it.next();
+            it.remove();
+            disconnectClient(client);
+        }
     }
 
     private PacketConnection tryAccept() {
