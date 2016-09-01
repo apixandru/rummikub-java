@@ -16,7 +16,6 @@
         <module>rummikub-connector-client</module>
         <module>rummikub-server</module>
         <module>rummikub-api</module>
-        <module>mock-socket</module>
         <module>rummikub-connection</module>
     </modules>
 
