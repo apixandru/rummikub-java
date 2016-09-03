@@ -28,8 +28,14 @@ public class RoomTest {
         assertThat(room.join(SHIA_LABEOUF))
                 .isTrue();
 
+        assertThat(listener.getNumberOfEventsSent())
+                .isEqualTo(1);
+
         assertThat(room.join(SHIA_LABEOUF))
                 .isFalse();
+
+        assertThat(listener.getNumberOfEventsSent())
+                .isEqualTo(1);
     }
 
 }

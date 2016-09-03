@@ -1,6 +1,8 @@
 package com.apixandru.rummikub.model.room;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -9,7 +11,7 @@ import java.util.List;
  */
 public final class Room {
 
-    private final List<String> players = new ArrayList<>();
+    private final Collection<String> players = new LinkedHashSet<>();
 
     private final List<RoomListener> roomListeners = new ArrayList<>();
 

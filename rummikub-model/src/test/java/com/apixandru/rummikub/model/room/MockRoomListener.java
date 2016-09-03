@@ -45,6 +45,10 @@ public final class MockRoomListener implements RoomListener {
         return allPlayersNow;
     }
 
+    public int getNumberOfEventsSent() {
+        return events.size();
+    }
+
     static class MockRoomListenerEvent {
 
         final boolean joined;
