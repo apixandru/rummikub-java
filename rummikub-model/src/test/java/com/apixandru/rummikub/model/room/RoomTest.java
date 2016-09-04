@@ -3,6 +3,7 @@ package com.apixandru.rummikub.model.room;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.apixandru.rummikub.model.room.MockRoomListener.MockRoomListenerEvent.joined;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -36,6 +37,12 @@ public class RoomTest {
 
         assertThat(listener.getNumberOfEventsSent())
                 .isEqualTo(1);
+    }
+
+    @Test
+    public void assertJoinEventSent() {
+        room.join(SHIA_LABEOUF);
+        listener.assertSent(joined(SHIA_LABEOUF));
     }
 
 }
