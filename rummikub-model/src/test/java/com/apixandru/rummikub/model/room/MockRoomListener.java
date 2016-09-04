@@ -1,11 +1,8 @@
 package com.apixandru.rummikub.model.room;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import static com.apixandru.rummikub.model.room.MockRoomListener.MockRoomListenerEvent.joined;
 import static com.apixandru.rummikub.model.room.MockRoomListener.MockRoomListenerEvent.left;
@@ -21,24 +18,13 @@ final class MockRoomListener implements RoomListener {
 
     private final List<MockRoomListenerEvent> events = new ArrayList<>();
 
-    private final Set<String> allPlayersNow = new LinkedHashSet<>();
-
     @Override
     public void playerJoined(String playerName) {
-
-        assertThat(allPlayersNow.add(playerName))
-                .as("Expecting " + playerName + " to not already be in the room")
-                .isTrue();
-
         events.add(joined(playerName));
     }
 
     @Override
     public void playerLeft(String playerName) {
-        assertThat(allPlayersNow.remove(playerName))
-                .as("Expecting " + playerName + " to already be in the room")
-                .isTrue();
-
         events.add(left(playerName));
     }
 
@@ -48,22 +34,16 @@ final class MockRoomListener implements RoomListener {
         this.events.clear();
     }
 
-    public List<MockRoomListenerEvent> getEvents() {
-        return events;
-    }
-
-    public Collection<String> getAllPlayersNow() {
-        return allPlayersNow;
-    }
-
-    public int getNumberOfEventsSent() {
-        return events.size();
+    public void assertNoEventSent() {
+        assertThat(this.events)
+                .as("Expecting no events")
+                .isEmpty();
     }
 
     static class MockRoomListenerEvent {
 
-        final boolean joined;
-        final String playerName;
+        private final boolean joined;
+        private final String playerName;
 
         private MockRoomListenerEvent(boolean joined, String playerName) {
             this.joined = joined;

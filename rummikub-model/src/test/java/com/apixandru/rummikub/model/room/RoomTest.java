@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.apixandru.rummikub.model.room.MockRoomListener.MockRoomListenerEvent.joined;
+import static com.apixandru.rummikub.model.room.MockRoomListener.MockRoomListenerEvent.left;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -26,23 +27,45 @@ public class RoomTest {
 
     @Test
     public void assertJoinTwice() {
-        assertThat(room.join(SHIA_LABEOUF))
-                .isTrue();
-
-        assertThat(listener.getNumberOfEventsSent())
-                .isEqualTo(1);
+        room.join(SHIA_LABEOUF);
+        listener.assertSent(joined(SHIA_LABEOUF));
 
         assertThat(room.join(SHIA_LABEOUF))
                 .isFalse();
 
-        assertThat(listener.getNumberOfEventsSent())
-                .isEqualTo(1);
+        listener.assertNoEventSent();
     }
 
     @Test
     public void assertJoinEventSent() {
-        room.join(SHIA_LABEOUF);
+        assertThat(room.join(SHIA_LABEOUF))
+                .isTrue();
+
         listener.assertSent(joined(SHIA_LABEOUF));
+    }
+
+    @Test
+    public void testRemoveListener() {
+        room.removeRoomListener(listener);
+        room.join(SHIA_LABEOUF);
+        listener.assertNoEventSent();
+    }
+
+    @Test
+    public void testPlayerLeaveNotJoin() {
+        assertThat(room.leave(SHIA_LABEOUF))
+                .isFalse();
+        listener.assertNoEventSent();
+    }
+
+    @Test
+    public void testPlayerLeave() {
+        room.join(SHIA_LABEOUF);
+
+        assertThat(room.leave(SHIA_LABEOUF))
+                .isTrue();
+
+        listener.assertSent(joined(SHIA_LABEOUF), left(SHIA_LABEOUF));
     }
 
 }
