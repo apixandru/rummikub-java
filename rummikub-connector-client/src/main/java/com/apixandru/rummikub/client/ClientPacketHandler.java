@@ -4,7 +4,7 @@ import com.apixandru.rummikub.api.BoardListener;
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.PlayerCallback;
 import com.apixandru.rummikub.api.StartGameListener;
-import com.apixandru.rummikub.api.WaitingRoomListener;
+import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.brotocol.ConnectorPacketHandler;
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol.PacketHandler;
@@ -42,7 +42,7 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
     private static final Logger log = LoggerFactory.getLogger(ClientPacketHandler.class);
 
     private final Reference<BoardListener> boardListener = new Reference<>();
-    private final Reference<WaitingRoomListener> waitingRoomListener = new Reference<>();
+    private final Reference<RummikubRoomListener> waitingRoomListener = new Reference<>();
     private final Reference<PlayerCallback<Integer>> playerCallback = new Reference<>();
     private final Reference<GameEventListener> gameEventListener = new Reference<>();
     private final Reference<StartGameListener> startGameListener = new Reference<>();
@@ -82,7 +82,7 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
         this.playerCallback.set(playerCallback);
     }
 
-    public void setWaitingRoomListener(final WaitingRoomListener waitingRoomListener) {
+    public void setWaitingRoomListener(final RummikubRoomListener waitingRoomListener) {
         this.waitingRoomListener.set(waitingRoomListener);
     }
 

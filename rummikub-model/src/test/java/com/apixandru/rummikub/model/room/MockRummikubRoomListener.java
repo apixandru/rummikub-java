@@ -1,11 +1,13 @@
 package com.apixandru.rummikub.model.room;
 
+import com.apixandru.rummikub.api.room.RummikubRoomListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.apixandru.rummikub.model.room.MockRoomListener.MockRoomListenerEvent.joined;
-import static com.apixandru.rummikub.model.room.MockRoomListener.MockRoomListenerEvent.left;
+import static com.apixandru.rummikub.model.room.MockRummikubRoomListener.MockRoomListenerEvent.joined;
+import static com.apixandru.rummikub.model.room.MockRummikubRoomListener.MockRoomListenerEvent.left;
 import static java.util.Arrays.asList;
 import static java.util.Objects.hash;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Alexandru-Constantin Bledea
  * @since Sep 02, 2016
  */
-final class MockRoomListener implements RoomListener {
+final class MockRummikubRoomListener implements RummikubRoomListener {
 
     private final List<MockRoomListenerEvent> events = new ArrayList<>();
 

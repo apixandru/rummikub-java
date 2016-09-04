@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.client.waiting;
 
-import com.apixandru.rummikub.api.WaitingRoomListener;
+import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
 
@@ -12,9 +12,9 @@ import java.util.function.Supplier;
  */
 public final class PlayerLeftHandler implements PacketHandler<PacketPlayerLeft> {
 
-    private final Supplier<WaitingRoomListener> waitingRoomListeners;
+    private final Supplier<RummikubRoomListener> waitingRoomListeners;
 
-    public PlayerLeftHandler(final Supplier<WaitingRoomListener> waitingRoomListeners) {
+    public PlayerLeftHandler(final Supplier<RummikubRoomListener> waitingRoomListeners) {
         this.waitingRoomListeners = waitingRoomListeners;
     }
 

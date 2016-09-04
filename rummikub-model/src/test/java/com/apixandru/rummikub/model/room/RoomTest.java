@@ -3,8 +3,8 @@ package com.apixandru.rummikub.model.room;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.apixandru.rummikub.model.room.MockRoomListener.MockRoomListenerEvent.joined;
-import static com.apixandru.rummikub.model.room.MockRoomListener.MockRoomListenerEvent.left;
+import static com.apixandru.rummikub.model.room.MockRummikubRoomListener.MockRoomListenerEvent.joined;
+import static com.apixandru.rummikub.model.room.MockRummikubRoomListener.MockRoomListenerEvent.left;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -17,12 +17,12 @@ public class RoomTest {
     private static final String CHRISTIAN_BALE = "Christian Bale";
 
     private Room room;
-    private MockRoomListener listener;
+    private MockRummikubRoomListener listener;
 
     @Before
     public void setup() {
         room = new Room();
-        listener = new MockRoomListener();
+        listener = new MockRummikubRoomListener();
         room.addRoomListener(listener);
     }
 

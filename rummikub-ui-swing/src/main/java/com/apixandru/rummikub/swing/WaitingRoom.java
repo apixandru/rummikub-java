@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.StartGameListener;
-import com.apixandru.rummikub.api.WaitingRoomListener;
+import com.apixandru.rummikub.api.room.RummikubRoomListener;
 
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
@@ -25,7 +25,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  * @author Alexandru-Constantin Bledea
  * @since March 29, 2016
  */
-class WaitingRoom extends JPanel implements WaitingRoomListener {
+class WaitingRoom extends JPanel implements RummikubRoomListener {
 
     private final DefaultListModel<String> playerListModel = new DefaultListModel<>();
 

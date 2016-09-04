@@ -1,10 +1,10 @@
-package com.apixandru.rummikub.api;
+package com.apixandru.rummikub.api.room;
 
 /**
  * @author Alexandru-Constantin Bledea
- * @since April 09, 2016
+ * @since Sep 02, 2016
  */
-public interface WaitingRoomListener {
+public interface RummikubRoomListener {
 
     void playerJoined(String playerName);
 

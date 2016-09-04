@@ -11,7 +11,7 @@ import com.apixandru.rummikub.server.game.ServerBoardListener;
 import com.apixandru.rummikub.server.game.ServerGameEventListener;
 import com.apixandru.rummikub.server.game.ServerPlayerCallback;
 import com.apixandru.rummikub.server.game.TrackingGameConfigurer;
-import com.apixandru.rummikub.server.waiting.ServerWaitingRoomListener;
+import com.apixandru.rummikub.server.waiting.ServerRummikubRoomListener;
 
 import java.util.Optional;
 
@@ -30,7 +30,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     private final SocketPacketProcessor socketPacketProcessor;
 
     private Optional<TrackingGameConfigurer> trackingGameConfigurer = empty();
-    private Optional<ServerWaitingRoomListener> serverWaitingRoomListener = empty();
+    private Optional<ServerRummikubRoomListener> serverWaitingRoomListener = empty();
 
     ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper, final ConnectionListener connectionListener) {
         this.playerName = playerName;
@@ -45,9 +45,9 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
 
 //        trackingGameConfigurer.ifPresent(TrackingGameConfigurer::cleanup);
         serverPacketHandler.reset();
-        ServerWaitingRoomListener serverWaitingRoomListener = new ServerWaitingRoomListener(socketWrapper);
-        this.serverWaitingRoomListener = of(serverWaitingRoomListener);
-        configurer.registerListener(serverWaitingRoomListener);
+        ServerRummikubRoomListener serverRummikubRoomListener = new ServerRummikubRoomListener(socketWrapper);
+        this.serverWaitingRoomListener = of(serverRummikubRoomListener);
+        configurer.registerListener(serverRummikubRoomListener);
         serverPacketHandler.setStartGameListenerProvider(configurer);
     }
 

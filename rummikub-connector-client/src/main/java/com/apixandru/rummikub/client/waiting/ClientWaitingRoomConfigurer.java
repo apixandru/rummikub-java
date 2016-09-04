@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.client.waiting;
 
 import com.apixandru.rummikub.api.WaitingRoomConfigurer;
-import com.apixandru.rummikub.api.WaitingRoomListener;
+import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.connect.client.PacketStart;
 import com.apixandru.rummikub.client.ClientPacketHandler;
@@ -21,12 +21,12 @@ public class ClientWaitingRoomConfigurer implements WaitingRoomConfigurer {
     }
 
     @Override
-    public void registerListener(final WaitingRoomListener listener) {
+    public void registerListener(final RummikubRoomListener listener) {
         packetHandler.setWaitingRoomListener(listener);
     }
 
     @Override
-    public void unregisterListener(WaitingRoomListener listener) {
+    public void unregisterListener(RummikubRoomListener listener) {
         packetHandler.setWaitingRoomListener(null);
     }
 

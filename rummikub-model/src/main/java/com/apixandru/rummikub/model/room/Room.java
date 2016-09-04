@@ -1,5 +1,7 @@
 package com.apixandru.rummikub.model.room;
 
+import com.apixandru.rummikub.api.room.RummikubRoomListener;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -13,14 +15,14 @@ public final class Room {
 
     private final Collection<String> players = new LinkedHashSet<>();
 
-    private final List<RoomListener> roomListeners = new ArrayList<>();
+    private final List<RummikubRoomListener> roomListeners = new ArrayList<>();
 
-    public void addRoomListener(RoomListener roomListener) {
+    public void addRoomListener(RummikubRoomListener roomListener) {
         players.forEach(roomListener::playerJoined);
         this.roomListeners.add(roomListener);
     }
 
-    public void removeRoomListener(RoomListener roomListener) {
+    public void removeRoomListener(RummikubRoomListener roomListener) {
         this.roomListeners.remove(roomListener);
     }
 

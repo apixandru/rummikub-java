@@ -4,7 +4,7 @@ import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.GameOverReason;
 import com.apixandru.rummikub.api.StateChangeListener;
 import com.apixandru.rummikub.api.WaitingRoomConfigurer;
-import com.apixandru.rummikub.api.WaitingRoomListener;
+import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.model.game.GameConfigurerImpl;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class RummikubImpl implements GameEventListener, WaitingRoomConfigurer {
 
     private final Map<String, StateChangeListener> players = new HashMap<>();
 
-    private final List<WaitingRoomListener> waitingRoomListeners = new ArrayList<>();
+    private final List<RummikubRoomListener> waitingRoomListeners = new ArrayList<>();
 
     private GameConfigurerImpl gameConfigurer;
 
@@ -98,12 +98,12 @@ public class RummikubImpl implements GameEventListener, WaitingRoomConfigurer {
     }
 
     @Override
-    public void registerListener(final WaitingRoomListener listener) {
+    public void registerListener(final RummikubRoomListener listener) {
         waitingRoomListeners.add(listener);
     }
 
     @Override
-    public void unregisterListener(WaitingRoomListener listener) {
+    public void unregisterListener(RummikubRoomListener listener) {
         waitingRoomListeners.remove(listener);
     }
 

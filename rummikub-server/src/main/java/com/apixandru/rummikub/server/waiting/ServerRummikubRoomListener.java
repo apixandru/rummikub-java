@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.server.waiting;
 
-import com.apixandru.rummikub.api.WaitingRoomListener;
+import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
@@ -9,11 +9,11 @@ import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
  * @author Alexandru-Constantin Bledea
  * @since April 15, 2016
  */
-public class ServerWaitingRoomListener implements WaitingRoomListener {
+public class ServerRummikubRoomListener implements RummikubRoomListener {
 
     private final PacketWriter packetWriter;
 
-    public ServerWaitingRoomListener(final PacketWriter packetWriter) {
+    public ServerRummikubRoomListener(final PacketWriter packetWriter) {
         this.packetWriter = packetWriter;
     }
 
