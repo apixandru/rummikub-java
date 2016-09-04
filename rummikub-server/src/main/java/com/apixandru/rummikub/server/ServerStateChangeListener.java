@@ -1,8 +1,8 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.api.GameConfigurer;
-import com.apixandru.rummikub.api.StateChangeListener;
-import com.apixandru.rummikub.api.room.RummikubRoomConfigurer;
+import com.apixandru.rummikub.api.config.GameConfigurer;
+import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
+import com.apixandru.rummikub.api.config.StateChangeListener;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;

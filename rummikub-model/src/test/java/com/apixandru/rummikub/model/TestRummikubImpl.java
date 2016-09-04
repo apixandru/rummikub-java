@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.model;
 
-import com.apixandru.rummikub.api.StateChangeListener;
+import com.apixandru.rummikub.api.config.StateChangeListener;
 import com.apixandru.rummikub.model.RummikubException.Reason;
 import org.junit.Before;
 import org.junit.Rule;

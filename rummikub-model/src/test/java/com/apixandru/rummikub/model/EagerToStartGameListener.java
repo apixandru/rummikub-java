@@ -1,8 +1,8 @@
 package com.apixandru.rummikub.model;
 
-import com.apixandru.rummikub.api.GameConfigurer;
-import com.apixandru.rummikub.api.StateChangeListener;
-import com.apixandru.rummikub.api.room.RummikubRoomConfigurer;
+import com.apixandru.rummikub.api.config.GameConfigurer;
+import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
+import com.apixandru.rummikub.api.config.StateChangeListener;
 
 /**
  * @author Alexandru-Constantin Bledea

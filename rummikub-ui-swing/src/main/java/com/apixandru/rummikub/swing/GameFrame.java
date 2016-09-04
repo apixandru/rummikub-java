@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.rummikub.api.GameConfigurer;
+import com.apixandru.rummikub.api.config.GameConfigurer;
 import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.utils.swing.ComponentDragSource;
 

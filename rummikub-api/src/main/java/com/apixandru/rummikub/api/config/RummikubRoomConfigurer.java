@@ -1,4 +1,7 @@
-package com.apixandru.rummikub.api.room;
+package com.apixandru.rummikub.api.config;
+
+import com.apixandru.rummikub.api.room.RummikubRoomListener;
+import com.apixandru.rummikub.api.room.StartGameListener;
 
 /**
  * @author Alexandru-Constantin Bledea

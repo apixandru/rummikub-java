@@ -1,6 +1,4 @@
-package com.apixandru.rummikub.api;
-
-import com.apixandru.rummikub.api.room.RummikubRoomConfigurer;
+package com.apixandru.rummikub.api.config;
 
 /**
  * @author Alexandru-Constantin Bledea

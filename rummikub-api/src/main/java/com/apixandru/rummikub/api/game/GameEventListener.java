@@ -1,7 +1,5 @@
 package com.apixandru.rummikub.api.game;
 
-import com.apixandru.rummikub.api.game.GameOverReason;
-
 /**
  * @author Alexandru-Constantin Bledea
  * @since January 09, 2016

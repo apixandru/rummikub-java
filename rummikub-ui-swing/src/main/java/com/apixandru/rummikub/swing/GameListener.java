@@ -1,8 +1,8 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.rummikub.api.game.GameEventListener;
 import com.apixandru.rummikub.api.game.BoardListener;
 import com.apixandru.rummikub.api.game.Card;
+import com.apixandru.rummikub.api.game.GameEventListener;
 import com.apixandru.rummikub.api.game.GameOverReason;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
 

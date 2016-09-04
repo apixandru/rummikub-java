@@ -1,9 +1,9 @@
 package com.apixandru.rummikub.model;
 
+import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
+import com.apixandru.rummikub.api.config.StateChangeListener;
 import com.apixandru.rummikub.api.game.GameEventListener;
-import com.apixandru.rummikub.api.StateChangeListener;
 import com.apixandru.rummikub.api.game.GameOverReason;
-import com.apixandru.rummikub.api.room.RummikubRoomConfigurer;
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.model.game.GameConfigurerImpl;
 

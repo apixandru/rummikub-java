@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.client;
 
-import com.apixandru.rummikub.api.StateChangeListener;
+import com.apixandru.rummikub.api.config.StateChangeListener;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
 import com.apixandru.rummikub.brotocol.util.SocketPacketProcessor;

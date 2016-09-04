@@ -1,8 +1,8 @@
 package com.apixandru.rummikub.model.game;
 
-import com.apixandru.rummikub.api.game.GameEventListener;
 import com.apixandru.rummikub.api.game.BoardListener;
 import com.apixandru.rummikub.api.game.Card;
+import com.apixandru.rummikub.api.game.GameEventListener;
 import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.rummikub.api.game.PlayerCallback;
 
