@@ -15,12 +15,13 @@ public final class Room {
 
     private final List<RoomListener> roomListeners = new ArrayList<>();
 
-    public void addRoomListener(RoomListener RoomListener) {
-        this.roomListeners.add(RoomListener);
+    public void addRoomListener(RoomListener roomListener) {
+        players.forEach(roomListener::playerJoined);
+        this.roomListeners.add(roomListener);
     }
 
-    public void removeRoomListener(RoomListener RoomListener) {
-        this.roomListeners.remove(RoomListener);
+    public void removeRoomListener(RoomListener roomListener) {
+        this.roomListeners.remove(roomListener);
     }
 
     public boolean join(String playerName) {

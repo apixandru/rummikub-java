@@ -14,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RoomTest {
 
     private static final String SHIA_LABEOUF = "Shia LaBeouf";
+    private static final String CHRISTIAN_BALE = "Christian Bale";
 
     private Room room;
     private MockRoomListener listener;
@@ -66,6 +67,32 @@ public class RoomTest {
                 .isTrue();
 
         listener.assertSent(joined(SHIA_LABEOUF), left(SHIA_LABEOUF));
+    }
+
+    @Test
+    public void testNotifyAllJoined() {
+        room.removeRoomListener(listener);
+
+        room.join(SHIA_LABEOUF);
+        room.join(CHRISTIAN_BALE);
+
+        room.addRoomListener(listener);
+
+        listener.assertSent(joined(SHIA_LABEOUF), joined(CHRISTIAN_BALE));
+    }
+
+    @Test
+    public void testNotifyAllJoinedButNotLeft() {
+        room.removeRoomListener(listener);
+
+        room.join(SHIA_LABEOUF);
+        room.join(CHRISTIAN_BALE);
+
+        room.leave(SHIA_LABEOUF);
+
+        room.addRoomListener(listener);
+
+        listener.assertSent(joined(CHRISTIAN_BALE));
     }
 
 }
