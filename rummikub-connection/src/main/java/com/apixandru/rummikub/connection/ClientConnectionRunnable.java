@@ -2,6 +2,7 @@ package com.apixandru.rummikub.connection;
 
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol2.ConnectionListener;
+import com.apixandru.rummikub.connection.packet.ServerShutdownBroadcast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,5 +47,13 @@ public class ClientConnectionRunnable implements Runnable, ConnectionListener {
     @Override
     public void connectionCloseRequest() {
         continueReading.set(false);
+        if (connection.trySendPacket(new ServerShutdownBroadcast())) {
+            connection.close();
+        }
     }
+
+    public ServerConnectorPacketHandler getConnectorPacketHandler() {
+        return connectorPacketHandler;
+    }
+
 }

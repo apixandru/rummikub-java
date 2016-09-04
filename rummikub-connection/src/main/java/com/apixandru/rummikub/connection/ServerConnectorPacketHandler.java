@@ -34,8 +34,17 @@ public class ServerConnectorPacketHandler implements ConnectorPacketHandler {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void handle(Packet packet) {
-
+        if (!isReady()) {
+            return;
+        }
+        Class<? extends Packet> packetClass = packet.getClass();
+        PacketHandler<Packet> packetHandler = packets.get(packetClass);
+        if (null == packetHandler) {
+            throw new IllegalArgumentException("Unexpected packet " + packetClass);
+        }
+        packetHandler.handle(packet);
     }
 
     @Override
@@ -51,11 +60,13 @@ public class ServerConnectorPacketHandler implements ConnectorPacketHandler {
     @Override
     public void connectionLost() {
         continueListening.set(false);
+        connectionListeners.forEach(ConnectionListener::connectionLost);
     }
 
     @Override
     public void connectionCloseRequest() {
         continueListening.set(false);
+        connectionListeners.forEach(ConnectionListener::connectionCloseRequest);
     }
 
 }

@@ -29,8 +29,13 @@ public final class TestUtils {
         return thread;
     }
 
-    public static void awaitCompletion1Second(Thread thread) {
+    public static void awaitCompletion1Second(Thread thread, RummikubServer server) {
         awaitCompletion(thread, 1, SECONDS);
+
+        server.getClientThreads()
+                .values()
+                .forEach(clientThread -> awaitCompletion(clientThread, 1, SECONDS));
+
     }
 
     public static void awaitCompletion(Thread thread, int time, TimeUnit timeUnit) {

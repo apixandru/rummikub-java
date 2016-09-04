@@ -68,7 +68,7 @@ public class RummikubServerTest {
         safeSleep(100, MILLISECONDS);
         rummikubServer.shutdown();
 
-        awaitCompletion1Second(thread);
+        awaitCompletion1Second(thread, rummikubServer);
 
         denied1.assertNextPacket(packet -> assertConnectionRejected(packet, REACHED_MAXIMUM_NUMBER_OF_CONNECTIONS));
         denied1.assertNoOtherPackages();
@@ -83,7 +83,7 @@ public class RummikubServerTest {
 
         rummikubServer.shutdown();
 
-        awaitCompletion1Second(thread);
+        awaitCompletion1Second(thread, rummikubServer);
     }
 
     @Test(timeout = 5000L)
@@ -103,7 +103,7 @@ public class RummikubServerTest {
         assertThat(connector.getNumberOfAcceptedClients())
                 .isEqualTo(2);
 
-        awaitCompletion1Second(thread);
+        awaitCompletion1Second(thread, rummikubServer);
 
         assertAcceptedThenShutdown(con1, con2);
     }

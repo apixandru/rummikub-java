@@ -1,17 +1,17 @@
 package com.apixandru.rummikub.connection;
 
 import com.apixandru.rummikub.connection.packet.ConnectionResponse;
-import com.apixandru.rummikub.connection.packet.ServerShutdownBroadcast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.apixandru.rummikub.connection.packet.ReasonCode.REACHED_MAXIMUM_NUMBER_OF_CONNECTIONS;
+import static java.util.Collections.unmodifiableMap;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -25,7 +25,8 @@ public class RummikubServer implements Runnable {
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
-    private final List<PacketConnection> clients = new ArrayList<>();
+    private final Map<PacketConnection, ClientConnectionRunnable> clients = new LinkedHashMap<>();
+    private final Map<PacketConnection, Thread> clientThreads = new LinkedHashMap<>();
 
     private int maximumConnections = 10;
 
@@ -33,11 +34,9 @@ public class RummikubServer implements Runnable {
         this.packetConnector = packetConnector;
     }
 
-    private static void disconnectClient(PacketConnection connection) {
+    private static void disconnectClient(ClientConnectionRunnable connection) {
         log.debug("Disconnecting client...");
-        if (connection.trySendPacket(new ServerShutdownBroadcast())) {
-            connection.close();
-        }
+        connection.getConnectorPacketHandler().connectionCloseRequest();
     }
 
     private static void reject(PacketConnection connection) {
@@ -77,20 +76,30 @@ public class RummikubServer implements Runnable {
         } else {
             reject(connection);
         }
-
     }
 
     private void accept(PacketConnection connection) {
         if (connection.trySendPacket(new ConnectionResponse(true, null))) {
-            clients.add(connection);
+            ServerConnectorPacketHandler connectorPacketHandler = new ServerConnectorPacketHandler();
+            ClientConnectionRunnable runnable = new ClientConnectionRunnable(connection, connectorPacketHandler);
+            connectorPacketHandler.addConnectionListener(runnable);
+            clients.put(connection, runnable);
             log.debug("Accepted connection");
+            launchClientThread(connection);
         }
     }
 
+    private void launchClientThread(PacketConnection connection) {
+        ClientConnectionRunnable runnable = this.clients.get(connection);
+        Thread thread = new Thread(runnable);
+        clientThreads.put(connection, thread);
+        thread.start();
+    }
+
     private void disconnectClients() {
-        Iterator<PacketConnection> it = clients.iterator();
+        Iterator<ClientConnectionRunnable> it = clients.values().iterator();
         while (it.hasNext()) {
-            PacketConnection client = it.next();
+            ClientConnectionRunnable client = it.next();
             it.remove();
             disconnectClient(client);
         }
@@ -110,6 +119,10 @@ public class RummikubServer implements Runnable {
         log.debug("Shutdown requested.");
         continueReading.set(false);
         packetConnector.stopAccepting();
+    }
+
+    Map<PacketConnection, Thread> getClientThreads() {
+        return unmodifiableMap(clientThreads);
     }
 
 }

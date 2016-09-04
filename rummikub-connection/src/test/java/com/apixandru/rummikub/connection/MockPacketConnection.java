@@ -4,13 +4,15 @@ import com.apixandru.rummikub.brotocol.Packet;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 import static com.apixandru.rummikub.connection.TestUtils.getClassNames;
 import static com.apixandru.rummikub.connection.TestUtils.safeCast;
 import static java.util.Collections.unmodifiableList;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -22,7 +24,9 @@ public class MockPacketConnection implements PacketConnection {
 
     private final LinkedList<Packet> packets = new LinkedList<>();
 
-    private final Queue<Packet> inputPackets = new ConcurrentLinkedDeque<>();
+    private final BlockingDeque<Packet> inputPackets = new LinkedBlockingDeque<>();
+
+    private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
     @Override
     public boolean trySendPacket(Packet packet) {
@@ -31,11 +35,22 @@ public class MockPacketConnection implements PacketConnection {
 
     @Override
     public Packet readPacket() {
-        return inputPackets.poll();
+        while (continueReading.get()) {
+            try {
+                Packet packet = inputPackets.pollFirst(100, MILLISECONDS);
+                if (null != packet) {
+                    return packet;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     @Override
     public void close() {
+        continueReading.set(false);
     }
 
     public List<Packet> getPacketsSent() {
