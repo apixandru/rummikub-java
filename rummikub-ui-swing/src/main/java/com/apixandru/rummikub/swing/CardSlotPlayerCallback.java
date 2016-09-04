@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.rummikub.api.Card;
-import com.apixandru.rummikub.api.PlayerCallback;
+import com.apixandru.rummikub.api.game.Card;
+import com.apixandru.rummikub.api.game.PlayerCallback;
 
 /**
  * @author Alexandru-Constantin Bledea

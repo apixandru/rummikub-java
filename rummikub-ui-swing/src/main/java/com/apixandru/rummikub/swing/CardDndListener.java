@@ -3,7 +3,7 @@
  */
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.rummikub.api.Player;
+import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.utils.swing.AbstractDndListener;
 import com.apixandru.utils.swing.DragSource;
 

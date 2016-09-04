@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.GameConfigurer;
-import com.apixandru.rummikub.api.Player;
+import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.utils.swing.ComponentDragSource;
 
 import javax.swing.Box;
@@ -15,7 +15,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 
-import static com.apixandru.rummikub.api.Constants.NUM_COLS;
+import static com.apixandru.rummikub.api.game.Constants.NUM_COLS;
 import static java.lang.Math.max;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 

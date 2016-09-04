@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.client.game;
 
-import com.apixandru.rummikub.api.Card;
-import com.apixandru.rummikub.api.Player;
+import com.apixandru.rummikub.api.game.Card;
+import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;

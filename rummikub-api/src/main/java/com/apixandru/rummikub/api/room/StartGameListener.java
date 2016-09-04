@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.api;
+package com.apixandru.rummikub.api.room;
 
 /**
  * @author Alexandru-Constantin Bledea

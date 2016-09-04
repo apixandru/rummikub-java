@@ -1,9 +1,9 @@
 package com.apixandru.rummikub.model;
 
 import com.apixandru.rummikub.api.GameEventListener;
-import com.apixandru.rummikub.api.GameOverReason;
 import com.apixandru.rummikub.api.StateChangeListener;
-import com.apixandru.rummikub.api.WaitingRoomConfigurer;
+import com.apixandru.rummikub.api.game.GameOverReason;
+import com.apixandru.rummikub.api.room.RummikubRoomConfigurer;
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.model.game.GameConfigurerImpl;
 
@@ -21,7 +21,7 @@ import static com.apixandru.rummikub.model.RummikubException.Reason.ONGOING_GAME
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-public class RummikubImpl implements GameEventListener, WaitingRoomConfigurer {
+public class RummikubImpl implements GameEventListener, RummikubRoomConfigurer {
 
     private final Map<String, StateChangeListener> players = new HashMap<>();
 

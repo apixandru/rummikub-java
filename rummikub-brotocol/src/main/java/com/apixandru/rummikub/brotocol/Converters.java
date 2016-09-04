@@ -1,13 +1,13 @@
 package com.apixandru.rummikub.brotocol;
 
-import com.apixandru.rummikub.api.Card;
-import com.apixandru.rummikub.api.GameOverReason;
+import com.apixandru.rummikub.api.game.Card;
+import com.apixandru.rummikub.api.game.GameOverReason;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-import static com.apixandru.rummikub.api.Constants.CARDS;
+import static com.apixandru.rummikub.api.game.Constants.CARDS;
 
 /**
  * @author Alexandru-Constantin Bledea

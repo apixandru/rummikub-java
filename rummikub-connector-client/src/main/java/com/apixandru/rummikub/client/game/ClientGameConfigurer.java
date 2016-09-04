@@ -1,10 +1,10 @@
 package com.apixandru.rummikub.client.game;
 
-import com.apixandru.rummikub.api.BoardListener;
 import com.apixandru.rummikub.api.GameConfigurer;
 import com.apixandru.rummikub.api.GameEventListener;
-import com.apixandru.rummikub.api.Player;
-import com.apixandru.rummikub.api.PlayerCallback;
+import com.apixandru.rummikub.api.game.BoardListener;
+import com.apixandru.rummikub.api.game.Player;
+import com.apixandru.rummikub.api.game.PlayerCallback;
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.client.ClientPacketHandler;
 

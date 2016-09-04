@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.client.game;
 
-import com.apixandru.rummikub.api.BoardListener;
-import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.api.game.BoardListener;
+import com.apixandru.rummikub.api.game.Card;
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;
 import org.slf4j.Logger;

@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.brotocol;
 
-import com.apixandru.rummikub.api.Card;
-import com.apixandru.rummikub.api.GameOverReason;
+import com.apixandru.rummikub.api.game.Card;
+import com.apixandru.rummikub.api.game.GameOverReason;
 import com.apixandru.rummikub.brotocol.connect.client.PacketLeave;
 import com.apixandru.rummikub.brotocol.connect.client.PacketStart;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerJoined;

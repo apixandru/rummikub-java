@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.server.waiting;
 
-import com.apixandru.rummikub.api.StartGameListener;
+import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.connect.client.PacketStart;
 import com.apixandru.rummikub.brotocol.util.Reference;

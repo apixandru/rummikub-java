@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.brotocol;
 
-import com.apixandru.rummikub.api.Constants;
-import com.apixandru.rummikub.api.GameOverReason;
+import com.apixandru.rummikub.api.game.Constants;
+import com.apixandru.rummikub.api.game.GameOverReason;
 import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;
 import org.junit.Test;

@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.server.game;
 
-import com.apixandru.rummikub.api.BoardListener;
-import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.api.game.BoardListener;
+import com.apixandru.rummikub.api.game.Card;
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.game.server.PacketCardPlaced;
 import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;

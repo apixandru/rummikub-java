@@ -2,7 +2,7 @@ package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.GameConfigurer;
 import com.apixandru.rummikub.api.StateChangeListener;
-import com.apixandru.rummikub.api.WaitingRoomConfigurer;
+import com.apixandru.rummikub.api.room.RummikubRoomConfigurer;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
@@ -41,7 +41,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     }
 
     @Override
-    public void enteredWaitingRoom(final WaitingRoomConfigurer configurer) {
+    public void enteredWaitingRoom(final RummikubRoomConfigurer configurer) {
 
 //        trackingGameConfigurer.ifPresent(TrackingGameConfigurer::cleanup);
         serverPacketHandler.reset();

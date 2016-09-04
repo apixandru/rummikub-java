@@ -2,7 +2,7 @@ package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.GameConfigurer;
 import com.apixandru.rummikub.api.StateChangeListener;
-import com.apixandru.rummikub.api.WaitingRoomConfigurer;
+import com.apixandru.rummikub.api.room.RummikubRoomConfigurer;
 
 import javax.swing.JFrame;
 import java.util.Optional;
@@ -24,7 +24,7 @@ class WindowManager implements StateChangeListener {
     }
 
     @Override
-    public void enteredWaitingRoom(final WaitingRoomConfigurer configurer) {
+    public void enteredWaitingRoom(final RummikubRoomConfigurer configurer) {
         final WaitingRoom waitingRoom = new WaitingRoom(configurer);
         configurer.registerListener(waitingRoom);
         waitingRoomFrame = Optional.of(WaitingRoom.createAndShowGui(waitingRoom));

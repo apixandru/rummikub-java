@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.apixandru.rummikub.api;
+package com.apixandru.rummikub.api.game;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -11,9 +11,13 @@ public enum Rank {
 
     ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, ELEVEN, TWELVE, THIRTEEN;
 
+    public int asNumber() {
+        return ordinal() + 1;
+    }
+
     @Override
     public String toString() {
-        return String.format("%2d", ordinal() + 1);
+        return String.format("%2d", asNumber());
     }
 
 }

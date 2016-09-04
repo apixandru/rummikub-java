@@ -3,7 +3,7 @@
  */
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.api.game.Card;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,7 +42,7 @@ final class CardUi extends JPanel {
         if (joker) {
             label.setText("J");
         } else {
-            final int number = card.getRank().ordinal() + 1;
+            final int number = card.getRank().asNumber();
             label.setText(String.valueOf(number));
         }
         add(label);

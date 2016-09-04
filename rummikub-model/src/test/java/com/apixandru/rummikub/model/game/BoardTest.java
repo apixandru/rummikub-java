@@ -3,9 +3,9 @@ package com.apixandru.rummikub.model.game;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.apixandru.rummikub.api.Color.BLUE;
-import static com.apixandru.rummikub.api.Color.RED;
-import static com.apixandru.rummikub.api.Rank.ONE;
+import static com.apixandru.rummikub.api.game.Color.BLUE;
+import static com.apixandru.rummikub.api.game.Color.RED;
+import static com.apixandru.rummikub.api.game.Rank.ONE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;

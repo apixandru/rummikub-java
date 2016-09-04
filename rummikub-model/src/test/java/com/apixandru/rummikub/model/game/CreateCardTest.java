@@ -3,8 +3,8 @@
  */
 package com.apixandru.rummikub.model.game;
 
-import com.apixandru.rummikub.api.Color;
-import com.apixandru.rummikub.api.Rank;
+import com.apixandru.rummikub.api.game.Color;
+import com.apixandru.rummikub.api.game.Rank;
 import org.junit.Test;
 
 /**

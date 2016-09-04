@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.api.Player;
-import com.apixandru.rummikub.api.StartGameListener;
+import com.apixandru.rummikub.api.game.Player;
+import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.brotocol.ConnectorPacketHandler;
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol.PacketHandler;
