@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.client.game;
 
-import com.apixandru.rummikub.api.GameEventListener;
+import com.apixandru.rummikub.api.game.GameEventListener;
 import com.apixandru.rummikub.api.game.GameOverReason;
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;

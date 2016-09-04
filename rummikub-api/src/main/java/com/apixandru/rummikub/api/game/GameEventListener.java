@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.api;
+package com.apixandru.rummikub.api.game;
 
 import com.apixandru.rummikub.api.game.GameOverReason;
 
