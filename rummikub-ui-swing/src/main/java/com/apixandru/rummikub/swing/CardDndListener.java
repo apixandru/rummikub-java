@@ -4,8 +4,8 @@
 package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.game.Player;
-import com.apixandru.utils.swing.AbstractDndListener;
-import com.apixandru.utils.swing.DragSource;
+import com.apixandru.rummikub.swing.util.AbstractDndListener;
+import com.apixandru.rummikub.swing.util.DragSource;
 
 import javax.swing.JComponent;
 

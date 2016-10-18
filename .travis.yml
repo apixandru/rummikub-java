@@ -11,4 +11,4 @@ env:
 branches:
   only: master
 
-after_success: cd $LOCAL_REPO/$MY_FILES && find . -type f -exec curl --connect-timeout 30 -u $FTP_LOGIN --ftp-create-dirs -T {} $FTP_SITE/$MY_FILES/{} \;
+#after_success: cd $LOCAL_REPO/$MY_FILES && find . -type f -exec curl --connect-timeout 30 -u $FTP_LOGIN --ftp-create-dirs -T {} $FTP_SITE/$MY_FILES/{} \;

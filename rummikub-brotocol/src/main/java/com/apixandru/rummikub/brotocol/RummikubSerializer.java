@@ -16,8 +16,8 @@ import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.rummikub.brotocol.game.server.PacketReceiveCard;
-import com.apixandru.utils.fieldserializer.FieldSerializer;
-import com.apixandru.utils.fieldserializer.FieldSerializerImpl;
+import com.apixandru.rummikub.fieldserializer.FieldSerializer;
+import com.apixandru.rummikub.fieldserializer.FieldSerializerImpl;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

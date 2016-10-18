@@ -4,7 +4,7 @@
 package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.game.Card;
-import com.apixandru.utils.swing.SwingUtil;
+import com.apixandru.rummikub.swing.util.SwingUtil;
 
 import java.awt.Color;
 import java.awt.Font;

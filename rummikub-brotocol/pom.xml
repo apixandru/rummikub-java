@@ -21,8 +21,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.apixandru.utils</groupId>
-            <artifactId>fieldserializer</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>util-fieldserializer</artifactId>
         </dependency>
 
         <dependency>
