@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.apixandru.rummikub.model.game;
 
 import com.apixandru.rummikub.api.game.Color;

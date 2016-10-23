@@ -10,12 +10,13 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>rummikub-api</module>
+        <module>rummikub-api-server</module>
         <module>rummikub-ui-swing</module>
         <module>rummikub-model</module>
         <module>rummikub-brotocol</module>
         <module>rummikub-connector-client</module>
         <module>rummikub-server</module>
-        <module>rummikub-api</module>
         <module>rummikub-connection</module>
     </modules>
 
@@ -115,6 +116,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>rummikub-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>rummikub-api-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

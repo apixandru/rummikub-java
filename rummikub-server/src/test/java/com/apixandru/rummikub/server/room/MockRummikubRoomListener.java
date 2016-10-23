@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.model.room;
+package com.apixandru.rummikub.server.room;
 
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 
@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.apixandru.rummikub.model.room.MockRummikubRoomListener.MockRoomListenerEvent.joined;
-import static com.apixandru.rummikub.model.room.MockRummikubRoomListener.MockRoomListenerEvent.left;
+import static com.apixandru.rummikub.server.room.MockRummikubRoomListener.MockRoomListenerEvent.joined;
+import static com.apixandru.rummikub.server.room.MockRummikubRoomListener.MockRoomListenerEvent.left;
 import static java.util.Arrays.asList;
 import static java.util.Objects.hash;
 import static org.assertj.core.api.Assertions.assertThat;

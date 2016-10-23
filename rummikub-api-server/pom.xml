@@ -6,25 +6,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.apixandru.rummikub</groupId>
         <artifactId>rummikub</artifactId>
+        <groupId>com.apixandru.rummikub</groupId>
         <version>0.0.2-SNAPSHOT</version>
     </parent>
 
-    <artifactId>rummikub-brotocol</artifactId>
+    <artifactId>rummikub-api-server</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>rummikub-api-server</artifactId>
+            <artifactId>rummikub-api</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-
     </dependencies>
 
 </project>

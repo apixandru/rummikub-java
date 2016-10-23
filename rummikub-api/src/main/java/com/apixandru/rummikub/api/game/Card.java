@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.apixandru.rummikub.api.game;
 
 /**

@@ -2,8 +2,10 @@ package com.apixandru.rummikub.model.game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+
+import static java.util.Collections.reverse;
+import static java.util.Collections.unmodifiableList;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -36,12 +38,9 @@ final class Util {
     }
 
     static <E> List<E> revertedCopy(List<E> list) {
-        if (null == list) {
-            return Collections.emptyList();
-        }
-        final ArrayList<E> copy = new ArrayList<>(list);
-        Collections.reverse(copy);
-        return Collections.unmodifiableList(copy);
+        final List<E> copy = new ArrayList<>(list);
+        reverse(copy);
+        return unmodifiableList(copy);
     }
 
     static <E> E[][] copyOf(final E[][] array) {

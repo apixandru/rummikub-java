@@ -1,15 +1,15 @@
-package com.apixandru.rummikub.model.room;
+package com.apixandru.rummikub.server.room;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.apixandru.rummikub.model.room.MockRummikubRoomListener.MockRoomListenerEvent.joined;
-import static com.apixandru.rummikub.model.room.MockRummikubRoomListener.MockRoomListenerEvent.left;
+import static com.apixandru.rummikub.server.room.MockRummikubRoomListener.MockRoomListenerEvent.joined;
+import static com.apixandru.rummikub.server.room.MockRummikubRoomListener.MockRoomListenerEvent.left;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Alexandru-Constantin Bledea
- * @since Sep 02, 2016
+ * @since Oct 23, 2016
  */
 public class RoomTest {
 
