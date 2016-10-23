@@ -1,8 +1,9 @@
 package com.apixandru.rummikub.api.game;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import static java.util.Collections.unmodifiableList;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -27,7 +28,7 @@ public final class Constants {
             // joker
             cards.add(new Card(null, null));
         }
-        CARDS = Collections.unmodifiableList(cards);
+        CARDS = unmodifiableList(cards);
     }
 
     private Constants() {
