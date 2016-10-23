@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.fieldserializer;
+package com.apixandru.rummikub.brotocol.util;
 
 import java.io.DataInput;
 import java.io.DataOutput;

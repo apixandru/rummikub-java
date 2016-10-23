@@ -59,6 +59,30 @@ final class Converters {
         writeSafeByte(data, output);
     }
 
+    static boolean readBoolean(final DataInput input) throws IOException {
+        return input.readBoolean();
+    }
+
+    static void writeBoolean(final boolean data, final DataOutput output) throws IOException {
+        output.writeBoolean(data);
+    }
+
+    static String readString(final DataInput input) throws IOException {
+        return input.readUTF();
+    }
+
+    static void writeString(final String data, final DataOutput output) throws IOException {
+        output.writeUTF(data);
+    }
+
+    static int readInt(final DataInput input) throws IOException {
+        return input.readInt();
+    }
+
+    static void writeInt(final int data, final DataOutput output) throws IOException {
+        output.writeInt(data);
+    }
+
     private static void ensureNotNegative(final Integer integer) {
         if (null != integer && integer < 0) {
             throw new IllegalArgumentException();

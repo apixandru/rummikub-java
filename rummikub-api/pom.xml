@@ -13,4 +13,11 @@
 
     <artifactId>rummikub-api</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

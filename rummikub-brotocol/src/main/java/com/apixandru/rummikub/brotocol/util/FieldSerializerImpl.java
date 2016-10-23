@@ -1,6 +1,4 @@
-package com.apixandru.rummikub.fieldserializer;
-
-import com.apixandru.rummikub.fieldserializer.converters.BasicConverters;
+package com.apixandru.rummikub.brotocol.util;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -17,13 +15,6 @@ public final class FieldSerializerImpl implements FieldSerializer {
 
     private final Map<Class, TypeWriter> writers = new HashMap<>();
     private final Map<Class, TypeReader> readers = new HashMap<>();
-
-    {
-        register(int.class, BasicConverters::readInt, BasicConverters::writeInt);
-        register(boolean.class, BasicConverters::readBoolean, BasicConverters::writeBoolean);
-        register(String.class, BasicConverters::readString, BasicConverters::writeString);
-
-    }
 
     public <T> void register(Class<T> type, TypeReader<T> reader, TypeWriter<T> writer) {
         writers.put(type, writer);

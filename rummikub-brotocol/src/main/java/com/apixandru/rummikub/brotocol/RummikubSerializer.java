@@ -16,8 +16,8 @@ import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.rummikub.brotocol.game.server.PacketReceiveCard;
-import com.apixandru.rummikub.fieldserializer.FieldSerializer;
-import com.apixandru.rummikub.fieldserializer.FieldSerializerImpl;
+import com.apixandru.rummikub.brotocol.util.FieldSerializer;
+import com.apixandru.rummikub.brotocol.util.FieldSerializerImpl;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -37,6 +37,10 @@ public final class RummikubSerializer implements Serializer {
 
     {
         final FieldSerializerImpl serializer = new FieldSerializerImpl();
+
+        serializer.register(int.class, Converters::readInt, Converters::writeInt);
+        serializer.register(boolean.class, Converters::readBoolean, Converters::writeBoolean);
+        serializer.register(String.class, Converters::readString, Converters::writeString);
 
         serializer.register(Integer.class, Converters::readInteger, Converters::writeInteger);
         serializer.register(Card.class, Converters::readCard, Converters::writeCard);

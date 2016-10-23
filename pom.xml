@@ -17,7 +17,6 @@
         <module>rummikub-server</module>
         <module>rummikub-api</module>
         <module>rummikub-connection</module>
-        <module>util-fieldserializer</module>
     </modules>
 
     <properties>
@@ -27,6 +26,9 @@
         <version.mockito>1.10.19</version.mockito>
         <version.java>1.8</version.java>
         <versionAssertJ>3.5.2</versionAssertJ>
+        <versionGroovy>2.4.7</versionGroovy>
+        <versionSpock>1.0-groovy-2.4</versionSpock>
+        <versionGmavenPlus>1.5</versionGmavenPlus>
     </properties>
 
     <dependencies>
@@ -55,11 +57,39 @@
                     <target>${version.java}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>${versionGmavenPlus}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>addTestSources</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <dependencyManagement>
         <dependencies>
+
+
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-all</artifactId>
+                <version>${versionGroovy}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.spockframework</groupId>
+                <artifactId>spock-core</artifactId>
+                <version>${versionSpock}</version>
+                <scope>test</scope>
+            </dependency>
 
             <dependency>
                 <groupId>junit</groupId>
@@ -105,11 +135,6 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>rummikub-connector-client</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>util-fieldserializer</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
