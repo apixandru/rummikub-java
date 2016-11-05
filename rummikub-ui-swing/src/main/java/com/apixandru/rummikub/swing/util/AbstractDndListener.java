@@ -94,7 +94,7 @@ public abstract class AbstractDndListener<C extends Component, P extends Compone
      * @return colorReject if the target is the same as the initial location, accept otherwise
      */
     private Color getDropIndicatorColor(final P dropTarget) {
-        return dropTarget == this.draggablePieceParent ? this.colorReject : this.colorAccept;
+        return dropTarget == this.draggablePieceParent ? colorReject : colorAccept;
     }
 
     @Override

@@ -11,7 +11,7 @@ public interface Player<H> {
 
     void placeCardOnBoard(Card card, int x, int y);
 
-    void moveCardOnBoard(Card card, int fromX, int fromY, int toX, int toY);
+    void moveCardOnBoard(int fromX, int fromY, int toX, int toY);
 
     void takeCardFromBoard(Card card, int x, int y, H hint);
 

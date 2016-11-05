@@ -16,20 +16,20 @@ import static org.junit.Assert.assertFalse;
  * @author Alexandru-Constantin Bledea
  * @since Aug 19, 2016
  */
-public final class TestUtils {
+final class TestUtils {
 
     private static final Logger log = LoggerFactory.getLogger(TestUtils.class);
 
     private TestUtils() {
     }
 
-    public static Thread launchThread(Runnable runnable) {
+    static Thread launchThread(Runnable runnable) {
         Thread thread = new Thread(runnable);
         thread.start();
         return thread;
     }
 
-    public static void awaitCompletion1Second(Thread thread, RummikubServer server) {
+    static void awaitCompletion1Second(Thread thread, RummikubServer server) {
         awaitCompletion(thread, 1, SECONDS);
 
         server.getClientThreads()
@@ -38,7 +38,7 @@ public final class TestUtils {
 
     }
 
-    public static void awaitCompletion(Thread thread, int time, TimeUnit timeUnit) {
+    private static void awaitCompletion(Thread thread, int time, TimeUnit timeUnit) {
         try {
             thread.join(timeUnit.toMillis(time));
         } catch (InterruptedException e) {
@@ -47,7 +47,7 @@ public final class TestUtils {
         assertFalse("Expecting thread to be dead", thread.isAlive());
     }
 
-    public static void safeSleep(int time, TimeUnit timeUnit) {
+    static void safeSleep(int time, TimeUnit timeUnit) {
         try {
             timeUnit.sleep(time);
         } catch (InterruptedException e) {
@@ -55,12 +55,12 @@ public final class TestUtils {
         }
     }
 
-    public static <P extends Packet> P safeCast(Packet packet, Class<P> clasz) {
+    static <P extends Packet> P safeCast(Packet packet, Class<P> clasz) {
         assertEquals("Wrong class", clasz, packet.getClass());
         return clasz.cast(packet);
     }
 
-    public static String getClassNames(List<?> objects) {
+    static String getClassNames(List<?> objects) {
         return objects.stream()
                 .map(Object::getClass)
                 .map(Class::getName)

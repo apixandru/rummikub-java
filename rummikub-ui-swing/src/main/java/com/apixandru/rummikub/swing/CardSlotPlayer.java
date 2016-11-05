@@ -28,8 +28,8 @@ class CardSlotPlayer implements Player<CardSlot> {
     }
 
     @Override
-    public void moveCardOnBoard(final Card card, final int fromX, final int fromY, final int toX, final int toY) {
-        player.moveCardOnBoard(card, fromX, fromY, toX, toY);
+    public void moveCardOnBoard(final int fromX, final int fromY, final int toX, final int toY) {
+        player.moveCardOnBoard(fromX, fromY, toX, toY);
     }
 
     @Override

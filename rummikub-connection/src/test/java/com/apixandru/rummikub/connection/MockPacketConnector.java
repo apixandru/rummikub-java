@@ -1,6 +1,5 @@
 package com.apixandru.rummikub.connection;
 
-import java.io.IOException;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -13,7 +12,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  * @author Alexandru-Constantin Bledea
  * @since Aug 19, 2016
  */
-public class MockPacketConnector implements PacketConnector {
+class MockPacketConnector implements PacketConnector {
 
     private final AtomicBoolean continueAccepting = new AtomicBoolean(true);
 
@@ -22,7 +21,7 @@ public class MockPacketConnector implements PacketConnector {
     private final AtomicInteger connectionCounter = new AtomicInteger();
 
     @Override
-    public PacketConnection acceptConnection() throws IOException {
+    public PacketConnection acceptConnection() {
         while (continueAccepting.get()) {
             PacketConnection connection = packetConnections.poll();
             if (null != connection) {
@@ -35,20 +34,15 @@ public class MockPacketConnector implements PacketConnector {
     }
 
     @Override
-    public int getPort() {
-        return 0;
-    }
-
-    @Override
     public void stopAccepting() {
         continueAccepting.set(false);
     }
 
-    public void assumeConnection(PacketConnection packetConnection) {
+    void assumeConnection(PacketConnection packetConnection) {
         this.packetConnections.add(packetConnection);
     }
 
-    public int getNumberOfAcceptedClients() {
+    int getNumberOfAcceptedClients() {
         return connectionCounter.get();
     }
 

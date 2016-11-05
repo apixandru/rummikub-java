@@ -10,6 +10,4 @@ public interface ConnectorPacketHandler extends PacketHandler<Packet>, Connectio
 
     boolean isReady();
 
-    void addConnectionListener(ConnectionListener connectionListener);
-
 }

@@ -191,7 +191,7 @@ final class RummikubImpl implements Rummikub<Integer> {
         }
 
         @Override
-        public void moveCardOnBoard(final PlayerImpl player, final Card card, final int fromX, final int fromY, final int toX, final int toY) {
+        public void moveCardOnBoard(final PlayerImpl player, final int fromX, final int fromY, final int toX, final int toY) {
             if (currentPlayer == player) {
                 board.moveCard(fromX, fromY, toX, toY);
                 undoManager.addAction(new UndoManager.UndoBoardToBoard(fromX, fromY, toX, toY));

@@ -8,7 +8,7 @@ import java.io.IOException;
  * @author Alexandru-Constantin Bledea
  * @since 1/13/16
  */
-public interface Serializer {
+interface Serializer {
 
     void serialize(Packet packet, DataOutputStream output) throws IOException;
 

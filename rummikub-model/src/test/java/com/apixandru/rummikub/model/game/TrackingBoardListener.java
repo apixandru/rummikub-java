@@ -12,7 +12,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since January 03, 2016
  */
-public final class TrackingBoardListener implements BoardListener {
+final class TrackingBoardListener implements BoardListener {
 
     private final List<BoardAction> actions = new ArrayList<>();
 
@@ -26,11 +26,11 @@ public final class TrackingBoardListener implements BoardListener {
         this.actions.add(new BoardAction(BoardAction.Action.REMOVED, card, x, y));
     }
 
-    public List<BoardAction> getActions() {
+    List<BoardAction> getActions() {
         return Collections.unmodifiableList(this.actions);
     }
 
-    public void clear() {
+    void clear() {
         this.actions.clear();
     }
 

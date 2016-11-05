@@ -15,18 +15,12 @@ import static org.junit.Assert.assertSame;
 @SuppressWarnings("static-method")
 public class CardPileTest {
 
-    /**
-     * @throws Exception
-     */
     @Test
     public void testNumberOfCards() throws Exception {
         final CardPile cardPile = new CardPile();
         assertSame("Numbers of cards don't match", Constants.NUM_CARDS, cardPile.getNumberOfCards());
     }
 
-    /**
-     * @throws Exception
-     */
     @Test
     public void testHasCards() throws Exception {
         final CardPile cardPile = new CardPile();
@@ -35,9 +29,6 @@ public class CardPileTest {
         }
     }
 
-    /**
-     * @throws Exception
-     */
     @Test(expected = NoSuchElementException.class)
     public void testExhaustedPile() throws Exception {
         final CardPile cardPile = new CardPile();

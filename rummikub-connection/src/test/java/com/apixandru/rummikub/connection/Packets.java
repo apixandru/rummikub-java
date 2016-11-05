@@ -14,17 +14,17 @@ import static org.junit.Assert.assertTrue;
  * @author Alexandru-Constantin Bledea
  * @since Aug 20, 2016
  */
-public final class Packets {
+final class Packets {
 
     private Packets() {
     }
 
-    public static void assertAcceptedConnection(Packet packet) {
+    private static void assertAcceptedConnection(Packet packet) {
         ConnectionResponse connectionResponse = safeCast(packet, ConnectionResponse.class);
         assertTrue("Expected connection to be accepted", connectionResponse.accepted);
     }
 
-    public static void assertAcceptedThenShutdown(MockPacketConnection... connections) {
+    static void assertAcceptedThenShutdown(MockPacketConnection... connections) {
         for (MockPacketConnection connection : connections) {
             connection.assertNextPacket(Packets::assertAcceptedConnection);
             connection.assertNextPacketInstanceof(ServerShutdownBroadcast.class);
@@ -32,7 +32,7 @@ public final class Packets {
         }
     }
 
-    public static void assertConnectionRejected(Packet packet, ReasonCode reasonCode) {
+    static void assertConnectionRejected(Packet packet, ReasonCode reasonCode) {
         ConnectionResponse connectionResponse = safeCast(packet, ConnectionResponse.class);
         assertFalse("Expected connection to be rejected", connectionResponse.accepted);
         assertThat(connectionResponse.reasonCode)

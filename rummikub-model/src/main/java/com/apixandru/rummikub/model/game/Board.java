@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -29,7 +30,7 @@ final class Board {
         return y < NUM_ROWS && x < NUM_COLS;
     }
 
-    boolean isFree(int x, int y) {
+    private boolean isFree(int x, int y) {
         return null == cards[y][x];
     }
 
@@ -74,10 +75,10 @@ final class Board {
         return streamGroups().allMatch(CardGroup::isValid);
     }
 
-    Stream<CardGroup> streamGroups() {
+    private Stream<CardGroup> streamGroups() {
         return Arrays.stream(cards)
                 .map(Util::splitNonEmptyGroups)
-                .flatMap(List::stream)
+                .flatMap(Collection::stream)
                 .map(CardGroup::new);
     }
 
@@ -94,9 +95,7 @@ final class Board {
     }
 
     void addBoardListener(final BoardListener boardListener) {
-        if (null != boardListener) {
-            this.boardListeners.add(boardListener);
-        }
+        this.boardListeners.add(boardListener);
     }
 
     void removeBoardListener(final BoardListener boardListener) {

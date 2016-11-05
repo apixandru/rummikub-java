@@ -32,8 +32,8 @@ final class PlayerImpl implements Player<Integer> {
     }
 
     @Override
-    public void moveCardOnBoard(final Card card, final int fromX, final int fromY, final int toX, final int toY) {
-        this.listener.moveCardOnBoard(this, card, fromX, fromY, toX, toY);
+    public void moveCardOnBoard(final int fromX, final int fromY, final int toX, final int toY) {
+        this.listener.moveCardOnBoard(this, fromX, fromY, toX, toY);
     }
 
     @Override

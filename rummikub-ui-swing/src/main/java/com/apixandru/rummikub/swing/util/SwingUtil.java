@@ -18,20 +18,20 @@ public final class SwingUtil {
     private SwingUtil() {
     }
 
-    public static Color getBackground(final Component component) {
+    static Color getBackground(final Component component) {
         if (null == component) {
             return null;
         }
         return component.getBackground();
     }
 
-    public static void setBackground(final Component component, final Color color) {
+    static void setBackground(final Component component, final Color color) {
         if (null != component) {
             component.setBackground(color);
         }
     }
 
-    public static void setChanged(Component component) {
+    private static void setChanged(Component component) {
         if (null != component) {
             component.validate();
             component.repaint();
@@ -42,7 +42,7 @@ public final class SwingUtil {
         addAndNotify(component, container, null);
     }
 
-    public static void addAndNotify(final Component component, final Container container, Object constraints) {
+    static void addAndNotify(final Component component, final Container container, Object constraints) {
         log.debug("Add {} to {}", component, container);
         container.add(component, constraints);
         setChanged(container);

@@ -189,12 +189,10 @@ public final class RummikubTest {
         placeCardsOnFirstSlots(group);
         player.endTurn();
 
-        final Card firstCardOnBoard = group.get(0);
-
         final Card[][] cardsOnBoard = cardsOnBoard();
         final int cardsInHand = countCards();
 
-        player.moveCardOnBoard(firstCardOnBoard, 0, 0, group.size(), 0);
+        player.moveCardOnBoard(0, 0, group.size(), 0);
         player.endTurn();
 
         assertCardsOnBoard(cardsOnBoard);

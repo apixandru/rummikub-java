@@ -14,6 +14,6 @@ interface PlayerListener {
 
     void takeCardFromBoard(PlayerImpl player, Card card, int x, int y, final Integer hint);
 
-    void moveCardOnBoard(PlayerImpl player, Card card, int fromX, int fromY, int toX, int toY);
+    void moveCardOnBoard(PlayerImpl player, int fromX, int fromY, int toX, int toY);
 
 }

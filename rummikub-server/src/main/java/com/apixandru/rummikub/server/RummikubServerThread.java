@@ -42,7 +42,6 @@ class RummikubServerThread extends Thread {
             }
             newConnection().ifPresent(connectionHandler::attemptToJoin);
         }
-        connectionHandler.disconnectAll();
     }
 
     private Optional<SocketWrapper> newConnection() {

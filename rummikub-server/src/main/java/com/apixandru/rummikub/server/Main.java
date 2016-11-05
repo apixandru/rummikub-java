@@ -12,7 +12,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  * @author Alexandru-Constantin Bledea
  * @since Aug 14, 2016
  */
-public class Main {
+class Main {
 
     static final int DEFAULT_PORT = 50122;
 

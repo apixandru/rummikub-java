@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.game.Player;
@@ -51,7 +48,7 @@ final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
                     UiUtil.placeCard(this.draggablePiece, destComponent);
                     return;
                 }
-                this.player.moveCardOnBoard(this.draggablePiece.card, fromX, fromY, toX, toY);
+                this.player.moveCardOnBoard(fromX, fromY, toX, toY);
                 break;
             default:
                 UiUtil.placeCard(this.draggablePiece, destComponent);

@@ -11,22 +11,22 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since Sep 02, 2016
  */
-public final class Room {
+final class Room {
 
     private final Collection<String> players = new LinkedHashSet<>();
 
     private final List<RummikubRoomListener> roomListeners = new ArrayList<>();
 
-    public void addRoomListener(RummikubRoomListener roomListener) {
+    void addRoomListener(RummikubRoomListener roomListener) {
         players.forEach(roomListener::playerJoined);
         this.roomListeners.add(roomListener);
     }
 
-    public void removeRoomListener(RummikubRoomListener roomListener) {
+    void removeRoomListener(RummikubRoomListener roomListener) {
         this.roomListeners.remove(roomListener);
     }
 
-    public boolean join(String playerName) {
+    boolean join(String playerName) {
         if (this.players.add(playerName)) {
             this.roomListeners.forEach(listener -> listener.playerJoined(playerName));
             return true;
@@ -34,7 +34,7 @@ public final class Room {
         return false;
     }
 
-    public boolean leave(String playerName) {
+    boolean leave(String playerName) {
         if (this.players.remove(playerName)) {
             this.roomListeners.forEach(listener -> listener.playerLeft(playerName));
             return true;

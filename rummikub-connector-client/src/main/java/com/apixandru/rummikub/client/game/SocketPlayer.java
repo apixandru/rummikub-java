@@ -44,9 +44,8 @@ final class SocketPlayer implements Player<Integer> {
     }
 
     @Override
-    public void moveCardOnBoard(final Card card, final int fromX, final int fromY, final int toX, final int toY) {
+    public void moveCardOnBoard(final int fromX, final int fromY, final int toX, final int toY) {
         final PacketMoveCard packet = new PacketMoveCard();
-        packet.card = card;
         packet.fromX = fromX;
         packet.fromY = fromY;
         packet.toX = toX;

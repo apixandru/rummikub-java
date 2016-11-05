@@ -4,7 +4,6 @@ import com.apixandru.rummikub.connection.packet.ConnectionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,7 +16,7 @@ import static java.util.Collections.unmodifiableMap;
  * @author Alexandru-Constantin Bledea
  * @since Aug 16, 2016
  */
-public class RummikubServer implements Runnable {
+class RummikubServer implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(RummikubServer.class);
 
@@ -30,7 +29,7 @@ public class RummikubServer implements Runnable {
 
     private int maximumConnections = 10;
 
-    public RummikubServer(PacketConnector packetConnector) {
+    RummikubServer(PacketConnector packetConnector) {
         this.packetConnector = packetConnector;
     }
 
@@ -46,21 +45,21 @@ public class RummikubServer implements Runnable {
         }
     }
 
-    public void setMaximumConnections(int maximumConnections) {
+    void setMaximumConnections(int maximumConnections) {
         this.maximumConnections = maximumConnections;
     }
 
-    public int getAvailableNumberOfConnections() {
+    int getAvailableNumberOfConnections() {
         return maximumConnections - clients.size();
     }
 
-    public boolean hasAvailableConnection() {
+    private boolean hasAvailableConnection() {
         return getAvailableNumberOfConnections() > 0;
     }
 
     @Override
     public void run() {
-        log.debug("Server started. Waiting for connections on port {}", packetConnector.getPort());
+        log.debug("Server started.");
         while (continueReading.get()) {
             PacketConnection connection = tryAccept();
             if (null != connection) {
@@ -107,15 +106,10 @@ public class RummikubServer implements Runnable {
 
     private PacketConnection tryAccept() {
         log.debug("Trying to connect...");
-        try {
-            return packetConnector.acceptConnection();
-        } catch (IOException e) {
-            log.error("Failed to connect", e);
-            return null;
-        }
+        return packetConnector.acceptConnection();
     }
 
-    public void shutdown() {
+    void shutdown() {
         log.debug("Shutdown requested.");
         continueReading.set(false);
         packetConnector.stopAccepting();

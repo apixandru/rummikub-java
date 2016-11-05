@@ -6,8 +6,6 @@ package com.apixandru.rummikub.brotocol2;
  */
 public interface ConnectionListener {
 
-    void connectionLost();
-
     void connectionCloseRequest();
 
 }

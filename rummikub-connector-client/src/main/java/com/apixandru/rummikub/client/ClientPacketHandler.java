@@ -17,7 +17,6 @@ import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.rummikub.brotocol.game.server.PacketReceiveCard;
 import com.apixandru.rummikub.brotocol.util.Reference;
-import com.apixandru.rummikub.brotocol2.ConnectionListener;
 import com.apixandru.rummikub.client.game.CardPlacedHandler;
 import com.apixandru.rummikub.client.game.CardRemovedHandler;
 import com.apixandru.rummikub.client.game.GameOverHandler;
@@ -26,8 +25,6 @@ import com.apixandru.rummikub.client.game.ReceiveCardHandler;
 import com.apixandru.rummikub.client.waiting.PlayerJoinedHandler;
 import com.apixandru.rummikub.client.waiting.PlayerLeftHandler;
 import com.apixandru.rummikub.client.waiting.PlayerStartHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,8 +36,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class ClientPacketHandler implements ConnectorPacketHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(ClientPacketHandler.class);
-
     private final Reference<BoardListener> boardListener = new Reference<>();
     private final Reference<RummikubRoomListener> waitingRoomListener = new Reference<>();
     private final Reference<PlayerCallback<Integer>> playerCallback = new Reference<>();
@@ -51,7 +46,7 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
-    public ClientPacketHandler() {
+    ClientPacketHandler() {
 
         handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListener));
         handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListener));
@@ -86,26 +81,13 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
         this.waitingRoomListener.set(waitingRoomListener);
     }
 
-    public void setStartGameListener(StartGameListener startGameListener) {
+    void setStartGameListener(StartGameListener startGameListener) {
         this.startGameListener.set(startGameListener);
     }
 
     @Override
     public boolean isReady() {
         return continueReading.get();
-    }
-
-
-    @Override
-    @Deprecated
-    public void addConnectionListener(ConnectionListener connectionListener) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    @Deprecated
-    public void connectionLost() {
-        throw new UnsupportedOperationException();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.apixandru.rummikub.server.game;
 
-import com.apixandru.rummikub.api.game.Card;
 import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
@@ -25,14 +24,13 @@ public class MoveCardHandler implements PacketHandler<PacketMoveCard> {
 
     @Override
     public void handle(final PacketMoveCard packet) {
-        final Card card = packet.card;
         final int fromX = packet.fromX;
         final int fromY = packet.fromY;
         final int toX = packet.toX;
         final int toY = packet.toY;
         Player<Integer> player = playerProvider.get();
-        log.debug("[{}] Received moveCardOnBoard(card={}, fromX={}, fromY={}, toX={}, toY={})", player.getName(), card, fromX, fromY, toX, toY);
-        player.moveCardOnBoard(card, fromX, fromY, toX, toY);
+        log.debug("[{}] Received moveCardOnBoard(fromX={}, fromY={}, toX={}, toY={})", player.getName(), fromX, fromY, toX, toY);
+        player.moveCardOnBoard(fromX, fromY, toX, toY);
     }
 
 }

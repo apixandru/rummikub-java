@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author Alexandru-Constantin Bledea
  * @since Aug 20, 2016
  */
-public class ServerConnectorPacketHandler implements ConnectorPacketHandler {
+class ServerConnectorPacketHandler implements ConnectorPacketHandler {
 
     private final AtomicBoolean continueListening = new AtomicBoolean(true);
 
@@ -25,7 +25,7 @@ public class ServerConnectorPacketHandler implements ConnectorPacketHandler {
 
     private final Map<Class, PacketHandler> packets = new LinkedHashMap<>();
 
-    public ServerConnectorPacketHandler() {
+    ServerConnectorPacketHandler() {
         register(ExitRequest.class, new ExitRequestHandler(this::connectionCloseRequest));
     }
 
@@ -52,15 +52,8 @@ public class ServerConnectorPacketHandler implements ConnectorPacketHandler {
         return continueListening.get();
     }
 
-    @Override
-    public void addConnectionListener(ConnectionListener connectionListener) {
+    void addConnectionListener(ConnectionListener connectionListener) {
         connectionListeners.add(connectionListener);
-    }
-
-    @Override
-    public void connectionLost() {
-        continueListening.set(false);
-        connectionListeners.forEach(ConnectionListener::connectionLost);
     }
 
     @Override
