@@ -5,6 +5,7 @@ import com.apixandru.rummikub.api.game.Card;
 import com.apixandru.rummikub.api.game.GameEventListener;
 import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.rummikub.api.game.PlayerCallback;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 import static com.apixandru.rummikub.api.game.GameOverReason.GAME_WON;
 import static com.apixandru.rummikub.api.game.GameOverReason.NO_MORE_CARDS;
 import static com.apixandru.rummikub.api.game.GameOverReason.PLAYER_QUIT;
+import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -19,7 +21,10 @@ import static com.apixandru.rummikub.api.game.GameOverReason.PLAYER_QUIT;
  */
 final class RummikubImpl implements Rummikub<Integer> {
 
+    private static final Logger log = getLogger(RummikubImpl.class);
+
     final Board board = new Board();
+
     private final UndoManager undoManager = new UndoManager();
     private final List<GameEventListener> gameEventListeners = new ArrayList<>();
     private final List<PlayerImpl> players = new ArrayList<>();
@@ -166,7 +171,11 @@ final class RummikubImpl implements Rummikub<Integer> {
 
         @Override
         public void placeCardOnBoard(final PlayerImpl player, final Card card, final int x, final int y) {
-            if (currentPlayer == player && board.placeCard(card, x, y)) {
+            if (currentPlayer != player) {
+                log.debug("It's not your turn!");
+                return;
+            }
+            if (board.placeCard(card, x, y)) {
                 currentPlayer.removeCard(card);
                 undoManager.addAction(new UndoManager.UndoPlayerToBoard(x, y));
             }

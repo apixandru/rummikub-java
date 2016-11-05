@@ -2,8 +2,6 @@ package com.apixandru.rummikub.model;
 
 import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
 import com.apixandru.rummikub.api.config.StateChangeListener;
-import com.apixandru.rummikub.api.game.GameEventListener;
-import com.apixandru.rummikub.api.game.GameOverReason;
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.model.game.GameConfigurerImpl;
 
@@ -21,7 +19,7 @@ import static com.apixandru.rummikub.model.RummikubException.Reason.ONGOING_GAME
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-public class RummikubImpl implements GameEventListener, RummikubRoomConfigurer {
+public class RummikubImpl implements RummikubRoomConfigurer {
 
     private final Map<String, StateChangeListener> players = new HashMap<>();
 
@@ -29,7 +27,7 @@ public class RummikubImpl implements GameEventListener, RummikubRoomConfigurer {
 
     private GameConfigurerImpl gameConfigurer;
 
-    private State state = State.WAITING;
+    private boolean inProgress;
 
     private static boolean isEmpty(final String string) {
         return null == string || string.isEmpty();
@@ -51,7 +49,7 @@ public class RummikubImpl implements GameEventListener, RummikubRoomConfigurer {
         if (players.containsKey(playerName)) {
             throw new RummikubException(NAME_TAKEN);
         }
-        if (State.WAITING != state) {
+        if (inProgress) {
             throw new RummikubException(ONGOING_GAME);
         }
     }
@@ -72,29 +70,12 @@ public class RummikubImpl implements GameEventListener, RummikubRoomConfigurer {
                 .forEach(waitingRoomListener -> waitingRoomListener.playerLeft(playerName));
     }
 
-    private void goToWaitingRoom() {
-        players.values()
-                .forEach(listener -> listener.enteredWaitingRoom(this));
-        state = State.WAITING;
-    }
-
-    @Override
-    public void newTurn(final String player) {
-
-    }
-
-    @Override
-    public void gameOver(final String player, final GameOverReason reason) {
-        goToWaitingRoom();
-    }
-
     @Override
     public void startGame() {
         gameConfigurer = new GameConfigurerImpl();
-        gameConfigurer.addGameEventListener(this);
         players.values()
                 .forEach(listener -> listener.enteredGame(gameConfigurer));
-        state = State.PLAYING;
+        inProgress = true;
     }
 
     @Override
@@ -109,15 +90,11 @@ public class RummikubImpl implements GameEventListener, RummikubRoomConfigurer {
 
     public void unregister(final String playerName) {
         players.remove(playerName); // TODO synchronize deez!
-        if (state == State.WAITING) {
+        if (!inProgress) {
             broadcastPlayerLeft(playerName);
         } else {
             gameConfigurer.removePlayer(playerName);
         }
-    }
-
-    private enum State {
-        WAITING, PLAYING
     }
 
 }

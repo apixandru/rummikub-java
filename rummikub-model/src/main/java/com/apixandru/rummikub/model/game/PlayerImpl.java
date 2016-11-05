@@ -15,6 +15,7 @@ import java.util.Optional;
 final class PlayerImpl implements Player<Integer> {
 
     final List<Card> cards = new ArrayList<>();
+
     private final PlayerListener listener;
     private final String name;
     private final Optional<PlayerCallback<Integer>> callback;

@@ -21,13 +21,9 @@ final class Board {
 
     private static final Logger log = LoggerFactory.getLogger(Board.class);
 
-    final Card[][] cards;
+    final Card[][] cards = new Card[NUM_ROWS][NUM_COLS];
 
     private final List<BoardListener> boardListeners = new ArrayList<>();
-
-    Board() {
-        this.cards = new Card[NUM_ROWS][NUM_COLS];
-    }
 
     private static boolean inBounds(final int x, final int y) {
         return y < NUM_ROWS && x < NUM_COLS;
@@ -37,27 +33,25 @@ final class Board {
         return null == cards[y][x];
     }
 
-
     boolean placeCard(Card card, int x, int y) {
         if (!inBounds(x, y)) {
+            log.debug("Cannot place {} outside of the bounds. ({}/{})", card, x, y);
             return false;
         }
         if (!isFree(x, y) && card != cards[y][x]) {
+            log.debug("Cannot place {} at ({}/{}). That slot is occupied by {}", card, x, y, cards[y][x]);
             return false;
         }
         cards[y][x] = card;
-        for (final BoardListener boardListener : boardListeners) {
-            boardListener.onCardPlacedOnBoard(card, x, y);
-        }
+        log.debug("Placed {} at {}/{}", card, x, y);
+        boardListeners.forEach(boardListener -> boardListener.onCardPlacedOnBoard(card, x, y));
         return true;
     }
 
     private Card removeCard(final int x, final int y, final boolean unlock) {
         final Card card = cards[y][x];
-        for (final BoardListener boardListener : boardListeners) {
-            boardListener.onCardRemovedFromBoard(card, x, y, unlock);
-        }
         cards[y][x] = null;
+        boardListeners.forEach(boardListener -> boardListener.onCardRemovedFromBoard(card, x, y, unlock));
         return card;
     }
 

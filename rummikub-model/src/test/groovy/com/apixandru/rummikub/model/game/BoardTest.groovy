@@ -15,24 +15,24 @@ import static com.apixandru.rummikub.model.game.TestUtils.card
  */
 class BoardTest extends Specification {
 
-    def board
+    Board board
 
     def "should not be able to place cards out of bounds"() {
         expect:
-        false == board.placeCard(BLACK_ONE_1, 0, 7)
-        false == board.placeCard(BLACK_ONE_1, 20, 0)
+        !board.placeCard(BLACK_ONE_1, 0, 7)
+        !board.placeCard(BLACK_ONE_1, 20, 0)
     }
 
     def "should not be able to place different cards on the same place"() {
         expect:
-        true == board.placeCard(BLACK_ONE_1, 0, 6)
-        false == board.placeCard(BLACK_ONE_2, 0, 6)
+        board.placeCard(BLACK_ONE_1, 0, 6)
+        !board.placeCard(BLACK_ONE_2, 0, 6)
     }
 
     def "should be able to place the same cards in the same slot"() {
         expect:
-        true == board.placeCard(BLACK_ONE_1, 0, 6)
-        true == board.placeCard(BLACK_ONE_1, 0, 6)
+        board.placeCard(BLACK_ONE_1, 0, 6)
+        board.placeCard(BLACK_ONE_1, 0, 6)
     }
 
     def "should mark a slot as taken after placing a card there"() {
@@ -40,7 +40,7 @@ class BoardTest extends Specification {
         board.placeCard(BLACK_ONE_1, 0, 6)
 
         then:
-        false == board.isFree(0, 6)
+        !board.isFree(0, 6)
     }
 
     def "should recognize valid formations"() {
@@ -50,7 +50,7 @@ class BoardTest extends Specification {
         board.placeCard(card(BLUE, ONE), 2, 1);
 
         then:
-        true == board.isValid()
+        board.isValid()
     }
 
     def "should be able to remove the card and place another one in its position"() {
@@ -61,7 +61,7 @@ class BoardTest extends Specification {
         board.removeCard(0, 6)
 
         then:
-        true == board.isFree(0, 6)
+        board.isFree(0, 6)
     }
 
     def "should take the exact card that was placed in the slot"() {
@@ -84,8 +84,8 @@ class BoardTest extends Specification {
         board.moveCard(0, 6, 1, 5);
 
         then:
-        true == board.isFree(0, 6)
-        false == board.isFree(1, 5)
+        board.isFree(0, 6)
+        !board.isFree(1, 5)
     }
 
     def "should recognize that a gap between cards invalidates the formation"() {
@@ -95,7 +95,7 @@ class BoardTest extends Specification {
         board.placeCard(card(BLUE, ONE), 19, 6);
 
         expect:
-        false == board.isValid()
+        !board.isValid()
         2 == board.streamGroups().count()
     }
 
