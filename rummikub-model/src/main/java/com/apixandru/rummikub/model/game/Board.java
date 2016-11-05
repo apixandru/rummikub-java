@@ -50,6 +50,7 @@ final class Board {
 
     private Card removeCard(final int x, final int y, final boolean unlock) {
         final Card card = cards[y][x];
+        log.debug("Removed {} from {}/{}", card, x, y);
         cards[y][x] = null;
         boardListeners.forEach(boardListener -> boardListener.onCardRemovedFromBoard(card, x, y, unlock));
         return card;
