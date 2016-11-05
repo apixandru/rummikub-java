@@ -29,10 +29,10 @@ class BoardTest extends Specification {
         !board.placeCard(BLACK_ONE_2, 0, 6)
     }
 
-    def "should be able to place the same cards in the same slot"() {
+    def "should not be able to place the same cards in the same slot"() {
         expect:
         board.placeCard(BLACK_ONE_1, 0, 6)
-        board.placeCard(BLACK_ONE_1, 0, 6)
+        !board.placeCard(BLACK_ONE_1, 0, 6)
     }
 
     def "should mark a slot as taken after placing a card there"() {

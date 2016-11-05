@@ -38,7 +38,7 @@ final class Board {
             log.debug("Cannot place {} outside of the bounds. ({}/{})", card, x, y);
             return false;
         }
-        if (!isFree(x, y) && card != cards[y][x]) {
+        if (!isFree(x, y)) {
             log.debug("Cannot place {} at ({}/{}). That slot is occupied by {}", card, x, y, cards[y][x]);
             return false;
         }

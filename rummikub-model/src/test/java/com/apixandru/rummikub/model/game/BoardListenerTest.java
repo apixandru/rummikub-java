@@ -35,16 +35,14 @@ public final class BoardListenerTest {
         board.placeCard(TestUtils.BLACK_ONE_1, 0, 6);
 
         final List<BoardAction> actions = listener.getActions();
-        assertEquals(2, actions.size());
+        assertEquals(1, actions.size());
 
-        for (int i = 0; i < 2; i++) {
-            final BoardAction boardAction = actions.get(i);
+        final BoardAction boardAction = actions.get(0);
 
-            Assert.assertEquals(BoardAction.Action.ADDED, boardAction.action);
-            Assert.assertEquals(TestUtils.BLACK_ONE_1, boardAction.card);
-            assertEquals(0, boardAction.x);
-            assertEquals(6, boardAction.y);
-        }
+        Assert.assertEquals(BoardAction.Action.ADDED, boardAction.action);
+        Assert.assertEquals(TestUtils.BLACK_ONE_1, boardAction.card);
+        assertEquals(0, boardAction.x);
+        assertEquals(6, boardAction.y);
 
     }
 

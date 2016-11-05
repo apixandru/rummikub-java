@@ -24,6 +24,7 @@ final class CardGroup {
     private static final Logger log = LoggerFactory.getLogger(CardGroup.class);
 
     private static final int MIN_NUM_CARDS_IN_GROUP = 3;
+    private static final int MAX_NUM_CARDS_IN_GROUP = 4;
 
     private final List<Card> cards;
 
@@ -74,7 +75,7 @@ final class CardGroup {
         return rank.ordinal() >= cardNumberInRun;
     }
 
-    static boolean isDifferentColors(final Collection<Card> cards) {
+    private static boolean isDifferentColors(final Collection<Card> cards) {
         final Collection<Color> colors = new HashSet<>();
         for (final Card card : cards) {
             final Color cardColor = card.getColor();
@@ -125,7 +126,9 @@ final class CardGroup {
     }
 
     private boolean isValidGroup() {
-        return isDifferentColors(cards) && isSameRanks(cards);
+        return cards.size() <= MAX_NUM_CARDS_IN_GROUP
+                && isDifferentColors(cards)
+                && isSameRanks(cards);
     }
 
     private boolean isValidRun() {
