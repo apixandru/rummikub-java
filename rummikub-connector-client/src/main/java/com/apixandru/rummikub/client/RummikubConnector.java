@@ -18,12 +18,9 @@ public final class RummikubConnector {
     private final ClientPacketHandler packetHandler = new ClientPacketHandler();
     private final SocketPacketProcessor socketPacketProcessor;
 
-    public RummikubConnector(final SocketWrapper socketWrapper, final StateChangeListener stateChangeListener) {
+    public RummikubConnector(final SocketWrapper socketWrapper, final StateChangeListener stateChangeListener, ConnectionListener connectionListener) {
         this.socketWrapper = socketWrapper;
         this.stateChangeListener = stateChangeListener;
-
-        ConnectionListener connectionListener = () -> {
-        };
 
         this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this.packetHandler, connectionListener);
     }
