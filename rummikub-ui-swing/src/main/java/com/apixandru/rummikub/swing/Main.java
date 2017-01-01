@@ -24,13 +24,11 @@ final class Main {
         final WindowManager windowManager = new WindowManager(connectionData.username);
         ConnectionListener connectionListener = () -> {
             runnable.send = false;
-            windowManager.dismiss();
             JOptionPane.showMessageDialog(null,
                     "The connection was lost",
                     "Connection Lost",
                     JOptionPane.ERROR_MESSAGE);
-
-//            main(args);
+            windowManager.dismiss();
         };
 
         final RummikubConnector rummikubConnector = new RummikubConnector(connectionData.socket, windowManager, connectionListener);

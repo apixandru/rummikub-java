@@ -27,7 +27,7 @@ class GameFrame {
 
     private static final int BOARD_WIDTH = NUM_COLS * UiConstants.TILE_WIDTH;
 
-    static void run(String username, final GameConfigurer configurer) {
+    static JFrame run(String username, final GameConfigurer configurer) {
         final JFrame frame = new JFrame();
         final JGridPanel board = RummikubUi.newBoard();
 
@@ -63,6 +63,8 @@ class GameFrame {
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        return frame;
     }
 
     private static Player<CardSlot> getNewPlayer(PlayerUi player, GameConfigurer configurer, GameListener callback) {

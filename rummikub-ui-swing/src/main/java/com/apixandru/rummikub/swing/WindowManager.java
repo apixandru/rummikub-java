@@ -6,7 +6,6 @@ import com.apixandru.rummikub.api.config.StateChangeListener;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import java.util.Optional;
 
 import static com.apixandru.rummikub.swing.GameFrame.run;
 
@@ -18,7 +17,7 @@ class WindowManager implements StateChangeListener {
 
     private final String username;
 
-    private Optional<JFrame> waitingRoomFrame;
+    private JFrame currentFrame;
 
     WindowManager(final String username) {
         this.username = username;
@@ -26,20 +25,23 @@ class WindowManager implements StateChangeListener {
 
     @Override
     public void enteredWaitingRoom(final RummikubRoomConfigurer configurer) {
+        dismiss();
         final WaitingRoom waitingRoom = new WaitingRoom(configurer);
         configurer.registerListener(waitingRoom);
-        waitingRoomFrame = Optional.of(WaitingRoom.createAndShowGui(waitingRoom));
+        currentFrame = WaitingRoom.createAndShowGui(waitingRoom);
     }
 
     @Override
     public void enteredGame(final GameConfigurer configurer) {
-        waitingRoomFrame.ifPresent(JFrame::dispose);
-
-        run(username, configurer);
+        dismiss();
+        currentFrame = run(username, configurer);
     }
 
     void dismiss() {
-        SwingUtilities.invokeLater(() -> waitingRoomFrame.ifPresent(JFrame::dispose));
+        JFrame frame = this.currentFrame;
+        if (null != frame) {
+            SwingUtilities.invokeLater(frame::dispose);
+        }
     }
 
 }

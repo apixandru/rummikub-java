@@ -4,7 +4,6 @@ import com.apixandru.rummikub.api.game.BoardListener;
 import com.apixandru.rummikub.api.game.Card;
 import com.apixandru.rummikub.api.game.GameEventListener;
 import com.apixandru.rummikub.api.game.GameOverReason;
-import com.apixandru.rummikub.brotocol.util.ConnectionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-final class GameListener implements BoardListener, GameEventListener, MoveHelper, ConnectionListener {
+final class GameListener implements BoardListener, GameEventListener, MoveHelper {
 
     private final List<Card> cardsLockedOnBoard = new ArrayList<>();
     private final List<Card> cardsJustPlacedOnBoard = new ArrayList<>();
@@ -93,15 +92,6 @@ final class GameListener implements BoardListener, GameEventListener, MoveHelper
                 throw new IllegalArgumentException(String.valueOf(reason));
         }
         JOptionPane.showMessageDialog(frame, message, "Game Over", icon);
-        frame.dispose();
-    }
-
-    @Override
-    public void onConnectionLost() {
-        JOptionPane.showMessageDialog(frame,
-                "You have been disconnected from the server. Press OK to exit.",
-                "Disconnected",
-                JOptionPane.ERROR_MESSAGE);
         frame.dispose();
     }
 
