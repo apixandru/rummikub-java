@@ -92,8 +92,6 @@ public class RummikubImpl implements RummikubRoomConfigurer {
         players.remove(playerName); // TODO synchronize deez!
         if (!inProgress) {
             broadcastPlayerLeft(playerName);
-        } else {
-            gameConfigurer.removePlayer(playerName);
         }
     }
 
