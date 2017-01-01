@@ -18,31 +18,26 @@ final class Main {
             return;
         }
 
-        NotifyShutdown runnable = new NotifyShutdown(connectionData);
-        Runtime.getRuntime().addShutdownHook(new Thread(runnable));
 
         final WindowManager windowManager = new WindowManager(connectionData.username);
-        ConnectionListener connectionListener = () -> {
-            runnable.send = false;
-            JOptionPane.showMessageDialog(null,
-                    "The connection was lost",
-                    "Connection Lost",
-                    JOptionPane.ERROR_MESSAGE);
-            windowManager.dismiss();
-        };
+        NotifyShutdown shutdownHook = new NotifyShutdown(connectionData, windowManager);
+        Runtime.getRuntime().addShutdownHook(shutdownHook);
 
-        final RummikubConnector rummikubConnector = new RummikubConnector(connectionData.socket, windowManager, connectionListener);
+        final RummikubConnector rummikubConnector = new RummikubConnector(connectionData.socket, windowManager, shutdownHook);
         rummikubConnector.connect();
 
     }
 
-    private static class NotifyShutdown implements Runnable {
+    private static class NotifyShutdown extends Thread implements ConnectionListener {
 
         private final ServerData.ConnectionData connectionData;
+        private final WindowManager windowManager;
+
         private boolean send = true;
 
-        private NotifyShutdown(ServerData.ConnectionData connectionData) {
+        private NotifyShutdown(ServerData.ConnectionData connectionData, WindowManager windowManager) {
             this.connectionData = connectionData;
+            this.windowManager = windowManager;
         }
 
         @Override
@@ -51,6 +46,17 @@ final class Main {
                 connectionData.socket.writePacket(new PacketLeave());
             }
         }
+
+        @Override
+        public void onConnectionLost() {
+            send = false;
+            JOptionPane.showMessageDialog(null,
+                    "The connection was lost",
+                    "Connection Lost",
+                    JOptionPane.ERROR_MESSAGE);
+            windowManager.dismiss();
+        }
+
     }
 
 }
