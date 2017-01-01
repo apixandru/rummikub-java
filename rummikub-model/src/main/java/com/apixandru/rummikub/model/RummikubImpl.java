@@ -83,6 +83,11 @@ public class RummikubImpl implements RummikubRoomConfigurer {
         waitingRoomListeners.add(listener);
     }
 
+    @Override
+    public void unregisterListener(RummikubRoomListener listener) {
+        waitingRoomListeners.remove(listener);
+    }
+
     public void unregister(final String playerName) {
         players.remove(playerName); // TODO synchronize deez!
         if (!inProgress) {

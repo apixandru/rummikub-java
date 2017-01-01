@@ -13,10 +13,6 @@ import com.apixandru.rummikub.server.game.ServerPlayerCallback;
 import com.apixandru.rummikub.server.game.TrackingGameConfigurer;
 import com.apixandru.rummikub.server.waiting.ServerRummikubRoomListener;
 
-import java.util.Optional;
-
-import static java.util.Optional.empty;
-
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 13, 2016
@@ -27,32 +23,37 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     private final String playerName;
     private final ServerPacketHandler serverPacketHandler;
     private final SocketPacketProcessor socketPacketProcessor;
+    private final ConnectionListener connectionListener;
 
-    private Optional<TrackingGameConfigurer> trackingGameConfigurer = empty();
+    private ServerRummikubRoomListener serverRummikubRoomListener;
+    private TrackingGameConfigurer trackingGameConfigurer;
 
     ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper, final ConnectionListener connectionListener) {
         this.playerName = playerName;
         this.socketWrapper = socketWrapper;
 
         this.serverPacketHandler = new ServerPacketHandler();
-        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this.serverPacketHandler, connectionListener);
+        this.connectionListener = connectionListener;
+        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this.serverPacketHandler, this);
     }
 
     @Override
     public void enteredWaitingRoom(final RummikubRoomConfigurer configurer) {
+        cleanup();
         serverPacketHandler.reset();
-        ServerRummikubRoomListener serverRummikubRoomListener = new ServerRummikubRoomListener(socketWrapper);
+        serverRummikubRoomListener = new ServerRummikubRoomListener(configurer, socketWrapper);
         configurer.registerListener(serverRummikubRoomListener);
         serverPacketHandler.setStartGameListenerProvider(configurer);
     }
 
     @Override
     public void enteredGame(final GameConfigurer rawConfigurer) {
+        cleanup();
         serverPacketHandler.reset();
         socketWrapper.writePacket(new PacketPlayerStart());
         TrackingGameConfigurer configurer = new TrackingGameConfigurer(rawConfigurer);
 
-        trackingGameConfigurer = Optional.of(configurer);
+        trackingGameConfigurer = configurer;
         configurer.addBoardListener(new ServerBoardListener(playerName, socketWrapper));
         configurer.addGameEventListener(new ServerGameEventListener(playerName, socketWrapper));
         serverPacketHandler.setPlayer(configurer.newPlayer(new ServerPlayerCallback(playerName, socketWrapper)));
@@ -65,7 +66,19 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
 
     @Override
     public void onConnectionLost() {
-        trackingGameConfigurer.ifPresent(TrackingGameConfigurer::cleanup);
+        cleanup();
+        connectionListener.onConnectionLost();
+    }
+
+    private void cleanup() {
+        TrackingGameConfigurer trackingGameConfigurer = this.trackingGameConfigurer;
+        if (null != trackingGameConfigurer) {
+            trackingGameConfigurer.cleanup();
+        }
+        ServerRummikubRoomListener serverRummikubRoomListener = this.serverRummikubRoomListener;
+        if (null != serverRummikubRoomListener) {
+            serverRummikubRoomListener.cleanup();
+        }
     }
 
 }

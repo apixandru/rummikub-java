@@ -1,5 +1,6 @@
 package com.apixandru.rummikub.server.waiting;
 
+import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerJoined;
@@ -12,9 +13,11 @@ import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
 public class ServerRummikubRoomListener implements RummikubRoomListener {
 
     private final PacketWriter packetWriter;
+    private final RummikubRoomConfigurer configurer;
 
-    public ServerRummikubRoomListener(final PacketWriter packetWriter) {
+    public ServerRummikubRoomListener(RummikubRoomConfigurer configurer, final PacketWriter packetWriter) {
         this.packetWriter = packetWriter;
+        this.configurer = configurer;
     }
 
     @Override
@@ -29,6 +32,10 @@ public class ServerRummikubRoomListener implements RummikubRoomListener {
         final PacketPlayerLeft packet = new PacketPlayerLeft();
         packet.playerName = playerName;
         packetWriter.writePacket(packet);
+    }
+
+    public void cleanup() {
+        configurer.unregisterListener(this);
     }
 
 }
