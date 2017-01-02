@@ -3,6 +3,8 @@ package com.apixandru.rummikub.client.waiting;
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerJoined;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.function.Supplier;
 
@@ -12,6 +14,8 @@ import java.util.function.Supplier;
  */
 public final class PlayerJoinedHandler implements PacketHandler<PacketPlayerJoined> {
 
+    private static final Logger log = LoggerFactory.getLogger(PlayerJoinedHandler.class);
+
     private final Supplier<RummikubRoomListener> waitingRoomListeners;
 
     public PlayerJoinedHandler(final Supplier<RummikubRoomListener> waitingRoomListeners) {
@@ -20,6 +24,7 @@ public final class PlayerJoinedHandler implements PacketHandler<PacketPlayerJoin
 
     @Override
     public void handle(final PacketPlayerJoined packet) {
+        log.info("Player {} joined.", packet.playerName);
         waitingRoomListeners.get().playerJoined(packet.playerName);
     }
 
