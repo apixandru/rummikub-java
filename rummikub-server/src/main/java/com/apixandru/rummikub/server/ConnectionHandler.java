@@ -1,6 +1,7 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.brotocol.SocketWrapper;
+import com.apixandru.rummikub.brotocol.game.client.PacketLogin;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
 import com.apixandru.rummikub.model.RummikubException;
 import com.apixandru.rummikub.model.RummikubImpl;
@@ -27,7 +28,8 @@ class ConnectionHandler {
 
     synchronized void attemptToJoin(final SocketWrapper wrapper) {
         try {
-            final String playerName = wrapper.readString();
+            PacketLogin packet = (PacketLogin) wrapper.readPacket();
+            final String playerName = packet.playerName;
             log.debug("{} is attempting to join.", playerName);
             accept(wrapper, playerName);
         } catch (final RummikubException | IOException ex) {

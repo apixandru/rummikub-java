@@ -40,7 +40,8 @@ class RummikubServerThread extends Thread {
             if (acceptedConnection.get()) {
                 log.debug("Waiting for client...");
             }
-            newConnection().ifPresent(connectionHandler::attemptToJoin);
+            newConnection()
+                    .ifPresent(connectionHandler::attemptToJoin);
         }
     }
 

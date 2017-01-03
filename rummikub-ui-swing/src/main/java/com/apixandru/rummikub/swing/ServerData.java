@@ -1,6 +1,7 @@
 package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.brotocol.SocketWrapper;
+import com.apixandru.rummikub.brotocol.game.client.PacketLogin;
 import com.apixandru.rummikub.brotocol2.SocketConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,7 +125,9 @@ final class ServerData {
 
         ConnectionData(final Socket socket, final String username) throws IOException {
             this.socket = new SocketWrapper(new SocketConnection(socket));
-            this.socket.write(username);
+            PacketLogin login = new PacketLogin();
+            login.playerName = username;
+            this.socket.writePacket(login);
             if (!this.socket.readBoolean()) {
                 throw new IllegalArgumentException(this.socket.readString());
             }

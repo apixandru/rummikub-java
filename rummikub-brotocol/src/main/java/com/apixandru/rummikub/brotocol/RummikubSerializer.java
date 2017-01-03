@@ -8,6 +8,7 @@ import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
+import com.apixandru.rummikub.brotocol.game.client.PacketLogin;
 import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
@@ -65,6 +66,7 @@ public final class RummikubSerializer implements Serializer {
         register(PacketPlayerStart.class);
         register(PacketLeave.class);
         register(PacketPlayerLeft.class);
+        register(PacketLogin.class);
     }
 
     private void register(final Class<? extends Packet> packetClass) {
