@@ -72,7 +72,7 @@ final class Converters {
     }
 
     static void writeString(final String data, final DataOutput output) throws IOException {
-        output.writeUTF(data);
+        output.writeUTF(null == data ? "" : data);
     }
 
     static int readInt(final DataInput input) throws IOException {

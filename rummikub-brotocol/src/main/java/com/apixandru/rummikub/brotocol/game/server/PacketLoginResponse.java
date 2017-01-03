@@ -10,7 +10,7 @@ import static com.apixandru.rummikub.brotocol.Brotocol.SERVER_LOGIN_RESPONSE;
  * @since January 03, 2017
  */
 @Header(SERVER_LOGIN_RESPONSE)
-public class PacketLoginResult implements Packet {
+public class PacketLoginResponse implements Packet {
 
     public boolean accepted;
     public String reason;

@@ -24,32 +24,6 @@ public final class SocketWrapper implements PacketWriter, PacketReader {
         this.in = connection.getDataInputStream();
     }
 
-    public String readString() throws IOException {
-        return this.in.readUTF();
-    }
-
-    public void write(final String string) {
-        try {
-            this.out.writeUTF(string);
-            this.out.flush();
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    public boolean readBoolean() throws IOException {
-        return this.in.readBoolean();
-    }
-
-    public void write(final boolean value) {
-        try {
-            this.out.writeBoolean(value);
-            this.out.flush();
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
     @Override
     public void writePacket(final Packet packet) {
         try {

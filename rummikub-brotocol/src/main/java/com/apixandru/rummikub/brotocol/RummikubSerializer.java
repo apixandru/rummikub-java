@@ -15,6 +15,7 @@ import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
 import com.apixandru.rummikub.brotocol.game.server.PacketCardPlaced;
 import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;
+import com.apixandru.rummikub.brotocol.game.server.PacketLoginResponse;
 import com.apixandru.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.rummikub.brotocol.game.server.PacketReceiveCard;
 import com.apixandru.rummikub.brotocol.util.FieldSerializer;
@@ -67,6 +68,7 @@ public final class RummikubSerializer implements Serializer {
         register(PacketLeave.class);
         register(PacketPlayerLeft.class);
         register(PacketLogin.class);
+        register(PacketLoginResponse.class);
     }
 
     private void register(final Class<? extends Packet> packetClass) {

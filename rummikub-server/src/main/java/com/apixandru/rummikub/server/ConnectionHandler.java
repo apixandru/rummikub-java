@@ -2,6 +2,7 @@ package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.game.client.PacketLogin;
+import com.apixandru.rummikub.brotocol.game.server.PacketLoginResponse;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
 import com.apixandru.rummikub.model.RummikubException;
 import com.apixandru.rummikub.model.RummikubImpl;
@@ -20,9 +21,10 @@ class ConnectionHandler {
 
     private final RummikubImpl rummikub = new RummikubImpl();
 
-    private static void reject(final SocketWrapper socketWrapper, final Exception exception) {
-        socketWrapper.write(false);
-        socketWrapper.write(exception.getMessage());
+    private static void reject(final SocketWrapper wrapper, final Exception exception) {
+        PacketLoginResponse response = new PacketLoginResponse();
+        response.reason = exception.getMessage();
+        wrapper.writePacket(response);
         log.debug("Rejected.", exception);
     }
 
@@ -41,7 +43,9 @@ class ConnectionHandler {
         ConnectionListener connectionListener = () -> rummikub.unregister(playerName);
         ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, wrapper, connectionListener);
         rummikub.validateCanJoin(playerName, stateChangeListener);
-        wrapper.write(true);
+        PacketLoginResponse response = new PacketLoginResponse();
+        response.accepted = true;
+        wrapper.writePacket(response);
         rummikub.addPlayer(playerName, stateChangeListener);
         log.debug("Accepted.");
         new Thread(stateChangeListener, playerName).start();
