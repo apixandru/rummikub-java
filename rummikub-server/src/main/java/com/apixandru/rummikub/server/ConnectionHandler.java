@@ -1,8 +1,8 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.brotocol.SocketWrapper;
-import com.apixandru.rummikub.brotocol.game.client.PacketLogin;
-import com.apixandru.rummikub.brotocol.game.server.PacketLoginResponse;
+import com.apixandru.rummikub.brotocol.game.client.LoginRequest;
+import com.apixandru.rummikub.brotocol.game.server.LoginResponse;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
 import com.apixandru.rummikub.model.RummikubException;
 import com.apixandru.rummikub.model.RummikubImpl;
@@ -22,7 +22,7 @@ class ConnectionHandler {
     private final RummikubImpl rummikub = new RummikubImpl();
 
     private static void reject(final SocketWrapper wrapper, final Exception exception) {
-        PacketLoginResponse response = new PacketLoginResponse();
+        LoginResponse response = new LoginResponse();
         response.reason = exception.getMessage();
         wrapper.writePacket(response);
         log.debug("Rejected.", exception);
@@ -30,7 +30,7 @@ class ConnectionHandler {
 
     synchronized void attemptToJoin(final SocketWrapper wrapper) {
         try {
-            PacketLogin packet = (PacketLogin) wrapper.readPacket();
+            LoginRequest packet = (LoginRequest) wrapper.readPacket();
             final String playerName = packet.playerName;
             log.debug("{} is attempting to join.", playerName);
             accept(wrapper, playerName);
@@ -43,7 +43,7 @@ class ConnectionHandler {
         ConnectionListener connectionListener = () -> rummikub.unregister(playerName);
         ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, wrapper, connectionListener);
         rummikub.validateCanJoin(playerName, stateChangeListener);
-        PacketLoginResponse response = new PacketLoginResponse();
+        LoginResponse response = new LoginResponse();
         response.accepted = true;
         wrapper.writePacket(response);
         rummikub.addPlayer(playerName, stateChangeListener);

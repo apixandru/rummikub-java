@@ -26,7 +26,6 @@ final class Converters {
         writeSafeByte(CARDS.indexOf(data), output);
     }
 
-
     static void writeSafeByte(final int data, final DataOutput output) throws IOException {
         final byte byteValue = (byte) data;
         if (byteValue != data) {
@@ -46,7 +45,6 @@ final class Converters {
     static void writeGameOverReason(final GameOverReason gameOverReason, final DataOutput output) throws IOException {
         writeSafeByte(gameOverReason.ordinal(), output);
     }
-
 
     static Integer readInteger(final DataInput input) throws IOException {
         final int i = readByte(input);

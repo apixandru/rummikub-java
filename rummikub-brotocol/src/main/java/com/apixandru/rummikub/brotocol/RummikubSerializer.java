@@ -7,15 +7,15 @@ import com.apixandru.rummikub.brotocol.connect.client.PacketStart;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
+import com.apixandru.rummikub.brotocol.game.client.LoginRequest;
 import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
-import com.apixandru.rummikub.brotocol.game.client.PacketLogin;
 import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
+import com.apixandru.rummikub.brotocol.game.server.LoginResponse;
 import com.apixandru.rummikub.brotocol.game.server.PacketCardPlaced;
 import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;
-import com.apixandru.rummikub.brotocol.game.server.PacketLoginResponse;
 import com.apixandru.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.rummikub.brotocol.game.server.PacketReceiveCard;
 import com.apixandru.rummikub.brotocol.util.FieldSerializer;
@@ -24,16 +24,20 @@ import com.apixandru.rummikub.brotocol.util.FieldSerializerImpl;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
+ * This class deals with serializing / deserializing packets.
+ * To make the protocol more lightweight, the identifier for the packet is the index of the class in the list.
+ * This is the reason why both the serializer and deserializer must use the exact same list of packets.
+ *
  * @author Alexandru-Constantin Bledea
  * @since 1/13/16
  */
-public final class RummikubSerializer implements Serializer {
+final class RummikubSerializer implements Serializer {
 
-    private final Map<Integer, Class> packets = new HashMap<>();
+    private final List<Class> packets = new ArrayList<>();
 
     private final FieldSerializer serializer;
 
@@ -67,31 +71,41 @@ public final class RummikubSerializer implements Serializer {
         register(PacketPlayerStart.class);
         register(PacketLeave.class);
         register(PacketPlayerLeft.class);
-        register(PacketLogin.class);
-        register(PacketLoginResponse.class);
+        register(LoginRequest.class);
+        register(LoginResponse.class);
     }
 
     private void register(final Class<? extends Packet> packetClass) {
-        this.packets.put(packetClass.getAnnotation(Header.class).value().ordinal(), packetClass);
+        this.packets.add(packetClass);
     }
 
     @Override
     public void serialize(final Packet packet, final DataOutputStream output) throws IOException {
-        final int value = packet.getClass().getAnnotation(Header.class).value().ordinal();
-        output.writeByte(value);
+        Class<? extends Packet> packetClass = packet.getClass();
+        validateRegistered(packetClass);
+        final int code = packets.indexOf(packetClass);
+        output.writeByte(code);
         serializer.writeFields(packet, output);
         output.flush();
     }
 
+    private void validateRegistered(Class<? extends Packet> packet) {
+        if (!packets.contains(packet)) {
+            throw new IllegalArgumentException("Class " + packet.getName() + " is not registered.");
+        }
+    }
+
+    /**
+     * @param input the data input stream
+     * @return the next packet, this method never returns null
+     * @throws IOException if an I/O error occurs.
+     */
     @Override
     @SuppressWarnings("unchecked")
     public Packet deserialize(final DataInputStream input) throws IOException {
-        final int read = input.readByte();
-        final Class<Packet> clasz = packets.get(read);
-        if (null == clasz) {
-            throw new IllegalArgumentException("No handler registered for " + Brotocol.values()[read]);
-        }
-        return serializer.readFields(clasz, input);
+        final int code = input.readByte();
+        final Class<Packet> packetClass = packets.get(code);
+        return serializer.readFields(packetClass, input);
     }
 
 }
