@@ -42,21 +42,21 @@ public class TestRummikubImpl {
     public void testNullName() {
         expectExceptionToBeThrownWithReason(NO_NAME);
 
-        rummikub.register(null, listener);
+        rummikub.validateCanJoin(null, listener);
     }
 
     @Test
     public void testEmptyName() {
         expectExceptionToBeThrownWithReason(NO_NAME);
 
-        rummikub.register("", listener);
+        rummikub.validateCanJoin("", listener);
     }
 
     @Test
     public void testNoListener() {
         expectExceptionToBeThrownWithReason(NO_LISTENER);
 
-        rummikub.register("Dan", null);
+        rummikub.validateCanJoin("Dan", null);
     }
 
     @Test

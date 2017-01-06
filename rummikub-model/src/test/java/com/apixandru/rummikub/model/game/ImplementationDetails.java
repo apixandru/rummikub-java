@@ -58,11 +58,7 @@ public final class ImplementationDetails {
         final Map<Rank, Map<Color, Card>> cardsByRank = new HashMap<>();
         for (final Card card : cards) {
             final Rank rank = card.getRank();
-            Map<Color, Card> cardsForRank = cardsByRank.get(rank);
-            if (null == cardsForRank) {
-                cardsForRank = new HashMap<>();
-                cardsByRank.put(rank, cardsForRank);
-            }
+            Map<Color, Card> cardsForRank = cardsByRank.computeIfAbsent(rank, k -> new HashMap<>());
             cardsForRank.put(card.getColor(), card);
         }
         for (Map<Color, Card> entry : cardsByRank.values()) {

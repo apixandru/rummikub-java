@@ -44,8 +44,4 @@ public class GameConfigurerImpl implements GameConfigurer {
         rummikubGame.removePlayer(player.getName());
     }
 
-    public void removePlayer(String playerName) {
-        rummikubGame.removePlayer(playerName);
-    }
-
 }
