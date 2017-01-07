@@ -3,7 +3,7 @@ package com.apixandru.rummikub.server;
 import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
 import com.apixandru.rummikub.api.config.StateChangeListener;
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
-import com.apixandru.rummikub.model.game.GameConfigurerImpl;
+import com.apixandru.rummikub.model.GameConfigurerImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;

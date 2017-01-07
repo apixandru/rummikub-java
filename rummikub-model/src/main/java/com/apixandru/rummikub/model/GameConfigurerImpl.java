@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.model.game;
+package com.apixandru.rummikub.model;
 
 import com.apixandru.rummikub.api.config.GameConfigurer;
 import com.apixandru.rummikub.api.game.BoardListener;

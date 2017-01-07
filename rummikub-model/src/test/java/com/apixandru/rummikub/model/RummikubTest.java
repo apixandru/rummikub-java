@@ -2,18 +2,15 @@ package com.apixandru.rummikub.model;
 
 import com.apixandru.rummikub.api.game.Card;
 import com.apixandru.rummikub.api.game.Player;
-import com.apixandru.rummikub.model.game.ImplementationDetails;
-import com.apixandru.rummikub.model.game.Rummikub;
-import com.apixandru.rummikub.model.game.RummikubFactory;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.apixandru.rummikub.model.game.ImplementationDetails.cloneCards;
-import static com.apixandru.rummikub.model.game.ImplementationDetails.currentPlayer;
-import static com.apixandru.rummikub.model.game.ImplementationDetails.getCards;
+import static com.apixandru.rummikub.model.ImplementationDetails.cloneCards;
+import static com.apixandru.rummikub.model.ImplementationDetails.currentPlayer;
+import static com.apixandru.rummikub.model.ImplementationDetails.getCards;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;

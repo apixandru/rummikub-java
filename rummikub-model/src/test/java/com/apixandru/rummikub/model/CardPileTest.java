@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.model.game;
+package com.apixandru.rummikub.model;
 
 import com.apixandru.rummikub.api.game.Constants;
 import org.junit.Test;

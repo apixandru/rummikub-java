@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.model.game;
+package com.apixandru.rummikub.model;
 
 import com.apixandru.rummikub.api.game.Card;
 import com.apixandru.rummikub.api.game.Player;

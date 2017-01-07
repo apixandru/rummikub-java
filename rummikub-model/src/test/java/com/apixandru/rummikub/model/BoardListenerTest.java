@@ -1,6 +1,6 @@
-package com.apixandru.rummikub.model.game;
+package com.apixandru.rummikub.model;
 
-import com.apixandru.rummikub.model.game.support.BoardAction;
+import com.apixandru.rummikub.model.support.BoardAction;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
