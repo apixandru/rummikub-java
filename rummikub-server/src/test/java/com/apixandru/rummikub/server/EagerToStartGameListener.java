@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.model;
+package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.config.GameConfigurer;
 import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;

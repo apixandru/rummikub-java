@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.model;
+package com.apixandru.rummikub.server;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -17,7 +17,7 @@ public class RummikubException extends RuntimeException {
         return reason;
     }
 
-    enum Reason {
+    public enum Reason {
         ONGOING_GAME("There is an ongoing game, try later."),
         NAME_TAKEN("Name already taken."),
         NO_NAME("Name is missing."),

@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.model;
+package com.apixandru.rummikub.server;
 
 import org.hamcrest.Description;
 import org.hamcrest.Factory;

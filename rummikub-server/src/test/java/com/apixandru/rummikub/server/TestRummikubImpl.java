@@ -1,16 +1,16 @@
-package com.apixandru.rummikub.model;
+package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.config.StateChangeListener;
-import com.apixandru.rummikub.model.RummikubException.Reason;
+import com.apixandru.rummikub.server.RummikubException.Reason;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static com.apixandru.rummikub.model.RummikubException.Reason.NAME_TAKEN;
-import static com.apixandru.rummikub.model.RummikubException.Reason.NO_LISTENER;
-import static com.apixandru.rummikub.model.RummikubException.Reason.NO_NAME;
-import static com.apixandru.rummikub.model.RummikubException.Reason.ONGOING_GAME;
+import static com.apixandru.rummikub.server.RummikubException.Reason.NAME_TAKEN;
+import static com.apixandru.rummikub.server.RummikubException.Reason.NO_LISTENER;
+import static com.apixandru.rummikub.server.RummikubException.Reason.NO_NAME;
+import static com.apixandru.rummikub.server.RummikubException.Reason.ONGOING_GAME;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -72,8 +72,7 @@ public class TestRummikubImpl {
     public void testJoinWhileInGame() {
         expectExceptionToBeThrownWithReason(ONGOING_GAME);
 
-        final StateChangeListener listener1 = new EagerToStartGameListener();
-        rummikub.addPlayer("Dan", listener1);
+        rummikub.addPlayer("Dan", new EagerToStartGameListener());
         rummikub.validateCanJoin("The Man", listener);
     }
 

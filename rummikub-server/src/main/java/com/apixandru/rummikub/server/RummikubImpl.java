@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.model;
+package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
 import com.apixandru.rummikub.api.config.StateChangeListener;
@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.apixandru.rummikub.model.RummikubException.Reason.NAME_TAKEN;
-import static com.apixandru.rummikub.model.RummikubException.Reason.NO_LISTENER;
-import static com.apixandru.rummikub.model.RummikubException.Reason.NO_NAME;
-import static com.apixandru.rummikub.model.RummikubException.Reason.ONGOING_GAME;
+import static com.apixandru.rummikub.server.RummikubException.Reason.NAME_TAKEN;
+import static com.apixandru.rummikub.server.RummikubException.Reason.NO_LISTENER;
+import static com.apixandru.rummikub.server.RummikubException.Reason.NO_NAME;
+import static com.apixandru.rummikub.server.RummikubException.Reason.ONGOING_GAME;
 
 /**
  * @author Alexandru-Constantin Bledea

@@ -4,8 +4,6 @@ import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.game.client.LoginRequest;
 import com.apixandru.rummikub.brotocol.game.server.LoginResponse;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
-import com.apixandru.rummikub.model.RummikubException;
-import com.apixandru.rummikub.model.RummikubImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
