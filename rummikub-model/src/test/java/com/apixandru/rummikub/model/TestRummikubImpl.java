@@ -35,7 +35,8 @@ public class TestRummikubImpl {
 
     @Test
     public void testRegularRegister() {
-        rummikub.register("Dan", listener);
+        rummikub.validateCanJoin("Dan", listener);
+        rummikub.addPlayer("Dan", listener);
     }
 
     @Test
@@ -63,16 +64,17 @@ public class TestRummikubImpl {
     public void testRejectSameName() {
         expectExceptionToBeThrownWithReason(NAME_TAKEN);
 
-        rummikub.register("Dan", listener);
-        rummikub.register("Dan", listener);
+        rummikub.addPlayer("Dan", listener);
+        rummikub.validateCanJoin("Dan", listener);
     }
 
     @Test
     public void testJoinWhileInGame() {
         expectExceptionToBeThrownWithReason(ONGOING_GAME);
 
-        rummikub.register("Dan", new EagerToStartGameListener());
-        rummikub.register("The Man", listener);
+        final StateChangeListener listener1 = new EagerToStartGameListener();
+        rummikub.addPlayer("Dan", listener1);
+        rummikub.validateCanJoin("The Man", listener);
     }
 
     private void expectExceptionToBeThrownWithReason(final Reason reason) {

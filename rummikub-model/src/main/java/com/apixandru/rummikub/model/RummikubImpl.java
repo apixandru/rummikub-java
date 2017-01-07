@@ -33,12 +33,6 @@ public class RummikubImpl implements RummikubRoomConfigurer {
         return null == string || string.isEmpty();
     }
 
-    @Deprecated
-    public void register(final String playerName, final StateChangeListener listener) throws RummikubException {
-        validateCanJoin(playerName, listener);
-        addPlayer(playerName, listener);
-    }
-
     public void validateCanJoin(final String playerName, final StateChangeListener listener) {
         if (null == listener) {
             throw new RummikubException(NO_LISTENER);
