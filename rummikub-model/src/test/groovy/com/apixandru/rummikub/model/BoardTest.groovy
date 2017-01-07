@@ -1,13 +1,13 @@
-package com.apixandru.rummikub.model.game
+package com.apixandru.rummikub.model
 
 import spock.lang.Specification
 
 import static com.apixandru.rummikub.api.game.Color.BLUE
 import static com.apixandru.rummikub.api.game.Color.RED
 import static com.apixandru.rummikub.api.game.Rank.ONE
-import static com.apixandru.rummikub.model.game.TestUtils.BLACK_ONE_1
-import static com.apixandru.rummikub.model.game.TestUtils.BLACK_ONE_2
-import static com.apixandru.rummikub.model.game.TestUtils.card
+import static com.apixandru.rummikub.model.TestUtils.BLACK_ONE_1
+import static com.apixandru.rummikub.model.TestUtils.BLACK_ONE_2
+import static com.apixandru.rummikub.model.TestUtils.card
 
 /**
  * @author Alexandru-Constantin Bledea
