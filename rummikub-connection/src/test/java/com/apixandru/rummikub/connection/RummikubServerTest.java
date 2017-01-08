@@ -19,9 +19,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class RummikubServerTest {
 
-    private static MockPacketConnector createConnector(MockPacketConnection... conectors) {
+    private static MockPacketConnector createConnector(MockPacketConnection... connections) {
         MockPacketConnector packetConnector = new MockPacketConnector();
-        stream(conectors)
+        stream(connections)
                 .forEach(packetConnector::assumeConnection);
         return packetConnector;
     }

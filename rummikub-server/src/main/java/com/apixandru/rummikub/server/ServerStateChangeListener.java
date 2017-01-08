@@ -21,11 +21,13 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
 
     private final SocketWrapper socketWrapper;
     private final String playerName;
+
     private final ServerPacketHandler serverPacketHandler;
     private final SocketPacketProcessor socketPacketProcessor;
     private final ConnectionListener connectionListener;
 
-    private ServerRummikubRoomListener serverRummikubRoomListener;
+    ServerRummikubRoomListener serverRummikubRoomListener;
+
     private TrackingGameConfigurer trackingGameConfigurer;
 
     ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper, final ConnectionListener connectionListener) {

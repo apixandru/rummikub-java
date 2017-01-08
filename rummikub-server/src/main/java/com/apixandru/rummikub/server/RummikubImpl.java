@@ -48,10 +48,23 @@ public class RummikubImpl implements RummikubRoomConfigurer {
         }
     }
 
-    public void addPlayer(final String playerName, final StateChangeListener listener) {
+    void addPlayer(final String playerName, final StateChangeListener listener) {
         players.put(playerName, listener);
         listener.enteredWaitingRoom(this);
         broadcastPlayerJoined(playerName);
+    }
+
+    void addPlayer(final String playerName, final ServerStateChangeListener listener) {
+        listener.enteredWaitingRoom(this);
+        notifyOfPreviouslyJoinedPlayers(listener);
+        players.put(playerName, listener);
+        broadcastPlayerJoined(playerName);
+    }
+
+    private void notifyOfPreviouslyJoinedPlayers(ServerStateChangeListener listener) {
+        for (String playerName : players.keySet()) {
+            listener.serverRummikubRoomListener.playerJoined(playerName);
+        }
     }
 
     private void broadcastPlayerJoined(final String playerName) {
