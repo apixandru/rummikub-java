@@ -15,20 +15,20 @@ import java.util.Map;
  * @author Alexandru-Constantin Bledea
  * @since December 26, 2015
  */
-public final class ImplementationDetails {
+final class ImplementationDetails {
 
     private ImplementationDetails() {
     }
 
-    public static Player currentPlayer(final Rummikub game) {
+    static Player currentPlayer(final Rummikub game) {
         return ((RummikubImpl) game).currentPlayer;
     }
 
-    public static Card[][] cloneBoard(final Rummikub game) {
+    static Card[][] cloneBoard(final Rummikub game) {
         return Util.copyOf(((RummikubImpl) game).board.cards);
     }
 
-    public static List<Card> endTurnUntilValidGroup(final Player player) {
+    static List<Card> endTurnUntilValidGroup(final Player player) {
         while (true) {
             final List<Card> group = getGroup(getCards(player));
             if (null != group) {
@@ -38,19 +38,19 @@ public final class ImplementationDetails {
         }
     }
 
-    public static List<Card> getCards(final Player<?> player) {
+    static List<Card> getCards(final Player<?> player) {
         return ((PlayerImpl) player).cards;
     }
 
-    public static Card getFirstCard(final Player player) {
+    static Card getFirstCard(final Player player) {
         return getCards(player).get(0);
     }
 
-    public static List<Card> cloneCards(final Player player) {
+    static List<Card> cloneCards(final Player player) {
         return new ArrayList<>(getCards(player));
     }
 
-    public static int countCards(final Player player) {
+    static int countCards(final Player player) {
         return getCards(player).size();
     }
 

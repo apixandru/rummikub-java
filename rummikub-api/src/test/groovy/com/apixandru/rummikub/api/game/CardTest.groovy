@@ -13,7 +13,7 @@ class CardTest extends Specification {
 
     def "should not be able to create card with no color but with rank"() {
         when:
-        new Card(null, EIGHT);
+        new Card(null, EIGHT)
 
         then:
         thrown(IllegalArgumentException)
@@ -21,7 +21,7 @@ class CardTest extends Specification {
 
     def "should not be able to create card with no rank but with color"() {
         when:
-        new Card(RED, null);
+        new Card(RED, null)
 
         then:
         thrown(IllegalArgumentException)

@@ -45,9 +45,9 @@ class BoardTest extends Specification {
 
     def "should recognize valid formations"() {
         when:
-        board.placeCard(BLACK_ONE_1, 0, 1);
-        board.placeCard(card(RED, ONE), 1, 1);
-        board.placeCard(card(BLUE, ONE), 2, 1);
+        board.placeCard(BLACK_ONE_1, 0, 1)
+        board.placeCard(card(RED, ONE), 1, 1)
+        board.placeCard(card(BLUE, ONE), 2, 1)
 
         then:
         board.isValid()
@@ -81,7 +81,7 @@ class BoardTest extends Specification {
         board.placeCard(BLACK_ONE_1, 0, 6)
 
         when:
-        board.moveCard(0, 6, 1, 5);
+        board.moveCard(0, 6, 1, 5)
 
         then:
         board.isFree(0, 6)
@@ -90,9 +90,9 @@ class BoardTest extends Specification {
 
     def "should recognize that a gap between cards invalidates the formation"() {
         given:
-        board.placeCard(BLACK_ONE_1, 16, 6);
-        board.placeCard(card(RED, ONE), 18, 6);
-        board.placeCard(card(BLUE, ONE), 19, 6);
+        board.placeCard(BLACK_ONE_1, 16, 6)
+        board.placeCard(card(RED, ONE), 18, 6)
+        board.placeCard(card(BLUE, ONE), 19, 6)
 
         expect:
         !board.isValid()

@@ -15,10 +15,10 @@ class ColorTest extends Specification {
 
     def "validate colors to string"() {
         expect:
-        "YLW" == YELLOW.toString();
-        "BLK" == BLACK.toString();
-        "BLU" == BLUE.toString();
-        "RED" == RED.toString();
+        "YLW" == YELLOW.toString()
+        "BLK" == BLACK.toString()
+        "BLU" == BLUE.toString()
+        "RED" == RED.toString()
     }
 
 }
