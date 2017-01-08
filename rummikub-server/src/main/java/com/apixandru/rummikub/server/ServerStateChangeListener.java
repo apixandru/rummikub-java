@@ -44,10 +44,11 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         cleanup();
         serverPacketHandler.reset();
         serverRummikubRoomListener.setConfigurer(configurer);
-        configurer.registerListener(serverRummikubRoomListener);
+        configurer.registerListener(playerName, serverRummikubRoomListener);
         serverPacketHandler.setStartGameListenerProvider(configurer);
     }
 
+    @Override
     public void enteredGame(final GameConfigurer rawConfigurer) {
         cleanup();
         serverPacketHandler.reset();

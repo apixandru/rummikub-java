@@ -1,12 +1,11 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
+import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.model.GameConfigurerImpl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.apixandru.rummikub.server.RummikubException.Reason.NAME_TAKEN;
@@ -17,11 +16,11 @@ import static com.apixandru.rummikub.server.RummikubException.Reason.ONGOING_GAM
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-public class RummikubImpl implements RummikubRoomConfigurer {
+public class RummikubImpl implements StartGameListener {
 
     private final Map<String, StateChangeListener> players = new HashMap<>();
 
-    private final List<RummikubRoomListener> waitingRoomListeners = new ArrayList<>();
+    private final Map<String, RummikubRoomListener> waitingRoomListeners = new LinkedHashMap<>();
 
     private GameConfigurerImpl gameConfigurer;
 
@@ -51,24 +50,27 @@ public class RummikubImpl implements RummikubRoomConfigurer {
 
     void addPlayer(final String playerName, final ServerStateChangeListener listener) {
         listener.enteredWaitingRoom(this);
-        notifyOfPreviouslyJoinedPlayers(listener);
+        notifyOfPreviouslyJoinedPlayers(playerName);
         players.put(playerName, listener);
         broadcastPlayerJoined(playerName);
     }
 
-    private void notifyOfPreviouslyJoinedPlayers(ServerStateChangeListener listener) {
+    private void notifyOfPreviouslyJoinedPlayers(String newPlayer) {
+        RummikubRoomListener listener = waitingRoomListeners.get(newPlayer);
         for (String playerName : players.keySet()) {
-            listener.serverRummikubRoomListener.playerJoined(playerName);
+            listener.playerJoined(playerName);
         }
     }
 
     private void broadcastPlayerJoined(final String playerName) {
         waitingRoomListeners
+                .values()
                 .forEach(waitingRoomListener -> waitingRoomListener.playerJoined(playerName));
     }
 
     private void broadcastPlayerLeft(final String playerName) {
         waitingRoomListeners
+                .values()
                 .forEach(waitingRoomListener -> waitingRoomListener.playerLeft(playerName));
     }
 
@@ -80,14 +82,14 @@ public class RummikubImpl implements RummikubRoomConfigurer {
         inProgress = true;
     }
 
-    @Override
-    public void registerListener(final RummikubRoomListener listener) {
-        waitingRoomListeners.add(listener);
+    void registerListener(String playerName, final RummikubRoomListener listener) {
+        waitingRoomListeners.put(playerName, listener);
     }
 
-    @Override
     public void unregisterListener(RummikubRoomListener listener) {
-        waitingRoomListeners.remove(listener);
+        waitingRoomListeners
+                .values()
+                .remove(listener);
     }
 
     void unregister(final String playerName) {

@@ -1,10 +1,10 @@
 package com.apixandru.rummikub.server.waiting;
 
-import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
+import com.apixandru.rummikub.server.RummikubImpl;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -13,13 +13,13 @@ import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
 public class ServerRummikubRoomListener implements RummikubRoomListener {
 
     private final PacketWriter packetWriter;
-    private RummikubRoomConfigurer configurer;
+    private RummikubImpl configurer;
 
     public ServerRummikubRoomListener(final PacketWriter packetWriter) {
         this.packetWriter = packetWriter;
     }
 
-    public void setConfigurer(RummikubRoomConfigurer configurer) {
+    public void setConfigurer(RummikubImpl configurer) {
         this.configurer = configurer;
     }
 
