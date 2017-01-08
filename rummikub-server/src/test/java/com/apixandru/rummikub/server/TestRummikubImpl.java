@@ -1,6 +1,5 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.api.config.StateChangeListener;
 import com.apixandru.rummikub.server.RummikubException.Reason;
 import org.junit.Before;
 import org.junit.Rule;
@@ -8,7 +7,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static com.apixandru.rummikub.server.RummikubException.Reason.NAME_TAKEN;
-import static com.apixandru.rummikub.server.RummikubException.Reason.NO_LISTENER;
 import static com.apixandru.rummikub.server.RummikubException.Reason.NO_NAME;
 import static com.apixandru.rummikub.server.RummikubException.Reason.ONGOING_GAME;
 import static org.mockito.Mockito.mock;
@@ -35,7 +33,7 @@ public class TestRummikubImpl {
 
     @Test
     public void testRegularRegister() {
-        rummikub.validateCanJoin("Dan", listener);
+        rummikub.validateCanJoin("Dan");
         rummikub.addPlayer("Dan", listener);
     }
 
@@ -43,21 +41,14 @@ public class TestRummikubImpl {
     public void testNullName() {
         expectExceptionToBeThrownWithReason(NO_NAME);
 
-        rummikub.validateCanJoin(null, listener);
+        rummikub.validateCanJoin(null);
     }
 
     @Test
     public void testEmptyName() {
         expectExceptionToBeThrownWithReason(NO_NAME);
 
-        rummikub.validateCanJoin("", listener);
-    }
-
-    @Test
-    public void testNoListener() {
-        expectExceptionToBeThrownWithReason(NO_LISTENER);
-
-        rummikub.validateCanJoin("Dan", null);
+        rummikub.validateCanJoin("");
     }
 
     @Test
@@ -65,7 +56,7 @@ public class TestRummikubImpl {
         expectExceptionToBeThrownWithReason(NAME_TAKEN);
 
         rummikub.addPlayer("Dan", listener);
-        rummikub.validateCanJoin("Dan", listener);
+        rummikub.validateCanJoin("Dan");
     }
 
     @Test
@@ -73,7 +64,7 @@ public class TestRummikubImpl {
         expectExceptionToBeThrownWithReason(ONGOING_GAME);
 
         rummikub.addPlayer("Dan", new EagerToStartGameListener());
-        rummikub.validateCanJoin("The Man", listener);
+        rummikub.validateCanJoin("The Man");
     }
 
     private void expectExceptionToBeThrownWithReason(final Reason reason) {

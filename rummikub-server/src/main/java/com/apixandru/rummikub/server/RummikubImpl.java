@@ -1,7 +1,6 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
-import com.apixandru.rummikub.api.config.StateChangeListener;
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.model.GameConfigurerImpl;
 
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.apixandru.rummikub.server.RummikubException.Reason.NAME_TAKEN;
-import static com.apixandru.rummikub.server.RummikubException.Reason.NO_LISTENER;
 import static com.apixandru.rummikub.server.RummikubException.Reason.NO_NAME;
 import static com.apixandru.rummikub.server.RummikubException.Reason.ONGOING_GAME;
 
@@ -33,10 +31,7 @@ public class RummikubImpl implements RummikubRoomConfigurer {
         return null == string || string.isEmpty();
     }
 
-    void validateCanJoin(final String playerName, final StateChangeListener listener) {
-        if (null == listener) {
-            throw new RummikubException(NO_LISTENER);
-        }
+    void validateCanJoin(final String playerName) {
         if (isEmpty(playerName)) {
             throw new RummikubException(NO_NAME);
         }

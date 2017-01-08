@@ -2,7 +2,7 @@ package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.config.GameConfigurer;
 import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
-import com.apixandru.rummikub.api.config.StateChangeListener;
+import com.apixandru.rummikub.client.StateChangeListener;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;

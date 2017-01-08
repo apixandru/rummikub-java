@@ -1,4 +1,6 @@
-package com.apixandru.rummikub.api.config;
+package com.apixandru.rummikub.server;
+
+import com.apixandru.rummikub.api.config.GameConfigurer;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -6,7 +8,7 @@ package com.apixandru.rummikub.api.config;
  */
 public interface StateChangeListener {
 
-    void enteredWaitingRoom(RummikubRoomConfigurer configurer);
+    void enteredWaitingRoom(RummikubImpl configurer);
 
     void enteredGame(GameConfigurer configurer);
 

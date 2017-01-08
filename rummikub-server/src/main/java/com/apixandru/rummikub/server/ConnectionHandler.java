@@ -40,7 +40,7 @@ class ConnectionHandler {
     private void accept(final SocketWrapper wrapper, final String playerName) {
         ConnectionListener connectionListener = () -> rummikub.unregister(playerName);
         ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, wrapper, connectionListener);
-        rummikub.validateCanJoin(playerName, stateChangeListener);
+        rummikub.validateCanJoin(playerName);
         LoginResponse response = new LoginResponse();
         response.accepted = true;
         wrapper.writePacket(response);

@@ -20,8 +20,7 @@ public class RummikubException extends RuntimeException {
     public enum Reason {
         ONGOING_GAME("There is an ongoing game, try later."),
         NAME_TAKEN("Name already taken."),
-        NO_NAME("Name is missing."),
-        NO_LISTENER("Listener is missing.");
+        NO_NAME("Name is missing.");
 
         private final String message;
 

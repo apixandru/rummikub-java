@@ -1,8 +1,6 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.config.GameConfigurer;
-import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
-import com.apixandru.rummikub.api.config.StateChangeListener;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
@@ -42,7 +40,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     }
 
     @Override
-    public void enteredWaitingRoom(final RummikubRoomConfigurer configurer) {
+    public void enteredWaitingRoom(final RummikubImpl configurer) {
         cleanup();
         serverPacketHandler.reset();
         serverRummikubRoomListener.setConfigurer(configurer);
@@ -50,7 +48,6 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         serverPacketHandler.setStartGameListenerProvider(configurer);
     }
 
-    @Override
     public void enteredGame(final GameConfigurer rawConfigurer) {
         cleanup();
         serverPacketHandler.reset();
