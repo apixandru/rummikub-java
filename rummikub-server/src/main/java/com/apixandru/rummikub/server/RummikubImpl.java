@@ -33,7 +33,7 @@ public class RummikubImpl implements RummikubRoomConfigurer {
         return null == string || string.isEmpty();
     }
 
-    public void validateCanJoin(final String playerName, final StateChangeListener listener) {
+    void validateCanJoin(final String playerName, final StateChangeListener listener) {
         if (null == listener) {
             throw new RummikubException(NO_LISTENER);
         }
@@ -95,7 +95,7 @@ public class RummikubImpl implements RummikubRoomConfigurer {
         waitingRoomListeners.remove(listener);
     }
 
-    public void unregister(final String playerName) {
+    void unregister(final String playerName) {
         players.remove(playerName); // TODO synchronize deez!
         if (!inProgress) {
             broadcastPlayerLeft(playerName);

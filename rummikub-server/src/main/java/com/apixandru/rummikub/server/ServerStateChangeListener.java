@@ -19,14 +19,14 @@ import com.apixandru.rummikub.server.waiting.ServerRummikubRoomListener;
  */
 class ServerStateChangeListener implements StateChangeListener, Runnable, ConnectionListener {
 
+    final ServerRummikubRoomListener serverRummikubRoomListener;
+
     private final SocketWrapper socketWrapper;
     private final String playerName;
 
     private final ServerPacketHandler serverPacketHandler;
     private final SocketPacketProcessor socketPacketProcessor;
     private final ConnectionListener connectionListener;
-
-    ServerRummikubRoomListener serverRummikubRoomListener;
 
     private TrackingGameConfigurer trackingGameConfigurer;
 
@@ -37,13 +37,15 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         this.serverPacketHandler = new ServerPacketHandler();
         this.connectionListener = connectionListener;
         this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this.serverPacketHandler, this);
+
+        this.serverRummikubRoomListener = new ServerRummikubRoomListener(socketWrapper);
     }
 
     @Override
     public void enteredWaitingRoom(final RummikubRoomConfigurer configurer) {
         cleanup();
         serverPacketHandler.reset();
-        serverRummikubRoomListener = new ServerRummikubRoomListener(configurer, socketWrapper);
+        serverRummikubRoomListener.setConfigurer(configurer);
         configurer.registerListener(serverRummikubRoomListener);
         serverPacketHandler.setStartGameListenerProvider(configurer);
     }
@@ -77,10 +79,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         if (null != trackingGameConfigurer) {
             trackingGameConfigurer.cleanup();
         }
-        ServerRummikubRoomListener serverRummikubRoomListener = this.serverRummikubRoomListener;
-        if (null != serverRummikubRoomListener) {
-            serverRummikubRoomListener.cleanup();
-        }
+        this.serverRummikubRoomListener.cleanup();
     }
 
 }

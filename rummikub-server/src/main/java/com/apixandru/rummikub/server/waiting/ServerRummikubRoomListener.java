@@ -13,10 +13,13 @@ import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
 public class ServerRummikubRoomListener implements RummikubRoomListener {
 
     private final PacketWriter packetWriter;
-    private final RummikubRoomConfigurer configurer;
+    private RummikubRoomConfigurer configurer;
 
-    public ServerRummikubRoomListener(RummikubRoomConfigurer configurer, final PacketWriter packetWriter) {
+    public ServerRummikubRoomListener(final PacketWriter packetWriter) {
         this.packetWriter = packetWriter;
+    }
+
+    public void setConfigurer(RummikubRoomConfigurer configurer) {
         this.configurer = configurer;
     }
 
@@ -35,7 +38,10 @@ public class ServerRummikubRoomListener implements RummikubRoomListener {
     }
 
     public void cleanup() {
-        configurer.unregisterListener(this);
+        if (null != configurer) {
+            configurer.unregisterListener(this);
+        }
+        configurer = null;
     }
 
 }
