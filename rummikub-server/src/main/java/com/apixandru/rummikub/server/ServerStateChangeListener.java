@@ -17,8 +17,6 @@ import com.apixandru.rummikub.server.waiting.ServerRummikubRoomListener;
  */
 class ServerStateChangeListener implements StateChangeListener, Runnable, ConnectionListener {
 
-    final ServerRummikubRoomListener serverRummikubRoomListener;
-
     private final SocketWrapper socketWrapper;
     private final String playerName;
 
@@ -26,6 +24,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     private final SocketPacketProcessor socketPacketProcessor;
     private final ConnectionListener connectionListener;
 
+    private final ServerRummikubRoomListener serverRummikubRoomListener;
     private TrackingGameConfigurer trackingGameConfigurer;
 
     ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper, final ConnectionListener connectionListener) {

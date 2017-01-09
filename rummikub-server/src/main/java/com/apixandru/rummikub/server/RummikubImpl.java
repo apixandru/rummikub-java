@@ -1,7 +1,6 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
-import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.model.GameConfigurerImpl;
 
 import java.util.HashMap;
@@ -16,7 +15,7 @@ import static com.apixandru.rummikub.server.RummikubException.Reason.ONGOING_GAM
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-public class RummikubImpl implements StartGameListener {
+public class RummikubImpl implements RummikubRoomConfigurer {
 
     private final Map<String, StateChangeListener> players = new HashMap<>();
 
@@ -43,12 +42,6 @@ public class RummikubImpl implements StartGameListener {
     }
 
     void addPlayer(final String playerName, final StateChangeListener listener) {
-        players.put(playerName, listener);
-        listener.enteredWaitingRoom(this);
-        broadcastPlayerJoined(playerName);
-    }
-
-    void addPlayer(final String playerName, final ServerStateChangeListener listener) {
         listener.enteredWaitingRoom(this);
         notifyOfPreviouslyJoinedPlayers(playerName);
         players.put(playerName, listener);
@@ -82,10 +75,12 @@ public class RummikubImpl implements StartGameListener {
         inProgress = true;
     }
 
-    void registerListener(String playerName, final RummikubRoomListener listener) {
+    @Override
+    public void registerListener(String playerName, final RummikubRoomListener listener) {
         waitingRoomListeners.put(playerName, listener);
     }
 
+    @Override
     public void unregisterListener(RummikubRoomListener listener) {
         waitingRoomListeners
                 .values()

@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.client;
 
 import com.apixandru.rummikub.api.config.GameConfigurer;
-import com.apixandru.rummikub.api.config.RummikubRoomConfigurer;
+import com.apixandru.rummikub.client.waiting.RummikubRoomConfigurer;
 
 /**
  * @author Alexandru-Constantin Bledea

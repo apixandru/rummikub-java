@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.api.config;
+package com.apixandru.rummikub.client.waiting;
 
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.api.room.StartGameListener;
