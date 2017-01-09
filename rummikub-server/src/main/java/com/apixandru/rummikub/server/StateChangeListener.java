@@ -8,7 +8,7 @@ import com.apixandru.rummikub.api.config.GameConfigurer;
  */
 public interface StateChangeListener {
 
-    void enteredWaitingRoom(RummikubImpl configurer);
+    void enteredWaitingRoom(RummikubRoomConfigurer configurer);
 
     void enteredGame(GameConfigurer configurer);
 

@@ -39,7 +39,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     }
 
     @Override
-    public void enteredWaitingRoom(final RummikubImpl configurer) {
+    public void enteredWaitingRoom(final RummikubRoomConfigurer configurer) {
         cleanup();
         serverPacketHandler.reset();
         serverRummikubRoomListener.setConfigurer(configurer);
