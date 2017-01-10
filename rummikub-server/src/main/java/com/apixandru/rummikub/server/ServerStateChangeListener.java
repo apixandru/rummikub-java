@@ -26,6 +26,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
 
     private final ServerRummikubRoomListener serverRummikubRoomListener;
     private TrackingGameConfigurer trackingGameConfigurer;
+    private RummikubRoomConfigurer configurer;
 
     ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper, final ConnectionListener connectionListener) {
         this.playerName = playerName;
@@ -42,7 +43,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     public void enteredWaitingRoom(final RummikubRoomConfigurer configurer) {
         cleanup();
         serverPacketHandler.reset();
-        serverRummikubRoomListener.setConfigurer(configurer);
+        this.configurer = configurer;
         configurer.registerListener(playerName, serverRummikubRoomListener);
         serverPacketHandler.setStartGameListenerProvider(configurer);
     }
@@ -75,8 +76,13 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         TrackingGameConfigurer trackingGameConfigurer = this.trackingGameConfigurer;
         if (null != trackingGameConfigurer) {
             trackingGameConfigurer.cleanup();
+            this.trackingGameConfigurer = null;
         }
-        this.serverRummikubRoomListener.cleanup();
+        RummikubRoomConfigurer configurer = this.configurer;
+        if (null != configurer) {
+            configurer.unregisterListener(serverRummikubRoomListener);
+            this.configurer = null;
+        }
     }
 
 }
