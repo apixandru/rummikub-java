@@ -4,8 +4,10 @@ import com.apixandru.rummikub.api.room.RummikubRoomListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -17,15 +19,31 @@ final class Room {
 
     private final List<RummikubRoomListener> roomListeners = new ArrayList<>();
 
+    private final Map<String, RummikubRoomListener> listeners = new LinkedHashMap<>();
+
+    @Deprecated
     void addRoomListener(RummikubRoomListener roomListener) {
         players.forEach(roomListener::playerJoined);
         this.roomListeners.add(roomListener);
+    }
+
+    private void informAboutPreviouslyJoinedPlayers(RummikubRoomListener roomListener) {
+        listeners.keySet()
+                .forEach(roomListener::playerJoined);
     }
 
     void removeRoomListener(RummikubRoomListener roomListener) {
         this.roomListeners.remove(roomListener);
     }
 
+    void join(String playerName, RummikubRoomListener roomListener) {
+        informAboutPreviouslyJoinedPlayers(roomListener);
+        this.players.add(playerName);
+        this.listeners.values()
+                .forEach(listener -> listener.playerJoined(playerName));
+    }
+
+    @Deprecated
     boolean join(String playerName) {
         if (this.players.add(playerName)) {
             this.roomListeners.forEach(listener -> listener.playerJoined(playerName));
