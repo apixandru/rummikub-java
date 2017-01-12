@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import static com.apixandru.rummikub.server.room.MockRummikubRoomListener.MockRoomListenerEvent.joined;
 import static com.apixandru.rummikub.server.room.MockRummikubRoomListener.MockRoomListenerEvent.left;
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -18,63 +17,52 @@ public class RoomTest {
 
     private Room room;
     private MockRummikubRoomListener listener;
+    private MockRummikubRoomListener shiaListener;
+    private MockRummikubRoomListener christianListener;
 
     @Before
     public void setup() {
         room = new Room();
         listener = new MockRummikubRoomListener();
-        room.addRoomListener(listener);
-    }
-
-    @Test
-    public void assertJoinTwice() {
-        room.join(SHIA_LABEOUF);
-        listener.assertSent(joined(SHIA_LABEOUF));
-
-        assertThat(room.join(SHIA_LABEOUF))
-                .isFalse();
-
-        listener.assertNoEventSent();
+        shiaListener = new MockRummikubRoomListener();
+        christianListener = new MockRummikubRoomListener();
     }
 
     @Test
     public void assertJoinEventSent() {
-        assertThat(room.join(SHIA_LABEOUF))
-                .isTrue();
+        room.join(SHIA_LABEOUF, shiaListener);
 
-        listener.assertSent(joined(SHIA_LABEOUF));
+        shiaListener.assertSent(joined(SHIA_LABEOUF));
     }
 
     @Test
     public void testRemoveListener() {
-        room.removeRoomListener(listener);
-        room.join(SHIA_LABEOUF);
-        listener.assertNoEventSent();
+        room.join(CHRISTIAN_BALE, christianListener);
+        room.leave(CHRISTIAN_BALE);
+        christianListener.clearReceived();
+
+        room.join(SHIA_LABEOUF, shiaListener);
+        christianListener.assertNoEventSent();
     }
 
     @Test
     public void testPlayerLeaveNotJoin() {
-        assertThat(room.leave(SHIA_LABEOUF))
-                .isFalse();
+        room.leave(SHIA_LABEOUF);
         listener.assertNoEventSent();
     }
 
     @Test
     public void testPlayerLeave() {
-        room.join(SHIA_LABEOUF);
+        room.join(SHIA_LABEOUF, shiaListener);
+        room.leave(SHIA_LABEOUF);
 
-        assertThat(room.leave(SHIA_LABEOUF))
-                .isTrue();
-
-        listener.assertSent(joined(SHIA_LABEOUF), left(SHIA_LABEOUF));
+        shiaListener.assertSent(joined(SHIA_LABEOUF), left(SHIA_LABEOUF));
     }
 
     @Test
     public void testNotifyAllJoined() {
-        room.removeRoomListener(listener);
-
-        room.join(SHIA_LABEOUF);
-        room.join(CHRISTIAN_BALE);
+        room.join(SHIA_LABEOUF, shiaListener);
+        room.join(CHRISTIAN_BALE, christianListener);
 
         room.addRoomListener(listener);
 
@@ -83,10 +71,8 @@ public class RoomTest {
 
     @Test
     public void testNotifyAllJoinedButNotLeft() {
-        room.removeRoomListener(listener);
-
-        room.join(SHIA_LABEOUF);
-        room.join(CHRISTIAN_BALE);
+        room.join(SHIA_LABEOUF, shiaListener);
+        room.join(CHRISTIAN_BALE, christianListener);
 
         room.leave(SHIA_LABEOUF);
 

@@ -30,16 +30,20 @@ final class MockRummikubRoomListener implements RummikubRoomListener {
         events.add(left(playerName));
     }
 
-    public void assertSent(MockRoomListenerEvent... events) {
+    void assertSent(MockRoomListenerEvent... events) {
         assertThat(this.events)
                 .isEqualTo(asList(events));
-        this.events.clear();
+        clearReceived();
     }
 
-    public void assertNoEventSent() {
+    void assertNoEventSent() {
         assertThat(this.events)
                 .as("Expecting no events")
                 .isEmpty();
+    }
+
+    void clearReceived() {
+        this.events.clear();
     }
 
     static class MockRoomListenerEvent {
