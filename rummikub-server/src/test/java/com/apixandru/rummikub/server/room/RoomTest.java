@@ -16,14 +16,12 @@ public class RoomTest {
     private static final String CHRISTIAN_BALE = "Christian Bale";
 
     private Room room;
-    private MockRummikubRoomListener listener;
     private MockRummikubRoomListener shiaListener;
     private MockRummikubRoomListener christianListener;
 
     @Before
     public void setup() {
         room = new Room();
-        listener = new MockRummikubRoomListener();
         shiaListener = new MockRummikubRoomListener();
         christianListener = new MockRummikubRoomListener();
     }
@@ -31,8 +29,10 @@ public class RoomTest {
     @Test
     public void assertJoinEventSent() {
         room.join(SHIA_LABEOUF, shiaListener);
+        room.join(CHRISTIAN_BALE, christianListener);
 
-        shiaListener.assertSent(joined(SHIA_LABEOUF));
+        christianListener.assertSent(joined(SHIA_LABEOUF), joined(CHRISTIAN_BALE));
+        shiaListener.assertSent(joined(SHIA_LABEOUF), joined(CHRISTIAN_BALE));
     }
 
     @Test
@@ -47,8 +47,11 @@ public class RoomTest {
 
     @Test
     public void testPlayerLeaveNotJoin() {
+        room.join(CHRISTIAN_BALE, christianListener);
+        christianListener.clearReceived();
+
         room.leave(SHIA_LABEOUF);
-        listener.assertNoEventSent();
+        christianListener.assertNoEventSent();
     }
 
     @Test
@@ -60,25 +63,13 @@ public class RoomTest {
     }
 
     @Test
-    public void testNotifyAllJoined() {
-        room.join(SHIA_LABEOUF, shiaListener);
-        room.join(CHRISTIAN_BALE, christianListener);
-
-        room.addRoomListener(listener);
-
-        listener.assertSent(joined(SHIA_LABEOUF), joined(CHRISTIAN_BALE));
-    }
-
-    @Test
     public void testNotifyAllJoinedButNotLeft() {
         room.join(SHIA_LABEOUF, shiaListener);
-        room.join(CHRISTIAN_BALE, christianListener);
-
         room.leave(SHIA_LABEOUF);
 
-        room.addRoomListener(listener);
+        room.join(CHRISTIAN_BALE, christianListener);
 
-        listener.assertSent(joined(CHRISTIAN_BALE));
+        christianListener.assertSent(joined(CHRISTIAN_BALE));
     }
 
 }

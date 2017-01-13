@@ -2,9 +2,7 @@ package com.apixandru.rummikub.server.room;
 
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,39 +11,27 @@ import java.util.Map;
  */
 final class Room {
 
-    private final List<RummikubRoomListener> roomListeners = new ArrayList<>();
-
-    private final Map<String, RummikubRoomListener> listeners = new LinkedHashMap<>();
-
-    @Deprecated
-    void addRoomListener(RummikubRoomListener roomListener) {
-        informAboutPreviouslyJoinedPlayers(roomListener);
-        this.roomListeners.add(roomListener);
-    }
+    private final Map<String, RummikubRoomListener> roomListener = new LinkedHashMap<>();
 
     private void informAboutPreviouslyJoinedPlayers(RummikubRoomListener roomListener) {
-        listeners.keySet()
+        this.roomListener.keySet()
                 .forEach(roomListener::playerJoined);
-    }
-
-    void removeRoomListener(RummikubRoomListener roomListener) {
-        this.roomListeners.remove(roomListener);
     }
 
     void join(String playerName, RummikubRoomListener roomListener) {
         informAboutPreviouslyJoinedPlayers(roomListener);
-        this.listeners.put(playerName, roomListener);
-        this.listeners.values()
+        this.roomListener.put(playerName, roomListener);
+        this.roomListener.values()
                 .forEach(listener -> listener.playerJoined(playerName));
     }
 
     boolean leave(String playerName) {
-        if (!this.listeners.containsKey(playerName)) {
+        if (!this.roomListener.containsKey(playerName)) {
             return false;
         }
-        this.listeners.values()
+        this.roomListener.values()
                 .forEach(listener -> listener.playerLeft(playerName));
-        this.listeners.remove(playerName);
+        this.roomListener.remove(playerName);
         return true;
     }
 

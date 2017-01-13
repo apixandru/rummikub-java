@@ -21,12 +21,12 @@
     </modules>
 
     <properties>
-        <version.slf4j>1.7.21</version.slf4j>
-        <version.maven.compiler>3.5.1</version.maven.compiler>
+        <version.slf4j>1.7.22</version.slf4j>
+        <version.maven.compiler>3.6.0</version.maven.compiler>
         <version.junit>4.12</version.junit>
-        <version.mockito>1.10.19</version.mockito>
+        <version.mockito>2.6.1</version.mockito>
         <version.java>1.8</version.java>
-        <versionAssertJ>3.5.2</versionAssertJ>
+        <versionAssertJ>3.6.1</versionAssertJ>
         <versionGroovy>2.4.7</versionGroovy>
         <versionSpock>1.0-groovy-2.4</versionSpock>
         <versionGmavenPlus>1.5</versionGmavenPlus>
