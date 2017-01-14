@@ -41,7 +41,7 @@ public class RummikubServerTest {
         MockPacketConnection packetConnection = new MockPacketConnection();
         connector.assumeConnection(packetConnection);
 
-        safeSleep(100, MILLISECONDS);
+        safeSleep(200, MILLISECONDS);
 
         assertThat(server.getAvailableNumberOfConnections())
                 .isEqualTo(0);
