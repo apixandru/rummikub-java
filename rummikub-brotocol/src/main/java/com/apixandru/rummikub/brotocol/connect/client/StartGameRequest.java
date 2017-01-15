@@ -6,5 +6,5 @@ import com.apixandru.rummikub.brotocol.Packet;
  * @author Alexandru-Constantin Bledea
  * @since March 30, 2016
  */
-public class PacketStart implements Packet {
+public class StartGameRequest implements Packet {
 }

@@ -10,7 +10,7 @@ import java.util.Map;
  * @author Alexandru-Constantin Bledea
  * @since January 15, 2017
  */
-public final class MultiPacketHandler implements PacketHandler<Packet> {
+public class MultiPacketHandler implements PacketHandler<Packet> {
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 

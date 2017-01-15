@@ -6,7 +6,7 @@ import com.apixandru.rummikub.brotocol.ConnectorPacketHandler;
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.connect.client.PacketLeave;
-import com.apixandru.rummikub.brotocol.connect.client.PacketStart;
+import com.apixandru.rummikub.brotocol.connect.client.StartGameRequest;
 import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
@@ -47,7 +47,7 @@ class ServerPacketHandler implements ConnectorPacketHandler {
 
         handlers.put(PacketLeave.class, new PlayerLeftHandler(continueReading));
 
-        handlers.put(PacketStart.class, new StartHandler(startGameListenerProvider));
+        handlers.put(StartGameRequest.class, new StartHandler(startGameListenerProvider));
 
         this.handlers = Collections.unmodifiableMap(handlers);
     }

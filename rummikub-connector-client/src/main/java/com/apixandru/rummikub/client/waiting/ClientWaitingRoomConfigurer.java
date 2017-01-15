@@ -2,7 +2,7 @@ package com.apixandru.rummikub.client.waiting;
 
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.brotocol.PacketWriter;
-import com.apixandru.rummikub.brotocol.connect.client.PacketStart;
+import com.apixandru.rummikub.brotocol.connect.client.StartGameRequest;
 import com.apixandru.rummikub.client.ClientPacketHandler;
 
 /**
@@ -31,7 +31,7 @@ public class ClientWaitingRoomConfigurer implements RummikubRoomConfigurer {
 
     @Override
     public void startGame() {
-        packetWriter.writePacket(new PacketStart());
+        packetWriter.writePacket(new StartGameRequest());
     }
 
 }

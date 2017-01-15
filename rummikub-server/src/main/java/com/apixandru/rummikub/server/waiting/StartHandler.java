@@ -2,14 +2,14 @@ package com.apixandru.rummikub.server.waiting;
 
 import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.brotocol.PacketHandler;
-import com.apixandru.rummikub.brotocol.connect.client.PacketStart;
+import com.apixandru.rummikub.brotocol.connect.client.StartGameRequest;
 import com.apixandru.rummikub.brotocol.util.Reference;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-public class StartHandler implements PacketHandler<PacketStart> {
+public class StartHandler implements PacketHandler<StartGameRequest> {
 
     private final Reference<StartGameListener> startGameListenerProvider;
 
@@ -18,7 +18,7 @@ public class StartHandler implements PacketHandler<PacketStart> {
     }
 
     @Override
-    public void handle(PacketStart packet) {
+    public void handle(StartGameRequest packet) {
         startGameListenerProvider.get().startGame();
     }
 
