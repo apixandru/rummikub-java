@@ -25,6 +25,11 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     private final ConnectionListener connectionListener;
 
     private final ServerRummikubRoomListener serverRummikubRoomListener;
+
+    private final ServerBoardListener boardListener;
+    private final ServerGameEventListener gameEventListener;
+    private final ServerPlayerCallback playerCallback;
+
     private TrackingGameConfigurer trackingGameConfigurer;
     private RummikubRoomConfigurer configurer;
 
@@ -35,6 +40,10 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         this.serverPacketHandler = new ServerPacketHandler();
         this.connectionListener = connectionListener;
         this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this.serverPacketHandler, this);
+
+        this.boardListener = new ServerBoardListener(playerName, socketWrapper);
+        this.gameEventListener = new ServerGameEventListener(playerName, socketWrapper);
+        this.playerCallback = new ServerPlayerCallback(playerName, socketWrapper);
 
         this.serverRummikubRoomListener = new ServerRummikubRoomListener(socketWrapper);
     }
@@ -56,9 +65,9 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         TrackingGameConfigurer configurer = new TrackingGameConfigurer(rawConfigurer);
 
         trackingGameConfigurer = configurer;
-        configurer.addBoardListener(new ServerBoardListener(playerName, socketWrapper));
-        configurer.addGameEventListener(new ServerGameEventListener(playerName, socketWrapper));
-        serverPacketHandler.setPlayer(configurer.newPlayer(new ServerPlayerCallback(playerName, socketWrapper)));
+        configurer.addBoardListener(boardListener);
+        configurer.addGameEventListener(gameEventListener);
+        serverPacketHandler.setPlayer(configurer.newPlayer(playerCallback));
     }
 
     @Override
