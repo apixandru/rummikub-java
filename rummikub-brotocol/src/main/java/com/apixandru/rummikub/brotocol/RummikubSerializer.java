@@ -2,7 +2,7 @@ package com.apixandru.rummikub.brotocol;
 
 import com.apixandru.rummikub.api.game.Card;
 import com.apixandru.rummikub.api.game.GameOverReason;
-import com.apixandru.rummikub.brotocol.connect.client.PacketLeave;
+import com.apixandru.rummikub.brotocol.connect.client.LeaveRequest;
 import com.apixandru.rummikub.brotocol.connect.client.StartGameRequest;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
@@ -69,7 +69,7 @@ final class RummikubSerializer implements Serializer {
         register(PacketPlayerJoined.class);
         register(StartGameRequest.class);
         register(PacketPlayerStart.class);
-        register(PacketLeave.class);
+        register(LeaveRequest.class);
         register(PacketPlayerLeft.class);
         register(LoginRequest.class);
         register(LoginResponse.class);

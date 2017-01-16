@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.rummikub.brotocol.connect.client.PacketLeave;
+import com.apixandru.rummikub.brotocol.connect.client.LeaveRequest;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
 import com.apixandru.rummikub.client.RummikubConnector;
 
@@ -43,7 +43,7 @@ final class Main {
         @Override
         public void run() {
             if (send) {
-                connectionData.socket.writePacket(new PacketLeave());
+                connectionData.socket.writePacket(new LeaveRequest());
             }
         }
 

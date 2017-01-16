@@ -3,9 +3,7 @@ package com.apixandru.rummikub.server;
 import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.brotocol.ConnectorPacketHandler;
-import com.apixandru.rummikub.brotocol.Packet;
-import com.apixandru.rummikub.brotocol.PacketHandler;
-import com.apixandru.rummikub.brotocol.connect.client.PacketLeave;
+import com.apixandru.rummikub.brotocol.connect.client.LeaveRequest;
 import com.apixandru.rummikub.brotocol.connect.client.StartGameRequest;
 import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
@@ -19,43 +17,28 @@ import com.apixandru.rummikub.server.game.PlayerLeftHandler;
 import com.apixandru.rummikub.server.game.TakeCardHandler;
 import com.apixandru.rummikub.server.waiting.StartHandler;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-class ServerPacketHandler implements ConnectorPacketHandler {
+class ServerPacketHandler extends MultiPacketHandler implements ConnectorPacketHandler {
 
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
-
-    private final Map<Class, PacketHandler> handlers;
 
     private final Reference<StartGameListener> startGameListenerProvider = new Reference<>();
     private final Reference<Player<Integer>> playerProvider = new Reference<>();
 
     ServerPacketHandler() {
-        final Map<Class, PacketHandler> handlers = new HashMap<>();
+        register(PacketPlaceCard.class, new PlaceCardOnBoardHandler(playerProvider));
+        register(PacketEndTurn.class, new EndTurnHandler(playerProvider));
+        register(PacketMoveCard.class, new MoveCardHandler(playerProvider));
+        register(PacketTakeCard.class, new TakeCardHandler(playerProvider));
 
-        handlers.put(PacketPlaceCard.class, new PlaceCardOnBoardHandler(playerProvider));
-        handlers.put(PacketEndTurn.class, new EndTurnHandler(playerProvider));
-        handlers.put(PacketMoveCard.class, new MoveCardHandler(playerProvider));
-        handlers.put(PacketTakeCard.class, new TakeCardHandler(playerProvider));
+        register(LeaveRequest.class, new PlayerLeftHandler(continueReading));
 
-        handlers.put(PacketLeave.class, new PlayerLeftHandler(continueReading));
-
-        handlers.put(StartGameRequest.class, new StartHandler(startGameListenerProvider));
-
-        this.handlers = Collections.unmodifiableMap(handlers);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public void handle(final Packet packet) {
-        handlers.get(packet.getClass()).handle(packet);
+        register(StartGameRequest.class, new StartHandler(startGameListenerProvider));
     }
 
     void setStartGameListenerProvider(final StartGameListener startGameListener) {
