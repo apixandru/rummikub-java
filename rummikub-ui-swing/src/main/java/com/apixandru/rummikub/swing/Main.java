@@ -18,7 +18,6 @@ final class Main {
             return;
         }
 
-
         final WindowManager windowManager = new WindowManager(connectionData.username);
         NotifyShutdown shutdownHook = new NotifyShutdown(connectionData, windowManager);
         Runtime.getRuntime().addShutdownHook(shutdownHook);

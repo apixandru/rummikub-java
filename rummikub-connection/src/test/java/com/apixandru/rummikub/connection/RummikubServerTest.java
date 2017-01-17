@@ -51,7 +51,6 @@ public class RummikubServerTest {
 //        assertThat(server.getAvailableNumberOfConnections())
 //                .isEqualTo(1);
 
-
     }
 
     @Test(timeout = 5000L)
@@ -98,7 +97,6 @@ public class RummikubServerTest {
         safeSleep(100, MILLISECONDS);
 
         rummikubServer.shutdown();
-
 
         assertThat(connector.getNumberOfAcceptedClients())
                 .isEqualTo(2);

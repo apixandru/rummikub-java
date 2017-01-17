@@ -115,7 +115,6 @@ public final class CardGroupTest {
         assertFalse("A group can have at most 4 cards", group.isValid());
     }
 
-
     @Test
     public void testIsAscendingRanks() {
         final List<Card> cards = Arrays.asList(TestUtils.card(Color.RED, Rank.ONE), TestUtils.card(Color.RED, Rank.TWO), TestUtils.card(Color.RED, Rank.THREE));

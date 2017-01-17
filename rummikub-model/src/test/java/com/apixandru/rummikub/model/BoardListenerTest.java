@@ -73,7 +73,6 @@ public final class BoardListenerTest {
         assertEquals(6, boardAction.y);
     }
 
-
     /**
      * Should fire an event for remove card.
      */

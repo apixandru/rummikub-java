@@ -5,7 +5,6 @@ import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
-import com.apixandru.rummikub.brotocol.util.SocketPacketProcessor;
 import com.apixandru.rummikub.server.game.ServerBoardListener;
 import com.apixandru.rummikub.server.game.ServerGameEventListener;
 import com.apixandru.rummikub.server.game.ServerPlayerCallback;
