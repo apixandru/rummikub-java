@@ -20,7 +20,6 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     private final SocketWrapper socketWrapper;
     private final String playerName;
 
-    private final ServerPacketHandler serverPacketHandler;
     private final SocketPacketProcessor socketPacketProcessor;
     private final ConnectionListener connectionListener;
 
@@ -37,9 +36,8 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         this.playerName = playerName;
         this.socketWrapper = socketWrapper;
 
-        this.serverPacketHandler = new ServerPacketHandler();
         this.connectionListener = connectionListener;
-        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this.serverPacketHandler, this);
+        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this);
 
         this.boardListener = new ServerBoardListener(playerName, socketWrapper);
         this.gameEventListener = new ServerGameEventListener(playerName, socketWrapper);
@@ -53,7 +51,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         cleanup();
         this.configurer = configurer;
         configurer.registerListener(playerName, serverRummikubRoomListener);
-        serverPacketHandler.setCurrentStatePacketHandler(new WaitingRoomPacketHandler(configurer));
+        socketPacketProcessor.setPacketHandler(new WaitingRoomPacketHandler(configurer));
     }
 
     @Override
@@ -66,7 +64,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         configurer.addBoardListener(boardListener);
         configurer.addGameEventListener(gameEventListener);
         Player<Integer> player = configurer.newPlayer(playerCallback);
-        serverPacketHandler.setCurrentStatePacketHandler(new InGamePacketHandler(player));
+        socketPacketProcessor.setPacketHandler(new InGamePacketHandler(player));
     }
 
     @Override

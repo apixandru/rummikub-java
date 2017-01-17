@@ -1,6 +1,5 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.brotocol.ConnectorPacketHandler;
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.PacketReader;
@@ -15,7 +14,7 @@ import java.io.IOException;
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-public class SocketPacketProcessor implements Runnable {
+final class SocketPacketProcessor implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(SocketPacketProcessor.class);
 
@@ -23,15 +22,12 @@ public class SocketPacketProcessor implements Runnable {
     private final ConnectionListener connectionListener;
     private PacketHandler<Packet> packetHandler;
 
-    public SocketPacketProcessor(final PacketReader reader,
-                                 final ConnectorPacketHandler packetHandler,
-                                 final ConnectionListener connectionListener) {
+    SocketPacketProcessor(final PacketReader reader, final ConnectionListener connectionListener) {
         this.reader = reader;
-        this.packetHandler = packetHandler;
         this.connectionListener = connectionListener;
     }
 
-    public void setPacketHandler(PacketHandler<Packet> packetHandler) {
+    void setPacketHandler(PacketHandler<Packet> packetHandler) {
         this.packetHandler = packetHandler;
     }
 
