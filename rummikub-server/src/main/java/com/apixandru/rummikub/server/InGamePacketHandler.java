@@ -5,7 +5,6 @@ import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
-import com.apixandru.rummikub.brotocol.util.Reference;
 import com.apixandru.rummikub.server.game.EndTurnHandler;
 import com.apixandru.rummikub.server.game.MoveCardHandler;
 import com.apixandru.rummikub.server.game.PlaceCardOnBoardHandler;
@@ -18,12 +17,10 @@ import com.apixandru.rummikub.server.game.TakeCardHandler;
 public class InGamePacketHandler extends MultiPacketHandler {
 
     public InGamePacketHandler(Player<Integer> player) {
-        final Reference<Player<Integer>> playerProvider = new Reference<>();
-        playerProvider.set(player);
-        register(PacketPlaceCard.class, new PlaceCardOnBoardHandler(playerProvider));
-        register(PacketEndTurn.class, new EndTurnHandler(playerProvider));
-        register(PacketMoveCard.class, new MoveCardHandler(playerProvider));
-        register(PacketTakeCard.class, new TakeCardHandler(playerProvider));
+        register(PacketPlaceCard.class, new PlaceCardOnBoardHandler(player));
+        register(PacketEndTurn.class, new EndTurnHandler(player));
+        register(PacketMoveCard.class, new MoveCardHandler(player));
+        register(PacketTakeCard.class, new TakeCardHandler(player));
     }
 
 }

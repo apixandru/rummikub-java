@@ -24,7 +24,6 @@ public class ServerPlayerCallback implements PlayerCallback<Integer> {
         this.packetWriter = packetWriter;
     }
 
-
     @Override
     public String getPlayerName() {
         return playerName;

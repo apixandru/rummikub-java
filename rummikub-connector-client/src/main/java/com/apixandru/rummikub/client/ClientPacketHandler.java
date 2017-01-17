@@ -47,7 +47,6 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
     private final AtomicBoolean continueReading = new AtomicBoolean(true);
 
     ClientPacketHandler() {
-
         handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListener));
         handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListener));
         handlers.put(PacketPlayerStart.class, new PlayerStartHandler(startGameListener));

@@ -7,8 +7,6 @@ import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.function.Supplier;
-
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 05, 2016
@@ -17,10 +15,10 @@ public class TakeCardHandler implements PacketHandler<PacketTakeCard> {
 
     private static final Logger log = LoggerFactory.getLogger(TakeCardHandler.class);
 
-    private final Supplier<Player<Integer>> playerProvider;
+    private final Player<Integer> player;
 
-    public TakeCardHandler(final Supplier<Player<Integer>> playerProvider) {
-        this.playerProvider = playerProvider;
+    public TakeCardHandler(final Player<Integer> player) {
+        this.player = player;
     }
 
     @Override
@@ -29,8 +27,6 @@ public class TakeCardHandler implements PacketHandler<PacketTakeCard> {
         final int x = packet.x;
         final int y = packet.y;
         final int hint = packet.hint;
-
-        final Player<Integer> player = playerProvider.get();
 
         log.debug("[{}] Received takeCardFromBoard(card={}, x={}, y={}, hint={})", player.getName(), card, x, y, hint);
         player.takeCardFromBoard(card, x, y, hint);

@@ -6,8 +6,6 @@ import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.function.Supplier;
-
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 05, 2016
@@ -16,10 +14,10 @@ public class MoveCardHandler implements PacketHandler<PacketMoveCard> {
 
     private static final Logger log = LoggerFactory.getLogger(MoveCardHandler.class);
 
-    private final Supplier<Player<Integer>> playerProvider;
+    private final Player<Integer> player;
 
-    public MoveCardHandler(final Supplier<Player<Integer>> playerProvider) {
-        this.playerProvider = playerProvider;
+    public MoveCardHandler(final Player<Integer> player) {
+        this.player = player;
     }
 
     @Override
@@ -28,7 +26,6 @@ public class MoveCardHandler implements PacketHandler<PacketMoveCard> {
         final int fromY = packet.fromY;
         final int toX = packet.toX;
         final int toY = packet.toY;
-        Player<Integer> player = playerProvider.get();
         log.debug("[{}] Received moveCardOnBoard(fromX={}, fromY={}, toX={}, toY={})", player.getName(), fromX, fromY, toX, toY);
         player.moveCardOnBoard(fromX, fromY, toX, toY);
     }
