@@ -7,6 +7,7 @@ import com.apixandru.rummikub.model.RummikubFactory;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.apixandru.rummikub.server.RummikubException.Reason.NAME_TAKEN;
 import static com.apixandru.rummikub.server.RummikubException.Reason.NO_NAME;
@@ -44,16 +45,8 @@ public class RummikubImpl implements RummikubRoomConfigurer {
 
     void addPlayer(final String playerName, final StateChangeListener listener) {
         listener.enteredWaitingRoom(this);
-        notifyOfPreviouslyJoinedPlayers(playerName);
         players.put(playerName, listener);
-        broadcastPlayerJoined(playerName);
-    }
 
-    private void notifyOfPreviouslyJoinedPlayers(String newPlayer) {
-        RummikubRoomListener listener = waitingRoomListeners.get(newPlayer);
-        for (String playerName : players.keySet()) {
-            listener.playerJoined(playerName);
-        }
     }
 
     private void broadcastPlayerJoined(final String playerName) {
@@ -78,21 +71,37 @@ public class RummikubImpl implements RummikubRoomConfigurer {
 
     @Override
     public void registerListener(String playerName, final RummikubRoomListener listener) {
+        notifyOfPreviouslyJoinedPlayers(listener);
         waitingRoomListeners.put(playerName, listener);
+        broadcastPlayerJoined(playerName);
+    }
+
+    private void notifyOfPreviouslyJoinedPlayers(RummikubRoomListener listener) {
+        for (String previouslyJoinedPlayerName : waitingRoomListeners.keySet()) {
+            listener.playerJoined(previouslyJoinedPlayerName);
+        }
     }
 
     @Override
     public void unregisterListener(RummikubRoomListener listener) {
-        waitingRoomListeners
-                .values()
-                .remove(listener);
+        Optional<String> optionalPlayerName = findPlayerName(listener);
+        if (optionalPlayerName.isPresent()) {
+            String playerName = optionalPlayerName.get();
+            waitingRoomListeners.remove(playerName);
+            broadcastPlayerLeft(playerName);
+        }
+    }
+
+    private Optional<String> findPlayerName(RummikubRoomListener listener) {
+        return waitingRoomListeners.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() == listener)
+                .map(Map.Entry::getKey)
+                .findFirst();
     }
 
     void unregister(final String playerName) {
         players.remove(playerName); // TODO synchronize deez!
-        if (!inProgress) {
-            broadcastPlayerLeft(playerName);
-        }
     }
 
 }
