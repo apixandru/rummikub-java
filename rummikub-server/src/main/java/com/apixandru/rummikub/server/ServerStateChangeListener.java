@@ -8,7 +8,6 @@ import com.apixandru.rummikub.model.Rummikub;
 import com.apixandru.rummikub.server.game.ServerBoardListener;
 import com.apixandru.rummikub.server.game.ServerGameEventListener;
 import com.apixandru.rummikub.server.game.ServerPlayerCallback;
-import com.apixandru.rummikub.server.game.TrackingGameConfigurer;
 import com.apixandru.rummikub.server.waiting.ServerRummikubRoomListener;
 
 /**
@@ -29,7 +28,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     private final ServerGameEventListener gameEventListener;
     private final ServerPlayerCallback playerCallback;
 
-    private TrackingGameConfigurer trackingGameConfigurer;
+    private Rummikub<Integer> rummikubGame;
     private RummikubRoomConfigurer configurer;
 
     ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper, final ConnectionListener connectionListener) {
@@ -58,12 +57,11 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     public void enteredGame(final Rummikub<Integer> rummikub) {
         cleanup();
         socketWrapper.writePacket(new PacketPlayerStart());
-        TrackingGameConfigurer configurer = new TrackingGameConfigurer(rummikub);
 
-        trackingGameConfigurer = configurer;
-        configurer.addBoardListener(boardListener);
-        configurer.addGameEventListener(gameEventListener);
-        Player<Integer> player = configurer.newPlayer(playerCallback);
+        rummikubGame = rummikub;
+        rummikubGame.addBoardListener(boardListener);
+        rummikubGame.addGameEventListener(gameEventListener);
+        Player<Integer> player = rummikubGame.addPlayer(playerName, playerCallback);
         socketPacketProcessor.setPacketHandler(new InGamePacketHandler(player));
     }
 
@@ -79,10 +77,12 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     }
 
     private void cleanup() {
-        TrackingGameConfigurer trackingGameConfigurer = this.trackingGameConfigurer;
-        if (null != trackingGameConfigurer) {
-            trackingGameConfigurer.cleanup();
-            this.trackingGameConfigurer = null;
+        Rummikub<Integer> rummikubGame = this.rummikubGame;
+        if (null != rummikubGame) {
+            rummikubGame.removeBoardListener(boardListener);
+            rummikubGame.removeGameEventListener(gameEventListener);
+            rummikubGame.removePlayer(playerName);
+            this.rummikubGame = null;
         }
         RummikubRoomConfigurer configurer = this.configurer;
         if (null != configurer) {

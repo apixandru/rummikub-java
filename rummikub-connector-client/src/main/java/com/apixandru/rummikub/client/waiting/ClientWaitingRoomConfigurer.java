@@ -25,11 +25,6 @@ public class ClientWaitingRoomConfigurer implements RummikubRoomConfigurer {
     }
 
     @Override
-    public void unregisterListener(RummikubRoomListener listener) {
-        packetHandler.setWaitingRoomListener(null);
-    }
-
-    @Override
     public void startGame() {
         packetWriter.writePacket(new StartGameRequest());
     }
