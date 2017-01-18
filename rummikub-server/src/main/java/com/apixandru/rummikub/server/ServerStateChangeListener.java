@@ -86,7 +86,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         }
         RummikubRoomConfigurer configurer = this.configurer;
         if (null != configurer) {
-            configurer.unregisterListener(serverRummikubRoomListener);
+            configurer.unregisterListener(playerName);
             this.configurer = null;
         }
     }

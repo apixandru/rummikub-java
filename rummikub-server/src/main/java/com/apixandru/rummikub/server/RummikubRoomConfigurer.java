@@ -11,6 +11,6 @@ public interface RummikubRoomConfigurer extends StartGameListener {
 
     void registerListener(String playerName, final RummikubRoomListener listener);
 
-    void unregisterListener(RummikubRoomListener listener);
+    void unregisterListener(String playerName);
 
 }

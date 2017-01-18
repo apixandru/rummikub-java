@@ -7,7 +7,6 @@ import com.apixandru.rummikub.model.RummikubFactory;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import static com.apixandru.rummikub.server.RummikubException.Reason.NAME_TAKEN;
 import static com.apixandru.rummikub.server.RummikubException.Reason.NO_NAME;
@@ -83,21 +82,9 @@ public class RummikubImpl implements RummikubRoomConfigurer {
     }
 
     @Override
-    public void unregisterListener(RummikubRoomListener listener) {
-        Optional<String> optionalPlayerName = findPlayerName(listener);
-        if (optionalPlayerName.isPresent()) {
-            String playerName = optionalPlayerName.get();
-            waitingRoomListeners.remove(playerName);
-            broadcastPlayerLeft(playerName);
-        }
-    }
-
-    private Optional<String> findPlayerName(RummikubRoomListener listener) {
-        return waitingRoomListeners.entrySet()
-                .stream()
-                .filter(entry -> entry.getValue() == listener)
-                .map(Map.Entry::getKey)
-                .findFirst();
+    public void unregisterListener(String playerName) {
+        waitingRoomListeners.remove(playerName);
+        broadcastPlayerLeft(playerName);
     }
 
     void unregister(final String playerName) {
