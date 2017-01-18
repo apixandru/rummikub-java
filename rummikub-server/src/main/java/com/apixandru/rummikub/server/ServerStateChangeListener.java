@@ -1,10 +1,10 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.api.config.GameConfigurer;
 import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
+import com.apixandru.rummikub.model.Rummikub;
 import com.apixandru.rummikub.server.game.ServerBoardListener;
 import com.apixandru.rummikub.server.game.ServerGameEventListener;
 import com.apixandru.rummikub.server.game.ServerPlayerCallback;
@@ -55,10 +55,10 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     }
 
     @Override
-    public void enteredGame(final GameConfigurer rawConfigurer) {
+    public void enteredGame(final Rummikub<Integer> rummikub) {
         cleanup();
         socketWrapper.writePacket(new PacketPlayerStart());
-        TrackingGameConfigurer configurer = new TrackingGameConfigurer(rawConfigurer);
+        TrackingGameConfigurer configurer = new TrackingGameConfigurer(rummikub);
 
         trackingGameConfigurer = configurer;
         configurer.addBoardListener(boardListener);

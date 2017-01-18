@@ -1,62 +1,56 @@
 package com.apixandru.rummikub.server.game;
 
-import com.apixandru.rummikub.api.config.GameConfigurer;
 import com.apixandru.rummikub.api.game.BoardListener;
 import com.apixandru.rummikub.api.game.GameEventListener;
 import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.rummikub.api.game.PlayerCallback;
+import com.apixandru.rummikub.model.Rummikub;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since May 06, 2016
  */
-public class TrackingGameConfigurer implements GameConfigurer {
+public class TrackingGameConfigurer {
 
-    private final GameConfigurer gameConfigurer;
+    private final Rummikub<Integer> gameConfigurer;
 
     private GameEventListener gameEventListener;
     private BoardListener boardListener;
     private Player<Integer> player;
 
-    public TrackingGameConfigurer(GameConfigurer gameConfigurer) {
+    public TrackingGameConfigurer(Rummikub<Integer> gameConfigurer) {
         this.gameConfigurer = gameConfigurer;
     }
 
-    @Override
     public void addGameEventListener(GameEventListener gameEventListener) {
         this.gameEventListener = gameEventListener;
         gameConfigurer.addGameEventListener(gameEventListener);
     }
 
-    @Override
-    public void removeGameEventListener(GameEventListener gameEventListener) {
+    private void removeGameEventListener(GameEventListener gameEventListener) {
         this.gameEventListener = null;
         gameConfigurer.removeGameEventListener(gameEventListener);
     }
 
-    @Override
     public void addBoardListener(BoardListener boardListener) {
         this.boardListener = boardListener;
         gameConfigurer.addBoardListener(boardListener);
     }
 
-    @Override
-    public void removeBoardListener(BoardListener boardListener) {
+    private void removeBoardListener(BoardListener boardListener) {
         this.boardListener = null;
         gameConfigurer.removeBoardListener(boardListener);
     }
 
-    @Override
     public Player<Integer> newPlayer(PlayerCallback<Integer> playerCallback) {
-        Player<Integer> integerPlayer = gameConfigurer.newPlayer(playerCallback);
+        Player<Integer> integerPlayer = gameConfigurer.addPlayer(playerCallback.getPlayerName(), playerCallback);
         this.player = integerPlayer;
         return integerPlayer;
     }
 
-    @Override
-    public void removePlayer(Player<Integer> player) {
+    private void removePlayer(Player<Integer> player) {
         this.player = null;
-        gameConfigurer.removePlayer(player);
+        gameConfigurer.removePlayer(player.getName());
     }
 
     public void cleanup() {
@@ -70,4 +64,5 @@ public class TrackingGameConfigurer implements GameConfigurer {
             removePlayer(player);
         }
     }
+
 }

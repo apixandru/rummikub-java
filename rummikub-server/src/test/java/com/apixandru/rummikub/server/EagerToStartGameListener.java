@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.api.config.GameConfigurer;
+import com.apixandru.rummikub.model.Rummikub;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -14,7 +14,7 @@ final class EagerToStartGameListener implements StateChangeListener {
     }
 
     @Override
-    public void enteredGame(final GameConfigurer configurer) {
+    public void enteredGame(final Rummikub<Integer> rummikub) {
     }
 
 }

@@ -1,7 +1,8 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
-import com.apixandru.rummikub.model.GameConfigurerImpl;
+import com.apixandru.rummikub.model.Rummikub;
+import com.apixandru.rummikub.model.RummikubFactory;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -21,7 +22,7 @@ public class RummikubImpl implements RummikubRoomConfigurer {
 
     private final Map<String, RummikubRoomListener> waitingRoomListeners = new LinkedHashMap<>();
 
-    private GameConfigurerImpl gameConfigurer;
+    private Rummikub<Integer> rummikubGame;
 
     private boolean inProgress;
 
@@ -69,9 +70,9 @@ public class RummikubImpl implements RummikubRoomConfigurer {
 
     @Override
     public void startGame() {
-        gameConfigurer = new GameConfigurerImpl();
+        rummikubGame = RummikubFactory.newInstance();
         players.values()
-                .forEach(listener -> listener.enteredGame(gameConfigurer));
+                .forEach(listener -> listener.enteredGame(rummikubGame));
         inProgress = true;
     }
 
