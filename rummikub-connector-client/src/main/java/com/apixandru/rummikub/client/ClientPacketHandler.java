@@ -16,7 +16,6 @@ import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.rummikub.brotocol.game.server.PacketReceiveCard;
-import com.apixandru.rummikub.brotocol.util.Reference;
 import com.apixandru.rummikub.client.game.CardPlacedHandler;
 import com.apixandru.rummikub.client.game.CardRemovedHandler;
 import com.apixandru.rummikub.client.game.GameOverHandler;

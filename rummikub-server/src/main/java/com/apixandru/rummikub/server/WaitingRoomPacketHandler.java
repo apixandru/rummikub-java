@@ -2,6 +2,7 @@ package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.brotocol.connect.client.StartGameRequest;
+import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
 import com.apixandru.rummikub.server.waiting.StartGameHandler;
 
 /**

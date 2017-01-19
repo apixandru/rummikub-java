@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.brotocol.util;
+package com.apixandru.rummikub.client;
 
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
@@ -16,7 +16,7 @@ public final class Reference<T> implements Supplier<T> {
         return this.value.get();
     }
 
-    public void set(final T value) {
+    void set(final T value) {
         this.value.set(value);
     }
 

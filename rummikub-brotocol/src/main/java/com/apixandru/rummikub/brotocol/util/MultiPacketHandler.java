@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.server;
+package com.apixandru.rummikub.brotocol.util;
 
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol.PacketHandler;

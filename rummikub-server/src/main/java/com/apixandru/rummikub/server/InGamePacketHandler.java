@@ -5,6 +5,7 @@ import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
+import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
 import com.apixandru.rummikub.server.game.EndTurnHandler;
 import com.apixandru.rummikub.server.game.MoveCardHandler;
 import com.apixandru.rummikub.server.game.PlaceCardOnBoardHandler;
