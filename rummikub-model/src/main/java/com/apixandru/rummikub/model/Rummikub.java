@@ -13,7 +13,7 @@ public interface Rummikub<H> {
 
     Player<H> addPlayer(String name, PlayerCallback<H> callback);
 
-    void removePlayer(String playerName);
+    void removePlayer(Player<H> player);
 
     void addBoardListener(BoardListener boardListener);
 

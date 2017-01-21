@@ -27,6 +27,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     private final ServerBoardListener boardListener;
     private final ServerGameEventListener gameEventListener;
     private final ServerPlayerCallback playerCallback;
+    private Player<Integer> player;
 
     private Rummikub<Integer> rummikubGame;
     private RummikubRoomConfigurer configurer;
@@ -61,7 +62,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         rummikubGame = rummikub;
         rummikubGame.addBoardListener(boardListener);
         rummikubGame.addGameEventListener(gameEventListener);
-        Player<Integer> player = rummikubGame.addPlayer(playerName, playerCallback);
+        this.player = rummikubGame.addPlayer(playerName, playerCallback);
         socketPacketProcessor.setPacketHandler(new InGamePacketHandler(player));
     }
 
@@ -81,7 +82,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         if (null != rummikubGame) {
             rummikubGame.removeBoardListener(boardListener);
             rummikubGame.removeGameEventListener(gameEventListener);
-            rummikubGame.removePlayer(playerName);
+            rummikubGame.removePlayer(player);
             this.rummikubGame = null;
         }
         RummikubRoomConfigurer configurer = this.configurer;

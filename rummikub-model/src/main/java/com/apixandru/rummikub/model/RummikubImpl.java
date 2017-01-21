@@ -137,21 +137,12 @@ final class RummikubImpl implements Rummikub<Integer> {
                 .remove(gameEventListener);
     }
 
-    private void removePlayer(final PlayerImpl player) {
+    @Override
+    public void removePlayer(Player<Integer> player) {
         if (this.players.remove(player)) {
             this.gameEventListeners
                     .forEach(listener -> listener.gameOver(player.getName(), PLAYER_QUIT));
         }
-    }
-
-    @Override
-    public void removePlayer(String playerName) {
-        PlayerImpl actualPlayer = players.stream()
-                .filter(player -> player.getName().equals(playerName))
-                .findFirst()
-                .orElseThrow(() -> new IllegalStateException("Expecting to have a player named " + playerName));
-
-        removePlayer(actualPlayer);
     }
 
     private void giveCards(final PlayerImpl player, final int num) {
