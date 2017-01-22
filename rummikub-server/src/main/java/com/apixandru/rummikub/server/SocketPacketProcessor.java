@@ -28,6 +28,9 @@ final class SocketPacketProcessor implements Runnable {
     }
 
     void setPacketHandler(PacketHandler<Packet> packetHandler) {
+        if (this.packetHandler instanceof TidyPacketHandler) {
+            ((TidyPacketHandler) this.packetHandler).cleanup();
+        }
         this.packetHandler = packetHandler;
     }
 

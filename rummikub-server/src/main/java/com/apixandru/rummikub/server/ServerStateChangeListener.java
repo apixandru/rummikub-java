@@ -8,7 +8,6 @@ import com.apixandru.rummikub.model.Rummikub;
 import com.apixandru.rummikub.server.game.ServerBoardListener;
 import com.apixandru.rummikub.server.game.ServerGameEventListener;
 import com.apixandru.rummikub.server.game.ServerPlayerCallback;
-import com.apixandru.rummikub.server.waiting.ServerRummikubRoomListener;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -22,15 +21,12 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     private final SocketPacketProcessor socketPacketProcessor;
     private final ConnectionListener connectionListener;
 
-    private final ServerRummikubRoomListener serverRummikubRoomListener;
-
     private final ServerBoardListener boardListener;
     private final ServerGameEventListener gameEventListener;
     private final ServerPlayerCallback playerCallback;
     private Player<Integer> player;
 
     private Rummikub<Integer> rummikubGame;
-    private RummikubRoomConfigurer configurer;
 
     ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper, final ConnectionListener connectionListener) {
         this.playerName = playerName;
@@ -42,16 +38,12 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
         this.boardListener = new ServerBoardListener(playerName, socketWrapper);
         this.gameEventListener = new ServerGameEventListener(playerName, socketWrapper);
         this.playerCallback = new ServerPlayerCallback(playerName, socketWrapper);
-
-        this.serverRummikubRoomListener = new ServerRummikubRoomListener(socketWrapper);
     }
 
     @Override
     public void enteredWaitingRoom(final RummikubRoomConfigurer configurer) {
         cleanup();
-        this.configurer = configurer;
-        configurer.registerListener(playerName, serverRummikubRoomListener);
-        socketPacketProcessor.setPacketHandler(new WaitingRoomPacketHandler(configurer));
+        socketPacketProcessor.setPacketHandler(new WaitingRoomPacketHandler(playerName, socketWrapper, configurer));
     }
 
     @Override
@@ -85,11 +77,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
             rummikubGame.removePlayer(player);
             this.rummikubGame = null;
         }
-        RummikubRoomConfigurer configurer = this.configurer;
-        if (null != configurer) {
-            configurer.unregisterListener(playerName);
-            this.configurer = null;
-        }
+        socketPacketProcessor.setPacketHandler(null);
     }
 
 }
