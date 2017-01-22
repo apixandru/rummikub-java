@@ -1,13 +1,9 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
 import com.apixandru.rummikub.model.Rummikub;
-import com.apixandru.rummikub.server.game.ServerBoardListener;
-import com.apixandru.rummikub.server.game.ServerGameEventListener;
-import com.apixandru.rummikub.server.game.ServerPlayerCallback;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -21,11 +17,6 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     private final SocketPacketProcessor socketPacketProcessor;
     private final ConnectionListener connectionListener;
 
-    private final ServerBoardListener boardListener;
-    private final ServerGameEventListener gameEventListener;
-    private final ServerPlayerCallback playerCallback;
-    private Player<Integer> player;
-
     private Rummikub<Integer> rummikubGame;
 
     ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper, final ConnectionListener connectionListener) {
@@ -34,28 +25,17 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
 
         this.connectionListener = connectionListener;
         this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this);
-
-        this.boardListener = new ServerBoardListener(playerName, socketWrapper);
-        this.gameEventListener = new ServerGameEventListener(playerName, socketWrapper);
-        this.playerCallback = new ServerPlayerCallback(playerName, socketWrapper);
     }
 
     @Override
     public void enteredWaitingRoom(final RummikubRoomConfigurer configurer) {
-        cleanup();
         socketPacketProcessor.setPacketHandler(new WaitingRoomPacketHandler(playerName, socketWrapper, configurer));
     }
 
     @Override
     public void enteredGame(final Rummikub<Integer> rummikub) {
-        cleanup();
         socketWrapper.writePacket(new PacketPlayerStart());
-
-        rummikubGame = rummikub;
-        rummikubGame.addBoardListener(boardListener);
-        rummikubGame.addGameEventListener(gameEventListener);
-        this.player = rummikubGame.addPlayer(playerName, playerCallback);
-        socketPacketProcessor.setPacketHandler(new InGamePacketHandler(player));
+        socketPacketProcessor.setPacketHandler(new InGamePacketHandler(playerName, socketWrapper, rummikubGame));
     }
 
     @Override
@@ -70,13 +50,6 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     }
 
     private void cleanup() {
-        Rummikub<Integer> rummikubGame = this.rummikubGame;
-        if (null != rummikubGame) {
-            rummikubGame.removeBoardListener(boardListener);
-            rummikubGame.removeGameEventListener(gameEventListener);
-            rummikubGame.removePlayer(player);
-            this.rummikubGame = null;
-        }
         socketPacketProcessor.setPacketHandler(null);
     }
 
