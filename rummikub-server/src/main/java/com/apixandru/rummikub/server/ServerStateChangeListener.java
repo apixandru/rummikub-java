@@ -17,8 +17,6 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     private final SocketPacketProcessor socketPacketProcessor;
     private final ConnectionListener connectionListener;
 
-    private Rummikub<Integer> rummikubGame;
-
     ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper, final ConnectionListener connectionListener) {
         this.playerName = playerName;
         this.socketWrapper = socketWrapper;
@@ -35,7 +33,7 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     @Override
     public void enteredGame(final Rummikub<Integer> rummikub) {
         socketWrapper.writePacket(new PacketPlayerStart());
-        socketPacketProcessor.setPacketHandler(new InGamePacketHandler(playerName, socketWrapper, rummikubGame));
+        socketPacketProcessor.setPacketHandler(new InGamePacketHandler(playerName, socketWrapper, rummikub));
     }
 
     @Override
@@ -45,12 +43,8 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
 
     @Override
     public void onConnectionLost() {
-        cleanup();
-        connectionListener.onConnectionLost();
-    }
-
-    private void cleanup() {
         socketPacketProcessor.setPacketHandler(null);
+        connectionListener.onConnectionLost();
     }
 
 }

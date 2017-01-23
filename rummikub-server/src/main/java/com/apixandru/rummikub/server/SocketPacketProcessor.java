@@ -1,7 +1,6 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.brotocol.Packet;
-import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.PacketReader;
 import com.apixandru.rummikub.brotocol.connect.client.LeaveRequest;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
@@ -20,16 +19,16 @@ final class SocketPacketProcessor implements Runnable {
 
     private final PacketReader reader;
     private final ConnectionListener connectionListener;
-    private PacketHandler<Packet> packetHandler;
+    private TidyPacketHandler packetHandler;
 
     SocketPacketProcessor(final PacketReader reader, final ConnectionListener connectionListener) {
         this.reader = reader;
         this.connectionListener = connectionListener;
     }
 
-    void setPacketHandler(PacketHandler<Packet> packetHandler) {
-        if (this.packetHandler instanceof TidyPacketHandler) {
-            ((TidyPacketHandler) this.packetHandler).cleanup();
+    void setPacketHandler(TidyPacketHandler packetHandler) {
+        if (null != this.packetHandler) {
+            this.packetHandler.cleanup();
         }
         this.packetHandler = packetHandler;
     }
