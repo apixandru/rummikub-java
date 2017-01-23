@@ -33,6 +33,10 @@ public class InGamePacketHandler extends MultiPacketHandler implements TidyPacke
 
         this.boardListener = new ServerBoardListener(playerName, socketWrapper);
         this.gameEventListener = new ServerGameEventListener(playerName, socketWrapper);
+
+        rummikubGame.addBoardListener(boardListener);
+        rummikubGame.addGameEventListener(gameEventListener);
+
         this.player = rummikubGame.addPlayer(playerName, new ServerPlayerCallback(playerName, socketWrapper));
 
         register(PacketPlaceCard.class, new PlaceCardOnBoardHandler(player));
