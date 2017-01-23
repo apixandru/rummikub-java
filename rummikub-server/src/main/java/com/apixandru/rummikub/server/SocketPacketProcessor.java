@@ -27,10 +27,14 @@ final class SocketPacketProcessor implements Runnable {
     }
 
     void setPacketHandler(TidyPacketHandler packetHandler) {
+        cleanup();
+        this.packetHandler = packetHandler;
+    }
+
+    private void cleanup() {
         if (null != this.packetHandler) {
             this.packetHandler.cleanup();
         }
-        this.packetHandler = packetHandler;
     }
 
     @Override
@@ -48,6 +52,7 @@ final class SocketPacketProcessor implements Runnable {
                 break;
             }
         }
+        cleanup();
         connectionListener.onConnectionLost();
     }
 

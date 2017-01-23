@@ -9,20 +9,18 @@ import com.apixandru.rummikub.model.Rummikub;
  * @author Alexandru-Constantin Bledea
  * @since April 13, 2016
  */
-class ServerStateChangeListener implements StateChangeListener, Runnable, ConnectionListener {
+class ServerStateChangeListener implements StateChangeListener, Runnable {
 
     private final SocketWrapper socketWrapper;
     private final String playerName;
 
     private final SocketPacketProcessor socketPacketProcessor;
-    private final ConnectionListener connectionListener;
 
     ServerStateChangeListener(final String playerName, final SocketWrapper socketWrapper, final ConnectionListener connectionListener) {
         this.playerName = playerName;
         this.socketWrapper = socketWrapper;
 
-        this.connectionListener = connectionListener;
-        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this);
+        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, connectionListener);
     }
 
     @Override
@@ -39,12 +37,6 @@ class ServerStateChangeListener implements StateChangeListener, Runnable, Connec
     @Override
     public void run() {
         this.socketPacketProcessor.run();
-    }
-
-    @Override
-    public void onConnectionLost() {
-        socketPacketProcessor.setPacketHandler(null);
-        connectionListener.onConnectionLost();
     }
 
 }
