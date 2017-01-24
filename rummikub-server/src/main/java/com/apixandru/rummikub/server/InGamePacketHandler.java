@@ -2,6 +2,7 @@ package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
+import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
@@ -30,6 +31,8 @@ public class InGamePacketHandler extends MultiPacketHandler implements TidyPacke
 
     public InGamePacketHandler(String playerName, SocketWrapper socketWrapper, Rummikub<Integer> rummikubGame) {
         this.rummikubGame = rummikubGame;
+
+        socketWrapper.writePacket(new PacketPlayerStart());
 
         this.boardListener = new ServerBoardListener(playerName, socketWrapper);
         this.gameEventListener = new ServerGameEventListener(playerName, socketWrapper);

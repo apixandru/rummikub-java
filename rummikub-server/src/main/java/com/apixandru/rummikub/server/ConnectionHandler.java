@@ -38,12 +38,13 @@ class ConnectionHandler {
     }
 
     private void accept(final SocketWrapper wrapper, final String playerName) {
-        ConnectionListener connectionListener = () -> rummikub.unregister(playerName);
-        ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, wrapper, connectionListener);
         rummikub.validateCanJoin(playerName);
         LoginResponse response = new LoginResponse();
         response.accepted = true;
         wrapper.writePacket(response);
+        ConnectionListener connectionListener = () -> rummikub.unregister(playerName);
+        SocketPacketProcessor processor = new SocketPacketProcessor(wrapper, connectionListener);
+        ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, wrapper, processor);
         rummikub.addPlayer(playerName, stateChangeListener);
         log.debug("Accepted.");
         new Thread(stateChangeListener, playerName).start();
