@@ -1,5 +1,7 @@
 package com.apixandru.rummikub.server;
 
+import com.apixandru.rummikub.api.game.GameEventListener;
+import com.apixandru.rummikub.api.game.GameOverReason;
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.model.Rummikub;
 import com.apixandru.rummikub.model.RummikubFactory;
@@ -63,6 +65,8 @@ public class RummikubImpl implements RummikubRoomConfigurer {
     @Override
     public void startGame() {
         rummikubGame = RummikubFactory.newInstance();
+        rummikubGame.addGameEventListener(new RummikubServerGameEventListener());
+
         players.values()
                 .forEach(listener -> listener.enteredGame(rummikubGame));
         inProgress = true;
@@ -89,6 +93,21 @@ public class RummikubImpl implements RummikubRoomConfigurer {
 
     void unregister(final String playerName) {
         players.remove(playerName); // TODO synchronize deez!
+    }
+
+    private class RummikubServerGameEventListener implements GameEventListener {
+
+        @Override
+        public void newTurn(String player) {
+
+        }
+
+        @Override
+        public void gameOver(String player, GameOverReason reason) {
+            players.values()
+                    .forEach(listener -> listener.enteredWaitingRoom(RummikubImpl.this));
+        }
+
     }
 
 }
