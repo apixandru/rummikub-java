@@ -104,8 +104,8 @@ public class RummikubImpl implements RummikubRoomConfigurer {
 
         @Override
         public void gameOver(String player, GameOverReason reason) {
-            players.values()
-                    .forEach(listener -> listener.enteredWaitingRoom(RummikubImpl.this));
+//            players.values()
+//                    .forEach(listener -> listener.enteredWaitingRoom(RummikubImpl.this));
         }
 
     }
