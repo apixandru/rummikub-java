@@ -26,9 +26,9 @@ class WindowManager implements StateChangeListener {
     @Override
     public void enteredWaitingRoom(final RummikubRoomConfigurer configurer) {
         dismiss();
-        final WaitingRoom waitingRoom = new WaitingRoom(configurer);
-        configurer.registerListener(waitingRoom);
-        currentFrame = WaitingRoom.createAndShowGui(waitingRoom);
+        final WaitingRoomPanel waitingRoomPanel = new WaitingRoomPanel(configurer);
+        configurer.registerListener(waitingRoomPanel);
+        currentFrame = WaitingRoomPanel.createAndShowGui(waitingRoomPanel);
     }
 
     @Override

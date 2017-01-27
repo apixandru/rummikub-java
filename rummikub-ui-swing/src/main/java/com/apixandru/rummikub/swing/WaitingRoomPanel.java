@@ -25,13 +25,13 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  * @author Alexandru-Constantin Bledea
  * @since March 29, 2016
  */
-class WaitingRoom extends JPanel implements RummikubRoomListener {
+class WaitingRoomPanel extends JPanel implements RummikubRoomListener {
 
     private final DefaultListModel<String> playerListModel = new DefaultListModel<>();
 
     private final StartGameListener startGameListener;
 
-    WaitingRoom(final StartGameListener startGameListener) {
+    WaitingRoomPanel(final StartGameListener startGameListener) {
         super(new BorderLayout());
 
         this.startGameListener = startGameListener;
@@ -44,10 +44,10 @@ class WaitingRoom extends JPanel implements RummikubRoomListener {
         add(createButtonPane(), EAST);
     }
 
-    static JFrame createAndShowGui(final WaitingRoom waitingRoom) {
+    static JFrame createAndShowGui(final WaitingRoomPanel waitingRoomPanel) {
         JFrame frame = new JFrame("Waiting room");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        frame.setContentPane(waitingRoom);
+        frame.setContentPane(waitingRoomPanel);
 
         frame.pack();
         frame.setLocationRelativeTo(null);
