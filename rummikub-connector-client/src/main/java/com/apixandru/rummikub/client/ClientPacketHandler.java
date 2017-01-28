@@ -25,6 +25,8 @@ import com.apixandru.rummikub.client.waiting.PlayerJoinedHandler;
 import com.apixandru.rummikub.client.waiting.PlayerLeftHandler;
 import com.apixandru.rummikub.client.waiting.PlayerStartHandler;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -38,7 +40,7 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
     private final Reference<BoardListener> boardListener = new Reference<>();
     private final Reference<RummikubRoomListener> waitingRoomListener = new Reference<>();
     private final Reference<PlayerCallback<Integer>> playerCallback = new Reference<>();
-    private final Reference<GameEventListener> gameEventListener = new Reference<>();
+    private final Collection<GameEventListener> gameEventListener = new ArrayList<>();
     private final Reference<StartGameListener> startGameListener = new Reference<>();
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
@@ -63,8 +65,8 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
         handlers.get(packet.getClass()).handle(packet);
     }
 
-    public void setGameEventListener(final GameEventListener gameEventListener) {
-        this.gameEventListener.set(gameEventListener);
+    public void addGameEventListener(final GameEventListener gameEventListener) {
+        this.gameEventListener.add(gameEventListener);
     }
 
     public void setBoardListener(final BoardListener boardListener) {

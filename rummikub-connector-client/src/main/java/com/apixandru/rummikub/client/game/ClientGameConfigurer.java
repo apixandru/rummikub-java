@@ -24,7 +24,7 @@ public class ClientGameConfigurer implements GameConfigurer {
 
     @Override
     public void addGameEventListener(final GameEventListener gameEventListener) {
-        clientPacketHandler.setGameEventListener(gameEventListener);
+        clientPacketHandler.addGameEventListener(gameEventListener);
     }
 
     @Override
