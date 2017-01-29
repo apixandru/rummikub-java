@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author Alexandru-Constantin Bledea
  * @since Aug 20, 2016
  */
-class ServerConnectorPacketHandler implements ConnectorPacketHandler {
+class ServerConnectorPacketHandler implements ConnectorPacketHandler, ConnectionListener {
 
     private final AtomicBoolean continueListening = new AtomicBoolean(true);
 

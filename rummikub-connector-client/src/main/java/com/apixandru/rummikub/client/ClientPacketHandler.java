@@ -90,10 +90,4 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
         return continueReading.get();
     }
 
-    @Override
-    @Deprecated
-    public void connectionCloseRequest() {
-        throw new UnsupportedOperationException();
-    }
-
 }

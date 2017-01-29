@@ -22,7 +22,8 @@ public final class RummikubConnector {
         this.socketWrapper = socketWrapper;
         this.stateChangeListener = stateChangeListener;
         this.packetHandler.setStartGameListener(new ClientStartGameListener());
-        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, this.packetHandler, connectionListener);
+        this.socketPacketProcessor = new SocketPacketProcessor(this.socketWrapper, connectionListener);
+        this.socketPacketProcessor.setPacketHandler(this.packetHandler);
     }
 
     public void connect() {
