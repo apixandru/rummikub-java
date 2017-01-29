@@ -40,8 +40,9 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
     private final Reference<BoardListener> boardListener = new Reference<>();
     private final Reference<RummikubRoomListener> waitingRoomListener = new Reference<>();
     private final Reference<PlayerCallback<Integer>> playerCallback = new Reference<>();
-    private final Collection<GameEventListener> gameEventListener = new ArrayList<>();
     private final Reference<StartGameListener> startGameListener = new Reference<>();
+
+    private final Collection<GameEventListener> gameEventListener = new ArrayList<>();
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 

@@ -1,5 +1,7 @@
 package com.apixandru.rummikub.client;
 
+import com.apixandru.rummikub.api.game.GameEventListener;
+import com.apixandru.rummikub.api.game.GameOverReason;
 import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.util.ConnectionListener;
@@ -27,16 +29,33 @@ public final class RummikubConnector {
     }
 
     public void connect() {
-        ClientWaitingRoomConfigurer waitingRoomConfigurer = new ClientWaitingRoomConfigurer(packetHandler, socketWrapper);
-        stateChangeListener.enteredWaitingRoom(waitingRoomConfigurer);
+        goToWaitingRoom();
         new Thread(socketPacketProcessor).start();
     }
 
-    private class ClientStartGameListener implements StartGameListener {
+    private void goToWaitingRoom() {
+        ClientWaitingRoomConfigurer waitingRoomConfigurer = new ClientWaitingRoomConfigurer(packetHandler, socketWrapper);
+        stateChangeListener.enteredWaitingRoom(waitingRoomConfigurer);
+    }
+
+    private class ClientStartGameListener implements StartGameListener, GameEventListener {
+
         @Override
         public void startGame() {
-            stateChangeListener.enteredGame(new ClientGameConfigurer(packetHandler, socketWrapper));
+            ClientGameConfigurer configurer = new ClientGameConfigurer(packetHandler, socketWrapper);
+            configurer.addGameEventListener(this);
+            stateChangeListener.enteredGame(configurer);
         }
+
+        @Override
+        public void newTurn(String player) {
+        }
+
+        @Override
+        public void gameOver(String player, GameOverReason reason) {
+            goToWaitingRoom();
+        }
+
     }
 
 }
