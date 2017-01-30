@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -46,8 +45,6 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
-    private final AtomicBoolean continueReading = new AtomicBoolean(true);
-
     ClientPacketHandler() {
         handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListener));
         handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListener));
@@ -56,7 +53,7 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
         handlers.put(PacketCardPlaced.class, new CardPlacedHandler(boardListener));
         handlers.put(PacketCardRemoved.class, new CardRemovedHandler(boardListener));
         handlers.put(PacketNewTurn.class, new NewTurnHandler(gameEventListener));
-        handlers.put(PacketGameOver.class, new GameOverHandler(gameEventListener, continueReading));
+        handlers.put(PacketGameOver.class, new GameOverHandler(gameEventListener));
         handlers.put(PacketReceiveCard.class, new ReceiveCardHandler(playerCallback));
     }
 
@@ -88,7 +85,7 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
 
     @Override
     public boolean isReady() {
-        return continueReading.get();
+        return true;
     }
 
 }

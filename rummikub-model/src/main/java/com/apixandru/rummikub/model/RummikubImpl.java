@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static com.apixandru.rummikub.api.game.GameOverReason.GAME_WON;
 import static com.apixandru.rummikub.api.game.GameOverReason.NO_MORE_CARDS;
@@ -56,13 +57,15 @@ final class RummikubImpl implements Rummikub<Integer> {
     }
 
     private void gameOverOrSetNextPlayer() {
-        if (currentPlayer.cards.isEmpty()) {
-            final String playerName = currentPlayer.getName();
-            this.gameEventListeners
-                    .forEach(listener -> listener.gameOver(playerName, GAME_WON));
-            return;
+        if (currentPlayerHasMoreCardsInHand()) {
+            notifyAllOfGameEvent(listener -> listener.gameOver(currentPlayer.getName(), GAME_WON));
+        } else {
+            setNextPlayer();
         }
-        setNextPlayer();
+    }
+
+    private boolean currentPlayerHasMoreCardsInHand() {
+        return currentPlayer.cards.isEmpty();
     }
 
     private void giveCard() {
@@ -133,16 +136,20 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     @Override
     public void removeGameEventListener(final GameEventListener gameEventListener) {
-        gameEventListeners
-                .remove(gameEventListener);
+        gameEventListeners.remove(gameEventListener);
     }
 
     @Override
     public void removePlayer(Player<Integer> player) {
         if (this.players.remove(player)) {
-            this.gameEventListeners
-                    .forEach(listener -> listener.gameOver(player.getName(), PLAYER_QUIT));
+            notifyAllOfGameEvent(listener -> listener.gameOver(player.getName(), PLAYER_QUIT));
         }
+    }
+
+    private void notifyAllOfGameEvent(Consumer<GameEventListener> action) {
+        List<GameEventListener> listeners = new ArrayList<>(this.gameEventListeners);
+        this.gameEventListeners.clear();
+        listeners.forEach(action);
     }
 
     private void giveCards(final PlayerImpl player, final int num) {

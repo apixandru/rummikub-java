@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -19,11 +18,9 @@ public class GameOverHandler implements PacketHandler<PacketGameOver> {
     private static final Logger log = LoggerFactory.getLogger(GameOverHandler.class);
 
     private final Collection<GameEventListener> gameEventListeners;
-    private final AtomicBoolean continueReading;
 
-    public GameOverHandler(final Collection<GameEventListener> gameEventListeners, final AtomicBoolean continueReading) {
+    public GameOverHandler(final Collection<GameEventListener> gameEventListeners) {
         this.gameEventListeners = gameEventListeners;
-        this.continueReading = continueReading;
     }
 
     @Override
@@ -32,8 +29,6 @@ public class GameOverHandler implements PacketHandler<PacketGameOver> {
         final GameOverReason reason = packet.reason;
 
         log.debug("Received gameOver(player={}, reason={})", player, reason);
-
-        continueReading.set(false);
 
         gameEventListeners.forEach(listener -> listener.gameOver(player, reason));
     }

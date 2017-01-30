@@ -52,8 +52,8 @@ final class SocketPacketProcessor implements Runnable {
                 break;
             }
         }
-        cleanup();
         connectionListener.onConnectionLost();
+        cleanup();
     }
 
 }

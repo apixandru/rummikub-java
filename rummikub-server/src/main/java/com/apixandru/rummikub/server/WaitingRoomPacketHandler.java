@@ -16,7 +16,6 @@ public class WaitingRoomPacketHandler extends MultiPacketHandler implements Tidy
     private final String playerName;
 
     public WaitingRoomPacketHandler(String playerName, SocketWrapper socketWrapper, RummikubRoomConfigurer roomConfigurer) {
-
         this.roomConfigurer = roomConfigurer;
         this.playerName = playerName;
         this.roomConfigurer.registerListener(playerName, new ServerRummikubRoomListener(socketWrapper));

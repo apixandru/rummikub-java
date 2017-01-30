@@ -65,10 +65,12 @@ public class RummikubImpl implements RummikubRoomConfigurer {
     @Override
     public void startGame() {
         rummikubGame = RummikubFactory.newInstance();
-        rummikubGame.addGameEventListener(new RummikubServerGameEventListener());
 
         players.values()
                 .forEach(listener -> listener.enteredGame(rummikubGame));
+
+        rummikubGame.addGameEventListener(new RummikubServerGameEventListener());
+
         inProgress = true;
     }
 
@@ -99,13 +101,12 @@ public class RummikubImpl implements RummikubRoomConfigurer {
 
         @Override
         public void newTurn(String player) {
-
         }
 
         @Override
         public void gameOver(String player, GameOverReason reason) {
-//            players.values()
-//                    .forEach(listener -> listener.enteredWaitingRoom(RummikubImpl.this));
+            players.values()
+                    .forEach(listener -> listener.enteredWaitingRoom(RummikubImpl.this));
         }
 
     }
