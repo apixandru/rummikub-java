@@ -25,14 +25,11 @@ final class Room {
                 .forEach(listener -> listener.playerJoined(playerName));
     }
 
-    boolean leave(String playerName) {
-        if (!this.roomListener.containsKey(playerName)) {
-            return false;
+    void leave(String playerName) {
+        if (null != this.roomListener.remove(playerName)) {
+            this.roomListener.values()
+                    .forEach(listener -> listener.playerLeft(playerName));
         }
-        this.roomListener.values()
-                .forEach(listener -> listener.playerLeft(playerName));
-        this.roomListener.remove(playerName);
-        return true;
     }
 
 }

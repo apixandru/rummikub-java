@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.apixandru.rummikub.server.room.MockRummikubRoomListener.MockRoomListenerEvent.joined;
-import static com.apixandru.rummikub.server.room.MockRummikubRoomListener.MockRoomListenerEvent.left;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -59,7 +58,7 @@ public class RoomTest {
         room.join(SHIA_LABEOUF, shiaListener);
         room.leave(SHIA_LABEOUF);
 
-        shiaListener.assertSent(joined(SHIA_LABEOUF), left(SHIA_LABEOUF));
+        shiaListener.assertSent(joined(SHIA_LABEOUF));
     }
 
     @Test
