@@ -47,7 +47,7 @@ class ConnectionHandler {
         ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, wrapper, processor);
         rummikub.addPlayer(playerName, stateChangeListener);
         log.debug("Accepted.");
-        new Thread(stateChangeListener, playerName).start();
+        new Thread(processor, playerName).start();
     }
 
 }

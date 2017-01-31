@@ -7,7 +7,7 @@ import com.apixandru.rummikub.model.Rummikub;
  * @author Alexandru-Constantin Bledea
  * @since April 13, 2016
  */
-class ServerStateChangeListener implements StateChangeListener, Runnable {
+class ServerStateChangeListener implements StateChangeListener {
 
     private final SocketWrapper socketWrapper;
     private final String playerName;
@@ -28,11 +28,6 @@ class ServerStateChangeListener implements StateChangeListener, Runnable {
     @Override
     public void enteredGame(final Rummikub<Integer> rummikub) {
         socketPacketProcessor.setPacketHandler(new InGamePacketHandler(playerName, socketWrapper, rummikub));
-    }
-
-    @Override
-    public void run() {
-        this.socketPacketProcessor.run();
     }
 
 }

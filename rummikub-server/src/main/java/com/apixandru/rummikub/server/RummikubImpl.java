@@ -47,7 +47,6 @@ public class RummikubImpl implements RummikubRoomConfigurer {
     void addPlayer(final String playerName, final StateChangeListener listener) {
         listener.enteredWaitingRoom(this);
         players.put(playerName, listener);
-
     }
 
     private void broadcastPlayerJoined(final String playerName) {
