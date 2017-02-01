@@ -3,13 +3,13 @@ package com.apixandru.rummikub.model;
 import com.apixandru.rummikub.api.game.BoardListener;
 import com.apixandru.rummikub.api.game.Card;
 import com.apixandru.rummikub.api.game.GameEventListener;
+import com.apixandru.rummikub.api.game.GameOverReason;
 import com.apixandru.rummikub.api.game.Player;
 import com.apixandru.rummikub.api.game.PlayerCallback;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import static com.apixandru.rummikub.api.game.GameOverReason.GAME_WON;
 import static com.apixandru.rummikub.api.game.GameOverReason.NO_MORE_CARDS;
@@ -58,7 +58,7 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     private void gameOverOrSetNextPlayer() {
         if (currentPlayerHasMoreCardsInHand()) {
-            notifyAllOfGameEvent(listener -> listener.gameOver(currentPlayer.getName(), GAME_WON));
+            gameOver(currentPlayer, GAME_WON);
         } else {
             setNextPlayer();
         }
@@ -76,9 +76,7 @@ final class RummikubImpl implements Rummikub<Integer> {
         if (!this.cardPile.hasMoreCards()) {
             final List<Card> cardsFromBoard = this.board.removeAllCards();
             if (cardsFromBoard.isEmpty()) {
-                String playerName = player.getName();
-                this.gameEventListeners
-                        .forEach(listener -> listener.gameOver(playerName, NO_MORE_CARDS));
+                gameOver(player, NO_MORE_CARDS);
                 return;
             }
             this.cardPile.setCards(cardsFromBoard);
@@ -142,14 +140,14 @@ final class RummikubImpl implements Rummikub<Integer> {
     @Override
     public void removePlayer(Player<Integer> player) {
         if (this.players.remove(player)) {
-            notifyAllOfGameEvent(listener -> listener.gameOver(player.getName(), PLAYER_QUIT));
+            gameOver(player, PLAYER_QUIT);
         }
     }
 
-    private void notifyAllOfGameEvent(Consumer<GameEventListener> action) {
+    private void gameOver(Player<Integer> player, GameOverReason reason) {
         List<GameEventListener> listeners = new ArrayList<>(this.gameEventListeners);
         this.gameEventListeners.clear();
-        listeners.forEach(action);
+        listeners.forEach(listener -> listener.gameOver(player.getName(), reason));
     }
 
     private void giveCards(final PlayerImpl player, final int num) {
