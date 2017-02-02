@@ -127,9 +127,7 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     @Override
     public void addGameEventListener(final GameEventListener gameEventListener) {
-        if (null != gameEventListener) {
-            this.gameEventListeners.add(gameEventListener);
-        }
+        this.gameEventListeners.add(gameEventListener);
     }
 
     @Override

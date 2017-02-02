@@ -6,7 +6,7 @@ import com.apixandru.rummikub.model.Rummikub;
  * @author Alexandru-Constantin Bledea
  * @since April 09, 2016
  */
-public interface StateChangeListener {
+interface StateChangeListener {
 
     void enteredWaitingRoom(RummikubRoomConfigurer configurer);
 

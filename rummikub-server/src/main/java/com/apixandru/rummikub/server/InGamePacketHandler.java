@@ -21,7 +21,7 @@ import com.apixandru.rummikub.server.game.TakeCardHandler;
  * @author Alexandru-Constantin Bledea
  * @since January 15, 2017
  */
-public class InGamePacketHandler extends MultiPacketHandler implements TidyPacketHandler {
+final class InGamePacketHandler extends MultiPacketHandler implements TidyPacketHandler {
 
     private final ServerBoardListener boardListener;
     private final ServerGameEventListener gameEventListener;
@@ -29,7 +29,7 @@ public class InGamePacketHandler extends MultiPacketHandler implements TidyPacke
     private final Player<Integer> player;
     private final Rummikub<Integer> rummikubGame;
 
-    public InGamePacketHandler(String playerName, SocketWrapper socketWrapper, Rummikub<Integer> rummikubGame) {
+    InGamePacketHandler(String playerName, SocketWrapper socketWrapper, Rummikub<Integer> rummikubGame) {
         this.rummikubGame = rummikubGame;
 
         socketWrapper.writePacket(new PacketPlayerStart());
