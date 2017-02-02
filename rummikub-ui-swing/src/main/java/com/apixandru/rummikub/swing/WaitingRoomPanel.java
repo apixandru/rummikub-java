@@ -20,6 +20,7 @@ import static java.awt.BorderLayout.EAST;
 import static java.awt.GridBagConstraints.HORIZONTAL;
 import static java.awt.GridBagConstraints.NORTHWEST;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import static javax.swing.SwingUtilities.invokeLater;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -82,12 +83,12 @@ class WaitingRoomPanel extends JPanel implements RummikubRoomListener {
 
     @Override
     public void playerJoined(final String playerName) {
-        playerListModel.addElement(playerName);
+        invokeLater(() -> playerListModel.addElement(playerName));
     }
 
     @Override
     public void playerLeft(final String playerName) {
-        playerListModel.removeElement(playerName);
+        invokeLater(() -> playerListModel.removeElement(playerName));
     }
 
 }
