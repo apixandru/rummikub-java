@@ -17,8 +17,8 @@ public final class RummikubConnector {
 
     private final SocketWrapper socketWrapper;
     private final StateChangeListener stateChangeListener;
-    private ClientPacketHandler packetHandler;
     private final SocketPacketProcessor socketPacketProcessor;
+    private ClientPacketHandler packetHandler;
 
     public RummikubConnector(final SocketWrapper socketWrapper, final StateChangeListener stateChangeListener, ConnectionListener connectionListener) {
         this.socketWrapper = socketWrapper;
@@ -32,8 +32,7 @@ public final class RummikubConnector {
     }
 
     private void goToWaitingRoom() {
-        this.packetHandler = new ClientPacketHandler();
-        this.packetHandler.setStartGameListener(new ClientStartGameListener());
+        this.packetHandler = new ClientPacketHandler(new ClientStartGameListener());
         this.socketPacketProcessor.setPacketHandler(this.packetHandler);
         ClientWaitingRoomConfigurer waitingRoomConfigurer = new ClientWaitingRoomConfigurer(packetHandler, socketWrapper);
         stateChangeListener.enteredWaitingRoom(waitingRoomConfigurer);
@@ -43,7 +42,7 @@ public final class RummikubConnector {
 
         @Override
         public void startGame() {
-            packetHandler = new ClientPacketHandler();
+            packetHandler = new ClientPacketHandler(null);
             socketPacketProcessor.setPacketHandler(packetHandler);
             ClientGameConfigurer configurer = new ClientGameConfigurer(packetHandler, socketWrapper);
             configurer.addGameEventListener(this);

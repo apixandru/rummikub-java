@@ -39,13 +39,12 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
     private final Reference<BoardListener> boardListener = new Reference<>();
     private final Reference<RummikubRoomListener> waitingRoomListener = new Reference<>();
     private final Reference<PlayerCallback<Integer>> playerCallback = new Reference<>();
-    private final Reference<StartGameListener> startGameListener = new Reference<>();
 
     private final Collection<GameEventListener> gameEventListener = new ArrayList<>();
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
-    ClientPacketHandler() {
+    ClientPacketHandler(StartGameListener startGameListener) {
         handlers.put(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListener));
         handlers.put(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListener));
         handlers.put(PacketPlayerStart.class, new PlayerStartHandler(startGameListener));
@@ -77,10 +76,6 @@ public class ClientPacketHandler implements ConnectorPacketHandler {
 
     public void setWaitingRoomListener(final RummikubRoomListener waitingRoomListener) {
         this.waitingRoomListener.set(waitingRoomListener);
-    }
-
-    void setStartGameListener(StartGameListener startGameListener) {
-        this.startGameListener.set(startGameListener);
     }
 
     @Override

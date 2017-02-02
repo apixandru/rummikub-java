@@ -3,7 +3,6 @@ package com.apixandru.rummikub.client.waiting;
 import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
-import com.apixandru.rummikub.client.Reference;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -11,15 +10,15 @@ import com.apixandru.rummikub.client.Reference;
  */
 public class PlayerStartHandler implements PacketHandler<PacketPlayerStart> {
 
-    private final Reference<StartGameListener> stateChangeListener;
+    private final StartGameListener stateChangeListener;
 
-    public PlayerStartHandler(final Reference<StartGameListener> stateChangeListener) {
+    public PlayerStartHandler(final StartGameListener stateChangeListener) {
         this.stateChangeListener = stateChangeListener;
     }
 
     @Override
     public void handle(final PacketPlayerStart packet) {
-        stateChangeListener.get().startGame();
+        stateChangeListener.startGame();
     }
 
 }
