@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.api.game.GameEventListener;
-import com.apixandru.rummikub.api.game.GameOverReason;
+import com.apixandru.rummikub.api.GameEventListener;
+import com.apixandru.rummikub.api.GameOverReason;
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.model.Rummikub;
 import com.apixandru.rummikub.model.RummikubFactory;

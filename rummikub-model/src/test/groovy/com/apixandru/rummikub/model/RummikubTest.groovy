@@ -1,8 +1,8 @@
 package com.apixandru.rummikub.model
 
-import com.apixandru.rummikub.api.game.Card
-import com.apixandru.rummikub.api.game.Player
-import com.apixandru.rummikub.api.game.PlayerCallback
+import com.apixandru.rummikub.api.Card
+import com.apixandru.rummikub.api.Player
+import com.apixandru.rummikub.api.PlayerCallback
 import spock.lang.Specification
 
 import static com.apixandru.rummikub.model.ImplementationDetails.cloneBoard

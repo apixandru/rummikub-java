@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.rummikub.api.game.Card;
+import com.apixandru.rummikub.api.Card;
 
 /**
  * @author Alexandru-Constantin Bledea

@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.model;
 
-import com.apixandru.rummikub.api.game.BoardListener;
-import com.apixandru.rummikub.api.game.Card;
+import com.apixandru.rummikub.api.BoardListener;
+import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.model.support.BoardAction;
 
 import java.util.ArrayList;

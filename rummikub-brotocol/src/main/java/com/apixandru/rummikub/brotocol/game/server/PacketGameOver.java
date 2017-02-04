@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.brotocol.game.server;
 
-import com.apixandru.rummikub.api.game.GameOverReason;
+import com.apixandru.rummikub.api.GameOverReason;
 import com.apixandru.rummikub.brotocol.Packet;
 
 /**

@@ -3,7 +3,7 @@ package com.apixandru.rummikub.swing;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 
-import static com.apixandru.rummikub.api.game.Constants.NUM_COLS;
+import static com.apixandru.rummikub.api.Constants.NUM_COLS;
 
 /**
  * @author Alexandru-Constantin Bledea

@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.api.game
+package com.apixandru.rummikub.api
 
 import spock.lang.Specification
 

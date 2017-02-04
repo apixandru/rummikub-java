@@ -1,9 +1,9 @@
-package com.apixandru.rummikub.api.game
+package com.apixandru.rummikub.api
 
 import spock.lang.Specification
 
-import static com.apixandru.rummikub.api.game.Color.RED
-import static com.apixandru.rummikub.api.game.Rank.EIGHT
+import static Color.RED
+import static Rank.EIGHT
 
 /**
  * @author Alexandru-Constantin Bledea

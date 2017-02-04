@@ -1,11 +1,11 @@
-package com.apixandru.rummikub.api.game
+package com.apixandru.rummikub.api
 
 import spock.lang.Specification
 
-import static com.apixandru.rummikub.api.game.Color.BLACK
-import static com.apixandru.rummikub.api.game.Color.BLUE
-import static com.apixandru.rummikub.api.game.Color.RED
-import static com.apixandru.rummikub.api.game.Color.YELLOW
+import static Color.BLACK
+import static Color.BLUE
+import static Color.RED
+import static Color.YELLOW
 
 /**
  * @author Alexandru-Constantin Bledea

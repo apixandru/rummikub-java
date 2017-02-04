@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.rummikub.api.game.Card;
+import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.swing.util.SwingUtil;
 
 import java.awt.Color;
@@ -16,7 +16,7 @@ final class UiUtil {
 
     static final Font CARD_FONT = new Font(null, Font.BOLD, (int) (32 * FONT_SCALE));
 
-    static Color getColor(final com.apixandru.rummikub.api.game.Color color) {
+    static Color getColor(final com.apixandru.rummikub.api.Color color) {
         if (null == color) {
             return Color.BLACK;
         }

@@ -1,9 +1,9 @@
 package com.apixandru.rummikub.model;
 
-import com.apixandru.rummikub.api.game.Card;
-import com.apixandru.rummikub.api.game.Color;
-import com.apixandru.rummikub.api.game.Player;
-import com.apixandru.rummikub.api.game.Rank;
+import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.api.Color;
+import com.apixandru.rummikub.api.Player;
+import com.apixandru.rummikub.api.Rank;
 
 import java.util.ArrayList;
 import java.util.Collection;

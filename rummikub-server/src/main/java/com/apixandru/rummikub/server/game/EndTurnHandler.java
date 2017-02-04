@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.server.game;
 
-import com.apixandru.rummikub.api.game.Player;
+import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
 import org.slf4j.Logger;

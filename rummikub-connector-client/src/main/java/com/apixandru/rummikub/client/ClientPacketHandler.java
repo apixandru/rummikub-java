@@ -1,8 +1,8 @@
 package com.apixandru.rummikub.client;
 
-import com.apixandru.rummikub.api.game.BoardListener;
-import com.apixandru.rummikub.api.game.GameEventListener;
-import com.apixandru.rummikub.api.game.PlayerCallback;
+import com.apixandru.rummikub.api.BoardListener;
+import com.apixandru.rummikub.api.GameEventListener;
+import com.apixandru.rummikub.api.PlayerCallback;
 import com.apixandru.rummikub.brotocol.ConnectorPacketHandler;
 import com.apixandru.rummikub.brotocol.game.server.PacketCardPlaced;
 import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;

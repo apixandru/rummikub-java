@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.model;
 
-import com.apixandru.rummikub.api.game.Constants;
+import com.apixandru.rummikub.api.Constants;
 import org.junit.Test;
 
 import java.util.NoSuchElementException;

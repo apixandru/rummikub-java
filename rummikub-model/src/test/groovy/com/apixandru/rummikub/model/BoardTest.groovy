@@ -2,9 +2,9 @@ package com.apixandru.rummikub.model
 
 import spock.lang.Specification
 
-import static com.apixandru.rummikub.api.game.Color.BLUE
-import static com.apixandru.rummikub.api.game.Color.RED
-import static com.apixandru.rummikub.api.game.Rank.ONE
+import static com.apixandru.rummikub.api.Color.BLUE
+import static com.apixandru.rummikub.api.Color.RED
+import static com.apixandru.rummikub.api.Rank.ONE
 import static com.apixandru.rummikub.model.TestUtils.BLACK_ONE_1
 import static com.apixandru.rummikub.model.TestUtils.BLACK_ONE_2
 import static com.apixandru.rummikub.model.TestUtils.card

@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.brotocol.game.server;
 
-import com.apixandru.rummikub.api.game.Card;
+import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.brotocol.Packet;
 
 /**

@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.api.game.Player;
+import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;

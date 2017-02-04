@@ -1,13 +1,13 @@
 package com.apixandru.rummikub.model;
 
-import com.apixandru.rummikub.api.game.Card;
-import com.apixandru.rummikub.api.game.Color;
-import com.apixandru.rummikub.api.game.Rank;
+import com.apixandru.rummikub.api.Card;
+import com.apixandru.rummikub.api.Color;
+import com.apixandru.rummikub.api.Rank;
 
 import java.util.Collection;
 
-import static com.apixandru.rummikub.api.game.Color.BLACK;
-import static com.apixandru.rummikub.api.game.Rank.ONE;
+import static com.apixandru.rummikub.api.Color.BLACK;
+import static com.apixandru.rummikub.api.Rank.ONE;
 import static org.junit.Assert.assertTrue;
 
 /**
