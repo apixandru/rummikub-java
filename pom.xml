@@ -17,7 +17,6 @@
         <module>rummikub-brotocol</module>
         <module>rummikub-connector-client</module>
         <module>rummikub-server</module>
-        <module>rummikub-connection</module>
     </modules>
 
     <properties>
