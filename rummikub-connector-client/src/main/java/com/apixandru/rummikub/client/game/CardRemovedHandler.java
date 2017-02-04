@@ -7,8 +7,6 @@ import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.function.Supplier;
-
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 03, 2016
@@ -17,9 +15,9 @@ public class CardRemovedHandler implements PacketHandler<PacketCardRemoved> {
 
     private static final Logger log = LoggerFactory.getLogger(CardRemovedHandler.class);
 
-    private final Supplier<BoardListener> boardListener;
+    private final BoardListener boardListener;
 
-    public CardRemovedHandler(final Supplier<BoardListener> boardListener) {
+    public CardRemovedHandler(final BoardListener boardListener) {
         this.boardListener = boardListener;
     }
 
@@ -32,7 +30,7 @@ public class CardRemovedHandler implements PacketHandler<PacketCardRemoved> {
 
         log.debug("Received onCardRemovedFromBoard(card={}, x={}, y={}, reset={})", card, x, y, reset);
 
-        boardListener.get().onCardRemovedFromBoard(card, x, y, reset);
+        boardListener.onCardRemovedFromBoard(card, x, y, reset);
     }
 
 }

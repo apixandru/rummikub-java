@@ -7,8 +7,6 @@ import com.apixandru.rummikub.brotocol.game.server.PacketCardPlaced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.function.Supplier;
-
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 03, 2016
@@ -16,9 +14,9 @@ import java.util.function.Supplier;
 public class CardPlacedHandler implements PacketHandler<PacketCardPlaced> {
 
     private static final Logger log = LoggerFactory.getLogger(CardPlacedHandler.class);
-    private final Supplier<BoardListener> boardListener;
+    private final BoardListener boardListener;
 
-    public CardPlacedHandler(final Supplier<BoardListener> boardListener) {
+    public CardPlacedHandler(final BoardListener boardListener) {
         this.boardListener = boardListener;
     }
 
@@ -30,7 +28,7 @@ public class CardPlacedHandler implements PacketHandler<PacketCardPlaced> {
 
         log.debug("Received onCardPlacedOnBoard(card={}, x={}, y={})", card, x, y);
 
-        boardListener.get().onCardPlacedOnBoard(card, x, y);
+        boardListener.onCardPlacedOnBoard(card, x, y);
     }
 
 }

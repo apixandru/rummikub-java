@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.rummikub.api.config.GameConfigurer;
 import com.apixandru.rummikub.client.StateChangeListener;
+import com.apixandru.rummikub.client.game.GameConfigurer;
 import com.apixandru.rummikub.client.waiting.RummikubRoomConfigurer;
 
 import javax.swing.JFrame;

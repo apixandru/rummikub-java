@@ -17,16 +17,13 @@ import com.apixandru.rummikub.client.waiting.PlayerStartHandler;
  */
 public class ClientWaitingRoomPacketHandler extends MultiPacketHandler implements ConnectorPacketHandler {
 
-    private final Reference<RummikubRoomListener> waitingRoomListener = new Reference<>();
-
     ClientWaitingRoomPacketHandler(StartGameListener startGameListener) {
-        register(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListener));
-        register(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListener));
         register(PacketPlayerStart.class, new PlayerStartHandler(startGameListener));
     }
 
     public void setWaitingRoomListener(final RummikubRoomListener waitingRoomListener) {
-        this.waitingRoomListener.set(waitingRoomListener);
+        register(PacketPlayerJoined.class, new PlayerJoinedHandler(waitingRoomListener));
+        register(PacketPlayerLeft.class, new PlayerLeftHandler(waitingRoomListener));
     }
 
     @Override

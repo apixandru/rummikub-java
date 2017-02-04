@@ -38,7 +38,7 @@ final class ImplementationDetails {
         }
     }
 
-    static List<Card> getCards(final Player<?> player) {
+    private static List<Card> getCards(final Player<?> player) {
         return ((PlayerImpl) player).cards;
     }
 

@@ -14,7 +14,7 @@ public class MultiPacketHandler implements PacketHandler<Packet> {
 
     private final Map<Class, PacketHandler> handlers = new HashMap<>();
 
-    public final <P extends Packet> void register(final Class<P> packetClass, final PacketHandler<P> packetHandler) {
+    protected final <P extends Packet> void register(final Class<P> packetClass, final PacketHandler<P> packetHandler) {
         handlers.put(packetClass, packetHandler);
     }
 

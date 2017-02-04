@@ -25,17 +25,11 @@ import java.util.Collection;
  */
 public class ClientPacketHandler extends MultiPacketHandler implements ConnectorPacketHandler {
 
-    private final Reference<BoardListener> boardListener = new Reference<>();
-    private final Reference<PlayerCallback<Integer>> playerCallback = new Reference<>();
-
     private final Collection<GameEventListener> gameEventListener = new ArrayList<>();
 
     ClientPacketHandler() {
-        register(PacketCardPlaced.class, new CardPlacedHandler(boardListener));
-        register(PacketCardRemoved.class, new CardRemovedHandler(boardListener));
         register(PacketNewTurn.class, new NewTurnHandler(gameEventListener));
         register(PacketGameOver.class, new GameOverHandler(gameEventListener));
-        register(PacketReceiveCard.class, new ReceiveCardHandler(playerCallback));
     }
 
     public void addGameEventListener(final GameEventListener gameEventListener) {
@@ -43,11 +37,12 @@ public class ClientPacketHandler extends MultiPacketHandler implements Connector
     }
 
     public void setBoardListener(final BoardListener boardListener) {
-        this.boardListener.set(boardListener);
+        register(PacketCardPlaced.class, new CardPlacedHandler(boardListener));
+        register(PacketCardRemoved.class, new CardRemovedHandler(boardListener));
     }
 
     public void setPlayerCallback(final PlayerCallback<Integer> playerCallback) {
-        this.playerCallback.set(playerCallback);
+        register(PacketReceiveCard.class, new ReceiveCardHandler(playerCallback));
     }
 
     @Override
