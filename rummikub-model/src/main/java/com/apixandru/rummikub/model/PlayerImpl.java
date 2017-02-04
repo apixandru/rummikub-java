@@ -6,7 +6,6 @@ import com.apixandru.rummikub.api.game.PlayerCallback;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -18,12 +17,12 @@ final class PlayerImpl implements Player<Integer> {
 
     private final PlayerListener listener;
     private final String name;
-    private final Optional<PlayerCallback<Integer>> callback;
+    private final PlayerCallback<Integer> callback;
 
     PlayerImpl(final String name, final PlayerListener listener, final PlayerCallback<Integer> callback) {
         this.listener = listener;
         this.name = name;
-        this.callback = Optional.ofNullable(callback);
+        this.callback = callback;
     }
 
     @Override
@@ -48,7 +47,7 @@ final class PlayerImpl implements Player<Integer> {
 
     void receiveCard(final Card card, final Integer hint) {
         this.cards.add(card);
-        this.callback.ifPresent(callback -> callback.cardReceived(card, hint));
+        this.callback.cardReceived(card, hint);
     }
 
     void receiveCard(final Card card) {

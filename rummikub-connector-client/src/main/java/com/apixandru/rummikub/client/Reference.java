@@ -7,7 +7,7 @@ import java.util.function.Supplier;
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-public final class Reference<T> implements Supplier<T> {
+final class Reference<T> implements Supplier<T> {
 
     private final AtomicReference<T> value = new AtomicReference<>();
 

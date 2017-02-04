@@ -13,11 +13,4 @@
 
     <artifactId>rummikub-api-server</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>rummikub-api</artifactId>
-        </dependency>
-    </dependencies>
-
 </project>

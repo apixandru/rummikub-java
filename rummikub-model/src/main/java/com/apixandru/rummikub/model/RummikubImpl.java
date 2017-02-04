@@ -113,7 +113,7 @@ final class RummikubImpl implements Rummikub<Integer> {
         if (null == this.currentPlayer) {
             setNextPlayer();
         }
-        giveCards(player, 14);
+        giveInitialCards(player);
         return player;
     }
 
@@ -151,8 +151,8 @@ final class RummikubImpl implements Rummikub<Integer> {
         listeners.forEach(listener -> listener.gameOver(player.getName(), reason));
     }
 
-    private void giveCards(final PlayerImpl player, final int num) {
-        for (int i = 0; i < num; i++) {
+    private void giveInitialCards(final PlayerImpl player) {
+        for (int i = 0; i < 14; i++) {
             giveCard(player);
         }
     }

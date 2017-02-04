@@ -10,12 +10,12 @@ import com.apixandru.rummikub.server.waiting.StartGameHandler;
  * @author Alexandru-Constantin Bledea
  * @since January 15, 2017
  */
-public class WaitingRoomPacketHandler extends MultiPacketHandler implements TidyPacketHandler {
+class WaitingRoomPacketHandler extends MultiPacketHandler implements TidyPacketHandler {
 
     private final RummikubRoomConfigurer roomConfigurer;
     private final String playerName;
 
-    public WaitingRoomPacketHandler(String playerName, SocketWrapper socketWrapper, RummikubRoomConfigurer roomConfigurer) {
+    WaitingRoomPacketHandler(String playerName, SocketWrapper socketWrapper, RummikubRoomConfigurer roomConfigurer) {
         this.roomConfigurer = roomConfigurer;
         this.playerName = playerName;
         this.roomConfigurer.registerListener(playerName, new ServerRummikubRoomListener(socketWrapper));
