@@ -36,6 +36,8 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     PlayerImpl currentPlayer;
 
+    private boolean gameOver;
+
     RummikubImpl() {
         this.undoManager.reset(board);
     }
@@ -59,7 +61,7 @@ final class RummikubImpl implements Rummikub<Integer> {
     private void gameOverOrSetNextPlayer() {
         if (currentPlayerHasMoreCardsInHand()) {
             gameOver(currentPlayer, GAME_WON);
-        } else {
+        } else if (!gameOver) {
             setNextPlayer();
         }
     }
@@ -143,6 +145,7 @@ final class RummikubImpl implements Rummikub<Integer> {
     }
 
     private void gameOver(Player<Integer> player, GameOverReason reason) {
+        gameOver = true;
         List<GameEventListener> listeners = new ArrayList<>(this.gameEventListeners);
         this.gameEventListeners.clear();
         listeners.forEach(listener -> listener.gameOver(player.getName(), reason));

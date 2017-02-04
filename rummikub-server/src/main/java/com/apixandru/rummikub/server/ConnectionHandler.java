@@ -23,7 +23,7 @@ class ConnectionHandler {
         LoginResponse response = new LoginResponse();
         response.reason = exception.getMessage();
         wrapper.writePacket(response);
-        log.debug("Rejected.", exception);
+        log.debug("Rejected: {}", exception.getMessage());
     }
 
     synchronized void attemptToJoin(final SocketWrapper wrapper) {
