@@ -3,7 +3,7 @@ package com.apixandru.rummikub.client.waiting;
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.connect.client.StartGameRequest;
-import com.apixandru.rummikub.client.ClientPacketHandler;
+import com.apixandru.rummikub.client.ClientWaitingRoomPacketHandler;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -12,9 +12,9 @@ import com.apixandru.rummikub.client.ClientPacketHandler;
 public class ClientWaitingRoomConfigurer implements RummikubRoomConfigurer {
 
     private final PacketWriter packetWriter;
-    private final ClientPacketHandler packetHandler;
+    private final ClientWaitingRoomPacketHandler packetHandler;
 
-    public ClientWaitingRoomConfigurer(final ClientPacketHandler packetHandler, final PacketWriter packetWriter) {
+    public ClientWaitingRoomConfigurer(final ClientWaitingRoomPacketHandler packetHandler, final PacketWriter packetWriter) {
         this.packetHandler = packetHandler;
         this.packetWriter = packetWriter;
     }
