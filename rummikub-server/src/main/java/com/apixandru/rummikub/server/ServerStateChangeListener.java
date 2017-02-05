@@ -1,7 +1,9 @@
 package com.apixandru.rummikub.server;
 
+import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.model.Rummikub;
+import com.apixandru.rummikub.server.room.Room;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -21,13 +23,17 @@ class ServerStateChangeListener implements StateChangeListener {
     }
 
     @Override
-    public void enteredWaitingRoom(final RummikubRoomConfigurer configurer) {
-        socketPacketProcessor.setPacketHandler(new WaitingRoomPacketHandler(playerName, socketWrapper, configurer));
+    public void enteredWaitingRoom(Room room, StartGameListener startGameListener) {
+        setPacketHandler(new WaitingRoomPacketHandler(playerName, socketWrapper, room, startGameListener));
     }
 
     @Override
     public void enteredGame(final Rummikub<Integer> rummikub) {
-        socketPacketProcessor.setPacketHandler(new InGamePacketHandler(playerName, socketWrapper, rummikub));
+        setPacketHandler(new InGamePacketHandler(playerName, socketWrapper, rummikub));
+    }
+
+    private void setPacketHandler(TidyPacketHandler packetHandler) {
+        socketPacketProcessor.setPacketHandler(packetHandler);
     }
 
 }

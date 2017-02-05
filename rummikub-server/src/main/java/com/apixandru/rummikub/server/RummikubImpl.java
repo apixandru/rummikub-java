@@ -2,12 +2,12 @@ package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.GameOverReason;
-import com.apixandru.rummikub.api.room.RummikubRoomListener;
+import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.model.Rummikub;
 import com.apixandru.rummikub.model.RummikubFactory;
+import com.apixandru.rummikub.server.room.Room;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.apixandru.rummikub.server.RummikubException.Reason.NAME_TAKEN;
@@ -18,15 +18,16 @@ import static com.apixandru.rummikub.server.RummikubException.Reason.ONGOING_GAM
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-public class RummikubImpl implements RummikubRoomConfigurer {
+class RummikubImpl implements StartGameListener {
 
     private final Map<String, StateChangeListener> players = new HashMap<>();
 
-    private final Map<String, RummikubRoomListener> waitingRoomListeners = new LinkedHashMap<>();
-
     private Rummikub<Integer> rummikubGame;
+    private Room room;
 
-    private boolean inProgress;
+    RummikubImpl() {
+        goToWaitingRoom();
+    }
 
     private static boolean isEmpty(final String string) {
         return null == string || string.isEmpty();
@@ -39,26 +40,18 @@ public class RummikubImpl implements RummikubRoomConfigurer {
         if (players.containsKey(playerName)) {
             throw new RummikubException(NAME_TAKEN);
         }
-        if (inProgress) {
+        if (null != rummikubGame) {
             throw new RummikubException(ONGOING_GAME);
         }
     }
 
     void addPlayer(final String playerName, final StateChangeListener listener) {
-        listener.enteredWaitingRoom(this);
+        enterWaitingRoom(listener);
         players.put(playerName, listener);
     }
 
-    private void broadcastPlayerJoined(final String playerName) {
-        waitingRoomListeners
-                .values()
-                .forEach(waitingRoomListener -> waitingRoomListener.playerJoined(playerName));
-    }
-
-    private void broadcastPlayerLeft(final String playerName) {
-        waitingRoomListeners
-                .values()
-                .forEach(waitingRoomListener -> waitingRoomListener.playerLeft(playerName));
+    private void enterWaitingRoom(StateChangeListener listener) {
+        listener.enteredWaitingRoom(room, this);
     }
 
     @Override
@@ -69,31 +62,17 @@ public class RummikubImpl implements RummikubRoomConfigurer {
                 .forEach(listener -> listener.enteredGame(rummikubGame));
 
         rummikubGame.addGameEventListener(new RummikubServerGameEventListener());
+        room = null;
 
-        inProgress = true;
-    }
-
-    @Override
-    public void registerListener(String playerName, final RummikubRoomListener listener) {
-        notifyOfPreviouslyJoinedPlayers(listener);
-        waitingRoomListeners.put(playerName, listener);
-        broadcastPlayerJoined(playerName);
-    }
-
-    private void notifyOfPreviouslyJoinedPlayers(RummikubRoomListener listener) {
-        for (String previouslyJoinedPlayerName : waitingRoomListeners.keySet()) {
-            listener.playerJoined(previouslyJoinedPlayerName);
-        }
-    }
-
-    @Override
-    public void unregisterListener(String playerName) {
-        waitingRoomListeners.remove(playerName);
-        broadcastPlayerLeft(playerName);
     }
 
     void unregister(final String playerName) {
         players.remove(playerName); // TODO synchronize deez!
+    }
+
+    private void goToWaitingRoom() {
+        room = new Room();
+        rummikubGame = null;
     }
 
     private class RummikubServerGameEventListener implements GameEventListener {
@@ -104,8 +83,9 @@ public class RummikubImpl implements RummikubRoomConfigurer {
 
         @Override
         public void gameOver(String player, GameOverReason reason) {
+            goToWaitingRoom();
             players.values()
-                    .forEach(listener -> listener.enteredWaitingRoom(RummikubImpl.this));
+                    .forEach(RummikubImpl.this::enterWaitingRoom);
         }
 
     }

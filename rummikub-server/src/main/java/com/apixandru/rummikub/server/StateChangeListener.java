@@ -1,6 +1,8 @@
 package com.apixandru.rummikub.server;
 
+import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.model.Rummikub;
+import com.apixandru.rummikub.server.room.Room;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -8,7 +10,7 @@ import com.apixandru.rummikub.model.Rummikub;
  */
 interface StateChangeListener {
 
-    void enteredWaitingRoom(RummikubRoomConfigurer configurer);
+    void enteredWaitingRoom(Room room, StartGameListener startGameListener);
 
     void enteredGame(Rummikub<Integer> rummikub);
 
