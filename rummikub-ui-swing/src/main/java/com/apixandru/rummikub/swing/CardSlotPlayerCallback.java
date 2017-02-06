@@ -18,11 +18,6 @@ class CardSlotPlayerCallback implements PlayerCallback<Integer> {
     }
 
     @Override
-    public String getPlayerName() {
-        return cardSlotPlayerCallback.getPlayerName();
-    }
-
-    @Override
     public void cardReceived(final Card card, final Integer hint) {
         cardSlotPlayerCallback.cardReceived(card, converter.getCardSlot(hint));
     }

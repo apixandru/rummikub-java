@@ -45,9 +45,4 @@ class PlayerUi extends JGridPanel implements PlayerCallback<CardSlot> {
         UiUtil.placeCard(card, orFirstFreeSlot(hint));
     }
 
-    @Override
-    public String getPlayerName() {
-        return username;
-    }
-
 }

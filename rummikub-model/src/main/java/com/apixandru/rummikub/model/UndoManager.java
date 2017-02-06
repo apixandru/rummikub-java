@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -20,7 +19,8 @@ final class UndoManager {
     private Card[][] cardsOnBoard;
 
     private static long count(final Card[][] cards) {
-        return streamNotNull(cards).count();
+        return streamNotNull(cards)
+                .count();
     }
 
     private static Stream<Card> streamNotNull(final Card[][] cards) {
@@ -42,15 +42,14 @@ final class UndoManager {
 
     boolean wasOnBoard(final Card card) {
         return streamNotNull(this.cardsOnBoard)
-                .collect(Collectors.toList())
-                .contains(card);
+                .anyMatch(card::equals);
     }
 
-    public boolean hasChanged(final Board board) {
+    boolean hasChanged(final Board board) {
         return !Arrays.deepEquals(board.cards, cardsOnBoard);
     }
 
-    public boolean justMovedCards(final Board board) {
+    boolean justMovedCards(final Board board) {
         return count(board.cards) == count(this.cardsOnBoard);
     }
 

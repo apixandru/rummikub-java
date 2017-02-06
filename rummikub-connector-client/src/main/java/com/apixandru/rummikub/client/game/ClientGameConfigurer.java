@@ -34,7 +34,7 @@ public class ClientGameConfigurer implements GameConfigurer {
     @Override
     public Player<Integer> newPlayer(final PlayerCallback<Integer> playerCallback) {
         clientPacketHandler.setPlayerCallback(playerCallback);
-        return new SocketPlayer(playerCallback.getPlayerName(), packetWriter);
+        return new SocketPlayer(packetWriter);
     }
 
 }

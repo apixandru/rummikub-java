@@ -15,18 +15,10 @@ public class ServerPlayerCallback implements PlayerCallback<Integer> {
 
     private static final Logger log = LoggerFactory.getLogger(ServerPlayerCallback.class);
 
-    private final String playerName;
-
     private final PacketWriter packetWriter;
 
-    public ServerPlayerCallback(final String playerName, final PacketWriter packetWriter) {
-        this.playerName = playerName;
+    public ServerPlayerCallback(final PacketWriter packetWriter) {
         this.packetWriter = packetWriter;
-    }
-
-    @Override
-    public String getPlayerName() {
-        return playerName;
     }
 
     @Override

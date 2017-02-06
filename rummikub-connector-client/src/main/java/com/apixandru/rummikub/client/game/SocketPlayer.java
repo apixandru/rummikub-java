@@ -15,11 +15,9 @@ import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
 final class SocketPlayer implements Player<Integer> {
 
     private final PacketWriter writer;
-    private final String playerName;
 
-    SocketPlayer(final String playerName, final PacketWriter writer) {
+    SocketPlayer(final PacketWriter writer) {
         this.writer = writer;
-        this.playerName = playerName;
     }
 
     private static int toInteger(final Integer hint) {
@@ -30,8 +28,9 @@ final class SocketPlayer implements Player<Integer> {
     }
 
     @Override
+    @Deprecated
     public String getName() {
-        return this.playerName;
+        throw new UnsupportedOperationException();
     }
 
     @Override
