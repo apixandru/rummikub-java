@@ -42,10 +42,10 @@ final class InGamePacketHandler extends MultiPacketHandler implements TidyPacket
 
         this.player = rummikubGame.addPlayer(playerName, new ServerPlayerCallback(socketWrapper));
 
-        register(PacketPlaceCard.class, new PlaceCardOnBoardHandler(player));
-        register(PacketEndTurn.class, new EndTurnHandler(player));
-        register(PacketMoveCard.class, new MoveCardHandler(player));
-        register(PacketTakeCard.class, new TakeCardHandler(player));
+        register(PacketPlaceCard.class, new PlaceCardOnBoardHandler(playerName, player));
+        register(PacketEndTurn.class, new EndTurnHandler(playerName, player));
+        register(PacketMoveCard.class, new MoveCardHandler(playerName, player));
+        register(PacketTakeCard.class, new TakeCardHandler(playerName, player));
     }
 
     @Override

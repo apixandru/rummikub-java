@@ -28,12 +28,6 @@ final class SocketPlayer implements Player<Integer> {
     }
 
     @Override
-    @Deprecated
-    public String getName() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void placeCardOnBoard(final Card card, final int x, final int y) {
         final PacketPlaceCard packet = new PacketPlaceCard();
         packet.card = card;

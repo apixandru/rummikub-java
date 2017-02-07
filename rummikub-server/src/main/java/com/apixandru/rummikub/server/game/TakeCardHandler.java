@@ -16,9 +16,11 @@ public class TakeCardHandler implements PacketHandler<PacketTakeCard> {
     private static final Logger log = LoggerFactory.getLogger(TakeCardHandler.class);
 
     private final Player<Integer> player;
+    private final String playerName;
 
-    public TakeCardHandler(final Player<Integer> player) {
+    public TakeCardHandler(String playerName, final Player<Integer> player) {
         this.player = player;
+        this.playerName = playerName;
     }
 
     @Override
@@ -28,7 +30,7 @@ public class TakeCardHandler implements PacketHandler<PacketTakeCard> {
         final int y = packet.y;
         final int hint = packet.hint;
 
-        log.debug("[{}] Received takeCardFromBoard(card={}, x={}, y={}, hint={})", player.getName(), card, x, y, hint);
+        log.debug("[{}] Received takeCardFromBoard(card={}, x={}, y={}, hint={})", playerName, card, x, y, hint);
         player.takeCardFromBoard(card, x, y, hint);
     }
 

@@ -15,10 +15,12 @@ public class PlaceCardOnBoardHandler implements PacketHandler<PacketPlaceCard> {
 
     private static final Logger log = LoggerFactory.getLogger(EndTurnHandler.class);
 
+    private final String playerName;
     private final Player<Integer> player;
 
-    public PlaceCardOnBoardHandler(final Player<Integer> player) {
+    public PlaceCardOnBoardHandler(String playerName, final Player<Integer> player) {
         this.player = player;
+        this.playerName = playerName;
     }
 
     @Override
@@ -27,7 +29,7 @@ public class PlaceCardOnBoardHandler implements PacketHandler<PacketPlaceCard> {
         final int x = packet.x;
         final int y = packet.y;
 
-        log.debug("[{}] Received placeCardOnBoard(card={}, x={}, y={})", player.getName(), card, x, y);
+        log.debug("[{}] Received placeCardOnBoard(card={}, x={}, y={})", playerName, card, x, y);
         player.placeCardOnBoard(card, x, y);
     }
 

@@ -18,11 +18,6 @@ class CardSlotPlayer implements Player<CardSlot> {
     }
 
     @Override
-    public String getName() {
-        return player.getName();
-    }
-
-    @Override
     public void placeCardOnBoard(final Card card, final int x, final int y) {
         player.placeCardOnBoard(card, x, y);
     }

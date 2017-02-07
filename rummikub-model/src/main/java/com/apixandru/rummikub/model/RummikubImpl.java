@@ -9,7 +9,9 @@ import com.apixandru.rummikub.api.PlayerCallback;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.apixandru.rummikub.api.GameOverReason.GAME_WON;
 import static com.apixandru.rummikub.api.GameOverReason.NO_MORE_CARDS;
@@ -28,7 +30,7 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     private final UndoManager undoManager = new UndoManager();
     private final List<GameEventListener> gameEventListeners = new ArrayList<>();
-    private final List<PlayerImpl> players = new ArrayList<>();
+    private final Map<String, PlayerImpl> players = new LinkedHashMap<>();
 
     private final CardPile cardPile = new CardPile();
 
@@ -87,17 +89,18 @@ final class RummikubImpl implements Rummikub<Integer> {
     }
 
     private void setNextPlayer() {
-        final int currentPlayerIndex = this.players.indexOf(this.currentPlayer);
+        List<PlayerImpl> players = new ArrayList<>(this.players.values());
+        final int currentPlayerIndex = players.indexOf(this.currentPlayer);
         int nextPlayerIndex = currentPlayerIndex + 1;
         if (players.size() == nextPlayerIndex) {
             nextPlayerIndex = 0;
         }
-        this.currentPlayer = this.players.get(nextPlayerIndex);
+        this.currentPlayer = players.get(nextPlayerIndex);
         signalNewTurn();
     }
 
     private void signalNewTurn() {
-        final String currentPlayerName = this.currentPlayer.getName();
+        final String currentPlayerName = getPlayerName(this.currentPlayer);
         this.gameEventListeners
                 .forEach(listener -> listener.newTurn(currentPlayerName));
     }
@@ -108,8 +111,8 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     @Override
     public Player<Integer> addPlayer(final String name, final PlayerCallback<Integer> callback) {
-        final PlayerImpl player = new PlayerImpl(name, listener, callback);
-        this.players.add(player);
+        final PlayerImpl player = new PlayerImpl(listener, callback);
+        this.players.put(name, player);
         if (null == this.currentPlayer) {
             setNextPlayer();
         }
@@ -137,18 +140,35 @@ final class RummikubImpl implements Rummikub<Integer> {
         gameEventListeners.remove(gameEventListener);
     }
 
+    private String getPlayerName(Player<Integer> player) {
+        return this.players.entrySet()
+                .stream()
+                .filter(e -> e.getValue() == player)
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .get();
+    }
+
     @Override
     public void removePlayer(Player<Integer> player) {
-        if (this.players.remove(player)) {
-            gameOver(player, PLAYER_QUIT);
+        String playerName = getPlayerName(player);
+        if (null != this.players.remove(playerName)) {
+            gameOver(playerName, PLAYER_QUIT);
+        }
+    }
+
+    private void gameOver(String playerName, GameOverReason reason) {
+        if (!gameOver) {
+            gameOver = true;
+            List<GameEventListener> listeners = new ArrayList<>(this.gameEventListeners);
+            this.gameEventListeners.clear();
+            listeners.forEach(listener -> listener.gameOver(playerName, reason));
         }
     }
 
     private void gameOver(Player<Integer> player, GameOverReason reason) {
-        gameOver = true;
-        List<GameEventListener> listeners = new ArrayList<>(this.gameEventListeners);
-        this.gameEventListeners.clear();
-        listeners.forEach(listener -> listener.gameOver(player.getName(), reason));
+        String playerName = getPlayerName(player);
+        gameOver(playerName, reason);
     }
 
     private void giveInitialCards(final PlayerImpl player) {

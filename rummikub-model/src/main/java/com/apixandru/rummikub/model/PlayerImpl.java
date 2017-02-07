@@ -16,12 +16,10 @@ final class PlayerImpl implements Player<Integer> {
     final List<Card> cards = new ArrayList<>();
 
     private final PlayerListener listener;
-    private final String name;
     private final PlayerCallback<Integer> callback;
 
-    PlayerImpl(final String name, final PlayerListener listener, final PlayerCallback<Integer> callback) {
+    PlayerImpl(final PlayerListener listener, final PlayerCallback<Integer> callback) {
         this.listener = listener;
-        this.name = name;
         this.callback = callback;
     }
 
@@ -56,11 +54,6 @@ final class PlayerImpl implements Player<Integer> {
 
     void removeCard(final Card card) {
         this.cards.remove(card);
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
     }
 
 }

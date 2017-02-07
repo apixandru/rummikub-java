@@ -7,8 +7,6 @@ package com.apixandru.rummikub.api;
  */
 public interface Player<H> {
 
-    String getName();
-
     void placeCardOnBoard(Card card, int x, int y);
 
     void moveCardOnBoard(int fromX, int fromY, int toX, int toY);
