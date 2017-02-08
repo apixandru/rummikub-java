@@ -34,7 +34,7 @@ class GameFrame {
         final JButton btnEndTurn = new JButton("End Turn");
         final GameListener callback = new GameListener(frame, board, btnEndTurn, username);
 
-        final PlayerUi player = new PlayerUi(username);
+        final PlayerUi player = new PlayerUi();
         final Player<CardSlot> actualPlayer = getNewPlayer(player, configurer, callback);
 
         final JPanel comp = createMiddlePanel(btnEndTurn, actualPlayer);

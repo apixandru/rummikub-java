@@ -14,11 +14,8 @@ import java.util.stream.Stream;
  */
 class PlayerUi extends JGridPanel implements PlayerCallback<CardSlot> {
 
-    private final String username;
-
-    PlayerUi(final String username) {
+    PlayerUi() {
         super(3, 7);
-        this.username = username;
     }
 
     private CardSlot orFirstFreeSlot(final CardSlot slot) {

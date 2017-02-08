@@ -1,9 +1,9 @@
-package com.apixandru.rummikub.server.room;
+package com.apixandru.rummikub.server.waiting;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.apixandru.rummikub.server.room.MockRummikubRoomListener.MockRoomListenerEvent.joined;
+import static com.apixandru.rummikub.server.waiting.MockRummikubRoomListener.MockRoomListenerEvent.joined;
 
 /**
  * @author Alexandru-Constantin Bledea

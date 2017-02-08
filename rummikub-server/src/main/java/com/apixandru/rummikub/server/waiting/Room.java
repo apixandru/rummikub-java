@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.server.room;
+package com.apixandru.rummikub.server.waiting;
 
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 

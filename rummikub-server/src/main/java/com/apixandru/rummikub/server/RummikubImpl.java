@@ -5,7 +5,7 @@ import com.apixandru.rummikub.api.GameOverReason;
 import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.model.Rummikub;
 import com.apixandru.rummikub.model.RummikubFactory;
-import com.apixandru.rummikub.server.room.Room;
+import com.apixandru.rummikub.server.waiting.Room;
 
 import java.util.HashMap;
 import java.util.Map;
