@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.server;
+package com.apixandru.rummikub.server.game;
 
 import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.brotocol.SocketWrapper;
@@ -9,6 +9,7 @@ import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
 import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
 import com.apixandru.rummikub.model.Rummikub;
+import com.apixandru.rummikub.server.TidyPacketHandler;
 import com.apixandru.rummikub.server.game.EndTurnHandler;
 import com.apixandru.rummikub.server.game.MoveCardHandler;
 import com.apixandru.rummikub.server.game.PlaceCardOnBoardHandler;
@@ -21,7 +22,7 @@ import com.apixandru.rummikub.server.game.TakeCardHandler;
  * @author Alexandru-Constantin Bledea
  * @since January 15, 2017
  */
-final class InGamePacketHandler extends MultiPacketHandler implements TidyPacketHandler {
+public final class InGamePacketHandler extends MultiPacketHandler implements TidyPacketHandler {
 
     private final ServerBoardListener boardListener;
     private final ServerGameEventListener gameEventListener;
@@ -29,7 +30,7 @@ final class InGamePacketHandler extends MultiPacketHandler implements TidyPacket
     private final Player<Integer> player;
     private final Rummikub<Integer> rummikubGame;
 
-    InGamePacketHandler(String playerName, SocketWrapper socketWrapper, Rummikub<Integer> rummikubGame) {
+    public InGamePacketHandler(String playerName, SocketWrapper socketWrapper, Rummikub<Integer> rummikubGame) {
         this.rummikubGame = rummikubGame;
 
         socketWrapper.writePacket(new PacketPlayerStart());
