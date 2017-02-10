@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.brotocol2;
+package com.apixandru.rummikub.brotocol.connector;
 
 import java.io.IOException;
 import java.net.ServerSocket;

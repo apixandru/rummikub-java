@@ -1,9 +1,9 @@
 package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.brotocol.SocketWrapper;
+import com.apixandru.rummikub.brotocol.connector.SocketConnection;
 import com.apixandru.rummikub.brotocol.game.client.LoginRequest;
 import com.apixandru.rummikub.brotocol.game.server.LoginResponse;
-import com.apixandru.rummikub.brotocol2.SocketConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

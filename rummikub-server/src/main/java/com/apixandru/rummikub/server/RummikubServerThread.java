@@ -1,8 +1,8 @@
 package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.brotocol.SocketWrapper;
-import com.apixandru.rummikub.brotocol2.Connection;
-import com.apixandru.rummikub.brotocol2.Connector;
+import com.apixandru.rummikub.brotocol.connector.Connection;
+import com.apixandru.rummikub.brotocol.connector.Connector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

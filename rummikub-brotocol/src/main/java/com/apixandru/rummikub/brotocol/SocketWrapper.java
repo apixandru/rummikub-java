@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.brotocol;
 
-import com.apixandru.rummikub.brotocol2.Connection;
+import com.apixandru.rummikub.brotocol.connector.Connection;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

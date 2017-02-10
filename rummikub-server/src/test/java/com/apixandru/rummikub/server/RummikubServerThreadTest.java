@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.brotocol2.ServerSocketConnector;
+import com.apixandru.rummikub.brotocol.connector.ServerSocketConnector;
 import org.junit.Test;
 
 import java.io.IOException;

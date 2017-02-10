@@ -5,9 +5,6 @@ import com.apixandru.rummikub.brotocol.SocketWrapper;
 import com.apixandru.rummikub.brotocol.connect.client.StartGameRequest;
 import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
 import com.apixandru.rummikub.server.TidyPacketHandler;
-import com.apixandru.rummikub.server.waiting.Room;
-import com.apixandru.rummikub.server.waiting.ServerRummikubRoomListener;
-import com.apixandru.rummikub.server.waiting.StartGameHandler;
 
 /**
  * @author Alexandru-Constantin Bledea

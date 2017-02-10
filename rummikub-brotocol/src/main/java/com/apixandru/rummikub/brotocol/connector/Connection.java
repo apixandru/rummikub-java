@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.brotocol2;
+package com.apixandru.rummikub.brotocol.connector;
 
 import java.io.Closeable;
 import java.io.DataInputStream;
