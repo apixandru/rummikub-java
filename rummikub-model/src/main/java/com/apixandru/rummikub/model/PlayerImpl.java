@@ -1,7 +1,6 @@
 package com.apixandru.rummikub.model;
 
 import com.apixandru.rummikub.api.Card;
-import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.api.PlayerCallback;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since December 25, 2015
  */
-final class PlayerImpl implements Player<Integer> {
+final class PlayerImpl implements EnhancedPlayer {
 
     final List<Card> cards = new ArrayList<>();
 
@@ -48,7 +47,8 @@ final class PlayerImpl implements Player<Integer> {
         this.callback.cardReceived(card, hint);
     }
 
-    void receiveCard(final Card card) {
+    @Override
+    public void receiveCard(final Card card) {
         receiveCard(card, null);
     }
 
