@@ -59,7 +59,7 @@ final class UndoManager {
     }
 
     interface UndoAction {
-        void undo(PlayerImpl player, Board board);
+        void undo(EnhancedPlayer player, Board board);
     }
 
     static class UndoPlayerToBoard implements UndoAction {
@@ -72,7 +72,7 @@ final class UndoManager {
         }
 
         @Override
-        public void undo(final PlayerImpl player, final Board board) {
+        public void undo(final EnhancedPlayer player, final Board board) {
             Card card = board.removeCard(x, y);
             player.receiveCard(card);
         }
@@ -90,7 +90,7 @@ final class UndoManager {
         }
 
         @Override
-        public void undo(final PlayerImpl player, final Board board) {
+        public void undo(final EnhancedPlayer player, final Board board) {
             board.placeCard(card, x, y);
         }
 
@@ -108,7 +108,7 @@ final class UndoManager {
         }
 
         @Override
-        public void undo(final PlayerImpl player, final Board board) {
+        public void undo(final EnhancedPlayer player, final Board board) {
             board.moveCard(toX, toY, fromX, fromY);
         }
 
