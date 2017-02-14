@@ -203,7 +203,7 @@ final class RummikubImpl implements Rummikub<Integer> {
             if (currentPlayer == player && canMoveCardOffBoard(card)) {
                 final Card cardFromBoard = board.removeCard(x, y);
                 currentPlayer.receiveCard(cardFromBoard, hint);
-                undoManager.addAction(new UndoManager.UndoBoardToPlayer(cardFromBoard, x, y));
+                undoManager.trackBoardToPlayer(cardFromBoard, x, y);
             }
         }
 
