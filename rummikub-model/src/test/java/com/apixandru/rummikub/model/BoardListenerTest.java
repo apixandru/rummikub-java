@@ -22,7 +22,7 @@ public final class BoardListenerTest {
     @Before
     public void setup() {
         listener.clear();
-        board = new Board();
+        board = new BoardImpl();
         this.board.addBoardListener(listener);
         board.placeCard(TestUtils.BLACK_ONE_1, 0, 6);
     }

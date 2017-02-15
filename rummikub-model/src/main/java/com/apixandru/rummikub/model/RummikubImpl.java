@@ -26,7 +26,7 @@ final class RummikubImpl implements Rummikub<Integer> {
 
     private static final Logger log = getLogger(RummikubImpl.class);
 
-    final Board board = new Board();
+    final Board board = new BoardImpl();
 
     private final UndoManager undoManager = new UndoManager();
     private final List<GameEventListener> gameEventListeners = new ArrayList<>();

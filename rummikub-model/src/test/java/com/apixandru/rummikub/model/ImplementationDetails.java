@@ -25,7 +25,7 @@ final class ImplementationDetails {
     }
 
     static Card[][] cloneBoard(final Rummikub game) {
-        return Util.copyOf(((RummikubImpl) game).board.cards);
+        return Util.copyOf(((RummikubImpl) game).board.getCards());
     }
 
     static List<Card> endTurnUntilValidGroup(final Player player) {

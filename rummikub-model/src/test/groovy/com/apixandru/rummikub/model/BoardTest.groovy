@@ -15,7 +15,7 @@ import static com.apixandru.rummikub.model.TestUtils.card
  */
 class BoardTest extends Specification {
 
-    Board board
+    BoardImpl board
 
     def "should not be able to place cards out of bounds"() {
         expect:
@@ -100,7 +100,7 @@ class BoardTest extends Specification {
     }
 
     def setup() {
-        board = new Board()
+        board = new BoardImpl()
     }
 
 }

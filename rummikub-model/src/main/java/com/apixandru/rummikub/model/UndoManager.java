@@ -50,15 +50,15 @@ final class UndoManager {
     }
 
     boolean hasChanged(final Board board) {
-        return !Arrays.deepEquals(board.cards, cardsOnBoard);
+        return !Arrays.deepEquals(board.getCards(), cardsOnBoard);
     }
 
     boolean justMovedCards(final Board board) {
-        return count(board.cards) == count(this.cardsOnBoard);
+        return count(board.getCards()) == count(this.cardsOnBoard);
     }
 
     void reset(final Board board) {
-        this.cardsOnBoard = Util.copyOf(board.cards);
+        this.cardsOnBoard = Util.copyOf(board.getCards());
         this.undoActions.clear();
     }
 
