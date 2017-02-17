@@ -29,12 +29,20 @@ final class UndoManager {
                 .filter(Objects::nonNull);
     }
 
-    void addAction(UndoAction action) {
+    private void addAction(UndoAction action) {
         this.undoActions.add(action);
     }
 
     void trackBoardToPlayer(final Card card, int x, int y) {
         addAction((player, board) -> board.placeCard(card, x, y));
+    }
+
+    void trackPlayerToBoard(int x, int y) {
+        addAction((player, board) -> player.receiveCard(board.removeCard(x, y)));
+    }
+
+    void trackBoardToBoard(int fromX, int fromY, int toX, int toY) {
+        addAction((player, board) -> board.moveCard(toX, toY, fromX, fromY));
     }
 
     void undo(EnhancedPlayer player, Board board) {
@@ -62,43 +70,8 @@ final class UndoManager {
         this.undoActions.clear();
     }
 
-    interface UndoAction {
+    private interface UndoAction {
         void undo(EnhancedPlayer player, Board board);
-    }
-
-    static class UndoPlayerToBoard implements UndoAction {
-
-        private final int x, y;
-
-        UndoPlayerToBoard(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        @Override
-        public void undo(final EnhancedPlayer player, final Board board) {
-            Card card = board.removeCard(x, y);
-            player.receiveCard(card);
-        }
-
-    }
-
-    static class UndoBoardToBoard implements UndoAction {
-
-        private final int fromX, fromY, toX, toY;
-
-        UndoBoardToBoard(int fromX, int fromY, int toX, int toY) {
-            this.fromX = fromX;
-            this.fromY = fromY;
-            this.toX = toX;
-            this.toY = toY;
-        }
-
-        @Override
-        public void undo(final EnhancedPlayer player, final Board board) {
-            board.moveCard(toX, toY, fromX, fromY);
-        }
-
     }
 
 }

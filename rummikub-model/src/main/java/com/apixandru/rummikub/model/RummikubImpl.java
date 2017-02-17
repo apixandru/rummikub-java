@@ -194,7 +194,7 @@ final class RummikubImpl implements Rummikub<Integer> {
             }
             if (board.placeCard(card, x, y)) {
                 currentPlayer.removeCard(card);
-                undoManager.addAction(new UndoManager.UndoPlayerToBoard(x, y));
+                undoManager.trackPlayerToBoard(x, y);
             }
         }
 
@@ -211,7 +211,7 @@ final class RummikubImpl implements Rummikub<Integer> {
         public void moveCardOnBoard(final PlayerImpl player, final int fromX, final int fromY, final int toX, final int toY) {
             if (currentPlayer == player) {
                 board.moveCard(fromX, fromY, toX, toY);
-                undoManager.addAction(new UndoManager.UndoBoardToBoard(fromX, fromY, toX, toY));
+                undoManager.trackBoardToBoard(fromX, fromY, toX, toY);
             }
         }
 

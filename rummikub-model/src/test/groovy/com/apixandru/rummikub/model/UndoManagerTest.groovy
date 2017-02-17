@@ -1,6 +1,5 @@
 package com.apixandru.rummikub.model
 
-import com.apixandru.rummikub.api.Card
 import spock.lang.Specification
 
 import static com.apixandru.rummikub.model.TestUtils.BLACK_ONE_1
