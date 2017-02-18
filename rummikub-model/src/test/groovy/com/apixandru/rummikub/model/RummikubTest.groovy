@@ -1,10 +1,12 @@
 package com.apixandru.rummikub.model
 
 import com.apixandru.rummikub.api.Card
+import com.apixandru.rummikub.api.GameEventListener
 import com.apixandru.rummikub.api.Player
 import com.apixandru.rummikub.api.PlayerCallback
 import spock.lang.Specification
 
+import static com.apixandru.rummikub.api.GameOverReason.PLAYER_QUIT
 import static com.apixandru.rummikub.model.ImplementationDetails.cloneBoard
 import static com.apixandru.rummikub.model.ImplementationDetails.cloneCards
 import static com.apixandru.rummikub.model.ImplementationDetails.countCards
@@ -75,6 +77,18 @@ class RummikubTest extends Specification {
 
         player2.endTurn()
         assertSame(player, currentPlayer(rummikub))
+    }
+
+    def "should send game over event"() {
+        given:
+        def eventListener = Mock(GameEventListener)
+        rummikub.addGameEventListener(eventListener)
+
+        when:
+        rummikub.removePlayer(player)
+
+        then:
+        1 * eventListener.gameOver("Player 1", PLAYER_QUIT)
     }
 
     def "should give new players 14 cards"() {
