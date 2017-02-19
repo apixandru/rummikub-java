@@ -6,6 +6,7 @@ import com.apixandru.rummikub.api.Player
 import com.apixandru.rummikub.api.PlayerCallback
 import spock.lang.Specification
 
+import static com.apixandru.rummikub.api.GameOverReason.NO_MORE_CARDS
 import static com.apixandru.rummikub.api.GameOverReason.PLAYER_QUIT
 import static com.apixandru.rummikub.model.ImplementationDetails.cloneBoard
 import static com.apixandru.rummikub.model.ImplementationDetails.cloneCards
@@ -64,7 +65,7 @@ class RummikubTest extends Specification {
 
     def "should only accept end turn requests from the current player"() {
         given:
-        final Player player2 = addPlayer("Johnny")
+        def player2 = addPlayer("Johnny")
 
         expect:
         assertSame(player, currentPlayer(rummikub))
@@ -89,6 +90,27 @@ class RummikubTest extends Specification {
 
         then:
         1 * eventListener.gameOver("Player 1", PLAYER_QUIT)
+    }
+
+    def "should end game if no more cards"() {
+        given:
+        def player2 = addPlayer("Player 2")
+
+        def eventListener = Mock(GameEventListener)
+        rummikub.addGameEventListener(eventListener)
+
+        when:
+        for (int i = 0; i < 39; i++) {
+            player.endTurn()
+            player2.endTurn()
+        }
+
+        player.endTurn()
+
+        then:
+        39 * eventListener.newTurn("Player 1")
+        39 * eventListener.newTurn("Player 2")
+        1 * eventListener.gameOver("Player 1", NO_MORE_CARDS)
     }
 
     def "should give new players 14 cards"() {
