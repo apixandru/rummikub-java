@@ -1,5 +1,6 @@
 package com.apixandru.rummikub.model
 
+import com.apixandru.rummikub.api.BoardListener
 import com.apixandru.rummikub.api.Card
 import com.apixandru.rummikub.api.GameEventListener
 import com.apixandru.rummikub.api.Player
@@ -80,7 +81,7 @@ class RummikubTest extends Specification {
         assertSame(player, currentPlayer(rummikub))
     }
 
-    def "should send game over event"() {
+    def "should send game over event when player quits"() {
         given:
         def eventListener = Mock(GameEventListener)
         rummikub.addGameEventListener(eventListener)
@@ -111,6 +112,21 @@ class RummikubTest extends Specification {
         39 * eventListener.newTurn("Player 1")
         39 * eventListener.newTurn("Player 2")
         1 * eventListener.gameOver("Player 1", NO_MORE_CARDS)
+    }
+
+    def "should reject end turn requests from players which aren't the current player"() {
+        given:
+        def player2 = addPlayer("Player 2")
+        def card = getFirstCard(player2)
+
+        def boardListener = Mock(BoardListener)
+        rummikub.addBoardListener(boardListener)
+
+        when:
+        player2.placeCardOnBoard(card, 1, 1)
+
+        then:
+        0 * boardListener.onCardPlacedOnBoard(_, _, _)
     }
 
     def "should give new players 14 cards"() {
