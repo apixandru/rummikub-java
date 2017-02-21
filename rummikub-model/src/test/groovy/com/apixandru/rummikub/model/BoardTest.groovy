@@ -76,6 +76,18 @@ class BoardTest extends Specification {
         BLACK_ONE_2 != removedCard
     }
 
+    def "should not move card over a card that already exists"() {
+        given:
+        board.placeCard(BLACK_ONE_1, 3, 5)
+        board.placeCard(BLACK_ONE_2, 4, 5)
+
+        when:
+        board.moveCard(4, 5, 3, 5)
+
+        then:
+        !board.isFree(4, 5)
+    }
+
     def "should have position B taken after a card was moved from position A to position B"() {
         given:
         board.placeCard(BLACK_ONE_1, 0, 6)
