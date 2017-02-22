@@ -1,5 +1,6 @@
 package com.apixandru.rummikub.model
 
+import com.apixandru.rummikub.api.BoardListener
 import spock.lang.Specification
 
 import static com.apixandru.rummikub.api.Color.BLUE
@@ -86,6 +87,19 @@ class BoardTest extends Specification {
 
         then:
         !board.isFree(4, 5)
+    }
+
+    def "should not send message after the board listener was removed"() {
+        given:
+        def listener = Mock(BoardListener)
+        board.addBoardListener(listener)
+        board.removeBoardListener(listener)
+
+        when:
+        board.placeCard(BLACK_ONE_1, 3, 5)
+
+        then:
+        0 * listener.onCardPlacedOnBoard(_, _, _)
     }
 
     def "should have position B taken after a card was moved from position A to position B"() {
