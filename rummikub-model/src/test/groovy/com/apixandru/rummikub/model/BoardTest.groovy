@@ -102,6 +102,17 @@ class BoardTest extends Specification {
         0 * listener.onCardPlacedOnBoard(_, _, _)
     }
 
+    def "should remove all cards"() {
+        given:
+        board.placeCard(BLACK_ONE_1, 3, 5)
+
+        when:
+        board.removeAllCards()
+
+        then:
+        board.isFree(3, 5)
+    }
+
     def "should have position B taken after a card was moved from position A to position B"() {
         given:
         board.placeCard(BLACK_ONE_1, 0, 6)
