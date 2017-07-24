@@ -2,6 +2,7 @@ package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.api.PlayerCallback;
+import com.apixandru.rummikub.swing.shared.CardSlot;
 
 import java.util.Arrays;
 import java.util.List;

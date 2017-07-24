@@ -2,6 +2,9 @@ package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.client.game.GameConfigurer;
+import com.apixandru.rummikub.swing.shared.CardSlot;
+import com.apixandru.rummikub.swing.shared.CardSlotIndexConverter;
+import com.apixandru.rummikub.swing.shared.CardSlotPlayer;
 import com.apixandru.rummikub.swing.util.ComponentDragSource;
 
 import javax.swing.Box;

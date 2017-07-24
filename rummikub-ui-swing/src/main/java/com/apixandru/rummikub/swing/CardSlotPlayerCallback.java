@@ -2,6 +2,8 @@ package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.api.PlayerCallback;
+import com.apixandru.rummikub.swing.shared.CardSlot;
+import com.apixandru.rummikub.swing.shared.CardSlotIndexConverter;
 
 /**
  * @author Alexandru-Constantin Bledea

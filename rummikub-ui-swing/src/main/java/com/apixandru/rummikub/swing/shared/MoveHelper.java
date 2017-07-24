@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.swing;
+package com.apixandru.rummikub.swing.shared;
 
 import com.apixandru.rummikub.api.Card;
 
@@ -6,7 +6,7 @@ import com.apixandru.rummikub.api.Card;
  * @author Alexandru-Constantin Bledea
  * @since January 07, 2016
  */
-interface MoveHelper {
+public interface MoveHelper {
 
     boolean canInteractWithBoard();
 

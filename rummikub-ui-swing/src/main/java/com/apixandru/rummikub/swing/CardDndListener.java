@@ -1,6 +1,8 @@
 package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.api.Player;
+import com.apixandru.rummikub.swing.shared.CardSlot;
+import com.apixandru.rummikub.swing.shared.MoveHelper;
 import com.apixandru.rummikub.swing.util.AbstractDndListener;
 import com.apixandru.rummikub.swing.util.DragSource;
 

@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.swing;
+package com.apixandru.rummikub.swing.shared;
 
 import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.api.Player;
@@ -7,12 +7,12 @@ import com.apixandru.rummikub.api.Player;
  * @author Alexandru-Constantin Bledea
  * @since Apr 21, 2016
  */
-class CardSlotPlayer implements Player<CardSlot> {
+public final class CardSlotPlayer implements Player<CardSlot> {
 
     private final CardSlotIndexConverter converter;
     private final Player<Integer> player;
 
-    CardSlotPlayer(final Player<Integer> player, final CardSlotIndexConverter converter) {
+    public CardSlotPlayer(final Player<Integer> player, final CardSlotIndexConverter converter) {
         this.player = player;
         this.converter = converter;
     }

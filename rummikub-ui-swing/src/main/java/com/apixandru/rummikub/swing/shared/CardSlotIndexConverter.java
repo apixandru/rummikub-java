@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.swing;
+package com.apixandru.rummikub.swing.shared;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import java.util.List;
  * @author Alexandru-Constantin Bledea
  * @since Apr 22, 2016
  */
-final class CardSlotIndexConverter {
+public final class CardSlotIndexConverter {
 
     private final List<CardSlot> cardSlots;
 
@@ -14,11 +14,11 @@ final class CardSlotIndexConverter {
         this.cardSlots = cardSlots;
     }
 
-    Integer getIndex(final CardSlot cardSlot) {
+    public Integer getIndex(final CardSlot cardSlot) {
         return null == cardSlot ? null : cardSlots.indexOf(cardSlot);
     }
 
-    CardSlot getCardSlot(final Integer index) {
+    public CardSlot getCardSlot(final Integer index) {
         return null == index ? null : cardSlots.get(index);
     }
 
