@@ -5,6 +5,9 @@ import com.apixandru.rummikub.client.game.GameConfigurer;
 import com.apixandru.rummikub.swing.shared.CardSlot;
 import com.apixandru.rummikub.swing.shared.CardSlotIndexConverter;
 import com.apixandru.rummikub.swing.shared.CardSlotPlayer;
+import com.apixandru.rummikub.swing.shared.CardSlotPlayerCallback;
+import com.apixandru.rummikub.swing.shared.CardUi;
+import com.apixandru.rummikub.swing.shared.UiConstants;
 import com.apixandru.rummikub.swing.util.ComponentDragSource;
 
 import javax.swing.Box;

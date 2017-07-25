@@ -5,6 +5,7 @@ import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.GameOverReason;
 import com.apixandru.rummikub.swing.shared.MoveHelper;
+import com.apixandru.rummikub.swing.shared.UiUtil;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

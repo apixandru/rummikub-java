@@ -1,6 +1,7 @@
 package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.swing.shared.CardSlot;
+import com.apixandru.rummikub.swing.shared.UiConstants;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;

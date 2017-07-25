@@ -1,20 +1,18 @@
-package com.apixandru.rummikub.swing;
+package com.apixandru.rummikub.swing.shared;
 
 import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.api.PlayerCallback;
-import com.apixandru.rummikub.swing.shared.CardSlot;
-import com.apixandru.rummikub.swing.shared.CardSlotIndexConverter;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since Apr 21, 2016
  */
-class CardSlotPlayerCallback implements PlayerCallback<Integer> {
+public final class CardSlotPlayerCallback implements PlayerCallback<Integer> {
 
     private final PlayerCallback<CardSlot> cardSlotPlayerCallback;
     private final CardSlotIndexConverter converter;
 
-    CardSlotPlayerCallback(final PlayerCallback<CardSlot> cardSlotPlayerCallback, final CardSlotIndexConverter converter) {
+    public CardSlotPlayerCallback(final PlayerCallback<CardSlot> cardSlotPlayerCallback, final CardSlotIndexConverter converter) {
         this.cardSlotPlayerCallback = cardSlotPlayerCallback;
         this.converter = converter;
     }

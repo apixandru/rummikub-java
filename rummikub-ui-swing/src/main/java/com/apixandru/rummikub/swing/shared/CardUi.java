@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.swing;
+package com.apixandru.rummikub.swing.shared;
 
 import com.apixandru.rummikub.api.Card;
 
@@ -15,13 +15,13 @@ import java.util.Map;
  * @author Alexandru-Constantin Bledea
  * @since Oct 10, 2015
  */
-final class CardUi extends JPanel {
+public final class CardUi extends JPanel {
 
     private static final Map<Card, CardUi> cash = new HashMap<>();
 
     private static final Dimension dimension = new Dimension(60, 96);
     private static final int RADIUS = (int) (20 * UiConstants.scale);
-    final Card card;
+    public final Card card;
     private final Color color;
 
     private CardUi(final Card card) {
@@ -49,7 +49,7 @@ final class CardUi extends JPanel {
         return card.getRank() == null && card.getColor() == null;
     }
 
-    static CardUi of(final Card card) {
+    public static CardUi of(final Card card) {
         if (cash.containsKey(card)) {
             return cash.get(card);
         }
