@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.swing;
+package com.apixandru.rummikub.swing.shared;
 
 import static com.apixandru.rummikub.api.Constants.NUM_ROWS;
 
@@ -6,12 +6,12 @@ import static com.apixandru.rummikub.api.Constants.NUM_ROWS;
  * @author Alexandru-Constantin Bledea
  * @since January 09, 2016
  */
-final class RummikubUi {
+public final class RummikubUi {
 
     private RummikubUi() {
     }
 
-    static JGridPanel newBoard() {
+    public static JGridPanel newBoard() {
         return new JGridPanel(NUM_ROWS, 0);
     }
 

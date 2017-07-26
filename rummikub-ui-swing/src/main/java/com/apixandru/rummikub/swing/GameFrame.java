@@ -7,6 +7,9 @@ import com.apixandru.rummikub.swing.shared.CardSlotIndexConverter;
 import com.apixandru.rummikub.swing.shared.CardSlotPlayer;
 import com.apixandru.rummikub.swing.shared.CardSlotPlayerCallback;
 import com.apixandru.rummikub.swing.shared.CardUi;
+import com.apixandru.rummikub.swing.shared.JGridPanel;
+import com.apixandru.rummikub.swing.shared.PlayerUi;
+import com.apixandru.rummikub.swing.shared.RummikubUi;
 import com.apixandru.rummikub.swing.shared.UiConstants;
 import com.apixandru.rummikub.swing.util.ComponentDragSource;
 

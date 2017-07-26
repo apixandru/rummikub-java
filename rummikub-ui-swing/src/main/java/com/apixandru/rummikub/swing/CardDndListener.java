@@ -3,6 +3,7 @@ package com.apixandru.rummikub.swing;
 import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.swing.shared.CardSlot;
 import com.apixandru.rummikub.swing.shared.CardUi;
+import com.apixandru.rummikub.swing.shared.JGridPanel;
 import com.apixandru.rummikub.swing.shared.MoveHelper;
 import com.apixandru.rummikub.swing.shared.UiUtil;
 import com.apixandru.rummikub.swing.util.AbstractDndListener;
