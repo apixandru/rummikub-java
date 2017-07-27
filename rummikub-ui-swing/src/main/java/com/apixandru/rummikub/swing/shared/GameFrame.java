@@ -2,17 +2,6 @@ package com.apixandru.rummikub.swing.shared;
 
 import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.client.game.GameConfigurer;
-import com.apixandru.rummikub.swing.shared.CardDndListener;
-import com.apixandru.rummikub.swing.shared.CardSlot;
-import com.apixandru.rummikub.swing.shared.CardSlotIndexConverter;
-import com.apixandru.rummikub.swing.shared.CardSlotPlayer;
-import com.apixandru.rummikub.swing.shared.CardSlotPlayerCallback;
-import com.apixandru.rummikub.swing.shared.CardUi;
-import com.apixandru.rummikub.swing.shared.GameListener;
-import com.apixandru.rummikub.swing.shared.JGridPanel;
-import com.apixandru.rummikub.swing.shared.PlayerUi;
-import com.apixandru.rummikub.swing.shared.RummikubUi;
-import com.apixandru.rummikub.swing.shared.UiConstants;
 import com.apixandru.rummikub.swing.util.ComponentDragSource;
 
 import javax.swing.Box;

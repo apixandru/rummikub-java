@@ -1,9 +1,8 @@
-package com.apixandru.rummikub.swing;
+package com.apixandru.rummikub.swing.shared;
 
 import com.apixandru.rummikub.client.StateChangeListener;
 import com.apixandru.rummikub.client.game.GameConfigurer;
 import com.apixandru.rummikub.client.waiting.RummikubRoomConfigurer;
-import com.apixandru.rummikub.swing.shared.WaitingRoomPanel;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
