@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.swing;
+package com.apixandru.rummikub.swing.shared;
 
 import com.apixandru.rummikub.api.room.RummikubRoomListener;
 import com.apixandru.rummikub.api.room.StartGameListener;
@@ -26,13 +26,13 @@ import static javax.swing.SwingUtilities.invokeLater;
  * @author Alexandru-Constantin Bledea
  * @since March 29, 2016
  */
-class WaitingRoomPanel extends JPanel implements RummikubRoomListener {
+public final class WaitingRoomPanel extends JPanel implements RummikubRoomListener {
 
     private final DefaultListModel<String> playerListModel = new DefaultListModel<>();
 
     private final StartGameListener startGameListener;
 
-    WaitingRoomPanel(final StartGameListener startGameListener) {
+    public WaitingRoomPanel(final StartGameListener startGameListener) {
         super(new BorderLayout());
 
         this.startGameListener = startGameListener;
@@ -45,7 +45,7 @@ class WaitingRoomPanel extends JPanel implements RummikubRoomListener {
         add(createButtonPane(), EAST);
     }
 
-    static JFrame createAndShowGui(final WaitingRoomPanel waitingRoomPanel) {
+    public static JFrame createAndShowGui(final WaitingRoomPanel waitingRoomPanel) {
         JFrame frame = new JFrame("Waiting room");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setContentPane(waitingRoomPanel);

@@ -3,23 +3,24 @@ package com.apixandru.rummikub.swing;
 import com.apixandru.rummikub.client.StateChangeListener;
 import com.apixandru.rummikub.client.game.GameConfigurer;
 import com.apixandru.rummikub.client.waiting.RummikubRoomConfigurer;
+import com.apixandru.rummikub.swing.shared.WaitingRoomPanel;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import static com.apixandru.rummikub.swing.GameFrame.run;
+import static com.apixandru.rummikub.swing.shared.GameFrame.run;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 09, 2016
  */
-class WindowManager implements StateChangeListener {
+public final class WindowManager implements StateChangeListener {
 
     private final String username;
 
     private JFrame currentFrame;
 
-    WindowManager(final String username) {
+    public WindowManager(final String username) {
         this.username = username;
     }
 
@@ -37,7 +38,7 @@ class WindowManager implements StateChangeListener {
         currentFrame = run(username, configurer);
     }
 
-    void dismiss() {
+    public void dismiss() {
         JFrame frame = this.currentFrame;
         if (null != frame) {
             SwingUtilities.invokeLater(frame::dispose);

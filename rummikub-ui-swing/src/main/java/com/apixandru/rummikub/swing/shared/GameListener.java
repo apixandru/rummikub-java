@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.swing;
+package com.apixandru.rummikub.swing.shared;
 
 import com.apixandru.rummikub.api.BoardListener;
 import com.apixandru.rummikub.api.Card;
@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author Alexandru-Constantin Bledea
  * @since January 04, 2016
  */
-final class GameListener implements BoardListener, GameEventListener, MoveHelper {
+public final class GameListener implements BoardListener, GameEventListener, MoveHelper {
 
     private final List<Card> cardsLockedOnBoard = new ArrayList<>();
     private final List<Card> cardsJustPlacedOnBoard = new ArrayList<>();
@@ -32,7 +32,7 @@ final class GameListener implements BoardListener, GameEventListener, MoveHelper
     private final JFrame frame;
     private final String playerName;
 
-    GameListener(final JFrame frame, final JGridPanel board, final JButton btnEndTurn, final String playerName) {
+    public GameListener(final JFrame frame, final JGridPanel board, final JButton btnEndTurn, final String playerName) {
         this.frame = frame;
         this.board = board;
         this.btnEndTurn = btnEndTurn;

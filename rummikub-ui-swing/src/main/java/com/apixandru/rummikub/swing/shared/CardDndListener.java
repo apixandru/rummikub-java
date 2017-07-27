@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.swing;
+package com.apixandru.rummikub.swing.shared;
 
 import com.apixandru.rummikub.api.Player;
 import com.apixandru.rummikub.swing.shared.CardSlot;
@@ -15,14 +15,14 @@ import javax.swing.JComponent;
  * @author Alexandru-Constantin Bledea
  * @since Oct 13, 2015
  */
-final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
+public final class CardDndListener extends AbstractDndListener<CardUi, CardSlot> {
 
     private final Player<CardSlot> player;
     private final MoveHelper moveHelper;
 
     private final JGridPanel board;
 
-    CardDndListener(final DragSource<CardUi> dragSource, final JGridPanel board, final Player<CardSlot> player, final MoveHelper moveHelper) {
+    public CardDndListener(final DragSource<CardUi> dragSource, final JGridPanel board, final Player<CardSlot> player, final MoveHelper moveHelper) {
         super(CardUi.class, dragSource);
         this.player = player;
         this.board = board;
