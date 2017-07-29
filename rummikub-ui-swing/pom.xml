@@ -18,6 +18,10 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>rummikub-connector-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>rummikub-model</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
