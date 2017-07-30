@@ -188,14 +188,17 @@ final class RummikubImpl implements Rummikub<Integer> {
 
         @Override
         public void placeCardOnBoard(final PlayerImpl player, final Card card, final int x, final int y) {
+            currentPlayer.removeCard(card);
             if (currentPlayer != player) {
                 log.debug("It's not your turn!");
+                currentPlayer.receiveCard(card);
                 return;
             }
-            if (board.placeCard(card, x, y)) {
-                currentPlayer.removeCard(card);
-                undoManager.trackPlayerToBoard(x, y);
+            if (!board.placeCard(card, x, y)) {
+                currentPlayer.receiveCard(card);
+                return;
             }
+            undoManager.trackPlayerToBoard(x, y);
         }
 
         @Override
