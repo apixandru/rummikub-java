@@ -60,6 +60,9 @@ public final class CardDndListener extends AbstractDndListener<CardUi, CardSlot>
         if (!(component instanceof CardSlot)) {
             return false;
         }
+        if (component.getComponents().length != 0) {
+            return false;
+        }
         final Transfer type = transferOf(this.draggablePieceParent, (CardSlot) component);
         if (type == Transfer.PLAYER_TO_PLAYER || type == Transfer.NONE) {
             return true;
