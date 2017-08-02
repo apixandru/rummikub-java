@@ -25,4 +25,8 @@ public final class CardSlot extends JPanel {
         return String.format("(%d, %d)", x, y);
     }
 
+    public boolean isFree() {
+        return getComponentCount() == 0;
+    }
+
 }
