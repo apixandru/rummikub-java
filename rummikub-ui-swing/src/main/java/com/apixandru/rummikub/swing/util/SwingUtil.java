@@ -31,15 +31,11 @@ public final class SwingUtil {
         }
     }
 
-    private static void setChanged(Component component) {
+    public static void setChanged(Component component) {
         if (null != component) {
             component.validate();
             component.repaint();
         }
-    }
-
-    public static void addAndNotify(final Component component, final Container container) {
-        addAndNotify(component, container, null);
     }
 
     static void addAndNotify(final Component component, final Container container, Object constraints) {

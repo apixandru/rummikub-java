@@ -39,7 +39,7 @@ public final class UiUtil {
     }
 
     public static void placeCard(final CardUi card, final CardSlot slot) {
-        SwingUtil.addAndNotify(card, slot);
+        slot.setCard(card);
     }
 
     public static void removeCard(final Card card, final CardSlot slot) {
