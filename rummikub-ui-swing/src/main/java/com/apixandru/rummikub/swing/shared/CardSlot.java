@@ -37,6 +37,13 @@ public final class CardSlot extends JPanel {
         repaint();
     }
 
+    public void removeCard(CardUi card) {
+        log.debug("Remove {} from {}", card, this);
+        remove(card);
+        validate();
+        repaint();
+    }
+
     @Override
     public String toString() {
         return String.format("(%d, %d)", x, y);

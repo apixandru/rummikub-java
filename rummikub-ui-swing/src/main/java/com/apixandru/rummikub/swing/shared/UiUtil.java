@@ -1,7 +1,6 @@
 package com.apixandru.rummikub.swing.shared;
 
 import com.apixandru.rummikub.api.Card;
-import com.apixandru.rummikub.swing.util.SwingUtil;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -43,7 +42,7 @@ public final class UiUtil {
     }
 
     public static void removeCard(final Card card, final CardSlot slot) {
-        SwingUtil.removeAndNotify(CardUi.of(card), slot);
+        slot.removeCard(CardUi.of(card));
     }
 
 }
