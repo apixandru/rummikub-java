@@ -3,6 +3,13 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.6.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
     <groupId>com.apixandru.rummikub</groupId>
     <artifactId>rummikub</artifactId>
     <version>0.0.2-SNAPSHOT</version>
@@ -20,14 +27,7 @@
     </modules>
 
     <properties>
-        <version.slf4j>1.7.22</version.slf4j>
-        <version.maven.compiler>3.6.0</version.maven.compiler>
-        <version.junit>4.12</version.junit>
-        <version.mockito>2.6.1</version.mockito>
-        <version.java>1.8</version.java>
-        <versionAssertJ>3.6.1</versionAssertJ>
-        <versionGroovy>2.4.7</versionGroovy>
-        <versionSpock>1.0-groovy-2.4</versionSpock>
+        <java.version>1.8</java.version>
         <versionGmavenPlus>1.5</versionGmavenPlus>
     </properties>
 
@@ -36,27 +36,16 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${version.slf4j}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>${version.slf4j}</version>
         </dependency>
 
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.maven.compiler}</version>
-                <configuration>
-                    <source>${version.java}</source>
-                    <target>${version.java}</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
@@ -80,35 +69,35 @@
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
-                <version>${versionGroovy}</version>
+                <version>${groovy.version}</version>
                 <scope>test</scope>
             </dependency>
 
             <dependency>
                 <groupId>org.spockframework</groupId>
                 <artifactId>spock-core</artifactId>
-                <version>${versionSpock}</version>
+                <version>${spock.version}</version>
                 <scope>test</scope>
             </dependency>
 
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>${version.junit}</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
 
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>${versionAssertJ}</version>
+                <version>${assertj.version}</version>
                 <scope>test</scope>
             </dependency>
 
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>${version.mockito}</version>
+                <version>${mockito.version}</version>
                 <scope>test</scope>
             </dependency>
 
