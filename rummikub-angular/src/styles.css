@@ -1,1 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
+#main-container {
+  text-align: center;
+  user-select: none;
+}
+
+.card-grid-container {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 10px;
+  border: 2px solid #444;
+  border-radius: 6px;
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(20, 44px);
+}
+
+.card, .slot {
+  float: left;
+  width: 20px;
+  height: 30px;
+  padding: 15px 10px;
+  border: 2px solid #333;
+  border-radius: 5px;
+}
+
+.slot {
+  border-color: #bbb;
+}
+
+.card {
+  background: #D5DBDB;
+}
+
+#main-container {
+  text-align: center;
+  user-select: none;
+}
+
+.card-grid-container {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 10px;
+  border: 2px solid #444;
+  border-radius: 6px;
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(20, 44px);
+}
+
+.card, .slot {
+  float: left;
+  width: 20px;
+  height: 30px;
+  padding: 15px 10px;
+  border: 2px solid #333;
+  border-radius: 5px;
+}
+
+.slot {
+  border-color: #bbb;
+}
+
+.card {
+  background: #D5DBDB;
+}

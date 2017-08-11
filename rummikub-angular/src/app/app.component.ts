@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  cardSlots = new Array(20 * 7);
+  handSlots = new Array(20 * 2);
 }
