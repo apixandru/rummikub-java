@@ -10,7 +10,7 @@
 
   <div class="card-grid-container">
     <div class="card-grid">
-      <div *ngFor="let card of handSlots" class="slot"></div>
+      <card-slot *ngFor="let card of handSlots; let i = index"></card-slot>
     </div>
   </div>
 </div>
