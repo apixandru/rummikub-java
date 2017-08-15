@@ -4,12 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppCardSlot } from "./app.cardslot";
 
+import { DndModule } from 'ng2-dnd';
+
 @NgModule({
   declarations: [
     AppComponent,
     AppCardSlot
   ],
   imports: [
+    DndModule.forRoot(),
     BrowserModule
   ],
   providers: [],
