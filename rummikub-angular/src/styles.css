@@ -69,3 +69,11 @@
 .card {
   background: #D5DBDB;
 }
+
+.dnd-drag-start {
+  opacity: 0.7;
+}
+
+.dnd-drag-over {
+  background-color: #cfc;
+}
