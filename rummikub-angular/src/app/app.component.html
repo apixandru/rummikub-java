@@ -1,5 +1,5 @@
 <div id="main-container">
-
+  <div>My turn <input type="checkbox" [(ngModel)]="myTurn"/></div>
   <div class="card-grid-container">
     <div class="card-grid">
       <div *ngFor="let slot of cardSlots" class="slot" dnd-droppable></div>

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppCardSlot } from "./app.cardslot";
@@ -13,7 +14,8 @@ import { DndModule } from 'ng2-dnd';
   ],
   imports: [
     DndModule.forRoot(),
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
