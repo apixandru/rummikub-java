@@ -4,13 +4,15 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppCardSlot } from "./app.cardslot";
+import { AppCard } from "./app.card";
 
 import { DndModule } from 'ng2-dnd';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppCardSlot
+    AppCardSlot,
+    AppCard
   ],
   imports: [
     DndModule.forRoot(),
