@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppCardSlot } from "./app.cardslot";
 import { AppCard } from "./app.card";
+import { AppBoard } from "./app.board";
 
 import { DndModule } from 'ng2-dnd';
 
@@ -12,7 +13,8 @@ import { DndModule } from 'ng2-dnd';
   declarations: [
     AppComponent,
     AppCardSlot,
-    AppCard
+    AppCard,
+    AppBoard
   ],
   imports: [
     DndModule.forRoot(),
