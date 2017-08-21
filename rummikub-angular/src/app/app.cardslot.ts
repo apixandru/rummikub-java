@@ -5,5 +5,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './app.cardslot.html'
 })
 export class AppCardSlot {
-  @Input() cardSlotId: number;
+  @Input() cardSlotId: any;
 }

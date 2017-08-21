@@ -5,7 +5,24 @@ import { Component } from '@angular/core';
   templateUrl: './app.board.html'
 })
 export class AppBoard {
-  slots = new Array(20 * 7);
+  slots = this.createGrid();
+
+  createGrid() {
+    let array = new Array(20 * 7);
+    for (let row = 0; row < 7; row++) {
+      for (let column = 0; column < 20; column++) {
+        array[row * 7 + column] = {
+          row: row,
+          col: column
+        }
+      }
+    }
+    return array;
+  }
+
+  canDropOn(slot: any): any {
+    return (dragData: any) => slot.row % 2 === 0;
+  }
 
   addTo($event: any) {
     console.log($event)
