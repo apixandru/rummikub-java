@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-board',
@@ -8,13 +8,16 @@ export class AppBoard {
   slots = this.createGrid();
 
   createGrid() {
-    let array = new Array(20 * 7);
-    for (let row = 0; row < 7; row++) {
-      for (let column = 0; column < 20; column++) {
-        array[row * 7 + column] = {
+    const numRows = 7;
+    const numCols = 20;
+    let array = new Array(numCols * numRows);
+    for (let row = 0; row < numRows; row++) {
+      for (let column = 0; column < numCols; column++) {
+        const index = row * numCols + column;
+        array[index] = {
           row: row,
           col: column
-        }
+        };
       }
     }
     return array;
