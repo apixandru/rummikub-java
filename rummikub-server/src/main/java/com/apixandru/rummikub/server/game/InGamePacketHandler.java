@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.server.game;
 
 import com.apixandru.rummikub.api.Player;
-import com.apixandru.rummikub.brotocol.SocketWrapper;
+import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
@@ -23,18 +23,18 @@ public final class InGamePacketHandler extends MultiPacketHandler implements Tid
     private final Player<Integer> player;
     private final Rummikub<Integer> rummikubGame;
 
-    public InGamePacketHandler(String playerName, SocketWrapper socketWrapper, Rummikub<Integer> rummikubGame) {
+    public InGamePacketHandler(String playerName, PacketWriter packetWriter, Rummikub<Integer> rummikubGame) {
         this.rummikubGame = rummikubGame;
 
-        socketWrapper.writePacket(new PacketPlayerStart());
+        packetWriter.writePacket(new PacketPlayerStart());
 
-        this.boardListener = new ServerBoardListener(playerName, socketWrapper);
-        this.gameEventListener = new ServerGameEventListener(playerName, socketWrapper);
+        this.boardListener = new ServerBoardListener(playerName, packetWriter);
+        this.gameEventListener = new ServerGameEventListener(playerName, packetWriter);
 
         rummikubGame.addBoardListener(boardListener);
         rummikubGame.addGameEventListener(gameEventListener);
 
-        this.player = rummikubGame.addPlayer(playerName, new ServerPlayerCallback(socketWrapper));
+        this.player = rummikubGame.addPlayer(playerName, new ServerPlayerCallback(packetWriter));
 
         register(PacketPlaceCard.class, new PlaceCardOnBoardHandler(playerName, player));
         register(PacketEndTurn.class, new EndTurnHandler(playerName, player));

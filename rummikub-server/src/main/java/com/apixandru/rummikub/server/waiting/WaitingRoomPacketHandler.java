@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.server.waiting;
 
 import com.apixandru.rummikub.api.room.StartGameListener;
-import com.apixandru.rummikub.brotocol.SocketWrapper;
+import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.connect.client.StartGameRequest;
 import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
 import com.apixandru.rummikub.server.TidyPacketHandler;
@@ -15,11 +15,11 @@ public class WaitingRoomPacketHandler extends MultiPacketHandler implements Tidy
     private final String playerName;
     private final Room room;
 
-    public WaitingRoomPacketHandler(String playerName, SocketWrapper socketWrapper, Room room, StartGameListener startGameListener) {
+    public WaitingRoomPacketHandler(String playerName, PacketWriter packetWriter, Room room, StartGameListener startGameListener) {
         this.room = room;
         this.playerName = playerName;
 
-        room.join(playerName, new ServerRummikubRoomListener(socketWrapper));
+        room.join(playerName, new ServerRummikubRoomListener(packetWriter));
 
         register(StartGameRequest.class, new StartGameHandler(startGameListener));
     }
