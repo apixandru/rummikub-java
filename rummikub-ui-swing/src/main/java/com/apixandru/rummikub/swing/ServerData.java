@@ -67,11 +67,24 @@ final class ServerData {
                 prefs.put(KEY_ADDRESS, address);
                 prefs.put(KEY_USERNAME, username);
             }
+            Socket socket = null;
             try {
-                return new ConnectionData(new Socket(address, 50122), username);
+                socket = new Socket(address, 50122);
+                return new ConnectionData(socket, username);
             } catch (IllegalArgumentException | IOException ex) {
+                closeSocketQuietly(socket);
                 showDialog = true;
                 showError(ex.getMessage(), address);
+            }
+        }
+    }
+
+    private static void closeSocketQuietly(Socket socket) {
+        if (null != socket) {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                log.debug("Cannot close socket.", e);
             }
         }
     }
