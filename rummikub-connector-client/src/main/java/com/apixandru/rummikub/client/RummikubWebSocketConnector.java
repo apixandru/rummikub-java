@@ -3,47 +3,32 @@ package com.apixandru.rummikub.client;
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.GameOverReason;
 import com.apixandru.rummikub.api.room.StartGameListener;
-import com.apixandru.rummikub.brotocol.PacketReader;
 import com.apixandru.rummikub.brotocol.PacketWriter;
-import com.apixandru.rummikub.brotocol.SocketWrapper;
-import com.apixandru.rummikub.brotocol.util.ConnectionListener;
-import com.apixandru.rummikub.brotocol.util.SocketPacketProcessor;
+import com.apixandru.rummikub.brotocol.util.PacketHandlerAware;
 import com.apixandru.rummikub.client.game.ClientGameConfigurer;
 import com.apixandru.rummikub.client.waiting.ClientWaitingRoomConfigurer;
 
-/**
- * @author Alexandru-Constantin Bledea
- * @since April 02, 2016
- */
-public final class RummikubConnector {
+public final class RummikubWebSocketConnector {
 
     private final PacketWriter packetWriter;
     private final StateChangeListener stateChangeListener;
-    private final SocketPacketProcessor socketPacketProcessor;
+    private final PacketHandlerAware packetHandlerAware;
 
-    public RummikubConnector(final SocketWrapper socketWrapper,
-                             final StateChangeListener stateChangeListener,
-                             final ConnectionListener connectionListener) {
-        this(socketWrapper, socketWrapper, stateChangeListener, connectionListener);
-    }
-
-    public RummikubConnector(final PacketReader packetReader,
-                             final PacketWriter packetWriter,
-                             final StateChangeListener stateChangeListener,
-                             final ConnectionListener connectionListener) {
+    public RummikubWebSocketConnector(final PacketWriter packetWriter,
+                                      final StateChangeListener stateChangeListener,
+                                      final PacketHandlerAware packetHandlerAware) {
         this.packetWriter = packetWriter;
         this.stateChangeListener = stateChangeListener;
-        this.socketPacketProcessor = new SocketPacketProcessor(packetReader, connectionListener);
+        this.packetHandlerAware = packetHandlerAware;
     }
 
     public void connect() {
         goToWaitingRoom();
-        new Thread(socketPacketProcessor).start();
     }
 
     private void goToWaitingRoom() {
         ClientWaitingRoomPacketHandler packetHandler = new ClientWaitingRoomPacketHandler(new ClientStartGameListener());
-        this.socketPacketProcessor.setPacketHandler(packetHandler);
+        this.packetHandlerAware.setPacketHandler(packetHandler);
         ClientWaitingRoomConfigurer waitingRoomConfigurer = new ClientWaitingRoomConfigurer(packetHandler, packetWriter);
         stateChangeListener.enteredWaitingRoom(waitingRoomConfigurer);
     }
@@ -53,7 +38,7 @@ public final class RummikubConnector {
         @Override
         public void startGame() {
             ClientPacketHandler packetHandler = new ClientPacketHandler();
-            socketPacketProcessor.setPacketHandler(packetHandler);
+            packetHandlerAware.setPacketHandler(packetHandler);
             ClientGameConfigurer configurer = new ClientGameConfigurer(packetHandler, packetWriter);
             configurer.addGameEventListener(this);
             stateChangeListener.enteredGame(configurer);

@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-public final class SocketPacketProcessor implements Runnable {
+public final class SocketPacketProcessor implements Runnable, PacketHandlerAware {
 
     private static final Logger log = LoggerFactory.getLogger(SocketPacketProcessor.class);
 
@@ -26,6 +26,7 @@ public final class SocketPacketProcessor implements Runnable {
         this.connectionListener = connectionListener;
     }
 
+    @Override
     public void setPacketHandler(ConnectorPacketHandler packetHandler) {
         this.packetHandler = packetHandler;
     }
