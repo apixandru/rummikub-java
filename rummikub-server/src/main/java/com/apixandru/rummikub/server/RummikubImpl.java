@@ -18,14 +18,14 @@ import static com.apixandru.rummikub.server.RummikubException.Reason.ONGOING_GAM
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
-class RummikubImpl implements StartGameListener {
+public class RummikubImpl implements StartGameListener {
 
     private final Map<String, StateChangeListener> players = new HashMap<>();
 
     private Rummikub<Integer> rummikubGame;
     private Room room;
 
-    RummikubImpl() {
+    public RummikubImpl() {
         goToWaitingRoom();
     }
 
@@ -33,7 +33,7 @@ class RummikubImpl implements StartGameListener {
         return null == string || string.isEmpty();
     }
 
-    void validateCanJoin(final String playerName) {
+    public void validateCanJoin(final String playerName) {
         if (isEmpty(playerName)) {
             throw new RummikubException(NO_NAME);
         }
@@ -45,7 +45,7 @@ class RummikubImpl implements StartGameListener {
         }
     }
 
-    void addPlayer(final String playerName, final StateChangeListener listener) {
+    public void addPlayer(final String playerName, final StateChangeListener listener) {
         enterWaitingRoom(listener);
         players.put(playerName, listener);
     }
@@ -66,7 +66,7 @@ class RummikubImpl implements StartGameListener {
 
     }
 
-    void unregister(final String playerName) {
+    public void unregister(final String playerName) {
         players.remove(playerName); // TODO synchronize deez!
     }
 

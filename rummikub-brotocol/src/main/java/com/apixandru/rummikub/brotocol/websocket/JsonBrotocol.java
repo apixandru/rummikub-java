@@ -1,7 +1,9 @@
 package com.apixandru.rummikub.brotocol.websocket;
 
+import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.brotocol.Packet;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +15,9 @@ public final class JsonBrotocol implements Encoder.Text<Packet>, Decoder.Text<Pa
 
     private static final Logger log = LoggerFactory.getLogger(JsonBrotocol.class);
 
-    private final Gson gson = new Gson();
+    private final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Card.class, new CardJsonSerializer())
+            .create();
 
     private static String[] split(String message) {
         return message.split(" ", 2);

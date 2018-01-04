@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-final class SocketPacketProcessor implements Runnable {
+public final class SocketPacketProcessor implements Runnable, TidyPacketHandlerAware {
 
     private static final Logger log = LoggerFactory.getLogger(SocketPacketProcessor.class);
 
@@ -21,12 +21,13 @@ final class SocketPacketProcessor implements Runnable {
     private final ConnectionListener connectionListener;
     private TidyPacketHandler packetHandler;
 
-    SocketPacketProcessor(final PacketReader reader, final ConnectionListener connectionListener) {
+    public SocketPacketProcessor(final PacketReader reader, final ConnectionListener connectionListener) {
         this.reader = reader;
         this.connectionListener = connectionListener;
     }
 
-    void setPacketHandler(TidyPacketHandler packetHandler) {
+    @Override
+    public void setPacketHandler(TidyPacketHandler packetHandler) {
         cleanup();
         this.packetHandler = packetHandler;
     }

@@ -11,14 +11,16 @@ import com.apixandru.rummikub.server.waiting.WaitingRoomPacketHandler;
  * @author Alexandru-Constantin Bledea
  * @since April 13, 2016
  */
-class ServerStateChangeListener implements StateChangeListener {
+public final class ServerStateChangeListener implements StateChangeListener {
 
     private final PacketWriter packetWriter;
     private final String playerName;
 
-    private final SocketPacketProcessor socketPacketProcessor;
+    private final TidyPacketHandlerAware socketPacketProcessor;
 
-    ServerStateChangeListener(final String playerName, final PacketWriter packetWriter, final SocketPacketProcessor socketPacketProcessor) {
+    public ServerStateChangeListener(final String playerName,
+                                     final PacketWriter packetWriter,
+                                     final TidyPacketHandlerAware socketPacketProcessor) {
         this.playerName = playerName;
         this.packetWriter = packetWriter;
         this.socketPacketProcessor = socketPacketProcessor;

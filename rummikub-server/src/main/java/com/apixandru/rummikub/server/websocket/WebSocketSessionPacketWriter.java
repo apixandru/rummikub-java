@@ -2,7 +2,7 @@ package com.apixandru.rummikub.server.websocket;
 
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol.PacketWriter;
-import com.google.gson.Gson;
+import com.apixandru.rummikub.brotocol.websocket.JsonBrotocol;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public final class WebSocketSessionPacketWriter implements PacketWriter {
 
-    private final Gson gson = new Gson();
+    private final JsonBrotocol brotocol = new JsonBrotocol();
 
     private final WebSocketSession session;
 
@@ -20,13 +20,11 @@ public final class WebSocketSessionPacketWriter implements PacketWriter {
 
     @Override
     public void writePacket(Packet packet) {
-        String json = gson.toJson(packet);
-        String packetClass = packet.getClass().getName();
-        TextMessage message = new TextMessage(packetClass + " " + json);
+        TextMessage message = new TextMessage(brotocol.encode(packet));
         try {
             session.sendMessage(message);
         } catch (IOException ex) {
-            throw new IllegalArgumentException("Can't serialize " + packetClass);
+            throw new IllegalArgumentException("Can't serialize " + packet);
         }
     }
 
