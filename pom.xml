@@ -29,6 +29,8 @@
     <properties>
         <java.version>1.8</java.version>
         <versionGmavenPlus>1.5</versionGmavenPlus>
+        <versionTyrus>1.13.1</versionTyrus>
+        <versionWebSocketApi>1.1</versionWebSocketApi>
     </properties>
 
     <dependencies>
@@ -41,7 +43,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -70,6 +71,18 @@
                 <artifactId>spock-core</artifactId>
                 <version>${spock.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.websocket</groupId>
+                <artifactId>javax.websocket-client-api</artifactId>
+                <version>${versionWebSocketApi}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.glassfish.tyrus</groupId>
+                <artifactId>tyrus-container-grizzly-client</artifactId>
+                <version>${versionTyrus}</version>
             </dependency>
 
             <dependency>
