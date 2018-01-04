@@ -17,7 +17,7 @@ public abstract class PacketWebSocketHandler extends TextWebSocketHandler {
 
     protected final JsonBrotocol brotocol = new JsonBrotocol();
 
-    private void send(WebSocketSession session, Packet packet) throws IOException {
+    protected final void send(WebSocketSession session, Packet packet) throws IOException {
         String encodedPacket = brotocol.encode(packet);
         session.sendMessage(new TextMessage(encodedPacket));
     }
@@ -38,6 +38,6 @@ public abstract class PacketWebSocketHandler extends TextWebSocketHandler {
         handlePacket(session, packet);
     }
 
-    protected abstract void handlePacket(WebSocketSession session, Packet packet);
+    protected abstract void handlePacket(WebSocketSession session, Packet packet) throws IOException;
 
 }
