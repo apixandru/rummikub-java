@@ -55,7 +55,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.apixandru.rummikub.server.Main</mainClass>
+                            <mainClass>com.apixandru.rummikub.server.websocket.RummikubSpringApplication</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

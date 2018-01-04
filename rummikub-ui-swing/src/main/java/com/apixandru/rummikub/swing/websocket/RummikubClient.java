@@ -1,8 +1,7 @@
 package com.apixandru.rummikub.swing.websocket;
 
-import com.apixandru.rummikub.api.room.RummikubRoomListener;
-import com.apixandru.rummikub.brotocol.ConnectorPacketHandler;
 import com.apixandru.rummikub.brotocol.Packet;
+import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.game.client.LoginRequest;
 import com.apixandru.rummikub.brotocol.game.server.LoginResponse;
@@ -31,8 +30,6 @@ public class RummikubClient implements PacketWriter, PacketHandlerAware {
 
     private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTED = 1;
-    private static final int STATE_LOGGED_IN = 2;
-    private static final int STATE_IN_GAME = 3;
 
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -43,7 +40,7 @@ public class RummikubClient implements PacketWriter, PacketHandlerAware {
 
     private Session session;
 
-    private ConnectorPacketHandler packetHandler;
+    private PacketHandler<Packet> packetHandler;
 
     public void send(Packet text) throws IOException {
         try {
@@ -155,7 +152,7 @@ public class RummikubClient implements PacketWriter, PacketHandlerAware {
     }
 
     @Override
-    public void setPacketHandler(ConnectorPacketHandler packetHandler) {
+    public void setPacketHandler(PacketHandler<Packet> packetHandler) {
         this.packetHandler = packetHandler;
     }
 

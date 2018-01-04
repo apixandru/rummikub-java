@@ -1,12 +1,10 @@
 package com.apixandru.rummikub.swing;
 
-import com.apixandru.rummikub.client.RummikubConnector;
 import com.apixandru.rummikub.client.RummikubWebSocketConnector;
 import com.apixandru.rummikub.swing.shared.WindowManager;
 import com.apixandru.rummikub.swing.websocket.OnLoginListener;
 import com.apixandru.rummikub.swing.websocket.RummikubClient;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,14 +22,11 @@ import java.util.prefs.Preferences;
 
 import static javax.swing.JOptionPane.OK_CANCEL_OPTION;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
+import static org.slf4j.LoggerFactory.getLogger;
 
-/**
- * @author Alexandru-Constantin Bledea
- * @since January 09, 2016
- */
-final class ServerData2 {
+final class ClientMain {
 
-    private static final Logger log = LoggerFactory.getLogger(ServerData2.class);
+    private static final Logger log = getLogger(ClientMain.class);
 
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_USERNAME = "username";
@@ -43,7 +38,7 @@ final class ServerData2 {
 
     private static final int CHOICE_CONNECT = 0;
 
-    private ServerData2() {
+    private ClientMain() {
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -59,13 +54,13 @@ final class ServerData2 {
         });
 
 
-        synchronized (ServerData2.class) {
-            ServerData2.class.wait();
+        synchronized (ClientMain.class) {
+            ClientMain.class.wait();
         }
     }
 
     static void tryConnect(RummikubClient client, HandshakeCallback callback) {
-        final Preferences prefs = Preferences.userNodeForPackage(ServerData2.class);
+        final Preferences prefs = Preferences.userNodeForPackage(ClientMain.class);
 
         final JTextField tfUsername = newField(prefs, KEY_USERNAME, "rk.user");
         final JTextField tfAddress = newField(prefs, KEY_ADDRESS, "rk.address");

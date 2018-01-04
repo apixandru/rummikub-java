@@ -8,7 +8,6 @@ import com.apixandru.rummikub.server.RummikubImpl;
 import com.apixandru.rummikub.server.ServerStateChangeListener;
 import org.slf4j.Logger;
 import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
@@ -27,10 +26,6 @@ public class MyWebSocketHandler extends PacketWebSocketHandler {
 
     private final List<WebSocketSession> sessions = new ArrayList<>();
     private final Map<String, String> users = new HashMap<>();
-
-    private static void send(WebSocketSession session, String message) throws IOException {
-        session.sendMessage(new TextMessage(message));
-    }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {

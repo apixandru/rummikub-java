@@ -3,7 +3,6 @@ package com.apixandru.rummikub.client;
 import com.apixandru.rummikub.api.BoardListener;
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.PlayerCallback;
-import com.apixandru.rummikub.brotocol.ConnectorPacketHandler;
 import com.apixandru.rummikub.brotocol.game.server.PacketCardPlaced;
 import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;
@@ -23,7 +22,7 @@ import java.util.Collection;
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-public class ClientPacketHandler extends MultiPacketHandler implements ConnectorPacketHandler {
+public class ClientPacketHandler extends MultiPacketHandler {
 
     private final Collection<GameEventListener> gameEventListener = new ArrayList<>();
 
@@ -43,11 +42,6 @@ public class ClientPacketHandler extends MultiPacketHandler implements Connector
 
     public void setPlayerCallback(final PlayerCallback<Integer> playerCallback) {
         register(PacketReceiveCard.class, new ReceiveCardHandler(playerCallback));
-    }
-
-    @Override
-    public boolean isReady() {
-        return true;
     }
 
 }

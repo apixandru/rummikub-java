@@ -39,7 +39,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.apixandru.rummikub.swing.Main</mainClass>
+                            <mainClass>com.apixandru.rummikub.swing.ClientMain</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
