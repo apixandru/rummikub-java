@@ -1,10 +1,12 @@
 package com.apixandru.rummikub.swing.shared;
 
 import com.apixandru.rummikub.client.StateChangeListener;
+import com.apixandru.rummikub.client.connector.OnDisconnectListener;
 import com.apixandru.rummikub.client.game.GameConfigurer;
 import com.apixandru.rummikub.client.waiting.RummikubRoomConfigurer;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import static com.apixandru.rummikub.swing.shared.GameFrame.run;
@@ -13,7 +15,7 @@ import static com.apixandru.rummikub.swing.shared.GameFrame.run;
  * @author Alexandru-Constantin Bledea
  * @since April 09, 2016
  */
-public final class WindowManager implements StateChangeListener {
+public final class WindowManager implements StateChangeListener, OnDisconnectListener {
 
     private final String username;
 
@@ -44,4 +46,12 @@ public final class WindowManager implements StateChangeListener {
         }
     }
 
+    @Override
+    public void onDisconnect(String disconnectReason) {
+        JOptionPane.showMessageDialog(null,
+                disconnectReason,
+                "Connection Lost",
+                JOptionPane.ERROR_MESSAGE);
+        dismiss();
+    }
 }

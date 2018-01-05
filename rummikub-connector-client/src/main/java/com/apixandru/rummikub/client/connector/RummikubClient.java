@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.swing.websocket;
+package com.apixandru.rummikub.client.connector;
 
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol.PacketHandler;
@@ -38,6 +38,7 @@ public class RummikubClient implements PacketWriter, PacketHandlerAware {
 
     private final List<OnConnectListener> connectListeners = new ArrayList<>();
     private final List<OnLoginListener> loginListeners = new ArrayList<>();
+    private final List<OnDisconnectListener> disconnectListeners = new ArrayList<>();
 
     private int state;
 
@@ -118,6 +119,9 @@ public class RummikubClient implements PacketWriter, PacketHandlerAware {
     @OnClose
     public void onClose(Session session, CloseReason closeReason) throws IOException {
         logger.info(String.format("Session %s close because of %s", session.getId(), closeReason));
+        for (OnDisconnectListener disconnectListener : disconnectListeners) {
+            disconnectListener.onDisconnect(closeReason.getReasonPhrase());
+        }
     }
 
     @OnError
@@ -128,6 +132,10 @@ public class RummikubClient implements PacketWriter, PacketHandlerAware {
 
     public void addOnConnectListener(OnConnectListener onConnectListener) {
         this.connectListeners.add(onConnectListener);
+    }
+
+    public void addOnDisconnectListener(OnDisconnectListener onDisconnectListener) {
+        this.disconnectListeners.add(onDisconnectListener);
     }
 
     public void login(String username) throws IOException {

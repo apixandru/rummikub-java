@@ -1,4 +1,4 @@
-package com.apixandru.rummikub.swing.websocket;
+package com.apixandru.rummikub.client.connector;
 
 import java.io.IOException;
 

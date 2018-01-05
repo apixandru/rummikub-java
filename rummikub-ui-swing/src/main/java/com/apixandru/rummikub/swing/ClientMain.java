@@ -1,9 +1,9 @@
 package com.apixandru.rummikub.swing;
 
 import com.apixandru.rummikub.client.RummikubWebSocketConnector;
+import com.apixandru.rummikub.client.connector.OnLoginListener;
+import com.apixandru.rummikub.client.connector.RummikubClient;
 import com.apixandru.rummikub.swing.shared.WindowManager;
-import com.apixandru.rummikub.swing.websocket.OnLoginListener;
-import com.apixandru.rummikub.swing.websocket.RummikubClient;
 import org.slf4j.Logger;
 
 import javax.swing.JLabel;
@@ -47,16 +47,12 @@ final class ClientMain {
             @Override
             public void onHandshakeSuccess(String username) {
                 final WindowManager windowManager = new WindowManager(username);
+                client.addOnDisconnectListener(windowManager);
                 final RummikubWebSocketConnector rummikubConnector =
                         new RummikubWebSocketConnector(client, windowManager, client);
                 rummikubConnector.connect();
             }
         });
-
-
-        synchronized (ClientMain.class) {
-            ClientMain.class.wait();
-        }
     }
 
     static void tryConnect(RummikubClient client, HandshakeCallback callback) {
