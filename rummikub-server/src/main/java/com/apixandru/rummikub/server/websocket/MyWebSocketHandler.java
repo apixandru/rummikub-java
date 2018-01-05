@@ -8,45 +8,34 @@ import com.apixandru.rummikub.server.RummikubImpl;
 import com.apixandru.rummikub.server.ServerStateChangeListener;
 import org.slf4j.Logger;
 import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class MyWebSocketHandler extends PacketWebSocketHandler {
 
-    private final Logger log = getLogger(this.getClass().getName());
+    private static final Logger log = getLogger(MyWebSocketHandler.class);
 
     private final RummikubImpl rummikub = new RummikubImpl();
 
-    private final List<WebSocketSession> sessions = new ArrayList<>();
-    private final Map<String, String> users = new HashMap<>();
-
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        sessions.add(session);
-        log.info("{} connected.");
+    protected void afterConnectionEstablished(UserSession session) {
+        log.info("{} connected.", session);
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        sessions.remove(session);
-        log.info("{} disconnected.");
+    public void afterConnectionClosed(UserSession session, CloseStatus status) {
+        log.info("{} disconnected.", session);
 
-        String username = users.get(session.getId());
-
+        String username = session.getPlayerName();
         if (username != null) {
             rummikub.unregister(username);
         }
     }
 
     @Override
-    protected void handlePacket(WebSocketSession session, Packet packet) throws IOException {
+    protected void handlePacket(UserSession session, Packet packet) throws IOException {
         if (packet instanceof LoginRequest) {
             doLogin(((LoginRequest) packet).playerName, session);
             return;
@@ -54,20 +43,20 @@ public class MyWebSocketHandler extends PacketWebSocketHandler {
         handlePacket(packet);
     }
 
-    private void doLogin(String playerName, WebSocketSession session) throws IOException {
+    private void doLogin(String playerName, UserSession session) throws IOException {
         LoginResponse response = new LoginResponse();
         try {
             rummikub.validateCanJoin(playerName);
             response.accepted = true;
-            send(session, response);
-            WebSocketSessionPacketWriter writer = new WebSocketSessionPacketWriter(session);
-            ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, writer, this);
+            session.writePacket(response);
+            ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, session, this);
             rummikub.addPlayer(playerName, stateChangeListener);
-            users.put(session.getId(), playerName);
+            session.setPlayerName(playerName);
+            log.info("Connection established.");
         } catch (RummikubException ex) {
             response.accepted = false;
             response.reason = "Username already taken.";
-            send(session, response);
+            session.writePacket(response);
         }
     }
 

@@ -12,6 +12,8 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class PacketWebSocketHandler extends TextWebSocketHandler implements TidyPacketHandlerAware {
 
@@ -19,15 +21,21 @@ public abstract class PacketWebSocketHandler extends TextWebSocketHandler implem
 
     private final JsonSerializer serializer = new JsonSerializer();
 
+    private final Map<String, UserSession> sessionMap = new HashMap<>();
+
     private TidyPacketHandler packetHandler;
 
-    final void send(WebSocketSession session, Packet packet) throws IOException {
-        String encodedPacket = serializer.encode(packet);
-        session.sendMessage(new TextMessage(encodedPacket));
+    @Override
+    public final void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        UserSession userSession = new UserSession(session);
+        sessionMap.put(session.getId(), userSession);
+        afterConnectionEstablished(userSession);
     }
 
-    private void close(WebSocketSession session, int code, String message) throws IOException {
-        session.close(new CloseStatus(code, message));
+    @Override
+    public final void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        UserSession userSession = getUserSession(session);
+        afterConnectionClosed(userSession, status);
     }
 
     @Override
@@ -39,10 +47,19 @@ public abstract class PacketWebSocketHandler extends TextWebSocketHandler implem
             return;
         }
         Packet packet = serializer.decode(payload);
-        handlePacket(session, packet);
+        UserSession userSession = getUserSession(session);
+        handlePacket(userSession, packet);
     }
 
-    protected abstract void handlePacket(WebSocketSession session, Packet packet) throws IOException;
+    private UserSession getUserSession(WebSocketSession session) {
+        return sessionMap.get(session.getId());
+    }
+
+    public abstract void afterConnectionClosed(UserSession session, CloseStatus status) throws Exception;
+
+    protected abstract void afterConnectionEstablished(UserSession session) throws Exception;
+
+    protected abstract void handlePacket(UserSession session, Packet packet) throws IOException;
 
     @Override
     public void setPacketHandler(TidyPacketHandler packetHandler) {
@@ -58,6 +75,15 @@ public abstract class PacketWebSocketHandler extends TextWebSocketHandler implem
 
     protected final void handlePacket(Packet packet) {
         this.packetHandler.handle(packet);
+    }
+
+    final void send(WebSocketSession session, Packet packet) throws IOException {
+        String encodedPacket = serializer.encode(packet);
+        session.sendMessage(new TextMessage(encodedPacket));
+    }
+
+    private void close(WebSocketSession session, int code, String message) throws IOException {
+        session.close(new CloseStatus(code, message));
     }
 
 }
