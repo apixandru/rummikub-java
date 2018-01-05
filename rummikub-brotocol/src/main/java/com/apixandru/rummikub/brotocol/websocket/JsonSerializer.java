@@ -34,8 +34,8 @@ public final class JsonSerializer implements Encoder.Text<Packet>, Decoder.Text<
     }
 
     private static boolean isPacketClass(Class<?> deserializedClass) {
-        return deserializedClass != null &&
-                Packet.class.isAssignableFrom(deserializedClass);
+        return deserializedClass != null
+                && Packet.class.isAssignableFrom(deserializedClass);
     }
 
     @Override
@@ -49,11 +49,8 @@ public final class JsonSerializer implements Encoder.Text<Packet>, Decoder.Text<
     @Override
     public boolean willDecode(String message) {
         String[] parts = split(message);
-        if (parts.length != 2) {
-            return false;
-        }
-        Class<?> deserializedClass = extractClass(parts);
-        return isPacketClass(deserializedClass);
+        return parts.length == 2
+                && isPacketClass(extractClass(parts));
     }
 
     @Override
