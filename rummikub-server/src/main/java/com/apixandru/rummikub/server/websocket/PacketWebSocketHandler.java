@@ -1,8 +1,6 @@
 package com.apixandru.rummikub.server.websocket;
 
 import com.apixandru.rummikub.brotocol.Packet;
-import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
-import com.apixandru.rummikub.brotocol.util.PacketHandlerAware;
 import com.apixandru.rummikub.brotocol.websocket.JsonSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,15 +13,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class PacketWebSocketHandler extends TextWebSocketHandler implements PacketHandlerAware {
+abstract class PacketWebSocketHandler extends TextWebSocketHandler {
 
     private static final Logger log = LoggerFactory.getLogger(PacketWebSocketHandler.class);
 
     private final JsonSerializer serializer = new JsonSerializer();
 
     private final Map<String, UserSession> sessionMap = new HashMap<>();
-
-    private MultiPacketHandler packetHandler;
 
     @Override
     public final void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -40,14 +36,14 @@ public abstract class PacketWebSocketHandler extends TextWebSocketHandler implem
 
     @Override
     protected final void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        UserSession userSession = getUserSession(session);
         String payload = message.getPayload();
         log.info("Received message: {}", payload);
         if (!serializer.willDecode(payload)) {
-            close(session, 4009, "Won't decode this!");
+            userSession.close(4009, "Won't decode this!");
             return;
         }
         Packet packet = serializer.decode(payload);
-        UserSession userSession = getUserSession(session);
         handlePacket(userSession, packet);
     }
 
@@ -60,30 +56,5 @@ public abstract class PacketWebSocketHandler extends TextWebSocketHandler implem
     protected abstract void afterConnectionEstablished(UserSession session) throws Exception;
 
     protected abstract void handlePacket(UserSession session, Packet packet) throws IOException;
-
-    @Override
-    public void setPacketHandler(MultiPacketHandler packetHandler) {
-        cleanup();
-        this.packetHandler = packetHandler;
-    }
-
-    private void cleanup() {
-        if (null != this.packetHandler) {
-            this.packetHandler.cleanup();
-        }
-    }
-
-    protected final void handlePacket(Packet packet) {
-        this.packetHandler.handle(packet);
-    }
-
-    final void send(WebSocketSession session, Packet packet) throws IOException {
-        String encodedPacket = serializer.encode(packet);
-        session.sendMessage(new TextMessage(encodedPacket));
-    }
-
-    private void close(WebSocketSession session, int code, String message) throws IOException {
-        session.close(new CloseStatus(code, message));
-    }
 
 }

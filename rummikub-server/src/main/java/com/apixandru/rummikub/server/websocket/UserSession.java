@@ -6,6 +6,7 @@ import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
 import com.apixandru.rummikub.brotocol.util.PacketHandlerAware;
 import com.apixandru.rummikub.brotocol.websocket.JsonSerializer;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -50,6 +51,10 @@ public final class UserSession implements PacketWriter, PacketHandlerAware, Pack
     @Override
     public void close() throws IOException {
         session.close();
+    }
+
+    public void close(int code, String message) throws IOException {
+        session.close(new CloseStatus(code, message));
     }
 
     @Override

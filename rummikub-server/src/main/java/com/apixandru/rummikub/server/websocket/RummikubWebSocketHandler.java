@@ -13,9 +13,9 @@ import java.io.IOException;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class MyWebSocketHandler extends PacketWebSocketHandler {
+final class RummikubWebSocketHandler extends PacketWebSocketHandler {
 
-    private static final Logger log = getLogger(MyWebSocketHandler.class);
+    private static final Logger log = getLogger(RummikubWebSocketHandler.class);
 
     private final RummikubImpl rummikub = new RummikubImpl();
 
@@ -40,7 +40,7 @@ public class MyWebSocketHandler extends PacketWebSocketHandler {
             doLogin(((LoginRequest) packet).playerName, session);
             return;
         }
-        handlePacket(packet);
+        session.handle(packet);
     }
 
     private void doLogin(String playerName, UserSession session) throws IOException {
@@ -50,7 +50,7 @@ public class MyWebSocketHandler extends PacketWebSocketHandler {
             response.playerName = playerName;
             response.accepted = true;
             session.writePacket(response);
-            ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, session, this);
+            ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, session, session);
             rummikub.addPlayer(playerName, stateChangeListener);
             session.setPlayerName(playerName);
             log.info("Connection established.");
