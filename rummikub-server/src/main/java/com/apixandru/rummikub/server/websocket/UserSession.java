@@ -69,7 +69,7 @@ public final class UserSession implements PacketWriter, PacketHandlerAware, Pack
         this.packetHandler = packetHandler;
     }
 
-    private void cleanup() {
+    public void cleanup() {
         if (null != this.packetHandler) {
             this.packetHandler.cleanup();
         }

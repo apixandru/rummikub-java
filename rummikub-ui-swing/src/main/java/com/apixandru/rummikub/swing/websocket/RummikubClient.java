@@ -8,6 +8,7 @@ import com.apixandru.rummikub.brotocol.game.server.LoginResponse;
 import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
 import com.apixandru.rummikub.brotocol.util.PacketHandlerAware;
 import com.apixandru.rummikub.brotocol.websocket.JsonSerializer;
+import org.slf4j.Logger;
 
 import javax.websocket.ClientEndpoint;
 import javax.websocket.CloseReason;
@@ -24,7 +25,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 @ClientEndpoint(encoders = JsonSerializer.class, decoders = JsonSerializer.class)
 public class RummikubClient implements PacketWriter, PacketHandlerAware {
@@ -32,7 +34,7 @@ public class RummikubClient implements PacketWriter, PacketHandlerAware {
     private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTED = 1;
 
-    private final Logger logger = Logger.getLogger(this.getClass().getName());
+    private static final Logger logger = getLogger(RummikubClient.class);
 
     private final List<OnConnectListener> connectListeners = new ArrayList<>();
     private final List<OnLoginListener> loginListeners = new ArrayList<>();

@@ -9,7 +9,6 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +43,7 @@ abstract class PacketWebSocketHandler extends TextWebSocketHandler {
             return;
         }
         Packet packet = serializer.decode(payload);
-        handlePacket(userSession, packet);
+        userSession.handle(packet);
     }
 
     private UserSession getUserSession(WebSocketSession session) {
@@ -54,7 +53,5 @@ abstract class PacketWebSocketHandler extends TextWebSocketHandler {
     public abstract void afterConnectionClosed(UserSession session, CloseStatus status) throws Exception;
 
     protected abstract void afterConnectionEstablished(UserSession session) throws Exception;
-
-    protected abstract void handlePacket(UserSession session, Packet packet) throws IOException;
 
 }
