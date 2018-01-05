@@ -3,14 +3,13 @@ package com.apixandru.rummikub.server.waiting;
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.connect.client.StartGameRequest;
 import com.apixandru.rummikub.brotocol.room.StartGameListener;
-import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
-import com.apixandru.rummikub.server.TidyPacketHandler;
+import com.apixandru.rummikub.brotocol.util.AbstractMultiPacketHandler;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since January 15, 2017
  */
-public class WaitingRoomPacketHandler extends MultiPacketHandler implements TidyPacketHandler {
+public class WaitingRoomPacketHandler extends AbstractMultiPacketHandler {
 
     private final String playerName;
     private final Room room;

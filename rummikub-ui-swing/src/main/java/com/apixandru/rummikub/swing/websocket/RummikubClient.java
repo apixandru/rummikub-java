@@ -5,6 +5,7 @@ import com.apixandru.rummikub.brotocol.PacketHandler;
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.game.client.LoginRequest;
 import com.apixandru.rummikub.brotocol.game.server.LoginResponse;
+import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
 import com.apixandru.rummikub.brotocol.util.PacketHandlerAware;
 import com.apixandru.rummikub.brotocol.websocket.JsonSerializer;
 
@@ -152,7 +153,7 @@ public class RummikubClient implements PacketWriter, PacketHandlerAware {
     }
 
     @Override
-    public void setPacketHandler(PacketHandler<Packet> packetHandler) {
+    public void setPacketHandler(MultiPacketHandler packetHandler) {
         this.packetHandler = packetHandler;
     }
 

@@ -7,15 +7,14 @@ import com.apixandru.rummikub.brotocol.game.client.PacketEndTurn;
 import com.apixandru.rummikub.brotocol.game.client.PacketMoveCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketPlaceCard;
 import com.apixandru.rummikub.brotocol.game.client.PacketTakeCard;
-import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
+import com.apixandru.rummikub.brotocol.util.AbstractMultiPacketHandler;
 import com.apixandru.rummikub.model.Rummikub;
-import com.apixandru.rummikub.server.TidyPacketHandler;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since January 15, 2017
  */
-public final class InGamePacketHandler extends MultiPacketHandler implements TidyPacketHandler {
+public final class InGamePacketHandler extends AbstractMultiPacketHandler {
 
     private final ServerBoardListener boardListener;
     private final ServerGameEventListener gameEventListener;

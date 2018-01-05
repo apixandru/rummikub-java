@@ -8,7 +8,7 @@ import com.apixandru.rummikub.brotocol.game.server.PacketCardRemoved;
 import com.apixandru.rummikub.brotocol.game.server.PacketGameOver;
 import com.apixandru.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.rummikub.brotocol.game.server.PacketReceiveCard;
-import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
+import com.apixandru.rummikub.brotocol.util.AbstractMultiPacketHandler;
 import com.apixandru.rummikub.client.game.CardPlacedHandler;
 import com.apixandru.rummikub.client.game.CardRemovedHandler;
 import com.apixandru.rummikub.client.game.GameOverHandler;
@@ -22,7 +22,7 @@ import java.util.Collection;
  * @author Alexandru-Constantin Bledea
  * @since Apr 17, 2016
  */
-public class ClientPacketHandler extends MultiPacketHandler {
+public class ClientPacketHandler extends AbstractMultiPacketHandler {
 
     private final Collection<GameEventListener> gameEventListener = new ArrayList<>();
 

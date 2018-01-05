@@ -1,9 +1,9 @@
 package com.apixandru.rummikub.server.websocket;
 
 import com.apixandru.rummikub.brotocol.Packet;
+import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
+import com.apixandru.rummikub.brotocol.util.PacketHandlerAware;
 import com.apixandru.rummikub.brotocol.websocket.JsonSerializer;
-import com.apixandru.rummikub.server.TidyPacketHandler;
-import com.apixandru.rummikub.server.TidyPacketHandlerAware;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.CloseStatus;
@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class PacketWebSocketHandler extends TextWebSocketHandler implements TidyPacketHandlerAware {
+public abstract class PacketWebSocketHandler extends TextWebSocketHandler implements PacketHandlerAware {
 
     private static final Logger log = LoggerFactory.getLogger(PacketWebSocketHandler.class);
 
@@ -23,7 +23,7 @@ public abstract class PacketWebSocketHandler extends TextWebSocketHandler implem
 
     private final Map<String, UserSession> sessionMap = new HashMap<>();
 
-    private TidyPacketHandler packetHandler;
+    private MultiPacketHandler packetHandler;
 
     @Override
     public final void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -62,7 +62,7 @@ public abstract class PacketWebSocketHandler extends TextWebSocketHandler implem
     protected abstract void handlePacket(UserSession session, Packet packet) throws IOException;
 
     @Override
-    public void setPacketHandler(TidyPacketHandler packetHandler) {
+    public void setPacketHandler(MultiPacketHandler packetHandler) {
         cleanup();
         this.packetHandler = packetHandler;
     }

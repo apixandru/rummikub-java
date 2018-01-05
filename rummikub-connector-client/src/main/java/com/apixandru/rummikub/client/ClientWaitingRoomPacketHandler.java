@@ -5,7 +5,7 @@ import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
 import com.apixandru.rummikub.brotocol.room.RummikubRoomListener;
 import com.apixandru.rummikub.brotocol.room.StartGameListener;
-import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
+import com.apixandru.rummikub.brotocol.util.AbstractMultiPacketHandler;
 import com.apixandru.rummikub.client.waiting.PlayerJoinedHandler;
 import com.apixandru.rummikub.client.waiting.PlayerLeftHandler;
 import com.apixandru.rummikub.client.waiting.PlayerStartHandler;
@@ -14,7 +14,7 @@ import com.apixandru.rummikub.client.waiting.PlayerStartHandler;
  * @author Alexandru-Constantin Bledea
  * @since January 19, 2017
  */
-public class ClientWaitingRoomPacketHandler extends MultiPacketHandler {
+public class ClientWaitingRoomPacketHandler extends AbstractMultiPacketHandler {
 
     ClientWaitingRoomPacketHandler(StartGameListener startGameListener) {
         register(PacketPlayerStart.class, new PlayerStartHandler(startGameListener));

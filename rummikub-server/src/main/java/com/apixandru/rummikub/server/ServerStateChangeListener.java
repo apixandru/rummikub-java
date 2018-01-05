@@ -2,6 +2,8 @@ package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.room.StartGameListener;
+import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
+import com.apixandru.rummikub.brotocol.util.PacketHandlerAware;
 import com.apixandru.rummikub.model.Rummikub;
 import com.apixandru.rummikub.server.game.InGamePacketHandler;
 import com.apixandru.rummikub.server.waiting.Room;
@@ -16,14 +18,14 @@ public final class ServerStateChangeListener implements StateChangeListener {
     private final PacketWriter packetWriter;
     private final String playerName;
 
-    private final TidyPacketHandlerAware socketPacketProcessor;
+    private final PacketHandlerAware packetHandlerAware;
 
     public ServerStateChangeListener(final String playerName,
                                      final PacketWriter packetWriter,
-                                     final TidyPacketHandlerAware socketPacketProcessor) {
+                                     final PacketHandlerAware packetHandlerAware) {
         this.playerName = playerName;
         this.packetWriter = packetWriter;
-        this.socketPacketProcessor = socketPacketProcessor;
+        this.packetHandlerAware = packetHandlerAware;
     }
 
     @Override
@@ -36,8 +38,8 @@ public final class ServerStateChangeListener implements StateChangeListener {
         setPacketHandler(new InGamePacketHandler(playerName, packetWriter, rummikub));
     }
 
-    private void setPacketHandler(TidyPacketHandler packetHandler) {
-        socketPacketProcessor.setPacketHandler(packetHandler);
+    private void setPacketHandler(MultiPacketHandler packetHandler) {
+        packetHandlerAware.setPacketHandler(packetHandler);
     }
 
 }
