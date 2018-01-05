@@ -2,8 +2,8 @@ package com.apixandru.rummikub.client;
 
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.GameOverReason;
-import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.brotocol.PacketWriter;
+import com.apixandru.rummikub.brotocol.room.StartGameListener;
 import com.apixandru.rummikub.brotocol.util.PacketHandlerAware;
 import com.apixandru.rummikub.client.game.ClientGameConfigurer;
 import com.apixandru.rummikub.client.waiting.ClientWaitingRoomConfigurer;

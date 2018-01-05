@@ -2,7 +2,7 @@ package com.apixandru.rummikub.server;
 
 import com.apixandru.rummikub.api.GameEventListener;
 import com.apixandru.rummikub.api.GameOverReason;
-import com.apixandru.rummikub.api.room.StartGameListener;
+import com.apixandru.rummikub.brotocol.room.StartGameListener;
 import com.apixandru.rummikub.model.Rummikub;
 import com.apixandru.rummikub.model.RummikubFactory;
 import com.apixandru.rummikub.server.waiting.Room;

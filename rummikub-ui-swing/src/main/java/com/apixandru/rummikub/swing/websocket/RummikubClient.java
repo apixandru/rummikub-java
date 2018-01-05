@@ -6,7 +6,7 @@ import com.apixandru.rummikub.brotocol.PacketWriter;
 import com.apixandru.rummikub.brotocol.game.client.LoginRequest;
 import com.apixandru.rummikub.brotocol.game.server.LoginResponse;
 import com.apixandru.rummikub.brotocol.util.PacketHandlerAware;
-import com.apixandru.rummikub.brotocol.websocket.JsonBrotocol;
+import com.apixandru.rummikub.brotocol.websocket.JsonSerializer;
 
 import javax.websocket.ClientEndpoint;
 import javax.websocket.CloseReason;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-@ClientEndpoint(encoders = JsonBrotocol.class, decoders = JsonBrotocol.class)
+@ClientEndpoint(encoders = JsonSerializer.class, decoders = JsonSerializer.class)
 public class RummikubClient implements PacketWriter, PacketHandlerAware {
 
     private static final int STATE_DISCONNECTED = 0;

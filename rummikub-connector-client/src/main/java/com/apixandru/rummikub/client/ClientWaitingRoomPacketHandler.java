@@ -1,10 +1,10 @@
 package com.apixandru.rummikub.client;
 
-import com.apixandru.rummikub.api.room.RummikubRoomListener;
-import com.apixandru.rummikub.api.room.StartGameListener;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerJoined;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerLeft;
 import com.apixandru.rummikub.brotocol.connect.server.PacketPlayerStart;
+import com.apixandru.rummikub.brotocol.room.RummikubRoomListener;
+import com.apixandru.rummikub.brotocol.room.StartGameListener;
 import com.apixandru.rummikub.brotocol.util.MultiPacketHandler;
 import com.apixandru.rummikub.client.waiting.PlayerJoinedHandler;
 import com.apixandru.rummikub.client.waiting.PlayerLeftHandler;

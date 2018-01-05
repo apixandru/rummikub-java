@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.api.room.StartGameListener;
+import com.apixandru.rummikub.brotocol.room.StartGameListener;
 import com.apixandru.rummikub.model.Rummikub;
 import com.apixandru.rummikub.server.waiting.Room;
 

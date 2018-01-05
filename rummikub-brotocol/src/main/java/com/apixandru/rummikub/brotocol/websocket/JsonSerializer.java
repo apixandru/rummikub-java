@@ -5,15 +5,16 @@ import com.apixandru.rummikub.brotocol.Packet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.websocket.Decoder;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
-public final class JsonBrotocol implements Encoder.Text<Packet>, Decoder.Text<Packet> {
+import static org.slf4j.LoggerFactory.getLogger;
 
-    private static final Logger log = LoggerFactory.getLogger(JsonBrotocol.class);
+public final class JsonSerializer implements Encoder.Text<Packet>, Decoder.Text<Packet> {
+
+    private static final Logger log = getLogger(JsonSerializer.class);
 
     private final Gson gson = new GsonBuilder()
             .registerTypeAdapter(Card.class, new CardJsonSerializer())

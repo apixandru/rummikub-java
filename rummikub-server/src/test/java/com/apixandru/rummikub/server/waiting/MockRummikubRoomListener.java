@@ -1,6 +1,6 @@
 package com.apixandru.rummikub.server.waiting;
 
-import com.apixandru.rummikub.api.room.RummikubRoomListener;
+import com.apixandru.rummikub.brotocol.room.RummikubRoomListener;
 
 import java.util.ArrayList;
 import java.util.List;

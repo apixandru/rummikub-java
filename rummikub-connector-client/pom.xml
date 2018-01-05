@@ -21,10 +21,6 @@
             <groupId>javax.websocket</groupId>
             <artifactId>javax.websocket-client-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>rummikub-api-server</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

@@ -2,7 +2,7 @@ package com.apixandru.rummikub.server.websocket;
 
 import com.apixandru.rummikub.brotocol.Packet;
 import com.apixandru.rummikub.brotocol.PacketWriter;
-import com.apixandru.rummikub.brotocol.websocket.JsonBrotocol;
+import com.apixandru.rummikub.brotocol.websocket.JsonSerializer;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public final class WebSocketSessionPacketWriter implements PacketWriter {
 
-    private final JsonBrotocol brotocol = new JsonBrotocol();
+    private final JsonSerializer brotocol = new JsonSerializer();
 
     private final WebSocketSession session;
 

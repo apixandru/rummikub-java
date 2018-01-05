@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.swing.shared;
 
-import com.apixandru.rummikub.api.room.RummikubRoomListener;
-import com.apixandru.rummikub.api.room.StartGameListener;
+import com.apixandru.rummikub.brotocol.room.RummikubRoomListener;
+import com.apixandru.rummikub.brotocol.room.StartGameListener;
 
 import javax.swing.Box;
 import javax.swing.DefaultListModel;

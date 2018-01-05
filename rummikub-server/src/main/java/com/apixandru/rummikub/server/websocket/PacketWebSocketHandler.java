@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.server.websocket;
 
 import com.apixandru.rummikub.brotocol.Packet;
-import com.apixandru.rummikub.brotocol.websocket.JsonBrotocol;
+import com.apixandru.rummikub.brotocol.websocket.JsonSerializer;
 import com.apixandru.rummikub.server.TidyPacketHandler;
 import com.apixandru.rummikub.server.TidyPacketHandlerAware;
 import org.slf4j.Logger;
@@ -17,11 +17,12 @@ public abstract class PacketWebSocketHandler extends TextWebSocketHandler implem
 
     private static final Logger log = LoggerFactory.getLogger(PacketWebSocketHandler.class);
 
-    protected final JsonBrotocol brotocol = new JsonBrotocol();
+    private final JsonSerializer serializer = new JsonSerializer();
+
     private TidyPacketHandler packetHandler;
 
-    protected final void send(WebSocketSession session, Packet packet) throws IOException {
-        String encodedPacket = brotocol.encode(packet);
+    final void send(WebSocketSession session, Packet packet) throws IOException {
+        String encodedPacket = serializer.encode(packet);
         session.sendMessage(new TextMessage(encodedPacket));
     }
 
@@ -33,11 +34,11 @@ public abstract class PacketWebSocketHandler extends TextWebSocketHandler implem
     protected final void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
         log.info("Received message: {}", payload);
-        if (!brotocol.willDecode(payload)) {
+        if (!serializer.willDecode(payload)) {
             close(session, 4009, "Won't decode this!");
             return;
         }
-        Packet packet = brotocol.decode(payload);
+        Packet packet = serializer.decode(payload);
         handlePacket(session, packet);
     }
 
