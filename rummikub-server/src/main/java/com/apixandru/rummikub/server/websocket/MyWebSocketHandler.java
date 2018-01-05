@@ -47,6 +47,7 @@ public class MyWebSocketHandler extends PacketWebSocketHandler {
         LoginResponse response = new LoginResponse();
         try {
             rummikub.validateCanJoin(playerName);
+            response.playerName = playerName;
             response.accepted = true;
             session.writePacket(response);
             ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, session, this);

@@ -8,6 +8,7 @@ import com.apixandru.rummikub.brotocol.Packet;
  */
 public class LoginResponse implements Packet {
 
+    public String playerName;
     public boolean accepted;
     public String reason;
 

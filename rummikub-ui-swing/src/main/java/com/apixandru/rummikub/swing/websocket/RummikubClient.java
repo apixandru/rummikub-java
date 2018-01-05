@@ -104,7 +104,7 @@ public class RummikubClient implements PacketWriter, PacketHandlerAware {
     private void handleLoginResponse(LoginResponse response) {
         if (response.accepted) {
             for (OnLoginListener loginListener : loginListeners) {
-                loginListener.onLoggedIn();
+                loginListener.onLoggedIn(response.playerName);
             }
         } else {
             for (OnLoginListener loginListener : loginListeners) {

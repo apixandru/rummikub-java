@@ -71,9 +71,8 @@ final class ClientMain {
 
         client.addOnLoginListener(new OnLoginListener() {
             @Override
-            public void onLoggedIn() {
-                String username = extractText(tfUsername);
-                callback.onHandshakeSuccess(username);
+            public void onLoggedIn(String playerName) {
+                callback.onHandshakeSuccess(playerName);
             }
 
             @Override
