@@ -12,7 +12,7 @@
 
     <groupId>com.apixandru.rummikub</groupId>
     <artifactId>rummikub</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -31,14 +31,6 @@
         <versionTyrus>1.13.1</versionTyrus>
         <versionWebSocketApi>1.1</versionWebSocketApi>
     </properties>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>

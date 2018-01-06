@@ -61,7 +61,7 @@ public class RummikubClient implements PacketWriter, PacketHandlerAware {
 
     public void connect(String server) throws DeploymentException, URISyntaxException, IOException {
         checkState(STATE_DISCONNECTED);
-        URI uri = new URI("ws://" + server + ":8080/websocket");
+        URI uri = new URI(server);
         ContainerProvider.getWebSocketContainer()
                 .connectToServer(this, uri);
     }

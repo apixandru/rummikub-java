@@ -41,21 +41,29 @@ final class ClientMain {
     private ClientMain() {
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         RummikubClient client = new RummikubClient();
-        tryConnect(client, new HandshakeCallback() {
+        client.addOnLoginListener(new OnLoginListener() {
             @Override
-            public void onHandshakeSuccess(String username) {
-                final WindowManager windowManager = new WindowManager(username);
+            public void onLoggedIn(String playerName) {
+                final WindowManager windowManager = new WindowManager(playerName);
                 client.addOnDisconnectListener(windowManager);
                 final RummikubWebSocketConnector rummikubConnector =
                         new RummikubWebSocketConnector(client, windowManager, client);
                 rummikubConnector.connect();
             }
+
+            @Override
+            public void onLogInRejected(String reason) {
+                showError("Login Rejected: " + reason);
+                System.out.println("Login rejected: " + reason);
+                tryConnect(client);
+            }
         });
+        tryConnect(client);
     }
 
-    static void tryConnect(RummikubClient client, HandshakeCallback callback) {
+    private static void tryConnect(RummikubClient client) {
         final Preferences prefs = Preferences.userNodeForPackage(ClientMain.class);
 
         final JTextField tfUsername = newField(prefs, KEY_USERNAME, "rk.user");
@@ -63,50 +71,38 @@ final class ClientMain {
 
         boolean showDialog = hasText(tfUsername) || hasText(tfAddress);
 
-        client.addOnConnectListener(() -> onConnected(client, tfUsername));
+        if (!client.isConnected()) {
+            client.addOnConnectListener(() -> client.login(extractText(tfUsername)));
+        } else {
+            tfAddress.setEnabled(false);
+        }
 
-        client.addOnLoginListener(new OnLoginListener() {
-            @Override
-            public void onLoggedIn(String playerName) {
-                callback.onHandshakeSuccess(playerName);
+        while (true) {
+            if (showDialog) {
+
+                if (!choseConnect(tfUsername, tfAddress)) {
+                    return;
+                }
+                prefs.put(KEY_ADDRESS, extractText(tfAddress));
+                prefs.put(KEY_USERNAME, extractText(tfUsername));
             }
-
-            @Override
-            public void onLogInRejected(String reason) {
-                System.out.println("Login rejected: " + reason);
-            }
-        });
-
-
-        if (showDialog) {
-
-            if (!choseConnect(tfUsername, tfAddress)) {
+            String address = extractText(tfAddress);
+            String username = extractText(tfUsername);
+            try {
+                if (!client.isConnected()) {
+                    client.connect(address);
+                } else {
+                    client.login(username);
+                }
                 return;
+            } catch (DeploymentException ex) {
+                log.debug("Cannot connect to {}", address, ex);
+                showError(ex.getMessage());
+            } catch (IllegalArgumentException | IOException | URISyntaxException e) {
+                showError("Failed to contact server: " + e.getMessage());
+                log.error("Failed to contact server", e);
             }
-            prefs.put(KEY_ADDRESS, extractText(tfAddress));
-            prefs.put(KEY_USERNAME, extractText(tfUsername));
         }
-        String address = extractText(tfAddress);
-        String username = extractText(tfUsername);
-        try {
-            if (!client.isConnected()) {
-                client.connect(address);
-            } else {
-                client.login(username);
-            }
-        } catch (IllegalArgumentException | IOException ex) {
-            showDialog = true;
-            showError(ex.getMessage(), address);
-        } catch (DeploymentException | URISyntaxException e) {
-            showDialog = true;
-            showError("Failed to contact server: " + e.getMessage(), address);
-            log.error("Failed to contact server", e);
-        }
-    }
-
-    private static void onConnected(RummikubClient client, JTextField tfUsername) throws IOException {
-        System.out.println("Connected");
-        client.login(extractText(tfUsername));
     }
 
     private static String extractText(JTextComponent textComponent) {
@@ -119,8 +115,7 @@ final class ClientMain {
                 .isEmpty();
     }
 
-    private static void showError(final String message, final String address) {
-        log.debug("Could not connect to " + address);
+    private static void showError(final String message) {
         JOptionPane.showMessageDialog(null,
                 message,
                 "Cannot connect",
@@ -157,11 +152,14 @@ final class ClientMain {
     private static JTextField newField(final Preferences prefs, final String key, final String propertyName) {
         String property = System.getProperty(propertyName);
         String preferenceValue = prefs.get(key, "");
-        return new JTextField(null == property ? preferenceValue : property);
+        JTextField field = new JTextField(null == property ? preferenceValue : property);
+        field.setColumns(17);
+        return field;
     }
 
     private static JPanel createLabels() {
         return newPanel(new JLabel("Server", SwingConstants.RIGHT), new JLabel("Name", SwingConstants.RIGHT));
     }
+
 
 }

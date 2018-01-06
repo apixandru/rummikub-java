@@ -113,6 +113,7 @@ final class RummikubImpl implements Rummikub<Integer> {
     public Player<Integer> addPlayer(final String name, final PlayerCallback<Integer> callback) {
         final PlayerImpl player = new PlayerImpl(listener, callback);
         this.players.put(name, player);
+        log.info("Player '{}' joined, Current players: {}", name, players.keySet());
         if (null == this.currentPlayer) {
             setNextPlayer();
         }
@@ -153,6 +154,7 @@ final class RummikubImpl implements Rummikub<Integer> {
     public void removePlayer(Player<Integer> player) {
         String playerName = getPlayerName(player);
         if (null != this.players.remove(playerName)) {
+            log.info("Player {} left, Remaining players: {}", playerName, players.keySet());
             gameOver(playerName, PLAYER_QUIT);
         }
     }
