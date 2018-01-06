@@ -39,6 +39,7 @@ abstract class PacketWebSocketHandler extends TextWebSocketHandler {
         String payload = message.getPayload();
         log.info("Received message: {}", payload);
         if (!serializer.willDecode(payload)) {
+            log.warn("Unrecognised message, get out of here!");
             userSession.close(4009, "Won't decode this!");
             return;
         }

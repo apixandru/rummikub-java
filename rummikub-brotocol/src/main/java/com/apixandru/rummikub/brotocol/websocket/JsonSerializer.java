@@ -10,6 +10,9 @@ import javax.websocket.Decoder;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
+import static com.apixandru.rummikub.brotocol.websocket.PacketConstants.getPacketClass;
+import static com.apixandru.rummikub.brotocol.websocket.PacketConstants.getPacketCode;
+import static java.lang.Integer.parseInt;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public final class JsonSerializer implements Encoder.Text<Packet>, Decoder.Text<Packet> {
@@ -25,12 +28,8 @@ public final class JsonSerializer implements Encoder.Text<Packet>, Decoder.Text<
     }
 
     private static Class<?> extractClass(String[] parts) {
-        try {
-            return Class.forName(parts[0]);
-        } catch (ClassNotFoundException e) {
-            log.debug("Attempted to deserialize bed class", e);
-            return null;
-        }
+        int classCode = parseInt(parts[0]);
+        return getPacketClass(classCode);
     }
 
     private static boolean isPacketClass(Class<?> deserializedClass) {
@@ -55,7 +54,8 @@ public final class JsonSerializer implements Encoder.Text<Packet>, Decoder.Text<
 
     @Override
     public String encode(Packet packet) {
-        return packet.getClass().getName() + " " + gson.toJson(packet);
+        int packetCode = getPacketCode(packet);
+        return packetCode + " " + gson.toJson(packet);
     }
 
     @Override

@@ -48,6 +48,9 @@ public final class WindowManager implements StateChangeListener, OnDisconnectLis
 
     @Override
     public void onDisconnect(String disconnectReason) {
+        if (disconnectReason == null || disconnectReason.isEmpty()) {
+            disconnectReason = "Disconnected from server";
+        }
         JOptionPane.showMessageDialog(null,
                 disconnectReason,
                 "Connection Lost",

@@ -51,6 +51,7 @@ public class RummikubClient implements PacketWriter, PacketHandlerAware {
             session.getBasicRemote()
                     .sendObject(text);
         } catch (IOException | EncodeException ex) {
+            logger.error("Error when sending message", ex);
             close(4010, "Failed to send message.");
         }
     }

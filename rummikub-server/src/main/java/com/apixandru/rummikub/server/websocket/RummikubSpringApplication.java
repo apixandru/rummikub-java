@@ -16,7 +16,8 @@ public class RummikubSpringApplication implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new RummikubWebSocketHandler(), "/websocket");
+        registry.addHandler(new RummikubWebSocketHandler(), "/websocket")
+                .setAllowedOrigins("*");
     }
 
 }
