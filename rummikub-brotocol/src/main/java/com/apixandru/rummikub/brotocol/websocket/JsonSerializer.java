@@ -10,9 +10,6 @@ import javax.websocket.Decoder;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
-import static com.apixandru.rummikub.brotocol.websocket.PacketConstants.getPacketClass;
-import static com.apixandru.rummikub.brotocol.websocket.PacketConstants.getPacketCode;
-import static java.lang.Integer.parseInt;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public final class JsonSerializer implements Encoder.Text<Packet>, Decoder.Text<Packet> {
@@ -20,47 +17,30 @@ public final class JsonSerializer implements Encoder.Text<Packet>, Decoder.Text<
     private static final Logger log = getLogger(JsonSerializer.class);
 
     private final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Packet.class, new PacketJsonSerializer())
             .registerTypeAdapter(Card.class, new CardJsonSerializer())
             .create();
 
-    private static String[] split(String message) {
-        return message.split(" ", 2);
-    }
-
-    private static Class<?> extractClass(String[] parts) {
-        int classCode = parseInt(parts[0]);
-        return getPacketClass(classCode);
-    }
-
-    private static boolean isPacketClass(Class<?> deserializedClass) {
-        return deserializedClass != null
-                && Packet.class.isAssignableFrom(deserializedClass);
-    }
-
     @Override
     public Packet decode(String message) {
-        String[] parts = split(message);
-        Class<?> packetClass = extractClass(parts);
-        String content = parts[1];
-        return (Packet) gson.fromJson(content, packetClass);
+        log.debug("Decoding {}", message);
+        return gson.fromJson(message, Packet.class);
     }
 
     @Override
     public boolean willDecode(String message) {
-        String[] parts = split(message);
-        return parts.length == 2
-                && isPacketClass(extractClass(parts));
+        return true;
     }
 
     @Override
     public String encode(Packet packet) {
-        int packetCode = getPacketCode(packet);
-        return packetCode + " " + gson.toJson(packet);
+        String encoded = gson.toJson(packet, Packet.class);
+        log.debug("Encoded {}", encoded);
+        return encoded;
     }
 
     @Override
     public void init(EndpointConfig endpointConfig) {
-
     }
 
     @Override

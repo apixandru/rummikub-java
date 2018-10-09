@@ -18,49 +18,66 @@ import com.apixandru.rummikub.brotocol.game.server.PacketNewTurn;
 import com.apixandru.rummikub.brotocol.game.server.PacketReceiveCard;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import static java.util.Collections.unmodifiableMap;
+
+@SuppressWarnings("unchecked")
 final class PacketConstants {
 
-    private static final List<Class<? extends Packet>> PACKET_CLASSES = Arrays.asList(
-            LoginRequest.class,
-            LoginResponse.class,
-            PacketPlayerJoined.class,
-            StartGameRequest.class,
-            PacketPlayerStart.class,
-            PacketNewTurn.class,
-            PacketReceiveCard.class,
-            PacketPlaceCard.class,
-            PacketCardPlaced.class,
-            PacketMoveCard.class,
-            PacketCardRemoved.class,
-            PacketTakeCard.class,
-            PacketEndTurn.class,
-            PacketGameOver.class,
-            PacketPlayerLeft.class
-    );
+    private static final Map<Class<Packet>, String> PACKET_TYPE_BY_CLASS;
+    private static final Map<String, Class<Packet>> PACKET_CLASS_BY_TYPE;
+
+    static {
+        List<Class<? extends Packet>> packets = Arrays.asList(
+                LoginRequest.class,
+                LoginResponse.class,
+                PacketPlayerJoined.class,
+                StartGameRequest.class,
+                PacketPlayerStart.class,
+                PacketNewTurn.class,
+                PacketReceiveCard.class,
+                PacketPlaceCard.class,
+                PacketCardPlaced.class,
+                PacketMoveCard.class,
+                PacketCardRemoved.class,
+                PacketTakeCard.class,
+                PacketEndTurn.class,
+                PacketGameOver.class,
+                PacketPlayerLeft.class);
+
+        Map typeByClass = new HashMap<>();
+        Map classByType = new HashMap<>();
+        for (Class<? extends Packet> clasz : packets) {
+            String type = clasz.getSimpleName();
+            typeByClass.put(clasz, type);
+            classByType.put(type, clasz);
+        }
+        PACKET_CLASS_BY_TYPE = unmodifiableMap(classByType);
+        PACKET_TYPE_BY_CLASS = unmodifiableMap(typeByClass);
+    }
 
     private PacketConstants() {
     }
 
-    static int getPacketCode(Packet packet) {
-        return getPacketCode(packet.getClass());
+    static String getPacketType(Packet packet) {
+        return getPacketType(packet.getClass());
     }
 
-    private static int getPacketCode(Class<? extends Packet> packetClass) {
-        int code = PACKET_CLASSES.indexOf(packetClass);
-        if (code == -1) {
+    private static String getPacketType(Class packetClass) {
+        if (!PACKET_TYPE_BY_CLASS.containsKey(packetClass)) {
             throw new IllegalArgumentException("Unexpected packet: " + packetClass);
         }
-        return code;
+        return PACKET_TYPE_BY_CLASS.get(packetClass);
     }
 
-    @SuppressWarnings("unchecked")
-    static Class<Packet> getPacketClass(int code) {
-        if (code == -1 || code >= PACKET_CLASSES.size()) {
-            throw new IllegalArgumentException("Unexpected packet code: " + code);
+    static Class<Packet> getPacketClass(String type) {
+        if (!PACKET_CLASS_BY_TYPE.containsKey(type)) {
+            throw new IllegalArgumentException("Unexpected packet type: " + type);
         }
-        return (Class<Packet>) PACKET_CLASSES.get(code);
+        return PACKET_CLASS_BY_TYPE.get(type);
     }
 
 }
