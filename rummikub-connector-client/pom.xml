@@ -17,10 +17,6 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>rummikub-brotocol</artifactId>
         </dependency>
-        <dependency>
-            <groupId>javax.websocket</groupId>
-            <artifactId>javax.websocket-client-api</artifactId>
-        </dependency>
     </dependencies>
 
 </project>
