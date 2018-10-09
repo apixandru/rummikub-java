@@ -19,14 +19,15 @@
     <modules>
         <module>rummikub-api</module>
         <module>rummikub-ui-swing</module>
+        <module>rummikub-ui-web</module>
         <module>rummikub-model</module>
         <module>rummikub-brotocol</module>
         <module>rummikub-connector-client</module>
         <module>rummikub-server</module>
     </modules>
-
     <properties>
         <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <versionGmavenPlus>1.5</versionGmavenPlus>
         <versionTyrus>1.13.1</versionTyrus>
         <versionWebSocketApi>1.1</versionWebSocketApi>
