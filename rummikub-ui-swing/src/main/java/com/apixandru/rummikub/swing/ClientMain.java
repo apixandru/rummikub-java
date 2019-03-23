@@ -69,7 +69,7 @@ final class ClientMain {
         final JTextField tfUsername = newField(prefs, KEY_USERNAME, "rk.user");
         final JTextField tfAddress = newField(prefs, KEY_ADDRESS, "rk.address");
 
-        boolean showDialog = hasText(tfUsername) || hasText(tfAddress);
+        boolean showDialog = hasNoInput(tfUsername) || hasNoInput(tfAddress);
 
         if (!client.isConnected()) {
             client.addOnConnectListener(() -> client.login(extractText(tfUsername)));
@@ -110,8 +110,8 @@ final class ClientMain {
                 .trim();
     }
 
-    private static boolean hasText(JTextComponent textComponent) {
-        return !extractText(textComponent)
+    private static boolean hasNoInput(JTextComponent textComponent) {
+        return extractText(textComponent)
                 .isEmpty();
     }
 
