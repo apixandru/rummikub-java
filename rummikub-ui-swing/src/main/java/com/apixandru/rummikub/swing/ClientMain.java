@@ -68,6 +68,9 @@ final class ClientMain {
 
         final JTextField tfUsername = newField(prefs, KEY_USERNAME, "rk.user");
         final JTextField tfAddress = newField(prefs, KEY_ADDRESS, "rk.address");
+        if (hasNoInput(tfAddress)) {
+            tfAddress.setText("ws://localhost:8080/websocket");
+        }
 
         boolean showDialog = hasNoInput(tfUsername) || hasNoInput(tfAddress);
 
