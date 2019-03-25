@@ -1,0 +1,110 @@
+.fill {
+    background-image: url('https://source.unsplash.com/random/30x50');
+    position: relative;
+    height: 50px;
+    width: 30px;
+    top: 5px;
+    left: 5px;
+}
+
+.hold {
+    /*cursor: none;*/
+}
+
+.invisible {
+    display: none;
+}
+
+.hovered {
+    background: #f4f4f4;
+    border-style: dashed;
+}
+
+#main-container {
+    text-align: center;
+    user-select: none;
+}
+
+.card-grid-container {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid #444;
+    border-radius: 6px;
+    box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(20, 44px);
+}
+
+.card {
+    float: left;
+    width: 20px;
+    height: 30px;
+    margin: -2px;
+    padding: 15px 10px;
+    border: 2px solid #888;
+    border-radius: 5px;
+    background-color: #eee;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: Arial;
+}
+
+.num {
+    margin-top: -5px;
+}
+
+#main-container {
+    text-align: center;
+    user-select: none;
+}
+
+.card-grid-container {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid #444;
+    border-radius: 6px;
+    box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+}
+
+.slot {
+    float: left;
+    width: 40px;
+    height: 60px;
+    padding: 0;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.drop-allowed {
+    background-color: #c0ffb8;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    margin-left: 4px;
+    margin-top: 5px;
+}
+
+.yellow {
+    background-color: #FFC800;
+}
+
+.blue {
+    background-color: #00f;
+}
+
+.black {
+    background-color: #000;
+}
+
+.red {
+    background-color: #f00;
+}
