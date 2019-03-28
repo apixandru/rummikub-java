@@ -5,20 +5,26 @@ import com.apixandru.rummikub.api.GameOverReason;
 import com.apixandru.rummikub.brotocol.room.StartGameListener;
 import com.apixandru.rummikub.model.Rummikub;
 import com.apixandru.rummikub.model.RummikubFactory;
+import com.apixandru.rummikub.server.login.LoginPacketHandler;
 import com.apixandru.rummikub.server.waiting.Room;
+import org.slf4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static com.apixandru.rummikub.server.RummikubException.Reason.NAME_TAKEN;
 import static com.apixandru.rummikub.server.RummikubException.Reason.NO_NAME;
 import static com.apixandru.rummikub.server.RummikubException.Reason.ONGOING_GAME;
+import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * @author Alexandru-Constantin Bledea
  * @since April 10, 2016
  */
 public class RummikubImpl implements StartGameListener {
+
+    private static final Logger log = getLogger(RummikubImpl.class);
 
     private final Map<String, StateChangeListener> players = new HashMap<>();
 
@@ -48,6 +54,7 @@ public class RummikubImpl implements StartGameListener {
     public void addPlayer(final String playerName, final StateChangeListener listener) {
         enterWaitingRoom(listener);
         players.put(playerName, listener);
+        log.info("Player {} joined, connected players: {}", playerName, players.keySet());
     }
 
     private void enterWaitingRoom(StateChangeListener listener) {
@@ -68,6 +75,7 @@ public class RummikubImpl implements StartGameListener {
 
     public void unregister(final String playerName) {
         players.remove(playerName); // TODO synchronize deez!
+        log.info("Player {} left, connected players: {}", playerName, players.keySet());
     }
 
     private void goToWaitingRoom() {

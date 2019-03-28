@@ -34,7 +34,7 @@ public final class LoginPacketHandler extends AbstractMultiPacketHandler {
             session.setPlayerName(playerName);
             log.info("Connection established.");
         } catch (RummikubException ex) {
-            reject();
+            reject(ex.getMessage());
         }
     }
 
@@ -46,10 +46,10 @@ public final class LoginPacketHandler extends AbstractMultiPacketHandler {
         session.writePacket(response);
     }
 
-    private void reject() {
+    private void reject(String message) {
         LoginResponse response = new LoginResponse();
         response.accepted = false;
-        response.reason = "Username already taken.";
+        response.reason = message;
         session.writePacket(response);
     }
 

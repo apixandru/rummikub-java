@@ -17,9 +17,12 @@ final class PacketJsonSerializer implements JsonSerializer<Packet>, JsonDeserial
 
     @Override
     public Packet deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        String actualType = jsonElement.getAsJsonObject()
-                .remove("type")
-                .getAsString();
+        JsonElement element = jsonElement.getAsJsonObject()
+                .remove("type");
+        if (element == null) {
+            throw new JsonParseException("Missing 'type' property!");
+        }
+        String actualType = element.getAsString();
         return jsonDeserializationContext.deserialize(jsonElement, getPacketClass(actualType));
     }
 
