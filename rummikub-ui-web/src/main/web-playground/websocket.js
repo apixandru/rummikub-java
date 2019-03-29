@@ -5,6 +5,7 @@ let messageHandlers = {
     'PacketPlayerJoined': handlePlayerJoined,
     'PacketPlayerStart': handlePlayerStart,
     'PacketNewTurn': handleNewTurn,
+    'PacketReceiveCard': handleReceiveCard,
     'PacketPlayerLeft': handlePlayerLeft
 };
 
@@ -62,7 +63,11 @@ function handlePlayerStart(response) {
 }
 
 function handleNewTurn(response) {
+    // TODO
+}
 
+function handleReceiveCard(response) {
+    // TODO
 }
 
 function onMessage(event) {
