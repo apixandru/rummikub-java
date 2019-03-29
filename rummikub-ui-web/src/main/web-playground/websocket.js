@@ -2,7 +2,8 @@
 
 let messageHandlers = {
     'LoginResponse': handleLoginResponse,
-    'PacketPlayerJoined': handlePlayerJoined
+    'PacketPlayerJoined': handlePlayerJoined,
+    'PacketPlayerLeft': handlePlayerLeft
 };
 
 let uiComponents = {
@@ -12,10 +13,13 @@ let uiComponents = {
     'actual-message': document.querySelector('#actual-message')
 };
 
+var connection;
 let loggedInPlayers = [];
 let messageForDialog;
 
 function reset() {
+    connection && connection.close();
+    connection = undefined;
     messageForDialog = '';
     loggedInPlayers = [];
 }
@@ -39,28 +43,22 @@ function handlePlayerJoined(response) {
         .value = loggedInPlayers;
 }
 
+function handlePlayerLeft(response) {
+    loggedInPlayers = loggedInPlayers.filter(function (playerName) {
+        return playerName !== response.playerName;
+    });
+    uiComponents['name']
+        .value = loggedInPlayers;
+}
+
 function onMessage(event) {
     console.log('received ' + event.data);
     var msg = JSON.parse(event.data);
     if (messageHandlers.hasOwnProperty(msg.type)) {
         messageHandlers[msg.type](msg);
-        return;
     } else {
         messageForDialog = 'Protocol error, what is ' + msg.type + '?';
         connection.close();
-        return;
-    }
-    switch (msg.type) {
-        case 'LoginResponse':
-            handleLoginResponse(msg);
-            return;
-        case 'PlayerJoined':
-            handlePlayerJoined(msg);
-            return;
-        default:
-            messageForDialog = 'Unrecognized message type';
-            connection.close();
-            return;
     }
 }
 
@@ -112,8 +110,6 @@ function error(errorMsg) {
 function closeModal() {
     uiComponents['modal'].classList.remove('show-modal');
 }
-
-var connection = null;
 
 function connect() {
     reset();
