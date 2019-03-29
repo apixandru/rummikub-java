@@ -3,6 +3,8 @@
 let messageHandlers = {
     'LoginResponse': handleLoginResponse,
     'PacketPlayerJoined': handlePlayerJoined,
+    'PacketPlayerStart': handlePlayerStart,
+    'PacketNewTurn': handleNewTurn,
     'PacketPlayerLeft': handlePlayerLeft
 };
 
@@ -22,6 +24,8 @@ function reset() {
     connection = undefined;
     messageForDialog = '';
     loggedInPlayers = [];
+    uiComponents['login']
+        .onclick = connect;
 }
 
 function handleLoginResponse(response) {
@@ -31,6 +35,8 @@ function handleLoginResponse(response) {
             .removeAttribute('disabled');
         uiComponents['login']
             .value = 'Start';
+        uiComponents['login']
+            .onclick = startGame;
     } else {
         messageForDialog = 'Login failed: ' + msg.reason;
         connection.close();
@@ -49,6 +55,14 @@ function handlePlayerLeft(response) {
     });
     uiComponents['name']
         .value = loggedInPlayers;
+}
+
+function handlePlayerStart(response) {
+    closeModal();
+}
+
+function handleNewTurn(response) {
+
 }
 
 function onMessage(event) {
@@ -71,6 +85,8 @@ function onConnectionLost(event) {
 
     uiComponents['name']
         .removeAttribute('readonly');
+
+    reset();
 }
 
 function sendMessage(msg) {
@@ -86,7 +102,9 @@ function onConnectionEstablished(event) {
 }
 
 function openModal() {
-    uiComponents['modal'].classList.add('show-modal');
+    uiComponents['modal']
+        .classList
+        .add('show-modal');
 }
 
 function updateUiForConnecting() {
@@ -108,7 +126,9 @@ function error(errorMsg) {
 }
 
 function closeModal() {
-    uiComponents['modal'].classList.remove('show-modal');
+    uiComponents['modal']
+        .classList
+        .remove('show-modal');
 }
 
 function connect() {
@@ -122,4 +142,10 @@ function connect() {
     connection.onopen = onConnectionEstablished;
     connection.onclose = onConnectionLost;
     connection.onmessage = onMessage;
+}
+
+function startGame() {
+    sendMessage({
+        'type': 'StartGameRequest'
+    });
 }
