@@ -1,7 +1,8 @@
 "use strict";
 
 let messageHandlers = {
-    'LoginResponse': handleLoginResponse
+    'LoginResponse': handleLoginResponse,
+    'PacketPlayerJoined': handlePlayerJoined
 };
 
 let uiComponents = {
@@ -22,10 +23,20 @@ function reset() {
 function handleLoginResponse(response) {
     if (response.accepted) {
         setStatus('Logged in!');
+        uiComponents['login']
+            .removeAttribute('disabled');
+        uiComponents['login']
+            .value = 'Start';
     } else {
         messageForDialog = 'Login failed: ' + msg.reason;
         connection.close();
     }
+}
+
+function handlePlayerJoined(response) {
+    loggedInPlayers.push(response.playerName);
+    uiComponents['name']
+        .value = loggedInPlayers;
 }
 
 function onMessage(event) {
@@ -60,7 +71,8 @@ function onConnectionLost(event) {
     uiComponents['login']
         .removeAttribute('disabled');
 
-    uiComponents['name'].removeAttribute('readonly');
+    uiComponents['name']
+        .removeAttribute('readonly');
 }
 
 function sendMessage(msg) {
