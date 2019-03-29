@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="index.css"/>
+    <link rel="stylesheet" href="modal.css"/>
     <title>Dnd</title>
 </head>
 <body>
@@ -229,6 +230,20 @@
     </div>
 </div>
 
+<div class="modal show-modal">
+    <div class="modal-content">
+        <div style="padding: 10px;padding-left: 0;">
+            <span>Status: <span id="actual-message">Ready to connect.</span></span>
+        </div>
+        <div style="padding-bottom: 20px">
+            <input id="name" type="text" style="width:310px; border: 0; outline: 0; border-bottom: 1px solid black"
+                   placeholder="username">
+            <input type="button" id="login" value="Connect" onclick="connect()">
+        </div>
+    </div>
+</div>
+
 <script src="index.js"></script>
+<script src="websocket.js"></script>
 </body>
 </html>

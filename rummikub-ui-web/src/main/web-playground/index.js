@@ -41,7 +41,6 @@ function dragOver(event) {
     if (event.currentTarget.childNodes.length === 0) {
         event.preventDefault();
     }
-    // draggedCard = event.currentTarget;
 }
 
 function dragEnter(e) {
