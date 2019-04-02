@@ -13,6 +13,8 @@ interface Board {
 
     Card removeCard(int x, int y);
 
+    Card getCardAt(int x, int y);
+
     void moveCard(int toX, int toY, int fromX, int fromY);
 
     boolean placeCard(Card card, int x, int y);

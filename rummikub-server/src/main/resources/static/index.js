@@ -34,7 +34,7 @@ function setupGroup(elements, source) {
 }
 
 function onCardDragStart(e) {
-    draggedCard = e.srcElement;
+    draggedCard = e.target;
     this.classList.add('hold');
     requestAnimationFrame(() => (this.classList.add('invisible')));
 }
@@ -88,6 +88,14 @@ function dragDrop(event) {
                 'fromY': sourceY,
                 'toX': targetX,
                 'toY': targetY
+            });
+        } else {
+            sendMessage({
+                'type': 'PacketTakeCard',
+                'card': allCards.indexOf(draggedCard),
+                'x': sourceX,
+                'y': sourceY,
+                'hint': targetX
             });
         }
     }

@@ -31,7 +31,12 @@ final class BoardImpl implements Board {
     }
 
     private boolean isFree(int x, int y) {
-        return null == cards[y][x];
+        return null == getCardAt(x, y);
+    }
+
+    @Override
+    public Card getCardAt(int x, int y) {
+        return cards[y][x];
     }
 
     @Override
@@ -54,7 +59,7 @@ final class BoardImpl implements Board {
     }
 
     private Card removeCard(final int x, final int y, final boolean unlock) {
-        final Card card = cards[y][x];
+        final Card card = getCardAt(x, y);
         log.debug("Removed {} from {}/{}", card, x, y);
         cards[y][x] = null;
         boardListeners.forEach(boardListener -> boardListener.onCardRemovedFromBoard(card, x, y, unlock));

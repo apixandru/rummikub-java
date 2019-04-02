@@ -205,7 +205,14 @@ final class RummikubImpl implements Rummikub<Integer> {
 
         @Override
         public void takeCardFromBoard(final PlayerImpl player, final Card card, final int x, final int y, final Integer hint) {
-            if (currentPlayer == player && canMoveCardOffBoard(card)) {
+            if (card == null) {
+                throw new IllegalArgumentException("Cannot have null card!"); // I wonder...
+            }
+            if (currentPlayer != player) {
+                return;
+            }
+            Card cardOnBoard = board.getCardAt(x, y);
+            if (canMoveCardOffBoard(cardOnBoard)) {
                 final Card cardFromBoard = board.removeCard(x, y);
                 currentPlayer.receiveCard(cardFromBoard, hint);
                 undoManager.trackBoardToPlayer(cardFromBoard, x, y);
