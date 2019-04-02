@@ -1,9 +1,0 @@
-<div class="card-grid-container">
-  <div class="card-grid">
-    <card-slot *ngFor="let slot of slots"
-               cardSlotId="slot"
-               (onDropSuccess)="addTo($event)"
-               [allowDrop]="canDropOn(slot)"
-               dnd-droppable></card-slot>
-  </div>
-</div>

@@ -19,7 +19,6 @@
     <modules>
         <module>rummikub-api</module>
         <module>rummikub-ui-swing</module>
-        <module>rummikub-ui-web</module>
         <module>rummikub-model</module>
         <module>rummikub-brotocol</module>
         <module>rummikub-connector-client</module>
