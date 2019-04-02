@@ -67,7 +67,8 @@ function handleNewTurn(response) {
 }
 
 function handleReceiveCard(response) {
-    // TODO
+    let cardElement = allCards[response.card];
+    placeCardOnBoard(cardElement);
 }
 
 function onMessage(event) {

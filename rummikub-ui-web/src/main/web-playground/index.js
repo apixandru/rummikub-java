@@ -68,9 +68,7 @@ function firstFreeSlotInHand() {
     return undefined;
 }
 
-function addNewOne(color) {
-    let number = Math.floor((Math.random() * 13) + 1);
-
+function createCardElement(number, color) {
     let div = document.createElement("div");
     div.classList.add('card');
     div.setAttribute('draggable', 'true');
@@ -79,25 +77,47 @@ function addNewOne(color) {
     div.addEventListener('dragstart', onCardDragStart);
     div.addEventListener('dragend', onCardDragEnd);
 
+    if (!number) {
+        number = 'J';
+    }
+    if (!color) {
+        color = 'black';
+    }
+
     let numDiv = document.createElement('div');
     numDiv.classList.add('num');
-    numDiv.appendChild(document.createTextNode(number));
+    let textElement = document.createTextNode(number);
+    numDiv.appendChild(textElement);
     div.appendChild(numDiv);
 
-    let circle = document.createElement('div');
-    circle.classList.add('circle');
-    circle.classList.add(color);
-    div.appendChild(circle);
+    let circleElement = document.createElement('div');
+    circleElement.classList.add('circle');
+    circleElement.classList.add(color);
+    div.appendChild(circleElement);
+    return div;
+}
 
+function createAllCards() {
+    const colors = ['red', 'blue', 'black', 'yellow'];
+    const cards = [];
+    for (let i = 0; i < 2; i++) {
+        for (let cardNum = 1; cardNum <= 13; cardNum++) {
+            for (let colorIndex = 0; colorIndex < colors.length; colorIndex++) {
+                cards.push(createCardElement(cardNum, colors[colorIndex]));
+            }
+        }
+        cards.push(createCardElement('', ''));
+    }
+    return cards;
+}
+
+function placeCardOnBoard(cardElement) {
     let element = firstFreeSlotInHand();
-    element.appendChild(div);
+    element.appendChild(cardElement);
 }
 
 
 setupGroup(slotsOnBoard, 'board');
 setupGroup(slotsInHand, 'hand');
 
-addNewOne('blue');
-addNewOne('black');
-addNewOne('red');
-addNewOne('yellow');
+let allCards = createAllCards();
