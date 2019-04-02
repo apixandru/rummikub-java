@@ -7,7 +7,8 @@ let messageHandlers = {
     'PacketNewTurn': handleNewTurn,
     'PacketReceiveCard': handleReceiveCard,
     'PacketPlayerLeft': handlePlayerLeft,
-    'PacketCardPlaced': handleCardPlaced
+    'PacketCardPlaced': handleCardPlaced,
+    'PacketCardRemoved': handleCardRemoved
 };
 
 let uiComponents = {
@@ -61,6 +62,10 @@ function handlePlayerLeft(response) {
 
 function handleCardPlaced(response) {
     placeCard(response.card, response.x, response.y);
+}
+
+function handleCardRemoved(response) {
+    removeCard(response.card, response.x, response.y);
 }
 
 function handlePlayerStart(response) {

@@ -80,6 +80,16 @@ function dragDrop(event) {
                 'y': targetY
             });
         }
+    } else if (sourceLocation === 'board') {
+        if (targetLocation === 'board') {
+            sendMessage({
+                'type': 'PacketMoveCard',
+                'fromX': sourceX,
+                'fromY': sourceY,
+                'toX': targetX,
+                'toY': targetY
+            });
+        }
     }
     draggedCard = undefined;
 }
@@ -88,6 +98,12 @@ function placeCard(card, x, y) {
     let cardElement = allCards[card];
     let target = slots['board'][x][y];
     target.append(cardElement);
+}
+
+function removeCard(card, x, y) {
+    let cardElement = allCards[card];
+    let target = slots['board'][x][y];
+    target.removeChild(cardElement);
 }
 
 function firstFreeSlotInHand() {
