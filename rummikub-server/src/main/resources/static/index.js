@@ -71,16 +71,13 @@ function dragDrop(event) {
     let targetY = this.getAttribute('data-pos-y');
     let targetLocation = this.getAttribute('data-source');
     console.log(sourceLocation + ' ' + sourceX + ',' + sourceY + ' => ' + targetLocation + ' ' + targetX + ',' + targetY);
-    if (sourceLocation === 'hand') {
-        if (targetLocation === 'board') {
-            sendMessage({
-                'type': 'PacketPlaceCard',
-                'card': allCards.indexOf(draggedCard),
-                'x': targetX,
-                'y': targetY
-            });
-        }
-    } else if (sourceLocation === 'board') {
+    sourceSlotElement.removeChild(draggedCard);
+    if (sourceLocation === 'hand' && targetLocation === 'hand') {
+        placeCardOnBoard(draggedCard);
+        draggedCard = undefined;
+        return; // no need to involve the server in this
+    }
+    if (sourceLocation === 'board') {
         if (targetLocation === 'board') {
             sendMessage({
                 'type': 'PacketMoveCard',
@@ -98,6 +95,13 @@ function dragDrop(event) {
                 'hint': targetX
             });
         }
+    } else {
+        sendMessage({
+            'type': 'PacketPlaceCard',
+            'card': allCards.indexOf(draggedCard),
+            'x': targetX,
+            'y': targetY
+        });
     }
     draggedCard = undefined;
 }
@@ -111,7 +115,11 @@ function placeCard(card, x, y) {
 function removeCard(card, x, y) {
     let cardElement = allCards[card];
     let target = slots['board'][x][y];
-    target.removeChild(cardElement);
+
+    // the player dragging the card already 'lost' this card when he sent the action
+    if (target.hasChildNodes()) {
+        target.removeChild(cardElement);
+    }
 }
 
 function firstFreeSlotInHand() {
