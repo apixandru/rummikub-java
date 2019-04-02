@@ -6,7 +6,8 @@ let messageHandlers = {
     'PacketPlayerStart': handlePlayerStart,
     'PacketNewTurn': handleNewTurn,
     'PacketReceiveCard': handleReceiveCard,
-    'PacketPlayerLeft': handlePlayerLeft
+    'PacketPlayerLeft': handlePlayerLeft,
+    'PacketCardPlaced': handleCardPlaced
 };
 
 let uiComponents = {
@@ -56,6 +57,10 @@ function handlePlayerLeft(response) {
     });
     uiComponents['name']
         .value = loggedInPlayers;
+}
+
+function handleCardPlaced(response) {
+    placeCard(response.card, response.x, response.y);
 }
 
 function handlePlayerStart(response) {

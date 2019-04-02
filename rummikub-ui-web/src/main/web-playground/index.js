@@ -2,10 +2,18 @@ const slotsOnBoard = document.querySelectorAll('#board > .slot');
 const slotsInHand = document.querySelectorAll('#hand > .slot');
 
 let draggedCard;
+let slots = [];
 
 const rummikub = {};
 
 function setupSlots(slotElement, x, y, source) {
+    if (!slots[source]) {
+        slots[source] = [];
+    }
+    if (!slots[source][x]) {
+        slots[source][x] = [];
+    }
+    slots[source][x][y] = slotElement;
     slotElement.setAttribute('data-pos-x', x);
     slotElement.setAttribute('data-pos-y', y);
     slotElement.setAttribute('data-source', source);
@@ -58,11 +66,10 @@ function dragDrop(event) {
     let sourceLocation = sourceSlotElement.getAttribute('data-source');
 
     this.classList.remove("drop-allowed");
-    this.append(draggedCard);
+
     let targetX = this.getAttribute('data-pos-x');
     let targetY = this.getAttribute('data-pos-y');
     let targetLocation = this.getAttribute('data-source');
-
     console.log(sourceLocation + ' ' + sourceX + ',' + sourceY + ' => ' + targetLocation + ' ' + targetX + ',' + targetY);
     if (sourceLocation === 'hand') {
         if (targetLocation === 'board') {
@@ -74,6 +81,13 @@ function dragDrop(event) {
             });
         }
     }
+    draggedCard = undefined;
+}
+
+function placeCard(card, x, y) {
+    let cardElement = allCards[card];
+    let target = slots['board'][x][y];
+    target.append(cardElement);
 }
 
 function firstFreeSlotInHand() {
