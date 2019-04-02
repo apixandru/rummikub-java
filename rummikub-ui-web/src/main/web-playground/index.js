@@ -51,12 +51,29 @@ function dragLeave() {
     this.classList.remove("drop-allowed");
 }
 
-function dragDrop() {
+function dragDrop(event) {
+    let sourceSlotElement = draggedCard.parentElement;
+    let sourceX = sourceSlotElement.getAttribute('data-pos-x');
+    let sourceY = sourceSlotElement.getAttribute('data-pos-y');
+    let sourceLocation = sourceSlotElement.getAttribute('data-source');
+
     this.classList.remove("drop-allowed");
     this.append(draggedCard);
-    let x = this.getAttribute('data-pos-x');
-    let y = this.getAttribute('data-pos-y');
-    console.log('dropped on ' + x + ' ' + y);
+    let targetX = this.getAttribute('data-pos-x');
+    let targetY = this.getAttribute('data-pos-y');
+    let targetLocation = this.getAttribute('data-source');
+
+    console.log(sourceLocation + ' ' + sourceX + ',' + sourceY + ' => ' + targetLocation + ' ' + targetX + ',' + targetY);
+    if (sourceLocation === 'hand') {
+        if (targetLocation === 'board') {
+            sendMessage({
+                'type': 'PacketPlaceCard',
+                'card': allCards.indexOf(draggedCard),
+                'x': targetX,
+                'y': targetY
+            });
+        }
+    }
 }
 
 function firstFreeSlotInHand() {
@@ -115,7 +132,6 @@ function placeCardOnBoard(cardElement) {
     let element = firstFreeSlotInHand();
     element.appendChild(cardElement);
 }
-
 
 setupGroup(slotsOnBoard, 'board');
 setupGroup(slotsInHand, 'hand');

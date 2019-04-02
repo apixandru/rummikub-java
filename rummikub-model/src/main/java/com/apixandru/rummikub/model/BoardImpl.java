@@ -36,6 +36,9 @@ final class BoardImpl implements Board {
 
     @Override
     public boolean placeCard(Card card, int x, int y) {
+        if (card == null) {
+            throw new IllegalArgumentException("No card specified!");
+        }
         if (!inBounds(x, y)) {
             log.debug("Cannot place {} outside of the bounds. ({}/{})", card, x, y);
             return false;
