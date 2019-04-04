@@ -16,13 +16,13 @@ import static org.junit.Assert.assertSame;
 public class CardPileTest {
 
     @Test
-    public void testNumberOfCards() throws Exception {
+    public void testNumberOfCards() {
         final CardPile cardPile = new CardPile();
         assertSame("Numbers of cards don't match", Constants.NUM_CARDS, cardPile.getNumberOfCards());
     }
 
     @Test
-    public void testHasCards() throws Exception {
+    public void testHasCards() {
         final CardPile cardPile = new CardPile();
         while (cardPile.hasMoreCards()) {
             assertNotNull("Should have cards", cardPile.nextCard());
@@ -30,7 +30,7 @@ public class CardPileTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void testExhaustedPile() throws Exception {
+    public void testExhaustedPile() {
         final CardPile cardPile = new CardPile();
         while (cardPile.hasMoreCards()) {
             assertNotNull("Should have cards", cardPile.nextCard());
