@@ -1,0 +1,29 @@
+body {
+    background-color: #e6e6e6;
+}
+
+#main-container {
+    margin-left: 25%;
+}
+
+.sidebar-content {
+    position: fixed !important;
+
+    display: grid;
+    align-items: stretch;
+    height: 100%;
+    grid-template-rows: min-content auto min-content;
+}
+
+.sidebar-top {
+    background: #ffff00;
+}
+
+.sidebar-middle {
+    overflow: auto;
+    overflow-y: scroll;
+}
+
+.sidebar-bottom {
+    background: #c0ffb8;
+}
