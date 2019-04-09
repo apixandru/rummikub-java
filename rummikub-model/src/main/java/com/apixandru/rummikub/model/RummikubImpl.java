@@ -191,7 +191,7 @@ final class RummikubImpl implements Rummikub<Integer> {
             currentPlayer.removeCard(card);
             if (currentPlayer != player) {
                 log.debug("It's not your turn!");
-                currentPlayer.receiveCard(card);
+                player.receiveCard(card);
                 return;
             }
             if (!board.placeCard(card, x, y)) {
