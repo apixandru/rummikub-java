@@ -21,7 +21,11 @@ public abstract class AbstractMultiPacketHandler implements MultiPacketHandler {
     @SuppressWarnings("unchecked")
     @Override
     public final void handle(final Packet packet) {
-        handlers.get(packet.getClass()).handle(packet);
+        PacketHandler packetHandler = handlers.get(packet.getClass());
+        if (packetHandler == null) {
+            throw new IllegalStateException("Cannot handle " + packet.getClass() + " at this time!");
+        }
+        packetHandler.handle(packet);
     }
 
 }

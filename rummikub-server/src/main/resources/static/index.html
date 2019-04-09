@@ -24,7 +24,7 @@
     </div>
     <div class="sidebar-bottom">
         <div style="text-align: right;">
-            <a class="action-button w3-btn">End turn</a>
+            <a id="action-buttons" class="action-button w3-btn">Start Game</a>
         </div>
     </div>
 
@@ -237,9 +237,9 @@
             <span>Status: <span id="actual-message">Ready to connect.</span></span>
         </div>
         <div style="padding-bottom: 20px">
-            <input id="name" type="text" style="width:310px; border: 0; outline: 0; border-bottom: 1px solid black"
+            <input id="name" type="text" style="width:210px; border: 0; outline: 0; border-bottom: 1px solid black"
                    placeholder="username">
-            <input type="button" id="login" value="Connect" style="width: 69px;" onclick="connect()">
+            <input type="button" id="login" value="Connect" class="w3-btn" onclick="connect()">
         </div>
     </div>
 </div>

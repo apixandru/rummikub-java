@@ -40,19 +40,12 @@ body {
     float: right;
 }
 
-.sidebar-bottom {
-    /*background: #c0ffb8;*/
-}
-
-.no-hover {
-    cursor: default;
-}
-
 .action-button {
     user-select: none;
     color: #fff;
     /*background-color: #00bcd4;*/
     margin: 16px;
+    margin-bottom: 20px;
     display: inline-block;
     padding: 8px 16px;
     vertical-align: middle;
@@ -61,6 +54,21 @@ body {
     white-space: nowrap;
     text-align: center;
     text-decoration: none;
+    min-width: 120px;
+}
+
+.action-button:active {
+    padding: 7px 16px;
+    margin-top: 18px;
+}
+
+
+.sidebar-bottom {
+    /*background: #c0ffb8;*/
+}
+
+.no-hover {
+    cursor: default;
 }
 
 .header-bar {

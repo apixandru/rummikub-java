@@ -15,6 +15,7 @@ let uiComponents = {
     'modal': document.querySelector('.modal'),
     'login': document.querySelector('#login'),
     'name': document.querySelector("#name"),
+    'action-button': document.querySelector("#action-buttons"),
     'actual-message': document.querySelector('#actual-message')
 };
 
@@ -36,10 +37,11 @@ function handleLoginResponse(response) {
         setStatus('Logged in!');
         uiComponents['login']
             .removeAttribute('disabled');
-        uiComponents['login']
-            .value = 'Start';
-        uiComponents['login']
+        uiComponents['action-button']
+            .textContent = 'Start Game';
+        uiComponents['action-button']
             .onclick = startGame;
+        closeModal();
     } else {
         messageForDialog = 'Login failed: ' + msg.reason;
         connection.close();
@@ -71,11 +73,19 @@ function handleCardRemoved(response) {
 }
 
 function handlePlayerStart(response) {
-    closeModal();
+    uiComponents['action-button']
+        .textContent = 'End Turn';
+    uiComponents['action-button']
+        .onclick = doEndTurn;
+}
+
+function doEndTurn() {
+    sendMessage({
+        'type': 'PacketEndTurn'
+    });
 }
 
 function handleNewTurn(response) {
-    // TODO
     playerList.childNodes.forEach(function (childNode) {
         console.log(childNode.textContent);
         if (childNode.textContent === response.playerName) {
