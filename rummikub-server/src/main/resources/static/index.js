@@ -47,28 +47,36 @@ function onCardDragEnd() {
     this.classList.remove('invisible');
 }
 
-function dragOver(event) {
-    if (event.currentTarget.childNodes.length === 0) {
-        let targetLocation = this.getAttribute('data-source');
-        let sourceLocation = draggedCard.parentElement
-            .getAttribute('data-source');
+function canManipulateBoardPieces(event) {
+    let targetLocation = event.target.getAttribute('data-source');
+    let sourceLocation = draggedCard.parentElement
+        .getAttribute('data-source');
 
-        if (myTurn || (sourceLocation === targetLocation && targetLocation === 'hand')) {
-            event.preventDefault();
-        }
+    return myTurn || (sourceLocation === targetLocation && targetLocation === 'hand');
+}
+
+function dragOver(event) {
+    if (event.currentTarget.childNodes.length === 0 && canManipulateBoardPieces(event)) {
+        event.preventDefault();
     }
 }
 
 function dragEnter(e) {
-    this.classList.add("drop-allowed");
+    if (canManipulateBoardPieces(e)) {
+        this.classList.add("drop-allowed");
+    } else {
+        this.classList.add("drop-denied");
+    }
 }
 
 function dragLeave() {
     this.classList.remove("drop-allowed");
+    this.classList.remove("drop-denied");
 }
 
 function dragDrop(event) {
     this.classList.remove("drop-allowed");
+    this.classList.remove("drop-denied");
     if (!draggedCard) {
         return; // can happen if I drag from another window and other such strange behaviors
     }

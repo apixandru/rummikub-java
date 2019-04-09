@@ -85,6 +85,10 @@
     background-color: #c0ffb8;
 }
 
+.drop-denied {
+    background-color: #ffdddd;
+}
+
 .circle {
     border-radius: 50%;
     width: 13px;
