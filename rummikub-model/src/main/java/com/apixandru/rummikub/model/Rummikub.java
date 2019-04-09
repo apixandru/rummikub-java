@@ -11,6 +11,8 @@ import com.apixandru.rummikub.api.PlayerCallback;
  */
 public interface Rummikub<H> {
 
+    void setNextPlayer();
+
     Player<H> addPlayer(String name, PlayerCallback<H> callback);
 
     void removePlayer(Player<H> player);

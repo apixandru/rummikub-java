@@ -67,7 +67,7 @@ public class RummikubImpl implements StartGameListener {
 
         players.values()
                 .forEach(listener -> listener.enteredGame(rummikubGame));
-
+        rummikubGame.setNextPlayer();
         rummikubGame.addGameEventListener(new RummikubServerGameEventListener());
         room = null;
 

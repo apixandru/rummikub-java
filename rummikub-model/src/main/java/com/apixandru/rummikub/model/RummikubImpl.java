@@ -88,7 +88,8 @@ final class RummikubImpl implements Rummikub<Integer> {
         player.receiveCard(this.cardPile.nextCard());
     }
 
-    private void setNextPlayer() {
+    @Override
+    public void setNextPlayer() {
         List<PlayerImpl> players = new ArrayList<>(this.players.values());
         final int currentPlayerIndex = players.indexOf(this.currentPlayer);
         int nextPlayerIndex = currentPlayerIndex + 1;
@@ -114,9 +115,6 @@ final class RummikubImpl implements Rummikub<Integer> {
         final PlayerImpl player = new PlayerImpl(listener, callback);
         this.players.put(name, player);
         log.info("Player '{}' joined, Current players: {}", name, players.keySet());
-        if (null == this.currentPlayer) {
-            setNextPlayer();
-        }
         giveInitialCards(player);
         return player;
     }
