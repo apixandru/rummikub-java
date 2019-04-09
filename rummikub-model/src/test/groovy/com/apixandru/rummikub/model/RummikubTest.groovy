@@ -31,11 +31,16 @@ class RummikubTest extends Specification {
 
     def setup() {
         this.rummikub = RummikubFactory.newInstance()
-        this.player = addPlayer("Player 1")
+        this.player = addPlayerAndSetNextPlayer("Player 1")
     }
 
     def addPlayer(String playerName) {
         rummikub.addPlayer(playerName, Mock(PlayerCallback))
+    }
+    def addPlayerAndSetNextPlayer(String playerName) {
+        def player = addPlayer(playerName)
+        rummikub.setNextPlayer()
+        return player
     }
 
     def placeCardsOnFirstSlots(final List<Card> cards) {
