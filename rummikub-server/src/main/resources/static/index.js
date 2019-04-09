@@ -62,12 +62,15 @@ function dragLeave() {
 }
 
 function dragDrop(event) {
+    this.classList.remove("drop-allowed");
+    if (!draggedCard) {
+        return; // can happen if I drag from another window and other such strange behaviors
+    }
     let sourceSlotElement = draggedCard.parentElement;
     let sourceX = sourceSlotElement.getAttribute('data-pos-x');
     let sourceY = sourceSlotElement.getAttribute('data-pos-y');
     let sourceLocation = sourceSlotElement.getAttribute('data-source');
 
-    this.classList.remove("drop-allowed");
 
     let targetX = this.getAttribute('data-pos-x');
     let targetY = this.getAttribute('data-pos-y');
