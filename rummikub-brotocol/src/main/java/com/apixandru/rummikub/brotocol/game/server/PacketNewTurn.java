@@ -10,4 +10,6 @@ public class PacketNewTurn implements Packet {
 
     public String playerName;
 
+    public boolean myTurn;
+
 }

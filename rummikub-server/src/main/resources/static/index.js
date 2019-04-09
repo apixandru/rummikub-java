@@ -49,7 +49,13 @@ function onCardDragEnd() {
 
 function dragOver(event) {
     if (event.currentTarget.childNodes.length === 0) {
-        event.preventDefault();
+        let targetLocation = this.getAttribute('data-source');
+        let sourceLocation = draggedCard.parentElement
+            .getAttribute('data-source');
+
+        if (myTurn || (sourceLocation === targetLocation && targetLocation === 'hand')) {
+            event.preventDefault();
+        }
     }
 }
 
@@ -70,7 +76,6 @@ function dragDrop(event) {
     let sourceX = sourceSlotElement.getAttribute('data-pos-x');
     let sourceY = sourceSlotElement.getAttribute('data-pos-y');
     let sourceLocation = sourceSlotElement.getAttribute('data-source');
-
 
     let targetX = this.getAttribute('data-pos-x');
     let targetY = this.getAttribute('data-pos-y');

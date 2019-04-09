@@ -45,7 +45,6 @@ body {
     color: #fff;
     /*background-color: #00bcd4;*/
     margin: 16px;
-    margin-bottom: 20px;
     display: inline-block;
     padding: 8px 16px;
     vertical-align: middle;
@@ -62,9 +61,11 @@ body {
     margin-top: 18px;
 }
 
-
 .sidebar-bottom {
-    /*background: #c0ffb8;*/
+}
+
+.w3-disabled {
+    pointer-events: none;
 }
 
 .no-hover {

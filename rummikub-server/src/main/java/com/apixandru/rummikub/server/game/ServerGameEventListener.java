@@ -29,6 +29,7 @@ public class ServerGameEventListener implements GameEventListener {
         log.debug("[{}] Sending newTurn(player={})", playerName, player);
         final PacketNewTurn packet = new PacketNewTurn();
         packet.playerName = player;
+        packet.myTurn = playerName.equals(player);
         packetWriter.writePacket(packet);
     }
 

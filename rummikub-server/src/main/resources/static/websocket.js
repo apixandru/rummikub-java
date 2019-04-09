@@ -22,6 +22,7 @@ let uiComponents = {
 var connection;
 let loggedInPlayers = [];
 let messageForDialog;
+var myTurn;
 
 function reset() {
     connection && connection.close();
@@ -87,7 +88,6 @@ function doEndTurn() {
 
 function handleNewTurn(response) {
     playerList.childNodes.forEach(function (childNode) {
-        console.log(childNode.textContent);
         if (childNode.textContent === response.playerName) {
             childNode.classList.add('w3-green');
         } else {
@@ -96,6 +96,16 @@ function handleNewTurn(response) {
             }
         }
     });
+    myTurn = response.myTurn;
+    if (myTurn) {
+        uiComponents['action-button']
+            .classList
+            .remove('w3-disabled');
+    } else {
+        uiComponents['action-button']
+            .classList
+            .add('w3-disabled');
+    }
 }
 
 function handleReceiveCard(response) {
