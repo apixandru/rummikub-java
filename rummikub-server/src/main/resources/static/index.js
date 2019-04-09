@@ -1,5 +1,7 @@
 const slotsOnBoard = document.querySelectorAll('#board > .slot');
 const slotsInHand = document.querySelectorAll('#hand > .slot');
+const sidebarMiddle = document.querySelector('.sidebar-middle');
+const playerList = document.querySelector('#player-list');
 
 let draggedCard;
 let slots = [];
@@ -158,6 +160,37 @@ function createCardElement(number, color) {
     circleElement.classList.add(color);
     div.appendChild(circleElement);
     return div;
+}
+
+function addPlayer(playerName) {
+    let nodes = createElement('span', 'w3-bar-item', playerName);
+    nodes.classList.add('w3-button');
+    nodes.classList.add('no-hover');
+    playerList.append(nodes);
+}
+
+function logInfo(playerName) {
+    let date = new Date();
+    let minutes = date.getMinutes();
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+    let eventTime = date.getHours() % 12 + ':' + minutes;
+    sidebarMiddle.append(createElement('span', 'player-name', playerName));
+    sidebarMiddle.append(createElement('span', 'event-time', eventTime));
+    sidebarMiddle.append(document.createElement('br'));
+    sidebarMiddle.append(document.createTextNode('joined the game'));
+    sidebarMiddle.append(document.createElement('br'));
+    sidebarMiddle.append(document.createElement('br'));
+}
+
+function createElement(tagName, className, text) {
+    let element = document.createElement(tagName);
+    element.classList.add(className);
+    if (text) {
+        element.appendChild(document.createTextNode(text));
+    }
+    return element;
 }
 
 function createAllCards() {

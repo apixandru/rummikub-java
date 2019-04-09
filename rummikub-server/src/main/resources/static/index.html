@@ -5,18 +5,29 @@
     <link rel="stylesheet" href="index.css"/>
     <link rel="stylesheet" href="modal.css"/>
 
+    <link rel="stylesheet" href="w3.css">
     <link rel="stylesheet" href="sidebar.css">
     <title>Dnd</title>
 </head>
 <body>
 
-<div class="sidebar-content" style="width:25%; height: 100%">
+<div class="sidebar-content w3-sidebar w3-light-grey w3-card-4">
     <div class="sidebar-top">
+        <div class="w3-bar w3-dark-grey">
+            <span class="w3-bar-item w3-padding-16">Status</span>
+            <button id="disconnect" class="w3-bar-item w3-button w3-right w3-padding-16" title="Disconnect">×</button>
+        </div>
+        <div id="player-list" class="w3-bar-block">
+        </div>
     </div>
     <div class="sidebar-middle">
     </div>
     <div class="sidebar-bottom">
+        <div style="text-align: right;">
+            <a class="action-button w3-btn">End turn</a>
+        </div>
     </div>
+
 </div>
 
 <div id="main-container">

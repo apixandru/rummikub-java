@@ -8,22 +8,100 @@ body {
 
 .sidebar-content {
     position: fixed !important;
-
     display: grid;
     align-items: stretch;
     height: 100%;
     grid-template-rows: min-content auto min-content;
+    width: 25%;
 }
 
 .sidebar-top {
-    background: #ffff00;
+    /*background: #ffff00;*/
 }
 
 .sidebar-middle {
     overflow: auto;
     overflow-y: scroll;
+    margin: 5px 0 0 5px;
+    border-left: 4px solid #4CAF50;
+    background: #fff;
+    padding: 8px 12px;
+    word-wrap: break-word;
+    font-family: Consolas, "courier new";
+    font-size: 16px;
+}
+
+.player-name {
+    color: mediumblue;
+}
+
+.event-time {
+    color: gray;
+    float: right;
 }
 
 .sidebar-bottom {
-    background: #c0ffb8;
+    /*background: #c0ffb8;*/
+}
+
+.no-hover {
+    cursor: default;
+}
+
+.action-button {
+    user-select: none;
+    color: #fff;
+    /*background-color: #00bcd4;*/
+    margin: 16px;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    cursor: pointer;
+    white-space: nowrap;
+    text-align: center;
+    text-decoration: none;
+}
+
+.header-bar {
+    color: #fff !important;
+    background-color: #616161 !important;
+    width: 100%;
+    overflow: hidden;
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.header-bar .header-bar-item {
+    padding: 8px 16px;
+    float: left;
+    width: auto;
+    border: none;
+    display: block;
+    outline: 0;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+
+}
+
+.close-button {
+    border: none;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    float: right !important
+}
+
+body {
+    font-family: Verdana, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
 }

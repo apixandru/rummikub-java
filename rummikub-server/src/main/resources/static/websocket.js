@@ -50,6 +50,8 @@ function handlePlayerJoined(response) {
     loggedInPlayers.push(response.playerName);
     uiComponents['name']
         .value = loggedInPlayers;
+    addPlayer(response.playerName);
+    logInfo(response.playerName);
 }
 
 function handlePlayerLeft(response) {
@@ -74,6 +76,16 @@ function handlePlayerStart(response) {
 
 function handleNewTurn(response) {
     // TODO
+    playerList.childNodes.forEach(function (childNode) {
+        console.log(childNode.textContent);
+        if (childNode.textContent === response.playerName) {
+            childNode.classList.add('w3-green');
+        } else {
+            if (childNode.classList) {
+                childNode.classList.remove('w3-green');
+            }
+        }
+    });
 }
 
 function handleReceiveCard(response) {
