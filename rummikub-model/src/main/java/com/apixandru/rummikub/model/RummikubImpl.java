@@ -91,6 +91,9 @@ final class RummikubImpl implements Rummikub<Integer> {
     @Override
     public void setNextPlayer() {
         List<PlayerImpl> players = new ArrayList<>(this.players.values());
+        if (players.isEmpty()) {
+            throw new IllegalStateException("Cannot start game without any players!");
+        }
         final int currentPlayerIndex = players.indexOf(this.currentPlayer);
         int nextPlayerIndex = currentPlayerIndex + 1;
         if (players.size() == nextPlayerIndex) {

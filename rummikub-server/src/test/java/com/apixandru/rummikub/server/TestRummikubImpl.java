@@ -1,5 +1,6 @@
 package com.apixandru.rummikub.server;
 
+import com.apixandru.rummikub.brotocol.room.StartGameListener;
 import com.apixandru.rummikub.server.RummikubException.Reason;
 import org.junit.Before;
 import org.junit.Rule;
@@ -63,7 +64,9 @@ public class TestRummikubImpl {
     public void testJoinWhileInGame() {
         expectExceptionToBeThrownWithReason(ONGOING_GAME);
 
-        rummikub.addPlayer("Dan", new EagerToStartGameListener());
+        EagerToStartGameListener listener = new EagerToStartGameListener();
+        rummikub.addPlayer("Dan", listener);
+        listener.startGame();
         rummikub.validateCanJoin("The Man");
     }
 
