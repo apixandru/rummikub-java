@@ -8,7 +8,9 @@ let slots = [];
 
 const rummikub = {};
 
-function setupSlots(slotElement, x, y, source) {
+function setupSlots(slotElement, id, source) {
+    var x = id % 20;
+    var y = parseInt(id / 20);
     if (!slots[source]) {
         slots[source] = [];
     }
@@ -16,6 +18,7 @@ function setupSlots(slotElement, x, y, source) {
         slots[source][x] = [];
     }
     slots[source][x][y] = slotElement;
+    slotElement.setAttribute('data-pos-id', id);
     slotElement.setAttribute('data-pos-x', x);
     slotElement.setAttribute('data-pos-y', y);
     slotElement.setAttribute('data-source', source);
@@ -29,9 +32,7 @@ function setupSlots(slotElement, x, y, source) {
 function setupGroup(elements, source) {
     for (var i = 0; i < elements.length; i++) {
         var slotElement = elements[i];
-        var x = i % 20;
-        var y = parseInt(i / 20);
-        setupSlots(slotElement, x, y, source);
+        setupSlots(slotElement, i, source);
     }
 }
 
@@ -41,7 +42,7 @@ function onCardDragStart(e) {
     requestAnimationFrame(() => (this.classList.add('invisible')));
 }
 
-function onCardDragEnd() {
+function onCardDragEnd(event) {
     draggedCard = undefined;
     this.classList.remove('hold');
     this.classList.remove('invisible');
@@ -90,8 +91,9 @@ function dragDrop(event) {
     let targetLocation = this.getAttribute('data-source');
     console.log(sourceLocation + ' ' + sourceX + ',' + sourceY + ' => ' + targetLocation + ' ' + targetX + ',' + targetY);
     sourceSlotElement.removeChild(draggedCard);
+    let hint = this.getAttribute('data-pos-id');
     if (sourceLocation === 'hand' && targetLocation === 'hand') {
-        placeCardOnBoard(draggedCard);
+        placeCardOnBoard(draggedCard, hint);
         draggedCard = undefined;
         return; // no need to involve the server in this
     }
@@ -110,7 +112,7 @@ function dragDrop(event) {
                 'card': allCards.indexOf(draggedCard),
                 'x': sourceX,
                 'y': sourceY,
-                'hint': targetX
+                'hint': hint
             });
         }
     } else {
@@ -223,8 +225,13 @@ function createAllCards() {
     return cards;
 }
 
-function placeCardOnBoard(cardElement) {
-    let element = firstFreeSlotInHand();
+function placeCardOnBoard(cardElement, hint) {
+    let element;
+    if (hint) {
+        element = slotsInHand[hint];
+    } else {
+        element = firstFreeSlotInHand();
+    }
     element.appendChild(cardElement);
 }
 

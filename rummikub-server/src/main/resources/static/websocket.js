@@ -110,7 +110,7 @@ function handleNewTurn(response) {
 
 function handleReceiveCard(response) {
     let cardElement = allCards[response.card];
-    placeCardOnBoard(cardElement);
+    placeCardOnBoard(cardElement, response.hint);
 }
 
 function onMessage(event) {
