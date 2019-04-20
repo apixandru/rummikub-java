@@ -185,9 +185,21 @@ function addPlayer(playerName) {
     nodes.classList.add('w3-button');
     nodes.classList.add('no-hover');
     playerList.append(nodes);
+    addLog(playerName, 'joined the game');
 }
 
-function logInfo(playerName) {
+function removePlayer(playerName) {
+    let children = playerList.childNodes;
+    for (let i = 0; i < children.length; i++) {
+        if (children[i].textContent === playerName) {
+            playerList.removeChild(children[i]);
+            break;
+        }
+    }
+    addLog(playerName, 'left the game');
+}
+
+function addLog(playerName, message) {
     let date = new Date();
     let minutes = date.getMinutes();
     if (minutes < 10) {
@@ -197,7 +209,7 @@ function logInfo(playerName) {
     sidebarMiddle.append(createElement('span', 'player-name', playerName));
     sidebarMiddle.append(createElement('span', 'event-time', eventTime));
     sidebarMiddle.append(document.createElement('br'));
-    sidebarMiddle.append(document.createTextNode('joined the game'));
+    sidebarMiddle.append(document.createTextNode(message));
     sidebarMiddle.append(document.createElement('br'));
     sidebarMiddle.append(document.createElement('br'));
 }

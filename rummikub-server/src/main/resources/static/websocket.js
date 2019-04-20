@@ -54,7 +54,6 @@ function handlePlayerJoined(response) {
     uiComponents['name']
         .value = loggedInPlayers;
     addPlayer(response.playerName);
-    logInfo(response.playerName);
 }
 
 function handlePlayerLeft(response) {
@@ -63,6 +62,7 @@ function handlePlayerLeft(response) {
     });
     uiComponents['name']
         .value = loggedInPlayers;
+    removePlayer(response.playerName);
 }
 
 function handleCardPlaced(response) {
