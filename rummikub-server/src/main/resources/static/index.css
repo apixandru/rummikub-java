@@ -72,6 +72,7 @@
 }
 
 .slot {
+    box-sizing: initial;
     float: left;
     width: 40px;
     height: 60px;

@@ -8,6 +8,7 @@ let messageHandlers = {
     'PacketReceiveCard': handleReceiveCard,
     'PacketPlayerLeft': handlePlayerLeft,
     'PacketCardPlaced': handleCardPlaced,
+    'PacketGameOver': handleGameOver,
     'PacketCardRemoved': handleCardRemoved
 };
 
@@ -44,7 +45,7 @@ function handleLoginResponse(response) {
             .onclick = startGame;
         closeModal();
     } else {
-        messageForDialog = 'Login failed: ' + msg.reason;
+        messageForDialog = 'Login failed: ' + response.reason;
         connection.close();
     }
 }
@@ -63,6 +64,11 @@ function handlePlayerLeft(response) {
     uiComponents['name']
         .value = loggedInPlayers;
     removePlayer(response.playerName);
+}
+
+function handleGameOver(response) {
+    messageForDialog = 'Game over: ' + response.playerName + ' won!';
+    connection.close();
 }
 
 function handleCardPlaced(response) {
@@ -98,10 +104,12 @@ function handleNewTurn(response) {
     });
     myTurn = response.myTurn;
     if (myTurn) {
+        addLog(null, 'Your turn');
         uiComponents['action-button']
             .classList
             .remove('w3-disabled');
     } else {
+        addLog(null, 'New turn');
         uiComponents['action-button']
             .classList
             .add('w3-disabled');

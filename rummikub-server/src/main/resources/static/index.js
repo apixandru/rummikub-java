@@ -199,14 +199,22 @@ function removePlayer(playerName) {
     addLog(playerName, 'left the game');
 }
 
-function addLog(playerName, message) {
+function addLog(playerName, message, type) {
     let date = new Date();
     let minutes = date.getMinutes();
     if (minutes < 10) {
         minutes = '0' + minutes;
     }
     let eventTime = date.getHours() % 12 + ':' + minutes;
-    sidebarMiddle.append(createElement('span', 'player-name', playerName));
+    let system = !playerName;
+    if (system) {
+        playerName = '*system*';
+    }
+    let playerNameSpan = createElement('span', 'player-name', playerName);
+    if (type) {
+        playerNameSpan.classList.add(type);
+    }
+    sidebarMiddle.append(playerNameSpan);
     sidebarMiddle.append(createElement('span', 'event-time', eventTime));
     sidebarMiddle.append(document.createElement('br'));
     sidebarMiddle.append(document.createTextNode(message));
@@ -214,6 +222,18 @@ function addLog(playerName, message) {
     sidebarMiddle.append(document.createElement('br'));
 
     sidebarMiddle.scrollTop = sidebarMiddle.scrollHeight;
+}
+
+function addCardAddedLog(message, card) {
+    let latestElementName = sidebarMiddle.childNodes[sidebarMiddle.childNodes.length - 6];
+    let cardText = readableCard(card);
+    if (!latestElementName.classList.contains('received-card')) {
+        addLog(null, message + ' ' + cardText, 'received-card');
+    } else {
+        let latestElementText = sidebarMiddle.childNodes[sidebarMiddle.childNodes.length - 3];
+        latestElementText.textContent = latestElementText.textContent + ', ' + cardText;
+        sidebarMiddle.scrollTop = sidebarMiddle.scrollHeight;
+    }
 }
 
 function createElement(tagName, className, text) {
@@ -247,6 +267,12 @@ function placeCardOnBoard(cardElement, hint) {
         element = firstFreeSlotInHand();
     }
     element.appendChild(cardElement);
+
+    addCardAddedLog('received card', cardElement);
+}
+
+function readableCard(card) {
+    return card.getAttribute('data-color') + ' ' + card.getAttribute('data-num');
 }
 
 setupGroup(slotsOnBoard, 'board');
@@ -256,6 +282,8 @@ let allCards = createAllCards();
 
 window.onerror = function myErrorHandler() {
     messageForDialog = "Client error!";
-    connection.close();
+    if (connection) {
+        connection.close();
+    }
     return false;
 };
