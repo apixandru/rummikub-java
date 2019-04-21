@@ -17,16 +17,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>rummikub-api</module>
         <module>rummikub-model</module>
-        <module>rummikub-brotocol</module>
         <module>rummikub-server</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <versionGmavenPlus>1.5</versionGmavenPlus>
-        <versionTyrus>1.13.1</versionTyrus>
-        <versionWebSocketApi>1.1</versionWebSocketApi>
         <versionSpock>1.0-groovy-2.4</versionSpock>
     </properties>
 
@@ -59,40 +55,13 @@
             </dependency>
 
             <dependency>
-                <groupId>javax.websocket</groupId>
-                <artifactId>javax.websocket-client-api</artifactId>
-                <version>${versionWebSocketApi}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.glassfish.tyrus</groupId>
-                <artifactId>tyrus-container-grizzly-client</artifactId>
-                <version>${versionTyrus}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>rummikub-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>rummikub-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>rummikub-brotocol</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>rummikub-server</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>rummikub-connector-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
