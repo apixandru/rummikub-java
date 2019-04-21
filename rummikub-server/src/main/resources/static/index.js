@@ -212,6 +212,8 @@ function addLog(playerName, message) {
     sidebarMiddle.append(document.createTextNode(message));
     sidebarMiddle.append(document.createElement('br'));
     sidebarMiddle.append(document.createElement('br'));
+
+    sidebarMiddle.scrollTop = sidebarMiddle.scrollHeight;
 }
 
 function createElement(tagName, className, text) {
@@ -251,3 +253,9 @@ setupGroup(slotsOnBoard, 'board');
 setupGroup(slotsInHand, 'hand');
 
 let allCards = createAllCards();
+
+window.onerror = function myErrorHandler() {
+    messageForDialog = "Client error!";
+    connection.close();
+    return false;
+};
