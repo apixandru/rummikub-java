@@ -31,11 +31,8 @@ public final class UserSession implements PacketWriter, PacketHandlerAware, Pack
     }
 
     public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
+        return session.getPrincipal()
+                .getName();
     }
 
     @Override

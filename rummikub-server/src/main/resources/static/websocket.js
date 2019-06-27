@@ -195,13 +195,15 @@ function connect() {
 
     updateUiForConnecting();
     connection = new WebSocket(serverUrl + '/websocket');
-    connection.onopen = onConnectionEstablished;
     connection.onclose = onConnectionLost;
     connection.onmessage = onMessage;
 }
+
 
 function startGame() {
     sendMessage({
         'type': 'StartGameRequest'
     });
 }
+
+connect();

@@ -31,7 +31,6 @@ public final class LoginPacketHandler extends AbstractMultiPacketHandler {
             accept(playerName);
             ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, session, session);
             rummikub.addPlayer(playerName, stateChangeListener);
-            session.setPlayerName(playerName);
             log.info("Connection established.");
         } catch (RummikubException ex) {
             reject(ex.getMessage());
