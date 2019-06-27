@@ -9,7 +9,7 @@ import com.apixandru.rummikub.brotocol.Packet;
  */
 public class PacketGameOver implements Packet {
 
-    public String player;
+    public String playerName;
 
     public GameOverReason reason;
 

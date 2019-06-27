@@ -37,7 +37,7 @@ public class ServerGameEventListener implements GameEventListener {
     public void gameOver(final String player, final GameOverReason reason) {
         log.debug("[{}] Sending gameOver(player={}, reason={})", playerName, player, reason);
         final PacketGameOver packet = new PacketGameOver();
-        packet.player = player;
+        packet.playerName = player;
         packet.reason = reason;
         packetWriter.writePacket(packet);
     }

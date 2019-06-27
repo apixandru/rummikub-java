@@ -52,8 +52,6 @@ function handleLoginResponse(response) {
 
 function handlePlayerJoined(response) {
     loggedInPlayers.push(response.playerName);
-    uiComponents['name']
-        .value = loggedInPlayers;
     addPlayer(response.playerName);
 }
 
@@ -61,8 +59,6 @@ function handlePlayerLeft(response) {
     loggedInPlayers = loggedInPlayers.filter(function (playerName) {
         return playerName !== response.playerName;
     });
-    uiComponents['name']
-        .value = loggedInPlayers;
     removePlayer(response.playerName);
 }
 
@@ -169,7 +165,8 @@ function updateUiForConnecting() {
     uiComponents['login']
         .setAttribute('disabled', true);
 
-    uiComponents['name'].setAttribute('readonly', true);
+    uiComponents['name']
+        .setAttribute('readonly', true);
 }
 
 function setStatus(statusMessage) {
