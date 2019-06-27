@@ -1,8 +1,6 @@
 package com.apixandru.rummikub.server.login;
 
-import com.apixandru.rummikub.brotocol.game.client.LoginRequest;
 import com.apixandru.rummikub.brotocol.game.server.LoginResponse;
-import com.apixandru.rummikub.brotocol.util.AbstractMultiPacketHandler;
 import com.apixandru.rummikub.server.RummikubException;
 import com.apixandru.rummikub.server.RummikubImpl;
 import com.apixandru.rummikub.server.ServerStateChangeListener;
@@ -11,7 +9,7 @@ import org.slf4j.Logger;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public final class LoginPacketHandler extends AbstractMultiPacketHandler {
+public final class LoginPacketHandler {
 
     private static final Logger log = getLogger(LoginPacketHandler.class);
 
@@ -21,13 +19,11 @@ public final class LoginPacketHandler extends AbstractMultiPacketHandler {
     public LoginPacketHandler(RummikubImpl rummikub, UserSession session) {
         this.rummikub = rummikub;
         this.session = session;
-
-        register(LoginRequest.class, this::handleLoginRequest);
     }
 
-    private void handleLoginRequest(LoginRequest packet) {
-        String playerName = packet.playerName;
+    public void handleLoginRequest(UserSession session) {
         try {
+            final String playerName = session.getPlayerName();
             accept(playerName);
             ServerStateChangeListener stateChangeListener = new ServerStateChangeListener(playerName, session, session);
             rummikub.addPlayer(playerName, stateChangeListener);

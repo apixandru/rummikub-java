@@ -1,6 +1,5 @@
 package com.apixandru.rummikub.server.websocket;
 
-import com.apixandru.rummikub.brotocol.game.client.LoginRequest;
 import com.apixandru.rummikub.server.RummikubImpl;
 import com.apixandru.rummikub.server.login.LoginPacketHandler;
 import org.slf4j.Logger;
@@ -17,15 +16,8 @@ final class RummikubWebSocketHandler extends PacketWebSocketHandler {
     @Override
     protected void afterConnectionEstablished(UserSession session) {
         log.info("{} connected.", session);
-        final LoginPacketHandler packetHandler = new LoginPacketHandler(rummikub, session);
-        session.setPacketHandler(packetHandler);
-        sendLoginRequest(packetHandler, session);
-    }
-
-    private void sendLoginRequest(LoginPacketHandler packetHandler, UserSession session) {
-        final LoginRequest loginRequest = new LoginRequest();
-        loginRequest.playerName = session.getPlayerName();
-        packetHandler.handle(loginRequest);
+        new LoginPacketHandler(rummikub, session)
+                .handleLoginRequest(session);
     }
 
     @Override
