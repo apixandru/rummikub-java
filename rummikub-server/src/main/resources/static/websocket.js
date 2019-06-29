@@ -21,6 +21,7 @@ let uiComponents = {
 };
 
 var connection;
+var stomp;
 let loggedInPlayers = [];
 let messageForDialog;
 var myTurn;
@@ -122,8 +123,8 @@ function handleReceiveCard(response) {
 }
 
 function onMessage(event) {
-    console.log('received ' + event.data);
-    var msg = JSON.parse(event.data);
+    console.log('received ' + event);
+    var msg = JSON.parse(event);
     if (messageHandlers.hasOwnProperty(msg.type)) {
         messageHandlers[msg.type](msg);
     } else {
@@ -146,7 +147,10 @@ function onConnectionLost(event) {
 }
 
 function sendMessage(msg) {
-    connection.send(JSON.stringify(msg));
+    // connection.send(JSON.stringify(msg));
+    stomp.send("/app/doAction", {},
+        JSON.stringify(msg));
+
 }
 
 function onConnectionEstablished(event) {
@@ -190,13 +194,26 @@ function closeModal() {
 function connect() {
     reset();
 
-    let host = document.location.hostname || 'localhost';
-    let serverUrl = "ws://" + host + ":8080";
+    var sock = new SockJS("/ws");
+    stomp = Stomp.over(sock);
 
-    updateUiForConnecting();
-    connection = new WebSocket(serverUrl + '/websocket');
-    connection.onclose = onConnectionLost;
-    connection.onmessage = onMessage;
+    stomp.connect({}, function (frame) {
+        console.log('*****  Connected  *****');
+        console.log(frame);
+        // stomp.subscribe("/topic/spittlefeed", handleSpittle);
+        stomp.subscribe("/user/queue/notifications", (n) => onMessage(n.body));
+        // connectManual();
+    });
+
+    function connectManual() {
+        let host = document.location.hostname || 'localhost';
+        let serverUrl = "ws://" + host + ":8080";
+
+        updateUiForConnecting();
+        connection = new WebSocket(serverUrl + '/websocket');
+        connection.onclose = onConnectionLost;
+        // connection.onmessage = onMessage;
+    }
 }
 
 

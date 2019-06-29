@@ -33,7 +33,7 @@ final class CardPile {
 
     void setCards(final Collection<Card> cards) {
         this.cards.addAll(cards);
-        Collections.shuffle(this.cards);
+//        Collections.shuffle(this.cards);
     }
 
 }

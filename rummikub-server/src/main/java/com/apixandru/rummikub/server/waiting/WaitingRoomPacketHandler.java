@@ -24,8 +24,10 @@ public class WaitingRoomPacketHandler extends AbstractMultiPacketHandler {
     }
 
     @Override
-    public void cleanup() {
-        this.room.leave(this.playerName);
+    public void cleanup(boolean force) {
+        if (force) {
+            this.room.leave(this.playerName);
+        }
     }
 
 }

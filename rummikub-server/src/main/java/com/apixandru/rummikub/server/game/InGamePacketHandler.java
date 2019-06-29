@@ -42,7 +42,7 @@ public final class InGamePacketHandler extends AbstractMultiPacketHandler {
     }
 
     @Override
-    public void cleanup() {
+    public void cleanup(boolean force) {
         rummikubGame.removeBoardListener(boardListener);
         rummikubGame.removeGameEventListener(gameEventListener);
         rummikubGame.removePlayer(player);

@@ -5,7 +5,7 @@ import com.apixandru.rummikub.brotocol.PacketHandler;
 
 public interface MultiPacketHandler extends PacketHandler<Packet> {
 
-    default void cleanup() {
+    default void cleanup(boolean force) {
     }
 
 }
