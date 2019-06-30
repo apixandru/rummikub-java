@@ -28,10 +28,19 @@ var myTurn;
 function reset() {
     connection && connection.close();
     connection = undefined;
-    messageForDialog = '';
+    messageForDialog = 'Failed to connect to the server!';
+    loggedInPlayers.forEach(removePlayer);
     loggedInPlayers = [];
     uiComponents['login']
         .onclick = connect;
+}
+
+function setButtonStateToStartGame() {
+    let actionButton = uiComponents['action-button'];
+    actionButton.textContent = 'Start Game';
+    actionButton.onclick = startGame;
+    actionButton.classList
+        .remove('w3-disabled');
 }
 
 function handleLoginResponse(response) {
@@ -39,10 +48,7 @@ function handleLoginResponse(response) {
         setStatus('Logged in!');
         uiComponents['login']
             .removeAttribute('disabled');
-        uiComponents['action-button']
-            .textContent = 'Start Game';
-        uiComponents['action-button']
-            .onclick = startGame;
+        setButtonStateToStartGame();
         closeModal();
     } else {
         messageForDialog = 'Login failed: ' + response.reason;
@@ -63,8 +69,11 @@ function handlePlayerLeft(response) {
 }
 
 function handleGameOver(response) {
-    messageForDialog = 'Game over: ' + response.playerName + ' won!';
-    connection.close();
+    addLog(null, 'Game over: ' + response.playerName + ' won!');
+    messageForDialog = '';
+    loggedInPlayers.forEach(removePlayer);
+    loggedInPlayers = [];
+    setButtonStateToStartGame();
 }
 
 function handleCardPlaced(response) {
@@ -129,7 +138,7 @@ function onMessage(event) {
 }
 
 function onConnectionLost(event) {
-    messageForDialog = messageForDialog || 'Failed to connect to the server!';
+    messageForDialog = messageForDialog || 'Connection lost!';
     error(messageForDialog);
 
     uiComponents['login']
@@ -146,6 +155,7 @@ function sendMessage(msg) {
 }
 
 function onConnectionEstablished(event) {
+    messageForDialog = '';
     setStatus('Attempting to log in...');
     sendMessage({
         'type': 'LoginRequest',
