@@ -2,7 +2,10 @@ package com.apixandru.rummikub.model;
 
 import com.apixandru.rummikub.api.Color;
 import com.apixandru.rummikub.api.Rank;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static com.apixandru.rummikub.model.TestUtils.card;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -11,24 +14,28 @@ import org.junit.Test;
 @SuppressWarnings({"unused", "static-method"})
 public final class CreateCardTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNoColorRank() {
-        TestUtils.card(null, Rank.EIGHT);
+        assertThrows(IllegalArgumentException.class, () -> {
+            card(null, Rank.EIGHT);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testColorNoRank() {
-        TestUtils.card(Color.BLACK, null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            card(Color.BLACK, null);
+        });
     }
 
     @Test
     public void testColorRank() {
-        TestUtils.card(Color.BLACK, Rank.ONE);
+        card(Color.BLACK, Rank.ONE);
     }
 
     @Test
     public void testNoColorNoRank() {
-        TestUtils.card(null, null);
+        card(null, null);
     }
 
 }

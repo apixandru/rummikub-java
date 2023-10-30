@@ -4,11 +4,10 @@ import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.brotocol.Packet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import jakarta.websocket.Decoder;
+import jakarta.websocket.Encoder;
+import jakarta.websocket.EndpointConfig;
 import org.slf4j.Logger;
-
-import javax.websocket.Decoder;
-import javax.websocket.Encoder;
-import javax.websocket.EndpointConfig;
 
 import static org.slf4j.LoggerFactory.getLogger;
 

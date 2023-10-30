@@ -8,7 +8,7 @@ import java.util.Collection;
 
 import static com.apixandru.rummikub.api.Color.BLACK;
 import static com.apixandru.rummikub.api.Rank.ONE;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Alexandru-Constantin Bledea

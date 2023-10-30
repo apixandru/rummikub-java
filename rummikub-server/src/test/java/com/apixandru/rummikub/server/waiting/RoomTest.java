@@ -1,7 +1,7 @@
 package com.apixandru.rummikub.server.waiting;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static com.apixandru.rummikub.server.waiting.MockRummikubRoomListener.MockRoomListenerEvent.joined;
 
@@ -18,7 +18,7 @@ public class RoomTest {
     private MockRummikubRoomListener shiaListener;
     private MockRummikubRoomListener christianListener;
 
-    @Before
+    @BeforeEach
     public void setup() {
         room = new Room();
         shiaListener = new MockRummikubRoomListener();

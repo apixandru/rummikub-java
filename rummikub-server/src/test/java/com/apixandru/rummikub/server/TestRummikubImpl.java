@@ -1,15 +1,11 @@
 package com.apixandru.rummikub.server;
 
-import com.apixandru.rummikub.brotocol.room.StartGameListener;
-import com.apixandru.rummikub.server.RummikubException.Reason;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static com.apixandru.rummikub.server.RummikubException.Reason.NAME_TAKEN;
-import static com.apixandru.rummikub.server.RummikubException.Reason.NO_NAME;
-import static com.apixandru.rummikub.server.RummikubException.Reason.ONGOING_GAME;
+import static com.apixandru.rummikub.server.RummikubException.Reason.*;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -18,15 +14,11 @@ import static org.mockito.Mockito.mock;
  */
 public class TestRummikubImpl {
 
-    @Rule
-    public final ExpectedException expectedException = ExpectedException.none();
-
     private StateChangeListener listener;
 
     private RummikubImpl rummikub;
 
-    @SuppressWarnings("unchecked")
-    @Before
+    @BeforeEach
     public void setup() {
         listener = mock(StateChangeListener.class);
         rummikub = new RummikubImpl();
@@ -40,39 +32,45 @@ public class TestRummikubImpl {
 
     @Test
     public void testNullName() {
-        expectExceptionToBeThrownWithReason(NO_NAME);
+        RummikubException ex = assertThrows(RummikubException.class, () -> {
+            rummikub.validateCanJoin(null);
+        });
 
-        rummikub.validateCanJoin(null);
+        assertSame(NO_NAME, ex.getReason());
+
     }
 
     @Test
     public void testEmptyName() {
-        expectExceptionToBeThrownWithReason(NO_NAME);
+        RummikubException ex = assertThrows(RummikubException.class, () -> {
+            rummikub.validateCanJoin("");
+        });
 
-        rummikub.validateCanJoin("");
+        assertSame(NO_NAME, ex.getReason());
     }
 
     @Test
     public void testRejectSameName() {
-        expectExceptionToBeThrownWithReason(NAME_TAKEN);
-
         rummikub.addPlayer("Dan", listener);
-        rummikub.validateCanJoin("Dan");
+
+        RummikubException ex = assertThrows(RummikubException.class, () -> {
+            rummikub.validateCanJoin("Dan");
+        });
+
+        assertSame(NAME_TAKEN, ex.getReason());
     }
 
     @Test
     public void testJoinWhileInGame() {
-        expectExceptionToBeThrownWithReason(ONGOING_GAME);
-
         EagerToStartGameListener listener = new EagerToStartGameListener();
         rummikub.addPlayer("Dan", listener);
         listener.startGame();
-        rummikub.validateCanJoin("The Man");
-    }
 
-    private void expectExceptionToBeThrownWithReason(final Reason reason) {
-        expectedException.expect(RummikubException.class);
-        expectedException.expect(RummikubExceptionReason.reason(reason));
+        RummikubException ex = assertThrows(RummikubException.class, () -> {
+            rummikub.validateCanJoin("The Man");
+        });
+
+        assertSame(ONGOING_GAME, ex.getReason());
     }
 
 }

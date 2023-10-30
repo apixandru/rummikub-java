@@ -1,13 +1,12 @@
 package com.apixandru.rummikub.model;
 
 import com.apixandru.rummikub.model.support.BoardAction;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -19,7 +18,7 @@ public final class BoardListenerTest {
 
     private Board board;
 
-    @Before
+    @BeforeEach
     public void setup() {
         listener.clear();
         board = new BoardImpl();
@@ -39,8 +38,8 @@ public final class BoardListenerTest {
 
         final BoardAction boardAction = actions.get(0);
 
-        Assert.assertEquals(BoardAction.Action.ADDED, boardAction.action);
-        Assert.assertEquals(TestUtils.BLACK_ONE_1, boardAction.card);
+        assertEquals(BoardAction.Action.ADDED, boardAction.action);
+        assertEquals(TestUtils.BLACK_ONE_1, boardAction.card);
         assertEquals(0, boardAction.x);
         assertEquals(6, boardAction.y);
 
@@ -67,8 +66,8 @@ public final class BoardListenerTest {
         assertEquals(1, actions.size());
         final BoardAction boardAction = actions.get(0);
 
-        Assert.assertEquals(BoardAction.Action.ADDED, boardAction.action);
-        Assert.assertEquals(TestUtils.BLACK_ONE_1, boardAction.card);
+        assertEquals(BoardAction.Action.ADDED, boardAction.action);
+        assertEquals(TestUtils.BLACK_ONE_1, boardAction.card);
         assertEquals(0, boardAction.x);
         assertEquals(6, boardAction.y);
     }
@@ -86,8 +85,8 @@ public final class BoardListenerTest {
         assertEquals(1, actions.size());
         final BoardAction boardAction = actions.get(0);
 
-        Assert.assertEquals(BoardAction.Action.REMOVED, boardAction.action);
-        Assert.assertEquals(TestUtils.BLACK_ONE_1, boardAction.card);
+        assertEquals(BoardAction.Action.REMOVED, boardAction.action);
+        assertEquals(TestUtils.BLACK_ONE_1, boardAction.card);
         assertEquals(0, boardAction.x);
         assertEquals(6, boardAction.y);
     }
@@ -102,14 +101,14 @@ public final class BoardListenerTest {
         assertEquals(2, actions.size());
 
         final BoardAction actionRemove = actions.get(0);
-        Assert.assertEquals(BoardAction.Action.REMOVED, actionRemove.action);
-        Assert.assertEquals(TestUtils.BLACK_ONE_1, actionRemove.card);
+        assertEquals(BoardAction.Action.REMOVED, actionRemove.action);
+        assertEquals(TestUtils.BLACK_ONE_1, actionRemove.card);
         assertEquals(0, actionRemove.x);
         assertEquals(6, actionRemove.y);
 
         final BoardAction actionAdded = actions.get(1);
-        Assert.assertEquals(BoardAction.Action.ADDED, actionAdded.action);
-        Assert.assertEquals(TestUtils.BLACK_ONE_1, actionAdded.card);
+        assertEquals(BoardAction.Action.ADDED, actionAdded.action);
+        assertEquals(TestUtils.BLACK_ONE_1, actionAdded.card);
         assertEquals(1, actionAdded.x);
         assertEquals(5, actionAdded.y);
     }

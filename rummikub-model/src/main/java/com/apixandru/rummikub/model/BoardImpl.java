@@ -30,7 +30,7 @@ final class BoardImpl implements Board {
         return y < NUM_ROWS && x < NUM_COLS;
     }
 
-    private boolean isFree(int x, int y) {
+    boolean isFree(int x, int y) {
         return null == getCardAt(x, y);
     }
 
@@ -87,7 +87,7 @@ final class BoardImpl implements Board {
         return streamGroups().allMatch(CardGroup::isValid);
     }
 
-    private Stream<CardGroup> streamGroups() {
+    Stream<CardGroup> streamGroups() {
         return Arrays.stream(cards)
                 .map(Util::splitNonEmptyGroups)
                 .flatMap(Collection::stream)

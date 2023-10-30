@@ -1,12 +1,11 @@
 package com.apixandru.rummikub.model;
 
 import com.apixandru.rummikub.api.Constants;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -18,24 +17,26 @@ public class CardPileTest {
     @Test
     public void testNumberOfCards() {
         final CardPile cardPile = new CardPile();
-        assertSame("Numbers of cards don't match", Constants.NUM_CARDS, cardPile.getNumberOfCards());
+        assertSame(Constants.NUM_CARDS, cardPile.getNumberOfCards(), "Numbers of cards don't match");
     }
 
     @Test
     public void testHasCards() {
         final CardPile cardPile = new CardPile();
         while (cardPile.hasMoreCards()) {
-            assertNotNull("Should have cards", cardPile.nextCard());
+            assertNotNull(cardPile.nextCard(), "Should have cards");
         }
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testExhaustedPile() {
         final CardPile cardPile = new CardPile();
         while (cardPile.hasMoreCards()) {
-            assertNotNull("Should have cards", cardPile.nextCard());
+            assertNotNull(cardPile.nextCard(), "Should have cards");
         }
-        cardPile.nextCard();
+        assertThrows(NoSuchElementException.class, () -> {
+            cardPile.nextCard();
+        });
     }
 
 }

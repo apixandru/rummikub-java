@@ -3,16 +3,16 @@ package com.apixandru.rummikub.model;
 import com.apixandru.rummikub.api.Card;
 import com.apixandru.rummikub.api.Color;
 import com.apixandru.rummikub.api.Rank;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static com.apixandru.rummikub.model.CardGroup.isAscendingRanks;
 import static com.apixandru.rummikub.model.TestUtils.card;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.test.util.AssertionErrors.assertFalse;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 /**
  * @author Alexandru-Constantin Bledea
@@ -178,9 +178,11 @@ public final class CardGroupTest {
         assertTrue("Jokers are actually 'the same' color", CardGroup.isSameRanks(cards));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidConfiguration() {
-        card(null, Rank.EIGHT);
+        assertThrows(IllegalArgumentException.class, () -> {
+            card(null, Rank.EIGHT);
+        });
     }
 
 }
