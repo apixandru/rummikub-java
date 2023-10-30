@@ -1,7 +1,6 @@
 package com.apixandru.rummikub.server;
 
 import org.hamcrest.Description;
-import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
@@ -17,7 +16,6 @@ class RummikubExceptionReason extends TypeSafeMatcher<RummikubException> {
         this.reason = reason;
     }
 
-    @Factory
     static <T extends Throwable> Matcher<RummikubException> reason(final RummikubException.Reason reason) {
         return new RummikubExceptionReason(reason);
     }

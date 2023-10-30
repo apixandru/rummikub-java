@@ -6,11 +6,7 @@ import com.apixandru.rummikub.api.Rank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 
 import static java.util.Collections.unmodifiableList;
@@ -21,6 +17,23 @@ import static java.util.Collections.unmodifiableList;
  */
 final class CardGroup {
 
+    private static final List<Rank> validRanks = Arrays.asList(
+            Rank.ONE,
+            Rank.TWO,
+            Rank.THREE,
+            Rank.FOUR,
+            Rank.FIVE,
+            Rank.SIX,
+            Rank.SEVEN,
+            Rank.EIGHT,
+            Rank.NINE,
+            Rank.TEN,
+            Rank.ELEVEN,
+            Rank.TWELVE,
+            Rank.THIRTEEN,
+            Rank.ONE
+    );
+
     private static final Logger log = LoggerFactory.getLogger(CardGroup.class);
 
     private static final int MIN_NUM_CARDS_IN_GROUP = 3;
@@ -28,30 +41,60 @@ final class CardGroup {
 
     private final List<Card> cards;
 
-    CardGroup(final List<Card> cards) {
+    CardGroup(List<Card> cards) {
         this.cards = unmodifiableList(new ArrayList<>(cards));
     }
 
     static boolean isAscendingRanks(final List<Card> cards) {
-        Rank expected = null;
-        boolean first = true;
+        int indexFirstNotJoker = findFirstNotJoker(cards);
+        if (indexFirstNotJoker == -1) {
+            return false;
+        }
+
+        int startIndex = findFirst(cards, indexFirstNotJoker);
+        if (startIndex < 0) {
+            return false;
+        }
+
         for (int i = 0, to = cards.size(); i < to; i++) {
-            final Card card = cards.get(i);
-            final Rank rank = card.getRank();
-            if (first && null != rank) {
-                if (!isValidRankInRun(rank, i)) {
-                    return false;
-                }
-                expected = rank;
-                first = false;
-            }
-//            if rank is null then joker, matches
-            if (rank != null && expected != rank) {
+            Card currentCard = cards.get(i);
+            Rank currentRank = currentCard.getRank();
+            int expectedIndex = startIndex + i;
+            if (expectedIndex >= validRanks.size()) {
                 return false;
             }
-            expected = next(expected);
+            Rank expectedRank = validRanks.get(expectedIndex);
+            if (!rankMatches(currentRank, expectedRank)) {
+                return false;
+            }
         }
         return true;
+    }
+
+    private static int findFirst(List<Card> cards, int indexFirstNotJoker) {
+        Card firstCardNotJoker = cards.get(indexFirstNotJoker);
+        if (indexFirstNotJoker == 0 && firstCardNotJoker.getRank() == Rank.ONE) {
+            return 0;
+        }
+        int rankIndex = validRanks.lastIndexOf(firstCardNotJoker.getRank());
+        return rankIndex - indexFirstNotJoker;
+    }
+
+    private static boolean rankMatches(Rank currentRank, Rank expectedRank) {
+        if (currentRank == null || expectedRank == null) {
+            return true;
+        }
+        return currentRank == expectedRank;
+    }
+
+    private static int findFirstNotJoker(List<Card> cards) {
+        for (int i = 0; i < cards.size(); i++) {
+            Card card = cards.get(i);
+            if (!isJoker(card)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private static Rank next(final Rank rank) {
@@ -60,6 +103,10 @@ final class CardGroup {
             return null;
         }
         return values[rank.ordinal() + 1];
+    }
+
+    private static boolean isJoker(Card card) {
+        return card.getColor() == null && card.getRank() == null;
     }
 
     /**
@@ -131,7 +178,7 @@ final class CardGroup {
                 && isSameRanks(cards);
     }
 
-    private boolean isValidRun() {
+    boolean isValidRun() {
         return isAllSameColor(cards) && isAscendingRanks(cards);
     }
 

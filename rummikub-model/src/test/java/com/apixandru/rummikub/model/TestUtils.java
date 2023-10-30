@@ -20,6 +20,8 @@ final class TestUtils {
 
     static final Card BLACK_ONE_1 = card(BLACK, ONE);
     static final Card BLACK_ONE_2 = card(BLACK, ONE);
+    static final Card JOKER_1 = card(null, null);
+    static final Card JOKER_2 = card(null, null);
 
     private TestUtils() {
     }
